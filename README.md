@@ -1,7 +1,5 @@
-# calculus
-A Structural Textbook on Differential and Integral Theory
-
 # Calculus as the Geometry of Relationship and Controlled Change
+## A Structural Textbook on Differential and Integral Theory
 
 This repository contains the developing manuscript and computational materials for the textbook Calculus as the Geometry of Relationship and Controlled Change. The project is currently in progress and consists of parallel textual and computational components that are being integrated chapter by chapter.
 
