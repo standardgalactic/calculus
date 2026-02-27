@@ -3,7 +3,7 @@
 
 This repository contains the developing manuscript and computational materials for the textbook Calculus as the Geometry of Relationship and Controlled Change. The project is currently in progress and consists of parallel textual and computational components that are being integrated chapter by chapter.
 
-The central thesis of the work is that calculus is best understood not as a collection of symbolic procedures, but as a geometric language for describing structured transformation under constraint. The derivative is interpreted as a sensitivity operator governing local deformation. The integral is treated as structured accumulation. Curvature determines stability. Control modifies vector fields. Entropy characterizes dispersion relative to invariant structure. Across physiology, engineering, and inference, the same mathematical architecture recurs.
+Calculus is the study of how relationships deform under perturbation. The central thesis of the work is that calculus is best understood not as a collection of symbolic procedures, but as a geometric language for describing structured transformation under constraint. The derivative is interpreted as a sensitivity operator governing local deformation. The integral is treated as structured accumulation. Curvature determines stability. Control modifies vector fields. Entropy characterizes dispersion relative to invariant structure. Across physiology, engineering, and inference, the same mathematical architecture recurs.
 
 The repository presently includes a draft of the main text, a separate file containing diagrams and geometric constructions, and a Jupyter notebook that generates computational illustrations used throughout the manuscript.
 
