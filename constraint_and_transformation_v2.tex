@@ -1,0 +1,2138 @@
+% ============================================================
+%  Constraint and Transformation
+%  An Integrated Introduction to Algebra, Geometry,
+%  Trigonometry, and Stoichiometry
+%
+%  Author: Flyxion
+%  Second Edition (Revised and Expanded)
+% ============================================================
+
+\documentclass[11pt, openany]{book}
+
+% ---- Core packages ------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.15in, top=1.25in, bottom=1.25in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, calc, shapes.geometric, positioning, decorations.markings}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems, skins, breakable}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{caption}
+\usepackage[numbers, sort&compress]{natbib}
+
+% ---- Color palette ------------------------------------------
+\definecolor{ctBlue}{RGB}{25, 90, 150}
+\definecolor{ctTeal}{RGB}{0, 130, 130}
+\definecolor{ctGold}{RGB}{180, 130, 20}
+\definecolor{ctRed}{RGB}{170, 40, 40}
+\definecolor{ctGray}{RGB}{90, 90, 95}
+\definecolor{ctLightBlue}{RGB}{220, 235, 248}
+\definecolor{ctLightTeal}{RGB}{215, 240, 238}
+\definecolor{ctLightGold}{RGB}{252, 245, 215}
+\definecolor{ctLightRed}{RGB}{250, 225, 222}
+\definecolor{ctLightGray}{RGB}{245, 245, 247}
+\definecolor{ctPurple}{RGB}{90, 40, 120}
+\definecolor{ctLightPurple}{RGB}{235, 220, 248}
+
+% ---- Section fonts ------------------------------------------
+\chapterfont{\color{ctBlue}}
+\sectionfont{\color{ctBlue}}
+\subsectionfont{\color{ctGray}}
+
+% ---- Hyperref -----------------------------------------------
+\hypersetup{
+  colorlinks=true, linkcolor=ctBlue, urlcolor=ctTeal,
+  citecolor=ctGray,
+  pdftitle={Constraint and Transformation},
+  pdfauthor={Flyxion},
+}
+
+% ---- Headers / footers --------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\color{ctGray}\textit{Constraint and Transformation}}
+\fancyhead[RO]{\small\color{ctGray}\textit{\nouppercase{\leftmark}}}
+\fancyfoot[C]{\small\color{ctGray}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ============================================================
+% THEOREM / PROOF ENVIRONMENTS
+% ============================================================
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{defn}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{note}[theorem]{Note}
+
+\newenvironment{proofsketch}{\noindent\textit{Proof Sketch.}\;}{\hfill$\square$\par\medskip}
+
+% ============================================================
+% TCOLORBOX ENVIRONMENTS
+% ============================================================
+\tcbset{
+  principleStyle/.style={
+    enhanced, breakable,
+    colback=ctLightBlue, colframe=ctBlue,
+    fonttitle=\bfseries\color{white}, colbacktitle=ctBlue,
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=ctBlue, rounded corners},
+    left=4pt, right=4pt, top=8pt, bottom=4pt
+  },
+  exampleStyle/.style={
+    enhanced, breakable,
+    colback=ctLightTeal, colframe=ctTeal,
+    fonttitle=\bfseries\color{white}, colbacktitle=ctTeal,
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=ctTeal, rounded corners},
+    left=4pt, right=4pt, top=8pt, bottom=4pt
+  },
+  definitionStyle/.style={
+    enhanced, breakable,
+    colback=ctLightGold, colframe=ctGold,
+    fonttitle=\bfseries\color{white}, colbacktitle=ctGold,
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=ctGold, rounded corners},
+    left=4pt, right=4pt, top=8pt, bottom=4pt
+  },
+  historyStyle/.style={
+    enhanced, breakable,
+    colback=ctLightGray, colframe=ctGray,
+    fonttitle=\bfseries\color{white}, colbacktitle=ctGray,
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=ctGray, rounded corners},
+    left=4pt, right=4pt, top=8pt, bottom=4pt
+  },
+  appendixStyle/.style={
+    enhanced, breakable,
+    colback=ctLightPurple, colframe=ctPurple,
+    fonttitle=\bfseries\color{white}, colbacktitle=ctPurple,
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=ctPurple, rounded corners},
+    left=4pt, right=4pt, top=8pt, bottom=4pt
+  },
+}
+
+\newtcolorbox{principle}[1][]{principleStyle, title={Guiding Principle #1}}
+\newtcolorbox{myexample}[1][]{exampleStyle, title={Worked Example #1}}
+\newtcolorbox{mydefinition}[1][]{definitionStyle, title={Definition #1}}
+\newtcolorbox{history}[1][]{historyStyle, title={Historical Note #1}}
+\newtcolorbox{deepnote}[1][]{appendixStyle, title={Deeper Structure #1}}
+
+% ============================================================
+% EXERCISE ENVIRONMENTS
+% ============================================================
+\newcounter{exercise}[chapter]
+\renewcommand{\theexercise}{\thechapter.\arabic{exercise}}
+
+\newenvironment{practice}{%
+  \refstepcounter{exercise}%
+  \par\medskip\noindent
+  \textbf{\color{ctTeal}Practice \theexercise.}\enskip}{\par}
+
+\newenvironment{exercise}{%
+  \refstepcounter{exercise}%
+  \par\medskip\noindent
+  \textbf{\color{ctBlue}Exercise \theexercise.}\enskip}{\par}
+
+\newenvironment{challenge}{%
+  \refstepcounter{exercise}%
+  \par\medskip\noindent
+  \textbf{\color{ctGold}Challenge \theexercise.}\enskip}{\par}
+
+\newenvironment{exercises}[1][Exercises]{%
+  \section*{#1}\addcontentsline{toc}{section}{#1}}{}
+
+% ============================================================
+% TIKZ STYLES
+% ============================================================
+\tikzset{
+  qty/.style={circle, draw=ctGray, fill=ctLightBlue,
+              minimum size=7mm, font=\small},
+  eqedge/.style={thick, ctBlue},
+  arrow/.style={-{Stealth[length=2mm]}, ctBlue, thick},
+  varrow/.style={-{Stealth[length=2mm]}, ctTeal, thick},
+}
+
+% ============================================================
+% MACROS
+% ============================================================
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\mol}{\,\text{mol}}
+\newcommand{\gpm}{\,\text{g/mol}}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\id}{id}
+
+% ============================================================
+\begin{document}
+\frontmatter
+
+% ---- Title page --------------------------------------------
+\begin{titlepage}
+\centering\vspace*{1.8cm}
+{\color{ctBlue}\rule{\linewidth}{1.5pt}}\\[0.5cm]
+{\Huge\bfseries\color{ctBlue}Constraint and Transformation}\\[0.4cm]
+{\LARGE\color{ctGray}An Integrated Introduction to}\\[0.2cm]
+{\LARGE\bfseries\color{ctTeal}
+  Algebra, Geometry, Trigonometry,\\[0.1cm]
+  and Chemical Stoichiometry}\\[0.5cm]
+{\color{ctBlue}\rule{\linewidth}{1.5pt}}\\[1.8cm]
+
+\begin{tikzpicture}[scale=2.0]
+  % Unit circle
+  \draw[ctBlue!70, thick] (0,0) circle (1);
+  \draw[ctGray!40, thin] (-1.3,0)--(1.3,0);
+  \draw[ctGray!40, thin] (0,-1.3)--(0,1.3);
+  % Angle and point
+  \def\ang{40}
+  \coordinate (P) at ({cos(\ang)},{sin(\ang)});
+  \draw[ctTeal, very thick] (0,0)--(P);
+  \draw[ctRed, thick, dashed] ({cos(\ang)},0)--(P)
+      node[midway, right, font=\scriptsize, ctRed]{$\sin\theta$};
+  \draw[ctGold, thick, dashed] (0,0)--({cos(\ang)},0)
+      node[midway, below, font=\scriptsize, ctGold]{$\cos\theta$};
+  \draw[ctGray] (0.18,0) arc (0:\ang:0.18)
+      node[midway, right=1pt, font=\scriptsize]{$\theta$};
+  \filldraw[ctBlue] (P) circle (1.2pt);
+  % Constraint label
+  \node[font=\tiny, ctGray] at (0,-1.55)
+      {$\sin^2\theta+\cos^2\theta=1$};
+  \node[font=\tiny, ctGray, right] at (1.05,0) {$1$};
+\end{tikzpicture}
+
+\vfill
+{\Large\scshape\color{ctGray}Flyxion}\\[0.25cm]
+{\color{ctGold}\rule{5cm}{0.8pt}}
+\end{titlepage}
+
+% ---- Copyright ---------------------------------------------
+\thispagestyle{empty}\vspace*{\fill}
+\noindent\textit{Constraint and Transformation}\\
+Copyright \textcopyright{} Flyxion. All rights reserved.\\
+Typeset in \LaTeX\ with \texttt{pgfplots} and \texttt{tcolorbox}.
+\vspace*{\fill}
+
+% ---- ToC ---------------------------------------------------
+\tableofcontents
+
+% ============================================================
+% NOTATION TABLE
+% ============================================================
+\chapter*{Notation and Symbols}
+\addcontentsline{toc}{chapter}{Notation and Symbols}
+
+The following symbols are used consistently throughout the text.
+A change of meaning is always announced explicitly.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.55}
+\begin{tabular}{>{\bfseries}p{2.2cm} p{10cm}}
+\toprule
+Symbol & Meaning \\
+\midrule
+$\R$       & real number line \\
+$\N$       & natural numbers $\{0,1,2,\dots\}$ \\
+$x,y,z$    & generic real variables \\
+$a,b,c$    & constants or geometric side lengths \\
+$f,g,h$    & function names \\
+$\theta$   & angle (radians unless noted) \\
+$r$        & radius of a circle or sphere \\
+$n$        & amount of substance (moles, mol) \\
+$M$        & molar mass (g/mol) \\
+$m$        & mass (grams or kilograms) \\
+$L$        & luminosity of a star (watts) \\
+$I$        & radiation intensity (W/m$^2$) \\
+$d$        & distance \\
+$A$        & area \\
+$V$        & volume \\
+$\Phi$     & scalar field (RSVP plenum density) \\
+$\mathbf{v}$ & vector flow field \\
+$S$        & entropy density field \\
+$\gamma$   & stoichiometric coefficient vector \\
+$N$        & element--species incidence matrix \\
+$\mathcal{J}$ & variational functional \\
+$\preceq$  & causal priority order on events \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ============================================================
+% PREFACE
+% ============================================================
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+This book is built on one conviction: algebra, geometry, trigonometry, and
+chemistry are not separate disciplines accidentally packaged together by
+tradition. They are four dialects of the same language --- the language of
+\emph{constraint and transformation}.
+
+Every equation encountered here is a claim about balance. Algebra encodes
+symbolic balance among quantities. Geometry encodes spatial balance among
+dimensions. Trigonometry encodes rotational and cyclic balance. Stoichiometry
+encodes material balance in chemical reactions. To understand any one of these
+is to recognize a pattern that recurs across all the others: a system remains
+coherent because its constitutive relations must simultaneously be satisfied.
+
+This orientation reflects a structural feature of scientific reasoning.
+Quantitative systems are defined by relations that must remain internally
+consistent as quantities change. A child discovering that a toy machine follows
+a hidden rule, an astrophysicist reading the composition of a star from its
+spectrum, a political theorist analyzing how collective power emerges from
+coordination, a novelist constructing an ecologically stable imaginary world ---
+each is solving, in different vocabulary, the same problem: \emph{what
+constraints govern this system, and what transformations preserve them?}
+
+\medskip\noindent\textbf{Intellectual influences.}
+The book's perspective has been shaped by several intellectual traditions. The
+developmental psychology of \citet{Gopnik2009} shows how causal inference in
+children is structurally isomorphic with algebraic constraint satisfaction. The
+astrophysics of \citet{PayneGaposchkin1925} demonstrates that geometric and
+spectroscopic reasoning can reveal chemical composition at stellar distances.
+The political philosophy of \citet{Arendt1958} offers a model in which social
+systems are organized by relational structure rather than by fixed hierarchies.
+The complexity science of \citet{Juarrero1999} formalizes how constraints
+propagate through dynamical systems, while the speculative fiction of
+\citet{LeGuin1974} explores the societal consequences of such constraint
+structures with rare concreteness. The visual mathematical approach of
+\citet{Needham1997,Needham2021} informs the book's emphasis on diagrammatic
+reasoning.
+
+\medskip\noindent\textbf{How to read this book.}
+Each chapter follows a three-step rhythm: \emph{observation} (a phenomenon in
+plain language), \emph{formalization} (the mathematical statement), and
+\emph{extension} (the same idea in a new domain). The main text is
+self-contained for an introductory reader. Each chapter ends with three tiers of
+exercises: \textbf{Practice} (computation), \textbf{Exercise} (conceptual
+reasoning), and \textbf{Challenge} (open-ended exploration). The appendices
+develop the deeper formal architecture --- field theory, category theory, sheaf
+semantics, variational principles, and recursive simulation --- for readers who
+wish to see how elementary mathematics extends into contemporary research.
+
+\medskip\noindent\textbf{Prerequisites.}
+Arithmetic: fractions, decimals, percentages, signed numbers. No prior
+algebra, geometry, or chemistry is assumed.
+
+\mainmatter
+
+% ============================================================
+% INTRODUCTION
+% ============================================================
+\chapter{Mathematics as Structured Relation}
+
+\section{The Central Thesis}
+
+Scientific descriptions can be viewed as networks of relationships rather
+than lists of isolated facts. This book proposes that the four subjects it
+covers --- algebra, geometry, trigonometry, and chemistry --- are four
+languages for a single idea: a system is defined not merely by its components
+but by the \emph{relations} those components must satisfy.
+
+\begin{mydefinition}[Constraint]
+A \textbf{constraint} is any condition restricting the possible values of one
+or more quantities. Formally, given variables $x_1,\dots,x_n$, a constraint is
+a relation
+\[
+  F(x_1,\dots,x_n) = 0.
+\]
+The \textbf{solution set} is
+$\mathcal{C}=\{(x_1,\dots,x_n)\in\R^n \mid F(x_1,\dots,x_n)=0\}.$
+\end{mydefinition}
+
+\begin{principle}
+Every equation in this book is a claim that two descriptions of the same
+situation must agree. Solving the equation means finding the values that live
+inside the solution set $\mathcal{C}$.
+\end{principle}
+
+\section{Four Languages, One Pattern}
+
+The table below introduces the central motif. Each row names a type of
+constraint, the domain where it appears, and a representative equation.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{>{\bfseries}p{2.8cm} p{3.2cm} p{5.8cm}}
+\toprule
+\color{ctBlue}Domain & \color{ctBlue}Constraint type & \color{ctBlue}Canonical equation \\
+\midrule
+Algebra       & symbolic / numerical   & $2x+3=11$ \\
+Geometry      & spatial / dimensional  & $a^2+b^2=c^2$ \\
+Trigonometry  & cyclic / angular       & $\sin^2\theta+\cos^2\theta=1$ \\
+Stoichiometry & material / atomic      & $2\mathrm{H_2+O_2\to2H_2O}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+In every case the equation is a \emph{conservation statement}: it asserts that
+some quantity --- a sum, a squared length, a trigonometric magnitude, or an
+atom count --- is preserved under transformation.
+
+\section{Constraint Networks}
+
+A single equation imposes one constraint. Real systems impose many constraints
+simultaneously. Representing them as a network reveals their mutual
+dependencies.
+
+\begin{center}
+\begin{tikzpicture}[node distance=1.8cm]
+  \node[qty] (x) {$x$};
+  \node[qty, right=of x] (y) {$y$};
+  \node[qty, below=of x] (z) {$z$};
+  \node[qty, below=of y] (w) {$w$};
+  \draw[eqedge] (x)--(y) node[midway,above,font=\scriptsize]{$F_1=0$};
+  \draw[eqedge] (x)--(z) node[midway,left,font=\scriptsize]{$F_2=0$};
+  \draw[eqedge] (y)--(w) node[midway,right,font=\scriptsize]{$F_3=0$};
+  \draw[eqedge] (z)--(w) node[midway,below,font=\scriptsize]{$F_4=0$};
+  \draw[eqedge] (y)--(z) node[midway,above right,font=\scriptsize]{$F_5=0$};
+\end{tikzpicture}
+\end{center}
+
+Each node represents a quantity; each edge represents a constraint relating the
+two adjacent quantities. A consistent system is one in which all constraints can
+be satisfied simultaneously.
+
+\begin{deepnote}
+The general form of a linear constraint system is $A\mathbf{x}=\mathbf{b}$,
+where $A$ is an $m\times n$ matrix. Appendix~A develops this idea formally,
+including its connections to the RSVP field framework and Spherepop
+event-history calculus.
+\end{deepnote}
+
+\section{The Book's Arc}
+
+The book progresses from local to global. Part~I develops algebraic constraints
+on individual quantities. Part~II extends this to spatial relationships. Part~III
+describes cyclic and rotational constraints. Part~IV applies all of this to
+chemical systems, which are constraint networks over atomic species. Part~V
+synthesizes the four domains into a unified picture of structured systems.
+
+\begin{exercises}
+\begin{exercise}
+Write down three everyday relationships and express each as an equation
+$F(x,y)=0$. What does the solution set mean in each case?
+\end{exercise}
+\begin{challenge}
+Draw a constraint network with five quantities and at least six constraints.
+Choose a real system (a recipe, a budget, a simple machine) as your model.
+Explain why some constraints are necessary and others may be redundant.
+\end{challenge}
+\end{exercises}
+
+% ============================================================
+% PART I — ALGEBRA
+% ============================================================
+\part{Algebra: Relations and Constraint Systems}
+
+\chapter{Numbers, Variables, and Representation}
+
+\section{Numbers as Quantities}
+
+A \textbf{number} is a symbolic stand-in for a measurable quantity: a count, a
+length, a temperature. Numbers obey arithmetic: addition, subtraction,
+multiplication, division.
+
+\begin{mydefinition}[Variable]
+A \textbf{variable} is a letter that stands for an unknown or varying quantity.
+An \textbf{expression} is a combination of numbers and variables using
+arithmetic operations. An expression does not assert equality; it simply
+describes a quantity.
+\end{mydefinition}
+
+The expression $3x+5$ has a specific numerical value for each specific value
+of $x$. It is not an equation and does not claim anything --- it is simply a
+description.
+
+\section{The Real Number Line}
+
+Every real number corresponds to a unique point on an infinite line. Distance
+from the origin measures magnitude; direction indicates sign.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.1]
+  \draw[arrow] (-3.5,0)--(3.8,0) node[right,font=\small]{$\R$};
+  \foreach \x/\l in {-3/-3,-2/-2,-1/-1,0/0,1/1,2/2,3/3}
+    \draw (\x,0.08)--(\x,-0.08) node[below,font=\scriptsize]{\l};
+  \filldraw[ctRed] (2.3,0) circle (2.2pt) node[above,font=\scriptsize,ctRed]{$2.3$};
+  \filldraw[ctTeal] (-1.6,0) circle (2.2pt) node[above,font=\scriptsize,ctTeal]{$-1.6$};
+\end{tikzpicture}
+\end{center}
+
+\section{Proportionality: The Simplest Relation}
+
+\begin{theorem}[Direct Proportionality]
+If two quantities $x$ and $y$ satisfy $y=kx$ for a constant $k\ne0$, we say
+$y$ is \textbf{directly proportional} to $x$ with proportionality constant $k$.
+The graph of this relation is a straight line through the origin.
+\end{theorem}
+
+\begin{myexample}
+A car travels at a constant speed of 60 km/h. Distance $d$ (km) and time $t$
+(h) satisfy
+\[
+  d = 60\,t.
+\]
+\textit{Dimensional check:}
+$\text{km} = (\text{km/h})\cdot\text{h}$. \checkmark
+
+The slope $k=60$ is the rate of change: each additional hour yields 60 more
+kilometres. For $t=2.5$ h, $d=150$ km.
+\end{myexample}
+
+\begin{history}[Alison Gopnik and Causal Inference]
+In her research on how children understand the world, Alison Gopnik showed
+that even toddlers spontaneously construct algebraic-style rules from
+observation \citep{Gopnik2009}. A child who notices that a machine lights up
+whenever two specific blocks are inserted together is, in effect, discovering a
+proportional or Boolean rule governing the system. Elementary algebra makes
+this intuition precise.
+\end{history}
+
+\begin{exercises}
+\begin{practice}
+A recipe uses 3 cups of flour per 2 cups of sugar. Write an equation relating
+flour $f$ to sugar $s$. How much sugar is needed for 9 cups of flour?
+\end{practice}
+\begin{exercise}
+A toy machine activates according to $A = 3B + 2$, where $B$ is the number of
+blue blocks inserted. If the observed activation value is $A=14$, determine $B$
+and interpret the result.
+\end{exercise}
+\begin{challenge}
+Collect five proportional relationships from daily life (speed and distance,
+ingredients in a recipe, etc.) and estimate each proportionality constant.
+Which relationships are only approximately proportional? What causes the
+deviation?
+\end{challenge}
+\end{exercises}
+
+\chapter{Equations and Balance}
+
+\section{Equations as Statements of Equality}
+
+\begin{mydefinition}[Equation and Solution]
+An \textbf{equation} is a statement $A=B$ where $A$ and $B$ are expressions.
+A \textbf{solution} is any assignment of values to the variables that makes
+the statement true.
+\end{mydefinition}
+
+An equation is therefore a constraint: it asserts that exactly one value (or
+set of values) satisfies the balance condition.
+
+\subsection{The Balance Model}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+  \draw[ctBlue, very thick] (-3.1,0.9)--(3.1,0.9);
+  \draw[ctBlue, thick] (0,0.9)--(0,-0.2);
+  \draw[ctGray] (-0.3,-0.2)--(0.3,-0.2);
+  \draw[ctTeal,thick] (-3.1,0.9)--(-3.1,0.4);
+  \draw[ctTeal,thick] (3.1,0.9)--(3.1,0.4);
+  \draw[ctTeal,thick] (-3.5,0.4)--(-2.7,0.4);
+  \draw[ctTeal,thick] (2.7,0.4)--(3.5,0.4);
+  \node at (-3.1,0.1){\small$2x+3$};
+  \node at (3.1,0.1){\small$11$};
+  \node[ctGray,font=\small] at (0,-0.55){balance};
+\end{tikzpicture}
+\end{center}
+
+Whatever operation is applied to one side of the equation must be applied
+identically to the other --- the scale must remain balanced.
+
+\section{Solving Linear Equations}
+
+\begin{theorem}[Isolation Principle]
+A linear equation $ax+b=c$ (with $a\ne0$) has the unique solution
+\[
+  x = \frac{c-b}{a}.
+\]
+\end{theorem}
+
+\begin{proofsketch}
+Subtract $b$ from both sides: $ax=c-b$. Divide both sides by $a\ne0$.
+\end{proofsketch}
+
+\begin{myexample}[Balancing a simple equation]
+Solve $2x+3=11$.
+\begin{align*}
+  2x+3 &= 11 && \text{original constraint}\\
+  2x   &= 8  && \text{subtract }3\\
+  x    &= 4  && \text{divide by }2
+\end{align*}
+\textit{Verification:} $2(4)+3=11$. \checkmark
+\end{myexample}
+
+\begin{myexample}[Gopnik: Hypothesis testing as equation solving]
+A child hypothesises that a toy machine follows the rule $A=3G+Y$, where $G$
+and $Y$ are the numbers of green and yellow blocks. She observes $A=8$ and
+inserts $Y=2$. Solving for $G$:
+\[
+  3G+2=8 \implies 3G=6 \implies G=2.
+\]
+She then tests: $3(2)+2=8$. \checkmark\ Her causal model is confirmed.
+\end{myexample}
+
+\section{Dimensional Analysis}
+
+\begin{principle}
+Every valid equation involving physical quantities must be \textbf{dimensionally
+consistent}: the units on both sides must be identical.
+\end{principle}
+
+\begin{myexample}[Converting units]
+Convert 72 km/h to m/s:
+\[
+  72\;\frac{\text{km}}{\text{h}}
+  \times\frac{1000\;\text{m}}{1\;\text{km}}
+  \times\frac{1\;\text{h}}{3600\;\text{s}}
+  = 20\;\frac{\text{m}}{\text{s}}.
+\]
+\end{myexample}
+
+\begin{exercises}
+\begin{practice}
+Solve each equation.\\
+(a) $5x-7=18$\quad (b) $\dfrac{x}{3}+4=9$\quad
+(c) $-2x+10=0$\quad (d) $3(x-2)=15$.
+\end{practice}
+\begin{exercise}
+A reaction produces 0.5 mol of gas per minute. Write the constraint equation
+and determine how many moles are produced in 2.5 hours. Include units at every
+step.
+\end{exercise}
+\begin{challenge}
+Arendt \citep{Arendt1958} argues that political power $P$ emerges from
+coordination, not mere numbers. Model $P=cn$ where $c$ is coordination
+strength and $n$ is the number of participants. If $c=0.2$ initially and the
+group triples its coordination to $c=0.6$, by what factor does $P$ change?
+What does this say about collective action?
+\end{challenge}
+\end{exercises}
+
+\chapter{Proportions and Scaling}
+
+\section{Ratios and Proportions}
+
+A \textbf{ratio} compares two quantities. A \textbf{proportion} asserts that
+two ratios are equal:
+\[
+  \frac{a}{b}=\frac{c}{d}.
+\]
+Cross-multiplying yields $ad=bc$, a linear equation.
+
+\begin{myexample}[Stellar mass ratios]
+In the hydrogen fusion reaction $4\mathrm{H}\to\mathrm{He}$, the mass ratio of
+hydrogen consumed to helium produced is approximately $4:1$ (by nucleon count).
+If a stellar region contains $10^{12}$ hydrogen nuclei per second, the
+production rate of helium nuclei satisfies
+\[
+  \frac{n_\mathrm{He}}{1}=\frac{n_\mathrm{H}}{4}
+  \implies n_\mathrm{He}=\frac{10^{12}}{4}=2.5\times10^{11}\text{ nuclei/s}.
+\]
+\end{myexample}
+
+\begin{history}[Cecilia Payne-Gaposchkin]
+Cecilia Payne-Gaposchkin (1900--1979) discovered in her 1925 doctoral
+dissertation that stars are composed primarily of hydrogen and helium --- a
+result initially rejected by the astronomical establishment but later
+recognised as one of the most important discoveries in astrophysics
+\citep{PayneGaposchkin1925}. Her analysis relied on proportional reasoning
+connecting spectral line intensities to elemental abundances.
+\end{history}
+
+\section{Scaling Laws}
+
+\begin{theorem}[Power Scaling]
+If quantity $y$ scales as the $p$-th power of quantity $x$, then $y=kx^p$.
+When $x$ is multiplied by a factor $\lambda$, $y$ is multiplied by $\lambda^p$.
+\end{theorem}
+
+\begin{myexample}[Le Guin: island resource capacity]
+In a circular island settlement of radius $r=2$ km, the total area is
+$A=\pi r^2=4\pi\approx12.6\;\text{km}^2$. If agricultural land occupies
+half the island and each km$^2$ supports 500 people:
+\[
+  \text{capacity} = 500\times\frac{4\pi}{2}\times100
+  = 500\times200\pi\approx314{,}159\text{ people}.
+\]
+Doubling the radius to $r=4$ km multiplies area by $2^2=4$, quadrupling the
+capacity. Scaling is not linear.
+\end{myexample}
+
+\begin{exercises}
+\begin{practice}
+A car uses 8 L per 100 km. How far can it travel on 22 L?
+\end{practice}
+\begin{exercise}
+A solution is prepared at 5 g of salt per 200 mL. How much salt is needed
+for 500 mL? Write the proportion and solve.
+\end{exercise}
+\begin{challenge}
+Le Guin's utopian novel \textit{The Dispossessed} \citep{LeGuin1974} depicts
+a society on an arid moon that must balance population against scarce
+resources. Suppose the moon's habitable area is $A$ km$^2$, each km$^2$
+supports at most $p$ people, and the society aims to keep population at $80\%$
+of capacity. Express the target population as a function of $A$ and $p$.
+How does the target change if a drought reduces $A$ by $15\%$?
+\end{challenge}
+\end{exercises}
+
+\chapter{Systems of Equations}
+
+\section{Multiple Constraints, Multiple Unknowns}
+
+When a situation involves two or more unknowns, a single equation constrains
+but does not determine. A system of $n$ equations in $n$ unknowns typically
+yields a unique solution.
+
+\begin{mydefinition}[System of Equations]
+A \textbf{system of $m$ equations in $n$ unknowns} is a collection
+$\{F_1=0,\dots,F_m=0\}$ that must all hold simultaneously. The
+\textbf{solution} is any tuple satisfying every equation at once.
+\end{mydefinition}
+
+\section{Geometric Interpretation}
+
+Each linear equation $ax+by=c$ defines a \textbf{line} in the $xy$-plane. A
+system of two such equations corresponds to two lines; the solution is their
+intersection.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=7cm, height=6cm, xlabel={$x$}, ylabel={$y$},
+  xmin=0,xmax=8, ymin=-1,ymax=10,
+  axis lines=center, grid=both, grid style={ctGray!20},
+  tick label style={font=\small},
+]
+  \addplot[ctBlue,thick,domain=0:8]{10-x}
+      node[above right,font=\small]{$x+y=10$};
+  \addplot[ctTeal,thick,domain=0:8]{3*x-2}
+      node[below right,font=\small]{$3x-y=2$};
+  \addplot[ctRed, only marks, mark=*, mark size=2.5pt]
+      coordinates{(3,7)};
+  \node[font=\small,ctRed,above right] at (axis cs:3,7){$(3,7)$};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\begin{myexample}[Juarrero: constraint propagation through a system]
+Juarrero \citep{Juarrero1999} emphasises that constraints propagate through
+systems: a change in one relation alters the whole. Consider a simple model:
+\[
+  \begin{cases}
+    F = 2L \\
+    E = F + L,
+  \end{cases}
+\]
+where $L$ is labour, $F$ food supply, and $E$ energy production. With $L=100$:
+$F=200$, $E=300$. If a drought reduces $L$ to 80, then $F=160$ and $E=240$.
+The constraint cascade propagates through the entire system.
+\end{myexample}
+
+\begin{myexample}[Solving by elimination]
+Solve $\{x+y=10,\;3x-y=2\}$.
+
+Adding the two equations: $4x=12$, so $x=3$. Then $3+y=10$, so $y=7$.
+
+\textit{Verification:} $3+7=10$ \checkmark;\; $9-7=2$ \checkmark.
+\end{myexample}
+
+\begin{exercises}
+\begin{practice}
+Solve the system $\{2x+3y=12,\; x-y=1\}$ by both substitution and elimination.
+\end{practice}
+\begin{exercise}
+Interpret geometrically: (a) a system with no solution; (b) a system with
+infinitely many solutions. What does each case mean for the constraint
+network?
+\end{exercise}
+\begin{challenge}
+A chemist mixes Solution A (20\% acid) and Solution B (50\% acid) to produce
+300 mL of 35\% acid. Set up and solve the system. Connect this to Juarrero's
+idea of constraints propagating through a mixture network.
+\end{challenge}
+\end{exercises}
+
+\chapter{Matrices and Linear Transformations}
+
+\section{Systems in Matrix Form}
+
+A system $\{a_1x+b_1y=c_1,\;a_2x+b_2y=c_2\}$ may be written as
+\[
+  A\mathbf{x}=\mathbf{b},
+  \qquad
+  A=\begin{pmatrix}a_1&b_1\\a_2&b_2\end{pmatrix},\quad
+  \mathbf{x}=\begin{pmatrix}x\\y\end{pmatrix},\quad
+  \mathbf{b}=\begin{pmatrix}c_1\\c_2\end{pmatrix}.
+\]
+
+\begin{mydefinition}[Matrix]
+An $m\times n$ \textbf{matrix} is a rectangular array of $mn$ numbers
+arranged in $m$ rows and $n$ columns. It encodes a linear transformation
+$T:\R^n\to\R^m$ by $T(\mathbf{x})=A\mathbf{x}$.
+\end{mydefinition}
+
+\section{Matrices as Transformations of Space}
+
+A $2\times2$ matrix $A$ transforms every point $(x,y)$ in the plane. The
+unit square is sent to a parallelogram.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.1]
+  % Original square
+  \fill[ctLightBlue] (0,0)--(1,0)--(1,1)--(0,1)--cycle;
+  \draw[ctBlue,thick] (0,0)--(1,0)--(1,1)--(0,1)--cycle;
+  \node[font=\scriptsize,ctBlue] at (0.5,0.5){unit};
+  % Transformed (shear A = [[1,1],[0,1]])
+  \begin{scope}[xshift=3.5cm]
+  \fill[ctLightTeal] (0,0)--(1,0)--(2,1)--(1,1)--cycle;
+  \draw[ctTeal,thick] (0,0)--(1,0)--(2,1)--(1,1)--cycle;
+  \node[font=\scriptsize,ctTeal] at (1,0.5){$A\cdot\square$};
+  \end{scope}
+  % Arrow
+  \draw[arrow] (1.3,0.5)--(3.2,0.5) node[midway,above,font=\scriptsize]{$A=$\scriptsize$\begin{pmatrix}1&1\\0&1\end{pmatrix}$};
+\end{tikzpicture}
+\end{center}
+
+\section{The Stoichiometric Matrix}
+
+Chemical reactions are encoded by a stoichiometric matrix $N$ whose rows
+index elements and whose columns index species.
+
+\begin{myexample}[Water formation as matrix equation]
+For $2\mathrm{H_2}+\mathrm{O_2}\to2\mathrm{H_2O}$, writing
+$\gamma=(-2,-1,2)^\top$ (negative for reactants):
+\[
+  N=\begin{pmatrix}2&0&2\\0&2&1\end{pmatrix},\qquad
+  N\gamma=\begin{pmatrix}2(-2)+0(-1)+2(2)\\0(-2)+2(-1)+1(2)\end{pmatrix}
+  =\begin{pmatrix}0\\0\end{pmatrix}.
+\]
+Conservation is the condition $N\gamma=\mathbf{0}$.
+\end{myexample}
+
+\begin{deepnote}
+Appendix~D develops stoichiometry as conservation algebra in full generality,
+including the reaction rate equation $\dot{c}=Sr(c)$.
+\end{deepnote}
+
+\begin{exercises}
+\begin{practice}
+Multiply $\begin{pmatrix}2&1\\0&3\end{pmatrix}\begin{pmatrix}4\\-1\end{pmatrix}$.
+\end{practice}
+\begin{exercise}
+Write the system $\{x+2y=7,\;3x-y=5\}$ as $A\mathbf{x}=\mathbf{b}$ and solve
+using Cramer's rule or row reduction.
+\end{exercise}
+\begin{challenge}
+Model Arendt's power equation $P=C\mathbf{n}$ as a matrix transformation,
+where $\mathbf{n}$ is a vector of participants across three groups and $C$
+is a $1\times3$ coordination matrix. What does the rank of $C$ represent?
+\end{challenge}
+\end{exercises}
+
+% ============================================================
+% PART II — GEOMETRY
+% ============================================================
+\part{Geometry: Spatial Structure and Invariance}
+
+\chapter{Points, Lines, and Distance}
+
+\section{The Coordinate Plane}
+
+René Descartes' insight was that geometric objects can be described
+algebraically. A point is an ordered pair $(x,y)$; a line is the solution
+set of a linear equation; a circle is the solution set of a quadratic relation.
+
+\begin{theorem}[Distance Formula]
+The distance between points $(x_1,y_1)$ and $(x_2,y_2)$ in the plane is
+\[
+  d = \sqrt{(x_2-x_1)^2+(y_2-y_1)^2}.
+\]
+\end{theorem}
+
+This formula is a consequence of the Pythagorean theorem, which we derive in
+the next chapter.
+
+\section{Angles and Their Measure}
+
+\begin{mydefinition}[Radian]
+One \textbf{radian} is the angle subtended at the centre of a circle by an
+arc equal in length to the radius. Since the full circumference is $2\pi r$,
+a full rotation equals $2\pi$ radians.
+\end{mydefinition}
+
+Conversion: $\theta_\text{rad}=\frac{\pi}{180}\theta_\text{deg}$.
+
+\begin{exercises}
+\begin{practice}
+Convert: (a) $60°$ to radians; (b) $\frac{3\pi}{4}$ to degrees.
+\end{practice}
+\begin{exercise}
+Show algebraically that the midpoint of the segment from $(x_1,y_1)$ to
+$(x_2,y_2)$ is $\bigl(\frac{x_1+x_2}{2},\frac{y_1+y_2}{2}\bigr)$.
+\end{exercise}
+\end{exercises}
+
+\chapter{Triangles and the Pythagorean Relation}
+
+\section{Right Triangles}
+
+\begin{theorem}[Pythagorean Theorem]
+In any right triangle with legs $a,b$ and hypotenuse $c$,
+\[
+  a^2+b^2=c^2.
+\]
+This is the fundamental constraint on spatial dimensions: the hypotenuse is
+completely determined by the two legs.
+\end{theorem}
+
+\begin{proofsketch}
+Place four congruent right triangles inside a square of side $a+b$.
+The uncovered central region is a square of side $c$.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+  \def\a{1.1}\def\b{0.7}
+  \pgfmathsetmacro{\s}{\a+\b}
+  \draw[ctGray,thick] (0,0)--(\s,0)--(\s,\s)--(0,\s)--cycle;
+  \filldraw[ctLightBlue,draw=ctBlue]
+      (0,0)--(\a,0)--(0,\b)--cycle;
+  \filldraw[ctLightBlue,draw=ctBlue]
+      (\s,0)--(\s,\a)--(\b,0)--cycle;
+  \filldraw[ctLightBlue,draw=ctBlue]
+      (\s,\s)--(0,\s)--(\s,\s-\b)--cycle;
+  \filldraw[ctLightBlue,draw=ctBlue]
+      (0,\s)--(0,\s-\a)--(\a,\s)--cycle;
+  \draw[ctRed,very thick]
+      (\a,0)--(\s,\b)--(\b,\s)--(0,\s-\a)--cycle;
+  \node[font=\small,ctRed] at ({\s/2},{\s/2}){$c^2$};
+  \node[font=\scriptsize,below] at (\a/2,0){$a$};
+  \node[font=\scriptsize,below] at ({\a+\b/2},0){$b$};
+\end{tikzpicture}
+\end{center}
+Area of outer square: $(a+b)^2=a^2+2ab+b^2$. Four triangles: $4\cdot\tfrac12ab=2ab$.
+Inner square: $c^2=(a+b)^2-2ab=a^2+b^2$.
+\end{proofsketch}
+
+\section{Applications}
+
+\begin{myexample}[Payne-Gaposchkin: radiation and distance]
+Light from a star of luminosity $L$ (W) spreads uniformly over a sphere of
+radius $r$. Surface area $A=4\pi r^2$ (m$^2$), so intensity is
+\[
+  I = \frac{L}{4\pi r^2}\;\text{W/m}^2.
+\]
+\textit{Dimensional check:} $\text{W/m}^2=\text{W}/\text{m}^2$. \checkmark
+
+For the Sun: $L=3.8\times10^{26}$ W at $r=1.5\times10^{11}$ m:
+\[
+  4\pi r^2\approx 2.83\times10^{23}\text{ m}^2,\qquad
+  I\approx1340\;\text{W/m}^2.
+\]
+This inverse-square law is why apparent brightness falls off with the square of
+distance --- a constraint on spatial geometry.
+\end{myexample}
+
+\begin{exercises}
+\begin{practice}
+Find the diagonal of a $7\times24$ cm rectangle.
+\end{practice}
+\begin{exercise}
+Two ships leave the same port. One travels 40 km due north; the other 30 km
+due east. How far apart are they? Draw and label the constraint diagram.
+\end{exercise}
+\begin{challenge}
+Star A has luminosity $2L$ and is at distance $3d$. Star B has luminosity $L$
+and is at distance $d$. Which appears brighter to an observer, and by what
+factor? Generalise: express the apparent brightness ratio as a function of
+the luminosity and distance ratios.
+\end{challenge}
+\end{exercises}
+
+\chapter{Similarity and Scaling in Geometry}
+
+\section{Similar Figures}
+
+\begin{mydefinition}[Similarity]
+Two figures are \textbf{similar} (written $\sim$) if one can be obtained
+from the other by scaling, rotation, or reflection. Corresponding angles are
+equal; corresponding lengths are proportional with scale factor $k$.
+\end{mydefinition}
+
+\begin{theorem}[Scaling Laws]
+If two similar figures have linear scale factor $k$, then areas scale as
+$k^2$ and volumes scale as $k^3$.
+\end{theorem}
+
+\begin{proofsketch}
+Area involves two length dimensions; volume involves three. Each scales as a
+power of $k$ equal to the number of dimensions.
+\end{proofsketch}
+
+\begin{exercises}
+\begin{practice}
+Two similar triangles have scale factor $3:5$. If the smaller has area
+$27\;\text{cm}^2$, find the area of the larger.
+\end{practice}
+\begin{exercise}
+A spherical star with radius $r$ has surface area $4\pi r^2$. If the star
+expands to radius $2r$, by what factor does its surface area increase? Its
+volume?
+\end{exercise}
+\end{exercises}
+
+\chapter{Transformations of the Plane}
+
+\section{Isometries: Transformations Preserving Distance}
+
+A \textbf{transformation} is a function mapping the plane to itself. An
+\textbf{isometry} preserves distances:
+$d(T(P),T(Q))=d(P,Q)$ for all points $P,Q$.
+
+The three basic isometries are:
+\begin{itemize}
+\item \textbf{Translation} by vector $\mathbf{v}$: $T(P)=P+\mathbf{v}$.
+\item \textbf{Rotation} by angle $\theta$ around origin: encoded by $R(\theta)$.
+\item \textbf{Reflection} across a line $\ell$.
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  % Original triangle
+  \coordinate (A) at (0,0); \coordinate (B) at (1.2,0); \coordinate (C) at (0.6,1);
+  \filldraw[ctLightBlue,draw=ctBlue] (A)--(B)--(C)--cycle;
+  \node[font=\scriptsize,ctBlue] at (0.6,0.3){$T$};
+  % Translated
+  \begin{scope}[xshift=2.5cm]
+  \coordinate (A') at (0,0); \coordinate (B') at (1.2,0); \coordinate (C') at (0.6,1);
+  \filldraw[ctLightTeal,draw=ctTeal] (A')--(B')--(C')--cycle;
+  \node[font=\scriptsize,ctTeal] at (0.6,0.3){$T'$};
+  \end{scope}
+  \draw[arrow] (1.3,0.5)--(2.4,0.5) node[midway,above,font=\scriptsize]{translate};
+  % Rotated
+  \begin{scope}[xshift=5.5cm, rotate=35]
+  \coordinate (A'') at (0,0); \coordinate (B'') at (1.2,0); \coordinate (C'') at (0.6,1);
+  \filldraw[ctLightGold,draw=ctGold] (A'')--(B'')--(C'')--cycle;
+  \end{scope}
+  \draw[arrow] (3.9,0.5)--(5.2,0.5) node[midway,above,font=\scriptsize]{rotate};
+\end{tikzpicture}
+\end{center}
+
+\begin{principle}
+Every isometry preserves shape and size. It is a constraint-preserving
+transformation: the distance relation $d(P,Q)=c$ becomes $d(T(P),T(Q))=c$.
+\end{principle}
+
+\begin{history}[Hannah Arendt and Invariance]
+Arendt's analysis of political action distinguishes between acts that alter
+the social space and those that maintain it. An isometry is the spatial analogue
+of a norm-preserving act: the shape of relations is maintained even as positions
+change. The rotation matrix $R(\theta)$ is the canonical mathematical example.
+\end{history}
+
+\begin{exercises}
+\begin{exercise}
+Show that the composition of two rotations around the origin is another
+rotation. What is the resulting angle?
+\end{exercise}
+\begin{challenge}
+A rotation by $\theta$ is represented by the matrix
+$R(\theta)=\begin{pmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{pmatrix}$.
+Compute $R(\theta)^\top R(\theta)$ and explain why this confirms that $R(\theta)$
+is an isometry.
+\end{challenge}
+\end{exercises}
+
+\chapter{Area, Volume, and Spatial Distribution}
+
+\section{Area Formulas as Algebraic Constraints}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{llp{5cm}}
+\toprule
+Shape & Formula & Constraint expressed \\
+\midrule
+Rectangle & $A=lw$ & product of perpendicular dimensions \\
+Triangle   & $A=\tfrac12 bh$ & half the enclosing rectangle \\
+Circle     & $A=\pi r^2$ & area-radius relation \\
+Sphere     & $A=4\pi r^2$ & surface of constant curvature \\
+Cylinder   & $V=\pi r^2 h$ & circular cross-section times height \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{myexample}[Le Guin: sustainable population]
+A circular settlement of radius $r=3$ km devotes $60\%$ of its area to crops.
+Each km$^2$ supports 400 people.
+\[
+  A = \pi(3)^2 = 9\pi\;\text{km}^2,\qquad
+  A_c = 0.6\times9\pi = 5.4\pi\;\text{km}^2.
+\]
+Population capacity:
+$400\times5.4\pi\times100\approx679{,}000$.
+(Factor of 100 converts km$^2$ to hectares.)
+Le Guin's ecological societies are governed by exactly such spatial constraints
+\citep{LeGuin1974}.
+\end{myexample}
+
+\begin{exercises}
+\begin{practice}
+A circle has area $50\pi\;\text{cm}^2$. Find its circumference.
+\end{practice}
+\begin{exercise}
+A cylindrical grain silo has radius 2 m and height 6 m. Find its volume and
+total surface area. Interpret each quantity in the context of grain storage.
+\end{exercise}
+\end{exercises}
+
+% ============================================================
+% PART III — TRIGONOMETRY
+% ============================================================
+\part{Trigonometry: Cycles and Rotational Systems}
+
+\chapter{Angles and Circular Geometry}
+
+\section{The Circle as Generator of Cycles}
+
+A circle of radius $r$ centred at the origin is the solution set of
+$x^2+y^2=r^2$. As a point moves around the circle, its $x$- and
+$y$-coordinates each trace out a periodic oscillation. Trigonometry is the
+mathematics of this periodicity.
+
+\begin{history}[Cyclic patterns in astrophysics]
+Cecilia Payne-Gaposchkin also studied Cepheid variable stars, whose
+brightness oscillates with remarkable regularity. The period of oscillation
+encodes the star's intrinsic luminosity --- a fact used to measure cosmic
+distances. Trigonometric modelling of such cycles was central to her work
+\citep{PayneGaposchkin1925}.
+\end{history}
+
+\begin{exercises}
+\begin{practice}
+State the arc length formula $s=r\theta$ (where $\theta$ is in radians).
+Find the arc length subtended by an angle of $\pi/3$ on a circle of radius 5 cm.
+\end{practice}
+\end{exercises}
+
+\chapter{Sine, Cosine, and the Unit Circle}
+
+\section{The Fundamental Definitions}
+
+\begin{mydefinition}[Sine and Cosine]
+For a point on the unit circle at angle $\theta$ from the positive $x$-axis,
+\[
+  \cos\theta = x\text{-coordinate},\qquad
+  \sin\theta = y\text{-coordinate}.
+\]
+For a right triangle with acute angle $\theta$, adjacent side $a$, opposite
+side $o$, and hypotenuse $h$:
+\[
+  \cos\theta=\frac{a}{h},\qquad\sin\theta=\frac{o}{h},\qquad\tan\theta=\frac{o}{a}.
+\]
+\end{mydefinition}
+
+\begin{theorem}[Pythagorean Identity]
+For all $\theta$,
+\[
+  \sin^2\theta+\cos^2\theta=1.
+\]
+This expresses the conservation of magnitude under rotation: the squared
+components of a unit vector always sum to one.
+\end{theorem}
+
+\begin{proofsketch}
+A point $(\cos\theta,\sin\theta)$ lies on the unit circle by definition.
+The circle's equation $x^2+y^2=1$ gives the identity directly.
+\end{proofsketch}
+
+\section{Exact Values}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.55}
+\begin{tabular}{ccccc}
+\toprule
+$\theta$ & radians & $\sin\theta$ & $\cos\theta$ & $\tan\theta$ \\
+\midrule
+$0°$   & $0$        & $0$            & $1$            & $0$ \\
+$30°$  & $\pi/6$    & $1/2$          & $\sqrt{3}/2$   & $1/\sqrt{3}$ \\
+$45°$  & $\pi/4$    & $\sqrt{2}/2$   & $\sqrt{2}/2$   & $1$ \\
+$60°$  & $\pi/3$    & $\sqrt{3}/2$   & $1/2$          & $\sqrt{3}$ \\
+$90°$  & $\pi/2$    & $1$            & $0$            & undef \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{exercises}
+\begin{practice}
+Without a calculator, compute $\sin(120°)$ and $\cos(135°)$.
+\end{practice}
+\begin{exercise}
+Prove that $\sin(90°-\theta)=\cos\theta$ using the unit circle definitions.
+\end{exercise}
+\begin{challenge}
+The rotation matrix $R(\theta)$ preserves the norm of every vector. Express
+this statement as an identity involving $\sin\theta$ and $\cos\theta$, and
+relate it to the Pythagorean identity.
+\end{challenge}
+\end{exercises}
+
+\chapter{Trigonometric Functions and Graphs}
+
+\section{Periodic Functions}
+
+\begin{mydefinition}[Period]
+A function $f$ is \textbf{periodic} with period $T>0$ if $f(t+T)=f(t)$ for
+all $t$. The sine and cosine functions have period $2\pi$.
+\end{mydefinition}
+
+The general sinusoidal function
+\[
+  f(t)=A\sin(\omega t+\phi)+D
+\]
+has \textbf{amplitude} $A$, \textbf{angular frequency} $\omega$,
+\textbf{phase} $\phi$, and \textbf{vertical shift} $D$. The period is
+$T=2\pi/\omega$.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=10cm, height=4cm,
+  xlabel={$t$}, ylabel={$f(t)$},
+  xmin=0, xmax=4*pi, ymin=-1.6, ymax=1.6,
+  xtick={0,pi,2*pi,3*pi,4*pi},
+  xticklabels={$0$,$\pi$,$2\pi$,$3\pi$,$4\pi$},
+  axis lines=center, grid=both, grid style={ctGray!20},
+  tick label style={font=\small},
+]
+  \addplot[ctBlue,thick,smooth,samples=120,domain=0:4*pi]{sin(deg(x))};
+  \addplot[ctTeal,thick,smooth,dashed,samples=120,domain=0:4*pi]{cos(deg(x))};
+  \legend{$\sin t$, $\cos t$}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\section{Variable Stars: Trigonometric Modelling}
+
+\begin{myexample}[Payne-Gaposchkin: stellar brightness cycles]
+A Cepheid variable star's brightness is modelled by
+\[
+  B(t)=10+2\sin\!\left(\frac{2\pi}{5}t\right),
+\]
+where $t$ is in days. Period $=5$ days, amplitude $=2$, mean brightness
+$=10$.
+
+At $t=2$ days:
+\[
+  B(2)=10+2\sin\!\left(\frac{4\pi}{5}\right)
+      =10+2\sin(144°)\approx10+2(0.588)=11.18.
+\]
+The oscillation period encodes the star's intrinsic luminosity, allowing
+distance measurement.
+\end{myexample}
+
+\begin{exercises}
+\begin{practice}
+Identify the amplitude, period, and phase of $f(t)=3\sin(2t-\pi/4)$.
+\end{practice}
+\begin{exercise}
+Gopnik \citep{Gopnik2009} notes that children alternate between exploration
+and exploitation in a roughly periodic pattern. Model the exploration
+intensity as $E(t)=0.5+0.5\sin(\omega t)$. When is exploration at maximum?
+When is it at minimum? What is the period if the cycle is one week?
+\end{exercise}
+\end{exercises}
+
+\chapter{Modeling Cyclic Phenomena}
+
+\section{Harmonic Motion}
+
+Simple harmonic motion arises whenever a restoring force is proportional to
+displacement. The governing equation is
+\[
+  \frac{d^2x}{dt^2}+\omega^2 x=0,
+\]
+whose general solution is
+\[
+  x(t)=A\cos(\omega t)+B\sin(\omega t).
+\]
+
+\begin{myexample}[Wave interference]
+Two waves $f_1=A\sin(\omega t)$ and $f_2=A\sin(\omega t+\delta)$ combine to
+\[
+  f_1+f_2=2A\cos\!\left(\frac{\delta}{2}\right)\sin\!\left(\omega t+\frac{\delta}{2}\right).
+\]
+When $\delta=0$, amplitude doubles (constructive interference). When
+$\delta=\pi$, amplitude vanishes (destructive interference). The constraint
+$\delta=\pi$ is exactly the condition for cancellation.
+\end{myexample}
+
+\begin{exercises}
+\begin{exercise}
+Two sides of a triangle are 7 and 9; the included angle is $40°$. Use the
+Law of Cosines to find the third side. Show all unit checks.
+\end{exercise}
+\begin{challenge}
+Juarrero \citep{Juarrero1999} argues that organisms maintain coherent
+behaviour through nested cycles of constraint. Model two interacting
+oscillators $x(t)=\sin(t)$, $y(t)=\sin(t+\phi)$. For what value of $\phi$
+do they cancel? For what value do they reinforce? Discuss the biological
+analogy.
+\end{challenge}
+\end{exercises}
+
+\chapter{Rotations and Harmonic Motion}
+
+\section{Circular Motion and Projections}
+
+A point moving at constant angular velocity $\omega$ on a circle of radius
+$R$ has position
+\[
+  (x,y)=(R\cos(\omega t), R\sin(\omega t)).
+\]
+The $x$- and $y$-projections are sinusoidal functions of time --- this is
+why circular motion and wave motion share the same mathematics.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+  \draw[ctGray,thin] (-1.5,0)--(1.5,0);
+  \draw[ctGray,thin] (0,-1.5)--(0,1.5);
+  \draw[ctBlue!70,thick] (0,0) circle (1);
+  \def\t{50}
+  \coordinate (P) at ({cos(\t)},{sin(\t)});
+  \draw[ctTeal,very thick] (0,0)--(P);
+  \draw[ctRed,thick,dashed] ({cos(\t)},0)--(P);
+  \draw[ctGold,thick,dashed] (0,0)--({cos(\t)},0);
+  \filldraw[ctBlue] (P) circle (1.5pt);
+  \node[font=\scriptsize,right] at (P){$P=(\cos\omega t,\sin\omega t)$};
+  % projections onto axes
+  \draw[varrow] (2.2,0)--(4.5,0) node[right,font=\scriptsize]{$t$};
+  \begin{scope}[xshift=3.8cm]
+  \draw[ctBlue,thick,smooth,samples=60,domain=0:360]
+      plot ({0.6*\x/360},{sin(\x)});
+  \node[font=\scriptsize,ctBlue,below] at (0.6,-1.1){$x(t)=\cos\omega t$};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+
+\begin{exercises}
+\begin{exercise}
+Show that if a point traces the unit circle at constant speed, its $x$- and
+$y$-velocities are $-\sin(\omega t)$ and $\cos(\omega t)$ respectively.
+Verify using the Pythagorean identity that the speed is constant.
+\end{exercise}
+\end{exercises}
+
+% ============================================================
+% PART IV — STOICHIOMETRY
+% ============================================================
+\part{Stoichiometry: Conservation and Transformation in Chemistry}
+
+\chapter{Atoms, Molecules, and Chemical Formulas}
+
+\section{The Atomic Hypothesis and Conservation}
+
+In ordinary chemical reactions, atoms are neither created nor destroyed ---
+they are rearranged. This is the \textbf{law of conservation of mass}, the
+chemical analogue of every balance principle studied so far.
+
+\begin{mydefinition}[Mole and Molar Mass]
+The \textbf{mole} (mol) is the SI unit of chemical amount: one mole contains
+$N_A=6.022\times10^{23}$ particles (Avogadro's number). The
+\textbf{molar mass} $M$ (g/mol) is the mass of one mole of a substance.
+The relationship
+\[
+  n = \frac{m}{M}
+\]
+is the chemical analogue of the proportionality $y=kx$.
+\end{mydefinition}
+
+\begin{history}[Payne-Gaposchkin: hydrogen and helium in stars]
+Payne-Gaposchkin's 1925 discovery that stars are overwhelmingly hydrogen and
+helium was resisted because it contradicted the then-prevailing view. Her
+argument was essentially stoichiometric: matching observed spectral absorption
+strengths to theoretical abundances. The molar proportions of H to He in a
+star constrain its entire energy budget \citep{PayneGaposchkin1925}.
+\end{history}
+
+\begin{myexample}[Moles of water]
+How many moles are present in 36 g of $\mathrm{H_2O}$?
+\[
+  M(\mathrm{H_2O})=2(1.008)+16.00=18.016\gpm.
+  \qquad
+  n=\frac{36}{18.016}\approx2.0\mol.
+\]
+\textit{Dimensional check:} $\text{g}/(\text{g/mol})=\text{mol}$. \checkmark
+\end{myexample}
+
+\begin{exercises}
+\begin{practice}
+Find the molar mass of (a) NaCl; (b) CO$_2$; (c) C$_6$H$_{12}$O$_6$.
+\end{practice}
+\begin{exercise}
+How many molecules are in 44 g of CO$_2$? Express in scientific notation.
+\end{exercise}
+\begin{challenge}
+Payne-Gaposchkin computed that the Sun's atmosphere is approximately 92\%
+hydrogen by number of atoms. If the Sun's atmosphere contains $N$ total atoms,
+write an expression for the number of hydrogen atoms and the number of
+helium atoms (assuming the remaining 8\% is helium). What mole ratio does
+this represent?
+\end{challenge}
+\end{exercises}
+
+\chapter{Balancing Chemical Equations}
+
+\section{Conservation as a Linear System}
+
+\begin{theorem}[Stoichiometric Conservation]
+A chemical equation is balanced if and only if, for each element, the total
+atom count on the left side equals the total atom count on the right side.
+Equivalently, the stoichiometric coefficient vector $\gamma$ satisfies
+$N\gamma=\mathbf{0}$, where $N$ is the element--species incidence matrix.
+\end{theorem}
+
+\begin{myexample}[Combustion of ethane]
+Balance $\mathrm{C_2H_6+O_2\to CO_2+H_2O}$.
+
+Assign coefficients $a,b,c,d$ and write conservation equations:
+\begin{align*}
+  \text{C}: & \quad 2a=c \\
+  \text{H}: & \quad 6a=2d \\
+  \text{O}: & \quad 2b=2c+d
+\end{align*}
+Set $a=1$: $c=2$, $d=3$, $b=7/2$. Multiply by 2:
+\[
+  2\mathrm{C_2H_6}+7\mathrm{O_2}\to4\mathrm{CO_2}+6\mathrm{H_2O}.
+\]
+\textit{Verification row by row:} C: $4=4$; H: $12=12$; O: $14=14$. \checkmark
+\end{myexample}
+
+\begin{center}
+\begin{tikzpicture}[node distance=1.4cm, scale=0.9]
+  % Reaction network
+  \node[qty,fill=ctLightGold] (CH4) {CH$_4$};
+  \node[qty,fill=ctLightBlue,right=2.2cm of CH4] (CO2) {CO$_2$};
+  \node[qty,fill=ctLightTeal,below=of CH4] (O2) {O$_2$};
+  \node[qty,fill=ctLightTeal,below=of CO2] (H2O) {H$_2$O};
+  \draw[arrow] (CH4) -- (CO2) node[midway,above,font=\scriptsize]{reaction};
+  \draw[arrow] (O2) -- (CO2);
+  \draw[arrow] (O2) -- (H2O);
+  \draw[arrow] (CH4) -- (H2O);
+  \node[font=\scriptsize,ctGray,below=1.8cm of O2]{$\mathrm{CH_4+2O_2\to CO_2+2H_2O}$};
+\end{tikzpicture}
+\end{center}
+
+\begin{exercises}
+\begin{practice}
+Balance (a) $\mathrm{Fe+O_2\to Fe_2O_3}$;\;
+(b) $\mathrm{C_3H_8+O_2\to CO_2+H_2O}$.
+\end{practice}
+\begin{exercise}
+Write the stoichiometric matrix $N$ for the reaction
+$\mathrm{CH_4+2O_2\to CO_2+2H_2O}$ and verify $N\gamma=\mathbf{0}$.
+\end{exercise}
+\begin{challenge}
+Balance $\mathrm{KMnO_4+HCl\to KCl+MnCl_2+H_2O+Cl_2}$ by writing and
+solving the linear system. This is a non-trivial redox reaction with 7
+unknowns.
+\end{challenge}
+\end{exercises}
+
+\chapter{Moles and Quantitative Chemistry}
+
+\section{Stoichiometric Calculations}
+
+\begin{myexample}[Mass of water produced]
+From $2\mathrm{H_2+O_2\to2H_2O}$, how many grams of water form from 4 g of
+$\mathrm{H_2}$ (excess $\mathrm{O_2}$)?
+\begin{align*}
+  n(\mathrm{H_2}) &= \frac{4\;\text{g}}{2.016\gpm} \approx1.984\mol\\
+  n(\mathrm{H_2O}) &= 1.984\mol\times\frac{2\;\text{mol H}_2\text{O}}{2\;\text{mol H}_2}
+                   = 1.984\mol\\
+  m(\mathrm{H_2O}) &= 1.984\times18.016 \approx 35.7\;\text{g}
+\end{align*}
+\end{myexample}
+
+\begin{exercises}
+\begin{practice}
+From $\mathrm{C_3H_8+5O_2\to3CO_2+4H_2O}$, how many grams of CO$_2$ are
+produced by burning 11 g of propane ($M=44.1\gpm$)?
+\end{practice}
+\end{exercises}
+
+\chapter{Reaction Ratios and Limiting Reagents}
+
+\section{The Limiting Reagent}
+
+\begin{mydefinition}[Limiting Reagent]
+The \textbf{limiting reagent} is the reactant consumed first, setting the
+maximum possible yield. All other reactants are \textbf{excess reagents}.
+\end{mydefinition}
+
+\begin{myexample}[Juarrero: constraint propagation in a reaction]
+Consider $\mathrm{N_2+3H_2\to2NH_3}$. Begin with 2 mol $\mathrm{N_2}$ and
+5 mol $\mathrm{H_2}$.
+
+$\mathrm{N_2}$ alone could produce $4\;\text{mol NH}_3$; $\mathrm{H_2}$ alone
+could produce $5\times\tfrac23\approx3.33\;\text{mol NH}_3$.
+
+$\mathrm{H_2}$ is limiting. Yield $=3.33\;\text{mol NH}_3$.
+
+Juarrero \citep{Juarrero1999} calls this \textit{constraint cascade}: the
+scarcest resource propagates its limitation through the entire network.
+\end{myexample}
+
+\section{Percent Yield}
+
+\[
+  \%\text{yield}
+  = \frac{\text{actual yield}}{\text{theoretical yield}}\times100\%.
+\]
+
+\begin{exercises}
+\begin{exercise}
+How many moles of excess $\mathrm{N_2}$ remain after the reaction in the
+example above?
+\end{exercise}
+\begin{challenge}
+Model a three-step reaction cascade $A+B\to C$, $C+D\to E$, $E+F\to G$.
+Starting with 4 mol each of $A,B,D,F$ and 6 mol of nothing (i.e., $C$ and
+$E$ are intermediates), determine the theoretical yield of $G$. Identify
+which reagent is limiting at each stage.
+\end{challenge}
+\end{exercises}
+
+\chapter{Reaction Networks and Conservation Laws}
+
+\section{Dynamic Stoichiometry}
+
+In a reaction network, concentrations $\mathbf{c}$ evolve by
+\[
+  \frac{d\mathbf{c}}{dt} = S\,\mathbf{r}(\mathbf{c}),
+\]
+where $S$ is the stoichiometric matrix and $\mathbf{r}(\mathbf{c})$ is the
+vector of reaction rates. Conservation is encoded in $\ker(S)$.
+
+\begin{myexample}[Continuity in disguise]
+The equation above is the discrete analogue of the field-theoretic continuity
+equation
+\[
+  \pd{\rho}{t} + \nabla\cdot(\rho\mathbf{v}) = 0,
+\]
+which expresses conservation of a density $\rho$ flowing with velocity
+$\mathbf{v}$. Algebra, stoichiometry, and field theory all encode the same
+structural idea: \emph{what flows in must flow out}.
+\end{myexample}
+
+\begin{deepnote}
+Appendix~D formalises the stoichiometric matrix framework, and Appendix~E
+derives the RSVP field equations as the continuum limit of this conservation
+structure.
+\end{deepnote}
+
+% ============================================================
+% PART V — INTEGRATION
+% ============================================================
+\part{Integration: Mathematics of Structured Systems}
+
+\chapter{Constraint Networks}
+
+\section{Networks as Mathematical Objects}
+
+A \textbf{network} (or graph) consists of \textbf{nodes} (vertices) and
+\textbf{edges} (links). When nodes represent quantities and edges represent
+constraints, the network encodes the structure of a system.
+
+\begin{myexample}[Social constraint network after Arendt]
+Arendt's analysis of political space can be formalised as a constraint network
+in which nodes are actors and directed edges are communicative acts
+\citep{Arendt1958}. The system is stable when the network satisfies certain
+consistency conditions --- analogous to the solvability of a linear system.
+\end{myexample}
+
+\begin{myexample}[Ecological resource balance after Le Guin]
+The allocation system
+$F=2L$, $E=F+L$
+from Chapter~4 is a two-node constraint network: one node for each resource,
+one edge for each relation. Le Guin's utopian societies must maintain exactly
+such networks at equilibrium \citep{LeGuin1974}.
+\end{myexample}
+
+\chapter{Cycles, Flows, and Equilibrium}
+
+\section{Three Kinds of Balance}
+
+All the subjects in this book converge on three structural ideas:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{>{\bfseries}p{3cm} p{4cm} p{5cm}}
+\toprule
+\color{ctBlue}Type & \color{ctBlue}Domain & \color{ctBlue}Equation \\
+\midrule
+Algebraic balance & variable equations & $ax=b$ \\
+Spatial balance & Pythagorean geometry & $a^2+b^2=c^2$ \\
+Rotational balance & unit circle & $\sin^2+\cos^2=1$ \\
+Material balance & stoichiometry & $N\gamma=\mathbf{0}$ \\
+Dynamic balance & field continuity & $\partial_t\rho+\nabla\cdot(\rho\mathbf{v})=0$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Equilibrium as Fixed Point}
+
+\begin{mydefinition}[Equilibrium]
+A system state $\mathbf{x}^*$ is an \textbf{equilibrium} if applying the
+system's dynamics to $\mathbf{x}^*$ returns $\mathbf{x}^*$:
+$T(\mathbf{x}^*)=\mathbf{x}^*$.
+\end{mydefinition}
+
+\chapter{Scaling and Multilevel Structure}
+
+\section{Patterns That Recur Across Scales}
+
+\begin{theorem}[Self-Similarity Under Scaling]
+If a relationship $y=kx^p$ holds at one scale, and the same exponent $p$
+governs the relationship at larger or smaller scales, the pattern is
+\textbf{scale-invariant}.
+\end{theorem}
+
+The inverse-square law $I=L/(4\pi r^2)$ is scale-invariant: it holds whether
+$r$ is one metre or one light-year.
+
+\begin{myexample}[Hazen: mineral evolution]
+Hazen et al.\ \citep{Hazen2008} trace how the diversity of mineral species on
+Earth grew in proportion to the complexity of planetary processes. At each
+scale --- atomic bonding, crystal structure, tectonic activity, biological
+metabolism --- the same constraint logic applies: new mineral species form
+precisely when new constraints (temperature, pressure, chemical environment)
+are satisfied.
+\end{myexample}
+
+\chapter{From Elementary Systems to Scientific Models}
+
+\section{The Architecture of Science}
+
+The tools introduced in this book form the foundation of all quantitative
+science. Every advanced model is an elaboration of the same constraint
+structure encountered in Chapter~1.
+
+\begin{center}
+\begin{tikzpicture}[node distance=1.2cm and 2.8cm, scale=0.9]
+  \node[qty,fill=ctLightBlue] (A) {Algebra};
+  \node[qty,fill=ctLightBlue,right=of A] (G) {Geometry};
+  \node[qty,fill=ctLightTeal,below=of A] (T) {Trig};
+  \node[qty,fill=ctLightTeal,right=of T] (S) {Stoich};
+  \node[qty,fill=ctLightGold,below=2cm of T] (F) {Fields};
+  \node[qty,fill=ctLightGold,right=of F] (C) {Cats};
+  \draw[eqedge] (A)--(G); \draw[eqedge] (A)--(T); \draw[eqedge] (A)--(S);
+  \draw[eqedge] (G)--(T); \draw[eqedge] (G)--(S);
+  \draw[eqedge] (T)--(F); \draw[eqedge] (S)--(F);
+  \draw[eqedge] (F)--(C); \draw[eqedge] (A)--(F);
+\end{tikzpicture}
+\end{center}
+
+\begin{principle}
+Scientific understanding grows by identifying patterns of constraint and
+transformation across domains. Transformation reveals structure; invariance
+reveals law.
+\end{principle}
+
+% ============================================================
+% APPENDICES
+% ============================================================
+\appendix
+
+\chapter{Algebra as Constraint Before Content}
+
+\section{The General Constraint System}
+
+Let $x_1,\dots,x_n\in\R$ be system variables. A \textbf{constraint system}
+is a collection of equations
+\[
+  F_\alpha(x_1,\dots,x_n)=0,\quad\alpha=1,\dots,m.
+\]
+The \textbf{solution locus} is
+$\mathcal{C}=\{x\in\R^n\mid F_\alpha(x)=0\;\forall\alpha\}$.
+
+For linear constraints, $F_\alpha(x)=A_\alpha\cdot x - b_\alpha$, so the
+system becomes $A\mathbf{x}=\mathbf{b}$ with $A\in\R^{m\times n}$.
+
+\section{Admissibility and Relaxation}
+
+When $m>n$ the system is overdetermined and may be inconsistent. Define the
+\textbf{residual functional}
+\[
+  \mathcal{R}(\mathbf{x})=\sum_{\alpha=1}^m|F_\alpha(\mathbf{x})|^2.
+\]
+Exact solutions satisfy $\mathcal{R}=0$; approximate solutions minimise
+$\mathcal{R}$. This is the \textbf{least-squares principle}, which is also
+the precursor to entropic relaxation in the RSVP framework (Appendix~E).
+
+\begin{proposition}[Least Squares]
+The minimiser of $\mathcal{R}(\mathbf{x})=\norm{A\mathbf{x}-\mathbf{b}}^2$
+satisfies the \textbf{normal equations} $A^\top A\mathbf{x}=A^\top\mathbf{b}$.
+\end{proposition}
+
+\section{Degrees of Freedom}
+
+When $m<n$, the system is underdetermined and the solution locus is a
+subspace of dimension $n-\mathrm{rank}(A)$. These degrees of freedom
+represent the system's capacity to vary while remaining consistent ---
+a structural feature central to RSVP field configurations.
+
+\chapter{Geometry as Structured Invariance}
+
+\section{Euclidean Space and the Inner Product}
+
+On $\R^n$, the standard inner product is
+$\langle x,y\rangle=\sum_{i=1}^n x_iy_i$,
+with induced norm $\norm{x}=\sqrt{\langle x,x\rangle}$.
+
+The distance formula and Pythagorean theorem both follow:
+$\norm{x-y}^2=\norm{x}^2-2\langle x,y\rangle+\norm{y}^2$.
+
+\section{Configuration Spaces}
+
+The RSVP theory works not over finite-dimensional $\R^n$ but over an
+infinite-dimensional configuration space:
+\[
+  \mathcal{M}=\left\{(\Phi,\mathbf{v},S)\mid
+  \Phi:\Omega\to\R,\;\mathbf{v}:\Omega\to\R^3,\;S:\Omega\to\R\right\}.
+\]
+An $L^2$-type inner product extends the Euclidean structure:
+\[
+  \langle X_1,X_2\rangle=
+  \int_\Omega\!\left(\Phi_1\Phi_2+\mathbf{v}_1\cdot\mathbf{v}_2+S_1S_2\right)dx.
+\]
+Geometric intuition (orthogonality, distance, angle) persists verbatim in this
+infinite-dimensional setting.
+
+\chapter{Trigonometry as Oscillation, Rotation, and Recurrence}
+
+\section{The Rotation Group}
+
+Define $R(\theta)\in\R^{2\times2}$ as in Chapter~9. These matrices form the
+group $\mathrm{SO}(2)$ under composition, with $R(\theta_1)R(\theta_2)=R(\theta_1+\theta_2)$.
+
+The Pythagorean identity $\sin^2\theta+\cos^2\theta=1$ is precisely the
+condition $\det R(\theta)=1$.
+
+\section{Harmonic Analysis}
+
+The differential equation $\ddot{x}+\omega^2x=0$ governs simple harmonic
+motion. Its complex solutions are $e^{\pm i\omega t}$, where
+$e^{i\omega t}=\cos(\omega t)+i\sin(\omega t)$ (Euler's formula).
+
+Linearising the RSVP system around a uniform background state yields modes
+of the form $e^{i(\mathbf{k}\cdot\mathbf{x}-\omega t)}$ --- the same
+trigonometric recurrence, now in three spatial dimensions.
+
+\chapter{Stoichiometry as Conservation Algebra}
+
+\section{The Stoichiometric Null Space}
+
+For a reaction network with stoichiometric matrix $S\in\Z^{e\times r}$
+(elements $\times$ reactions), conservation is the condition
+$S\gamma=\mathbf{0}$. The admissible coefficient vectors form the
+\textbf{null space} $\ker(S)$.
+
+\section{Dynamic Stoichiometry}
+
+Concentrations $\mathbf{c}(t)\in\R^r$ evolve by
+\[
+  \dot{\mathbf{c}}=S\,\mathbf{r}(\mathbf{c}),
+\]
+where $\mathbf{r}(\mathbf{c})$ is the reaction rate vector. This is the
+\emph{Chemical Master Equation} in its deterministic (mass-action) limit.
+
+The connection to field theory: replacing $\mathbf{c}$ by a density field
+$\rho(x,t)$ and the finite sum by a spatial integral yields the continuity
+equation $\partial_t\rho+\nabla\cdot(\rho\mathbf{v})=0$.
+
+\chapter{RSVP Field Theory: Foundational Derivation}
+
+\section{The Fundamental Fields}
+
+Let $\Omega\subset\R^3$ be a spatial domain. The RSVP theory posits three
+coupled fields:
+\[
+  \Phi(x,t)\in\R,\quad
+  \mathbf{v}(x,t)\in\R^3,\quad
+  S(x,t)\in\R,
+\]
+representing plenum density (scalar organisation), vector flow, and entropy
+density respectively.
+
+\section{Governing Equations}
+
+\begin{align}
+  \partial_t\Phi+\nabla\cdot(\Phi\mathbf{v})
+    &= D_\Phi\Delta\Phi+F_\Phi(\Phi,\mathbf{v},S), \tag{A}\\
+  \partial_t\mathbf{v}+(\mathbf{v}\cdot\nabla)\mathbf{v}
+    &= -\nabla P(\Phi,S)+D_v\Delta\mathbf{v}+F_v(\Phi,\mathbf{v},S), \tag{B}\\
+  \partial_t S+\nabla\cdot(S\mathbf{v})
+    &= D_S\Delta S+\sigma(\Phi,\mathbf{v},S). \tag{C}
+\end{align}
+
+Each left-hand side is an advection--transport operator; the diffusion terms
+smooth spatial gradients; the source terms encode nonlinear coupling.
+
+\section{Lyapunov Functional and Entropic Descent}
+
+Define
+\[
+  \mathcal{F}[\Phi,\mathbf{v},S]
+  =\int_\Omega\!\left[
+    \tfrac12|\mathbf{v}|^2
+    +U(\Phi,S)
+    +\tfrac{\kappa_\Phi}{2}|\nabla\Phi|^2
+    +\tfrac{\kappa_S}{2}|\nabla S|^2
+  \right]dx.
+\]
+In dissipative regimes the dynamics approximate gradient descent on
+$\mathcal{F}$:
+$\partial_t X = -\frac{\delta\mathcal{F}}{\delta X}$.
+This makes precise the intuition that ``space falls outward'' toward lower
+free energy --- the entropic smoothing picture underlying RSVP cosmology.
+
+\section{Linear Perturbation Theory}
+
+Expand around a homogeneous state
+$\Phi=\Phi_0+\delta\Phi$, $\mathbf{v}=\delta\mathbf{v}$, $S=S_0+\delta S$.
+The linearised system admits Fourier modes
+$\delta X\sim e^{i(\mathbf{k}\cdot x-\omega t)}$,
+whose dispersion relation $\omega(\mathbf{k})$ determines stability and
+propagation speed.
+
+\chapter{Entropic Redshift and Non-Expansion Cosmology}
+
+\section{Redshift Without Metric Expansion}
+
+Let $\mathcal{E}(x,t)$ be an entropic attenuation field. Photon frequency
+along ray $x(\lambda)$ evolves as
+\[
+  \frac{d\nu}{d\lambda}=-\alpha\,\mathcal{E}(x(\lambda),t)\,\nu,
+\]
+with solution
+\[
+  \nu(\lambda)=\nu_0\exp\!\left(-\alpha\int_0^\lambda\mathcal{E}\,d\lambda'\right).
+\]
+
+The redshift is
+$1+z = \exp\!\left(\alpha\int_0^\lambda\mathcal{E}\,d\lambda'\right)$.
+For weak, homogeneous $\mathcal{E}$:
+\[
+  z\approx\alpha\mathcal{E}\cdot\lambda,
+\]
+recovering a Hubble-like proportionality as an effective large-scale integral
+law --- without assuming metric expansion of space.
+
+\chapter{TARTAN: Recursive Tiling and Annotated Noise}
+
+\section{Multiscale Partition}
+
+Let $\Omega$ admit a nested sequence of partitions
+$\mathcal{T}_0\supseteq\mathcal{T}_1\supseteq\cdots$ with refinement maps
+$\pi_k:\mathcal{T}_{k+1}\to\mathcal{T}_k$.
+
+\section{Annotated Field Updates}
+
+Each tile $T\in\mathcal{T}_k$ carries state
+$X_k(T)=(\Phi_k,\mathbf{v}_k,S_k,\eta_k)$,
+where $\eta_k$ is a semantic / trajectory annotation.
+
+Recursive update:
+\[
+  X_{k+1}(T')=F_k\!\left(X_k(\pi_k(T')),\,\xi_k(T')\right),
+\]
+where structured noise decomposes as
+$\xi=\xi_\text{white}+\xi_\text{structured}$,
+the structured part carrying provenance metadata.
+
+History dependence is encoded by a trajectory buffer:
+\[
+  \mathcal{B}(T,t)=\{X(T,t-\tau_j)\}_{j=1}^L,\qquad
+  X(T,t+\Delta t)=G\!\left(X(T,t),\mathcal{B}(T,t),\xi(T,t)\right).
+\]
+
+\chapter{Simulated Agency as Sparse Projection}
+
+\section{The Projection Operator}
+
+Let $\mathcal{W}$ be the world state space and $\mathcal{M}$ the internal
+model space. An agent is characterised by a projection
+$P:\mathcal{W}\to\mathcal{M}$, $m=P(w)$.
+
+Optimal projection minimises
+\[
+  m^* = \arg\min_m\bigl[L_\text{task}(m;w)+\beta\,C(m)\bigr],
+\]
+where $L_\text{task}$ is task-predictive loss and $C(m)$ is representational
+complexity.
+
+\section{The Agency Loop}
+
+\[
+  w_{t+1}=F(w_t,a_t),\qquad
+  m_t=P(w_t),\qquad
+  a_t=\pi(m_t).
+\]
+
+This recursive loop connects world, internal model, and action. It is a
+dynamical system on $\mathcal{W}\times\mathcal{M}$. Equilibria of the loop
+correspond to stable behaviours; periodic orbits correspond to habitual
+cycles. The geometric analysis of Chapter~9 applies directly.
+
+\chapter{Spherepop and Event-History Formalism}
+
+\section{Events as Primitives}
+
+Let $E$ be a set of events with causal order $\preceq$: $e_i\preceq e_j$
+means $e_i$ is causally prior to $e_j$.
+
+A \textbf{state} is derived:
+$\sigma_t=\Sigma(E_{\le t})$, where $\Sigma$ is a summarisation operator.
+
+\begin{proposition}
+Ordinary state-update equations $x_{t+1}=f(x_t)$ arise as compressed
+approximations to richer event-structured evolution in which $E_{\le t}$
+is the fundamental datum.
+\end{proposition}
+
+\section{Admissible Futures}
+
+\[
+  \mathrm{Poss}(E_{\le t})
+  =\{e\in E\mid E_{\le t}\cup\{e\}\text{ is causally consistent}\}.
+\]
+
+This turns history into a \emph{generator} of possible futures. The
+``append-only algebra'' of Spherepop is precisely the monotone extension
+$E_{\le t}\mapsto E_{\le t}\cup\{e\}$ for $e\in\mathrm{Poss}(E_{\le t})$.
+
+\chapter{Category-Theoretic Semantics of Constraint Systems}
+
+\section{Categories}
+
+A \textbf{category} $\mathcal{C}$ consists of:
+\begin{itemize}
+  \item objects $\Ob(\mathcal{C})$;
+  \item for each pair $A,B$, a set $\Hom(A,B)$ of morphisms;
+  \item an associative composition law $\circ$ and identity morphisms $\id_A$.
+\end{itemize}
+
+\textbf{Examples:} $\mathbf{Set}$ (sets, functions); $\mathbf{Vect}_k$
+(vector spaces, linear maps); $\mathbf{RxnNet}$ (species configurations,
+stoichiometric maps).
+
+\section{Symmetric Monoidal Structure}
+
+A \textbf{symmetric monoidal category} $(\mathcal{C},\otimes,I)$ supports
+parallel composition. Semantic modules are objects; consistency-preserving
+transformations are morphisms; simultaneous operation is $\otimes$.
+
+A merge operation, when it exists, is a \textbf{colimit}: the universal
+object receiving compatible maps from all merged components.
+
+\chapter{Sheaf-Theoretic Gluing and Local-to-Global Consistency}
+
+\section{Presheaves and Sheaves}
+
+Let $X$ be a topological space (the context space). A \textbf{presheaf}
+$\mathcal{F}$ assigns data $\mathcal{F}(U)$ to each open set $U$, with
+restriction maps $\rho_{UV}:\mathcal{F}(U)\to\mathcal{F}(V)$ for $V\subseteq U$.
+
+$\mathcal{F}$ is a \textbf{sheaf} if: whenever sections
+$\{s_i\in\mathcal{F}(U_i)\}$ satisfy $\rho_{U_i,U_i\cap U_j}(s_i)=\rho_{U_j,U_i\cap U_j}(s_j)$
+on all overlaps, there exists a unique global section $s\in\mathcal{F}(\bigcup U_i)$
+restricting to each $s_i$.
+
+\begin{principle}
+Sheaf coherence is the precise mathematical form of local-to-global
+consistency. Every chapter of this book has been practicing local-to-global
+reasoning in disguise: from triangle ratios to stellar spectra, from
+stoichiometric balance to network equilibrium.
+\end{principle}
+
+\chapter{Variational Principles and Entropic Descent}
+
+\section{The Euler-Lagrange Equation}
+
+Let $\mathcal{J}[u]=\int_\Omega\mathcal{L}(u,\nabla u,x)\,dx$. Critical
+points satisfy the \textbf{Euler-Lagrange equation}:
+\[
+  \pd{\mathcal{L}}{u}-\nabla\cdot\left(\pd{\mathcal{L}}{(\nabla u)}\right)=0.
+\]
+
+\section{Gradient Flow}
+
+Dissipative dynamics minimising $\mathcal{J}$ satisfy:
+\[
+  \partial_t u = -\frac{\delta\mathcal{J}}{\delta u}.
+\]
+
+This single equation subsumes: algebraic residual minimisation
+($\mathcal{J}=\norm{A\mathbf{x}-\mathbf{b}}^2$), geometric shortest paths,
+chemical equilibration, and entropic smoothing in RSVP --- all are gradient
+flows on functionals appropriate to their domain.
+
+\chapter{Worked Derivations: Bridges Between the Introductory Subjects and the Theory}
+
+\section{From Linear Algebra to Stoichiometry to Field Theory}
+
+\textit{Step 1.} Balancing $2\mathrm{H_2+O_2\to2H_2O}$ is solving
+$S\gamma=\mathbf{0}$ with
+$S=\begin{pmatrix}2&0&2\\0&2&1\end{pmatrix}$.
+
+\textit{Step 2.} Dynamic generalisation: $\dot{\mathbf{c}}=S\mathbf{r}(\mathbf{c})$.
+
+\textit{Step 3.} Continuum limit: replace $c_i(t)$ by $\rho(x,t)$ and
+the discrete sum by a spatial divergence, yielding
+$\partial_t\rho+\nabla\cdot(\rho\mathbf{v})=0$.
+
+Atom counting and field theory are the same idea at different scales.
+
+\section{From Distance Formula to $L^2$ Metric}
+
+\textit{Step 1.} Euclidean distance $d(P,Q)=\norm{P-Q}$ in $\R^n$.
+
+\textit{Step 2.} Extend to function space:
+$d(f,g)=\norm{f-g}_{L^2}=\left(\int_\Omega|f-g|^2dx\right)^{1/2}$.
+
+\textit{Step 3.} RSVP uses exactly this $L^2$ metric on field configurations
+to define entropic distance between system states.
+
+\section{From Trigonometric Oscillation to RSVP Eigenmodes}
+
+\textit{Step 1.} $x(t)=A\cos(\omega t)$ solves $\ddot{x}+\omega^2x=0$.
+
+\textit{Step 2.} Linearise RSVP around uniform background. The perturbation
+$\delta\Phi$ satisfies $\partial_t^2(\delta\Phi)+\omega^2(\mathbf{k})\delta\Phi=0$
+for each Fourier mode $\mathbf{k}$.
+
+\textit{Step 3.} Each mode oscillates sinusoidally; the dispersion relation
+$\omega(\mathbf{k})$ encodes how the RSVP field propagates information.
+
+% ============================================================
+% BACK MATTER
+% ============================================================
+\backmatter
+
+% ---- Glossary -----------------------------------------------
+\chapter*{Glossary}
+\addcontentsline{toc}{chapter}{Glossary}
+
+\begin{multicols}{2}\small
+\begin{description}[labelindent=0pt,leftmargin=0.8em,style=nextline]
+\item[Amplitude] maximum displacement of a periodic function from its midline.
+\item[Avogadro's number] $N_A=6.022\times10^{23}$; particles per mole.
+\item[Constraint] a condition restricting admissible values of variables.
+\item[Conservation law] a relation asserting that a quantity is preserved under transformation.
+\item[Dimensional analysis] tracking units through calculations.
+\item[Equilibrium] a fixed point of a dynamical system.
+\item[Event-history] a causally ordered sequence of occurrences; primitive in the Spherepop formalism.
+\item[Function] a rule assigning exactly one output to each input.
+\item[Gradient flow] dynamics $\partial_t u=-\delta\mathcal{J}/\delta u$ descending a functional.
+\item[Identity (trig.)] an equation true for all valid angles.
+\item[Invariant] a quantity unchanged by a transformation.
+\item[Isometry] a transformation preserving distances.
+\item[Limiting reagent] the reactant consumed first in a reaction.
+\item[Linear system] a system of equations of the form $A\mathbf{x}=\mathbf{b}$.
+\item[Molar mass] mass per mole of a substance (g/mol).
+\item[Mole] SI unit of chemical amount.
+\item[Null space] $\ker(A)=\{\mathbf{x}\mid A\mathbf{x}=\mathbf{0}\}$.
+\item[Period] smallest positive interval of repetition of a periodic function.
+\item[Pythagorean theorem] $a^2+b^2=c^2$ for a right triangle.
+\item[Radian] angle subtended by arc of length equal to radius.
+\item[RSVP] Relativistic Scalar-Vector Plenum field theory.
+\item[Sheaf] a presheaf satisfying the gluing axiom for local data.
+\item[Similarity] geometric relation in which figures differ only by scale.
+\item[Slope] rate of change of a linear function.
+\item[Stoichiometric matrix] element-species incidence matrix $S$ encoding conservation.
+\item[TARTAN] Recursive Tiling and Annotated Noise simulation framework.
+\item[Unit circle] circle of radius 1; foundation of trigonometric definitions.
+\item[Variable] a letter representing an unknown or varying quantity.
+\item[Variational functional] a function on function spaces, $\mathcal{J}[u]$.
+\end{description}
+\end{multicols}
+
+% ---- Selected answers ---------------------------------------
+\chapter*{Selected Answers}
+\addcontentsline{toc}{chapter}{Selected Answers}
+
+\textbf{Chapter 2 (Equations and Balance).}
+Practice 2.1: (a) $x=5$; (b) $x=15$; (c) $x=5$; (d) $x=7$.
+
+\textbf{Chapter 7 (Pythagorean Theorem).}
+Practice 7.1: diagonal $=\sqrt{49+576}=25$ cm.
+
+\textbf{Chapter 10 (Atoms and Moles).}
+Practice 10.1: (a) 58.44; (b) 44.01; (c) 180.16 g/mol.
+
+\textbf{Chapter 17 (Balancing).}
+Practice 17.1: (a) $4\mathrm{Fe}+3\mathrm{O_2}\to2\mathrm{Fe_2O_3}$;
+(b) $\mathrm{C_3H_8}+5\mathrm{O_2}\to3\mathrm{CO_2}+4\mathrm{H_2O}$.
+
+\textbf{Chapter 18 (Moles).}
+Practice 18.1: $\approx33.6$ g CO$_2$.
+
+% ---- Abbreviated Periodic Table ------------------------------
+\chapter*{Abbreviated Periodic Table}
+\addcontentsline{toc}{chapter}{Abbreviated Periodic Table}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.45}
+\begin{tabular}{clcc}
+\toprule
+\textbf{Symbol} & \textbf{Name} & \textbf{$Z$} & \textbf{$M$ (g/mol)} \\
+\midrule
+H  & Hydrogen  & 1  & 1.008  \\
+C  & Carbon    & 6  & 12.011 \\
+N  & Nitrogen  & 7  & 14.007 \\
+O  & Oxygen    & 8  & 15.999 \\
+Na & Sodium    & 11 & 22.990 \\
+Mg & Magnesium & 12 & 24.305 \\
+S  & Sulfur    & 16 & 32.060 \\
+Cl & Chlorine  & 17 & 35.453 \\
+K  & Potassium & 19 & 39.098 \\
+Ca & Calcium   & 20 & 40.078 \\
+Fe & Iron      & 26 & 55.845 \\
+Cu & Copper    & 29 & 63.546 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ---- Bibliography -------------------------------------------
+\bibliographystyle{plainnat}
+\bibliography{constraint_refs}
+
+\end{document}
