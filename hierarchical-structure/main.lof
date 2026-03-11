@@ -1,0 +1,57 @@
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces The conceptual pipeline of the textbook. Each local observation contributes a constraint that eliminates inconsistent tree topologies, driving entropy monotonically downward until only the true hierarchy remains.}}{4}{figure.1.1}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces \textit {Left}: A rooted binary tree on four leaves. Internal nodes are labeled with their lowest common ancestors. \textit {Right}: The corresponding laminar family of leaf sets. Each internal node of the tree corresponds to a set in the laminar family, and containment of sets mirrors the ancestor relation.}}{10}{figure.2.1}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces All distinct rooted binary tree topologies for $n=3$ (left) and $n=4$ (right), illustrating the combinatorial explosion $|\mathcal {T}_n| = (2n-3)!!$. For $n=5$ there are already 15 topologies, and for $n=10$ there are 945. This superexponential growth defines the difficulty of the inference problem.}}{11}{figure.2.2}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Hoeffding's bound $\exp (-2m(p-\frac {1}{2})^2)$ on the majority-vote error probability as a function of the number of queries $m$, for three oracle accuracies $p \in \{0.6, 0.7, 0.9\}$. Even a weakly biased oracle ($p=0.6$) achieves error below $5\%$ with around 150 queries; a stronger oracle ($p=0.9$) achieves the same with fewer than 20.}}{16}{figure.3.1}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Entropy of the hypothesis space $H_t = \log |\mathcal {T}_n^{\mathcal {R}_t}|$ as a function of the number of triplet observations. Each observation reduces $H_t$ monotonically. The ideal curve assumes each triplet eliminates exactly $2/3$ of remaining trees; the dotted points show a typical oracle run with variable information gain per query.}}{20}{figure.4.1}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Left: A Euclidean triangle permits all three sides to have different lengths. Center: An ultrametric triangle is always isosceles---the two longest sides are equal. Right: The corresponding rooted tree, where $d_T(u,v) = h(\mathrm {LCA}_T(u,v))$. The short side of the ultrametric triangle corresponds to the pair sharing the deeper LCA.}}{24}{figure.5.1}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Constraint accumulation progressively narrows the hypothesis space $\mathcal {H}_t$. At step 0, all tree topologies are viable. Each triplet observation $r_i$ eliminates inconsistent hypotheses, reducing $|\mathcal {H}_t|$ monotonically. At step $t$, a single tree remains: the reconstruction is complete.}}{28}{figure.6.1}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {7.1}{\ignorespaces A dendrogram on four leaves (left) and its corresponding ultrametric distance matrix (right). Each internal node at height $h$ contributes the value $h$ to the distance between any pair of leaves whose LCA it is. The matrix encodes exactly the same information as the tree.}}{34}{figure.7.1}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Threshold clustering at $\theta =1$ reveals clusters $\{1,2\}$ and $\{3,4\}$; at $\theta =3$ the whole set merges. The sequence of threshold clusterings is equivalent to the dendrogram shown below.}}{38}{figure.8.1}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {9.1}{\ignorespaces The three possible rooted triplet relations on leaves $\{u,v,w\}$. In each case exactly one pair shares the deeper LCA, which corresponds to the shorter ultrametric distance: $d(u,v) < d(u,w)=d(v,w)$ for $(u,v)\mid w$. Exactly one of these three configurations holds in any rooted binary tree.}}{42}{figure.9.1}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {10.1}{\ignorespaces A rooted binary tree on five leaves $\{A,B,C,D,E\}$. The dashed rectangles highlight two of the six triplet relations that collectively determine the topology uniquely. No single triplet suffices; together they constrain every internal branch point.}}{46}{figure.10.1}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {11.1}{\ignorespaces The Dasgupta cost $\mathrm {cost}_D(T) = \DOTSB \sum@ \slimits@ _{i<j}w_{ij}|\mathrm {leaves}(T[i\vee j])|$ for a tree on four leaves. Each pair $\{i,j\}$ contributes $w_{ij}$ multiplied by the number of leaves in the subtree rooted at their LCA. Similar pairs (large $w_{ij}$) should merge early (small subtree size) to minimize cost.}}{52}{figure.11.1}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {12.1}{\ignorespaces A graph with two dense communities. The correct split (left) separates communities at the top level, so similar pairs merge in small subtrees---low Dasgupta cost. The wrong split (right) cuts across communities, forcing similar pairs to merge late in large subtrees---high cost. The difficulty of finding the correct split is the source of hardness.}}{56}{figure.12.1}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {13.1}{\ignorespaces The splitting oracle $\mathcal {O}(u,v,w)$ receives a triplet query and returns one of three possible answers, each corresponding to a different rooted tree topology on the three leaves. The correct answer is returned with probability $p > 1/2$; incorrect answers are returned with probability $1-p$ (split uniformly between the two wrong options). Majority vote over $m$ repeated queries yields the correct answer with high probability.}}{62}{figure.13.1}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {14.1}{\ignorespaces Left: the full optimal tree $T^*$ on seven leaves. Right: the partial HC tree $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle T$}\mathaccent "0362{T}$ produced by the algorithm. Internal structure above the threshold is resolved (black nodes); clusters of size $\leq c\log n$ are collapsed into super-vertices (orange boxes). The top-level branching structure is correctly inferred; the unresolved structure within super-vertices is deferred.}}{66}{figure.14.1}%
+\contentsline {figure}{\numberline {14.2}{\ignorespaces Strong consistency (left) requires each super-vertex to be the leaf set of a maximal subtree of $T^*$. Weak consistency (right) only requires the super-vertex's leaves to form a consecutive segment in $T^*$. Both notions preserve sufficient structure for the approximation guarantees of Chapter~\ref {ch:approx}.}}{67}{figure.14.2}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {15.1}{\ignorespaces Recursive top-down partitioning. Each cluster is split by querying the oracle on sampled triplets. The recursion terminates when a cluster reaches size $\leq c\log n$, at which point it is collapsed into a super-vertex (orange boxes). The recursion depth is $O(\log n)$; the total work is dominated by the per-level oracle query cost.}}{70}{figure.15.1}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {17.1}{\ignorespaces Work distribution across levels of the recursion tree. Each level processes clusters of total size $n$; the sum-of-squares property ensures the per-level work is $O(n^2\log n)$. With $O(\log n)$ levels, the total is $O(n^2\log ^2 n)$ for the efficient algorithm.}}{78}{figure.17.1}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {18.1}{\ignorespaces The streaming algorithm processes pairs $(i,j,w_{ij})$ in a single pass, querying the oracle as needed and maintaining a compact partial HC tree representation. The final tree $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle T$}\mathaccent "0362{T}$ is produced after the stream ends. Total memory is $O(n\log ^3 n)$ bits, far below the $\Omega (n^2)$ needed to store the full similarity matrix.}}{82}{figure.18.1}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {19.1}{\ignorespaces Parallel reconstruction: different subtrees are processed by independent processor banks simultaneously. Within each subtree, oracle queries are also parallelized. The result is a polylogarithmic-depth algorithm with near-linear total work.}}{84}{figure.19.1}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {20.1}{\ignorespaces The oracle query on $(u,v,w)$ reveals the branching geometry of the ultrametric space: it identifies which of the three pairs shares the lower branching point (shorter ultrametric distance). The Y-shaped tree makes this geometric: the oracle identifies the pair $\{u,v\}$ whose geodesics share the most path before diverging.}}{88}{figure.20.1}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {21.1}{\ignorespaces The hypothesis space at three stages of the oracle algorithm. Initially all tree topologies are viable. As triplet constraints accumulate, the feasible set shrinks monotonically. When a single topology remains, reconstruction is complete and $H_t = 0$.}}{92}{figure.21.1}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {22.1}{\ignorespaces Local triplet observations (solid edges) propagate through the consistency network to constrain distant branching events (dashed edges). The directed arrow to $E$ indicates that the observed relations, combined with consistency requirements, restrict where $E$ can be placed in any consistent tree topology.}}{94}{figure.22.1}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {24.1}{\ignorespaces The scientific selection pipeline. Each stage---experiment design, analysis, peer review, editorial decisions---applies a selection function $S_i$ that may systematically favor statistically significant or confirmatory outcomes. The observed literature $P_k(X)$ is a distorted version of the true outcome distribution $P_0(X)$.}}{104}{figure.24.1}%
+\contentsline {figure}{\numberline {24.2}{\ignorespaces Left: when all experimental results are recorded---including failures (gray dashed edges)---the constraint network is dense and the hypothesis space collapses to the correct theory. Right: when failures are suppressed, the sparse constraint network is underdetermined, and inference converges to a hypothesis consistent with only the positive evidence---which may be far from the truth.}}{105}{figure.24.2}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {26.1}{\ignorespaces The scientific search tree. Successful results (green) and failures (red) both contribute constraint operators that narrow the hypothesis space. When dead ends are published, future researchers avoid re-exploring them. When only successes are published, the search tree must be re-traversed independently by each generation.}}{115}{figure.26.1}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

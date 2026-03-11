@@ -1,0 +1,80 @@
+% chapters/ch20_curvature.tex
+\chapter{Triplets as Ultrametric Curvature Observations}
+\label{ch:curvature}
+
+\epigraph{%
+  To measure a tree, you need not see the whole tree.
+  You need only see which paths branch.%
+}{\textit{---Flyxion}}
+
+This chapter develops the geometric interpretation of the splitting oracle. We showed in Chapter~\ref{ch:metrics} that every hierarchical tree corresponds to an ultrametric, and in Chapter~\ref{ch:triplets} that every triplet relation corresponds to a specific ultrametric inequality. Combining these two observations gives a clean geometric interpretation: each oracle query is a local measurement of the curvature structure of the ultrametric space defined by $T^*$. The oracle does not reveal the actual distance values---only the ordering of distances for each triple---and this minimal information is precisely what is needed to determine the tree topology, as Theorem~\ref{thm:dense_triplets} established. The analogy with curvature is not merely metaphorical: in negatively curved spaces, geodesics diverge in a tree-like pattern, and the branching structure of that pattern is what the oracle measures.
+
+%% ── Figure: geodesic branching and triplet observation ───────
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.05]
+% Y-shaped tree as geodesic merging
+\coordinate (center) at (0,0);
+\coordinate (u) at (-1.8, 1.5);
+\coordinate (v) at (1.8, 1.5);
+\coordinate (w) at (0, -2.0);
+
+\draw[nodeblue!70, very thick] (u) -- (center);
+\draw[nodeblue!70, very thick] (v) -- (center);
+\draw[nodegreen!70, very thick] (center) -- (w);
+
+% Dots at endpoints
+\node[leafnode, label=above:{$u$}] at (u) {};
+\node[leafnode, label=above:{$v$}] at (v) {};
+\node[leafnode, label=below:{$w$}] at (w) {};
+\node[internalnode, label=right:{\footnotesize branching point}] at (center) {};
+
+% Distance annotations
+\node[font=\footnotesize, nodeblue!80] at (-0.9, 0.85)
+  {$d(u,v)$ short};
+\node[font=\footnotesize, nodegreen!80] at (0.8, -1.0)
+  {$d(u,w)=d(v,w)$ long};
+
+% Oracle output annotation
+\draw[->, >=stealth, nodered!70, thick] (2.5, 0) -- (3.5, 0);
+\node[font=\small, nodered!80, right] at (3.5, 0.2)
+  {Oracle returns: $w$};
+\node[font=\footnotesize, nodegray, right] at (3.5,-0.35)
+  {(i.e., $(u,v)\mid w$)};
+\node[font=\footnotesize, nodegray, right] at (3.5,-0.75)
+  {$d(u,v) < d(u,w) = d(v,w)$};
+\end{tikzpicture}
+\caption{The oracle query on $(u,v,w)$ reveals the branching geometry of the ultrametric space: it identifies which of the three pairs shares the lower branching point (shorter ultrametric distance). The Y-shaped tree makes this geometric: the oracle identifies the pair $\{u,v\}$ whose geodesics share the most path before diverging.}
+\label{fig:curvature}
+\end{figure}
+
+\section{The Oracle as a Geometric Instrument}
+
+\begin{theorem}[Oracle as curvature measurement]
+The splitting oracle, queried on $(u,v,w)$, reveals which of the three strict ultrametric inequality patterns holds:
+\begin{align*}
+(u,v) \mid w &\iff d_{T^*}(u,v) < d_{T^*}(u,w) = d_{T^*}(v,w),\\
+(u,w) \mid v &\iff d_{T^*}(u,w) < d_{T^*}(u,v) = d_{T^*}(v,w),\\
+(v,w) \mid u &\iff d_{T^*}(v,w) < d_{T^*}(u,v) = d_{T^*}(u,w).
+\end{align*}
+\end{theorem}
+
+\begin{proof}
+Immediate from Proposition~\ref{prop:ultrametric_lca} and the isosceles property (Proposition~\ref{prop:isosceles}).
+\end{proof}
+
+\section{Sparse Curvature Observations}
+
+\begin{corollary}
+The splitting oracle provides exactly the information needed to reconstruct the ultrametric tree topology, and no more: it reveals the branching structure but not the merge heights.
+\end{corollary}
+
+Knowing all triplet relations for $n$ leaves is equivalent to knowing the tree topology but not the height function.
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Describe the oracle's output in terms of the ultrametric distance matrix for a specific tree on five leaves.
+  \item Show that knowing distance orderings (not values) suffices for topology reconstruction.
+  \item Discuss in what sense the oracle measures ``discrete curvature'' and how this relates to curvature in Riemannian geometry.
+\end{enumerate}

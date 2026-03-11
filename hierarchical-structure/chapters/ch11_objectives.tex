@@ -1,0 +1,91 @@
+% chapters/ch11_objectives.tex
+\chapter{Similarity-Based Hierarchical Clustering Objectives}
+\label{ch:objectives}
+
+\epigraph{%
+  Before you can say an algorithm is good, you need to say what good means.%
+}{\textit{---Flyxion}}
+
+The algorithms of Chapter~\ref{ch:dendrograms} construct hierarchies by greedy local merges, without optimizing any explicit global criterion. This chapter introduces two formal objectives that make precise what it means for a hierarchy to faithfully represent a given similarity structure. The first, due to Dasgupta~\cite{Dasgupta2016}, defines a cost function that penalizes merging dissimilar pairs at low levels of the tree. The second, due to Moseley and Wang~\cite{MoseleyWang2017}, is a reward formulation that incentivizes merging similar pairs at low levels. We prove that the two objectives are equivalent up to a constant, explain their graph-theoretic interpretation in terms of weighted cuts, and illustrate with Figure~\ref{fig:dasgupta_cost} how the cost is distributed across different merge events in a simple example. The hardness results of Chapter~\ref{ch:hardness} will show that optimizing these objectives is computationally difficult without the oracle access introduced in Part~IV.
+
+%% ── Figure: cost contribution per merge event ───────────────
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.95]
+% Tree on 4 leaves with similarity weights
+\foreach \x/\lbl in {0/1, 1.0/2, 2.5/3, 3.5/4} {
+  \node[leafnode, label=below:{\small$\lbl$}] (\lbl) at (\x,0) {};
+}
+\node[internalnode, label=left:{\footnotesize merge 1}] (M12) at (0.5, 1.3) {};
+\node[internalnode, label=right:{\footnotesize merge 2}] (M34) at (3.0, 1.3) {};
+\node[internalnode, label=left:{\footnotesize merge 3 (root)}] (R) at (1.75, 2.8) {};
+\draw[treeedge] (M12)--(1); \draw[treeedge] (M12)--(2);
+\draw[treeedge] (M34)--(3); \draw[treeedge] (M34)--(4);
+\draw[treeedge] (R)--(M12); \draw[treeedge] (R)--(M34);
+
+% Annotations: leaves(T[i ∨ j])
+\draw[nodered!60, dashed, thick, rounded corners=3pt]
+  (-0.25,-0.25) rectangle (0.25+0.8, 1.6);
+\node[font=\tiny, nodered!70] at (0.5, 1.85) {$|\mathrm{leaves}|=2$};
+
+\draw[nodegreen!60, dashed, thick, rounded corners=3pt]
+  (2.25,-0.25) rectangle (3.75, 1.6);
+\node[font=\tiny, nodegreen!70] at (3.0, 1.85) {$|\mathrm{leaves}|=2$};
+
+\draw[nodeblue!50, dashed, thick, rounded corners=3pt]
+  (-0.35,-0.35) rectangle (3.85, 3.1);
+\node[font=\tiny, nodeblue!70] at (1.75, 3.35) {$|\mathrm{leaves}|=4$};
+
+% Similarity weights
+\node[font=\footnotesize, nodered!80] at (-0.7, 0.9)
+  {$w_{12}\!\cdot\!2$};
+\node[font=\footnotesize, nodegreen!80] at (4.5, 0.9)
+  {$w_{34}\!\cdot\!2$};
+\node[font=\footnotesize, nodeblue!80, align=center] at (1.75, -0.9)
+  {$(w_{13}+w_{14}+w_{23}+w_{24})\!\cdot\!4$};
+\end{tikzpicture}
+\caption{The Dasgupta cost $\mathrm{cost}_D(T) = \sum_{i<j}w_{ij}|\mathrm{leaves}(T[i\vee j])|$ for a tree on four leaves. Each pair $\{i,j\}$ contributes $w_{ij}$ multiplied by the number of leaves in the subtree rooted at their LCA. Similar pairs (large $w_{ij}$) should merge early (small subtree size) to minimize cost.}
+\label{fig:dasgupta_cost}
+\end{figure}
+
+\section{Formalizing the Quality of a Hierarchy}
+
+Given a similarity matrix $w : V \times V \to \mathbb{R}_{\geq 0}$, two natural objectives formalize what it means for a hierarchy to represent the similarity structure.
+
+\section{The Dasgupta Objective}
+
+\begin{definition}[Dasgupta cost~{\cite{Dasgupta2016}}]
+\label{def:dasgupta}
+\[
+\mathrm{cost}_D(T) = \sum_{\{i,j\} \subseteq V} w_{ij} \cdot |\mathrm{leaves}(T[i \vee j])|.
+\]
+\end{definition}
+
+The intuition: similar pairs (large $w_{ij}$) should merge at low levels (small $|\mathrm{leaves}(T[i\vee j])|$).
+
+\section{The Moseley--Wang Objective}
+
+\begin{definition}[Moseley--Wang reward~{\cite{MoseleyWang2017}}]
+\label{def:mw}
+\[
+\mathrm{reward}_{MW}(T) = \sum_{\{i,j\} \subseteq V} w_{ij} \cdot (n - |\mathrm{leaves}(T[i \vee j])|).
+\]
+\end{definition}
+
+\begin{proposition}
+$\mathrm{cost}_D(T) + \mathrm{reward}_{MW}(T) = n\sum_{i<j}w_{ij}$ is constant over all trees. Minimizing $\mathrm{cost}_D$ is equivalent to maximizing $\mathrm{reward}_{MW}$.
+\end{proposition}
+
+\section{Relationship to Graph Cuts}
+
+\begin{proposition}[Cut representation]
+$\mathrm{cost}_D(T) = \sum_{e \in E(T)} w(e_{\mathrm{cut}})$, where $w(e_{\mathrm{cut}})$ is the total similarity weight cut by removing internal edge $e$.
+\end{proposition}
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Compute $\mathrm{cost}_D(T)$ for both binary tree topologies on four leaves with uniform similarities $w_{ij}=1$.
+  \item For path-graph similarities (only adjacent leaves have $w_{ij}>0$), show the optimal Dasgupta tree is the balanced binary tree.
+  \item Derive the cut representation of $\mathrm{cost}_D(T)$ from Definition~\ref{def:dasgupta}.
+\end{enumerate}

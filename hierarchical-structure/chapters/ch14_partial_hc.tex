@@ -1,0 +1,156 @@
+% chapters/ch14_partial_hc.tex
+\chapter{Partial Hierarchical Clustering Trees}
+\label{ch:partial_hc}
+
+\epigraph{%
+  The honest answer to an unanswerable question is a placeholder.%
+}{\textit{---Flyxion}}
+
+This chapter introduces the partial HC tree: a data structure that represents what the algorithm has reliably inferred about $T^*$ while honestly acknowledging the regions that remain unresolved. The key idea is the super-vertex: a leaf of the partial tree that represents an entire cluster of original leaves whose internal topology the algorithm cannot yet determine reliably. Super-vertices arise naturally when a cluster shrinks below the logarithmic threshold $c\log n$, at which point the oracle's evidence becomes insufficient to justify further resolution without exceeding the query budget. We define two notions of consistency---strong and weak---and show that weakly consistent partial trees retain enough structural information to yield strong approximation guarantees for both the Dasgupta and Moseley--Wang objectives. The comparison in Figure~\ref{fig:partial_hc} between a full tree and its partial counterpart is the most important single figure in the algorithmic development of this book.
+
+%% ── Figure: full tree vs partial HC tree with super-vertices ─
+\begin{figure}[ht]
+\centering
+% Full tree T*
+\begin{tikzpicture}[level distance=1.0cm,
+  level 1/.style={sibling distance=3.0cm},
+  level 2/.style={sibling distance=1.5cm},
+  level 3/.style={sibling distance=0.75cm},
+  edge from parent/.style={draw=nodeblue!60, thick},
+  scale=0.9]
+\node[font=\small, above] at (0,0.2) {Full tree $T^*$};
+\node[internalnode] {}
+  child { node[internalnode] {}
+    child { node[internalnode] {}
+      child { node[leafnode, label=below:{\tiny$A$}] {} }
+      child { node[leafnode, label=below:{\tiny$B$}] {} }
+    }
+    child { node[leafnode, label=below:{\tiny$C$}] {} }
+  }
+  child { node[internalnode] {}
+    child { node[internalnode] {}
+      child { node[leafnode, label=below:{\tiny$D$}] {} }
+      child { node[leafnode, label=below:{\tiny$E$}] {} }
+    }
+    child { node[internalnode] {}
+      child { node[leafnode, label=below:{\tiny$F$}] {} }
+      child { node[leafnode, label=below:{\tiny$G$}] {} }
+    }
+  };
+\end{tikzpicture}
+\hspace{0.5cm}
+$\Rightarrow$
+\hspace{0.5cm}
+% Partial HC tree
+\begin{tikzpicture}[level distance=1.0cm,
+  level 1/.style={sibling distance=2.8cm},
+  level 2/.style={sibling distance=1.4cm},
+  edge from parent/.style={draw=nodeblue!60, thick},
+  scale=0.9]
+\node[font=\small, above] at (0,0.2) {Partial HC tree $\widehat{T}$};
+\node[internalnode] {}
+  child { node[internalnode] {}
+    child { node[supervertex] {\footnotesize$S_1$}
+      edge from parent[draw=supercolor!70, thick] }
+    child { node[leafnode, label=below:{\tiny$C$}] {} }
+  }
+  child { node[internalnode] {}
+    child { node[supervertex] {\footnotesize$S_2$}
+      edge from parent[draw=supercolor!70, thick] }
+    child { node[supervertex] {\footnotesize$S_3$}
+      edge from parent[draw=supercolor!70, thick] }
+  };
+% Labels for super-vertices below
+\node[font=\tiny, supercolor!80] at (-2.8, -3.4)
+  {$S_1 = \{A,B\}$};
+\node[font=\tiny, supercolor!80] at (0.85, -3.4)
+  {$S_2 = \{D,E\}$};
+\node[font=\tiny, supercolor!80] at (2.6, -3.4)
+  {$S_3 = \{F,G\}$};
+\end{tikzpicture}
+\caption{Left: the full optimal tree $T^*$ on seven leaves. Right: the partial HC tree $\widehat{T}$ produced by the algorithm. Internal structure above the threshold is resolved (black nodes); clusters of size $\leq c\log n$ are collapsed into super-vertices (orange boxes). The top-level branching structure is correctly inferred; the unresolved structure within super-vertices is deferred.}
+\label{fig:partial_hc}
+\end{figure}
+
+%% ── Figure: strongly vs weakly consistent ───────────────────
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[level distance=1.0cm, scale=0.85,
+  level 1/.style={sibling distance=3cm},
+  level 2/.style={sibling distance=1.5cm},
+  edge from parent/.style={draw=nodeblue!50}]
+\node[font=\small, above] at (0,0.2) {Strongly consistent};
+% Root and structure matching T* exactly
+\node[internalnode] {}
+  child { node[leafnode, label=below:{\tiny$A$}] {} }
+  child { node[internalnode] {}
+    child { node[supervertex] {\tiny$S$}
+      edge from parent[draw=supercolor!70] }
+    child { node[leafnode, label=below:{\tiny$E$}] {} }
+  };
+\node[font=\tiny, supercolor!70, below] at (0.6,-3.3)
+  {$S=\{B,C,D\}$: maximal subtree};
+\end{tikzpicture}
+\hspace{1.5cm}
+\begin{tikzpicture}[level distance=1.0cm, scale=0.85,
+  level 1/.style={sibling distance=2.8cm},
+  level 2/.style={sibling distance=1.4cm},
+  edge from parent/.style={draw=nodeblue!50}]
+\node[font=\small, above] at (0,0.2) {Weakly consistent};
+\node[internalnode] {}
+  child { node[leafnode, label=below:{\tiny$A$}] {} }
+  child { node[internalnode] {}
+    child { node[supervertex] {\tiny$S'$}
+      edge from parent[draw=supercolor!50, dashed] }
+    child { node[leafnode, label=below:{\tiny$E$}] {} }
+  };
+\node[font=\tiny, nodegray, below] at (0.6,-3.3)
+  {$S'=\{B,C\}$: consecutive segment only};
+\end{tikzpicture}
+\caption{Strong consistency (left) requires each super-vertex to be the leaf set of a maximal subtree of $T^*$. Weak consistency (right) only requires the super-vertex's leaves to form a consecutive segment in $T^*$. Both notions preserve sufficient structure for the approximation guarantees of Chapter~\ref{ch:approx}.}
+\label{fig:consistency}
+\end{figure}
+
+\section{Motivation: Representing Partial Knowledge}
+
+The oracle provides reliable information about the structure of $T^*$ at large scales but becomes unreliable when a cluster shrinks below $c\log n$ leaves. The partial HC tree captures the reliable portion while deferring resolution of ambiguous small clusters.
+
+\section{Definition of Partial HC Trees}
+
+\begin{definition}[Super-vertex]
+A \emph{super-vertex} $\mathbf{v}$ is a leaf of the partial tree representing an unresolved cluster $S_\mathbf{v} \subseteq V$ with $|S_\mathbf{v}| \leq c\log n$.
+\end{definition}
+
+\begin{definition}[Partial HC tree]
+A \emph{partial HC tree} $\widehat{T}$ on leaf set $V$ is a rooted binary tree whose leaves are either original vertices or super-vertices, together with a collapse map $\pi : V \to L(\widehat{T})$.
+\end{definition}
+
+\section{Strong and Weak Consistency}
+
+\begin{definition}[Strongly consistent partial HC tree]
+$\widehat{T}$ is \emph{strongly consistent} with $T^*$ if every super-vertex $\mathbf{v}$ satisfies: $S_\mathbf{v}$ is the leaf set of a maximal subtree of $T^*$.
+\end{definition}
+
+\begin{definition}[Weakly consistent partial HC tree]
+$\widehat{T}$ is \emph{weakly consistent} with $T^*$ if every super-vertex $\mathbf{v}$ satisfies: $S_\mathbf{v}$ forms a consecutive segment in $T^*$.
+\end{definition}
+
+Every strongly consistent tree is weakly consistent, but not vice versa.
+
+\section{Construction}
+
+\begin{algorithm}[Partial HC tree construction sketch]
+\textbf{Procedure} \textsc{BuildPartial}$(S)$:
+(1) If $|S| \leq c\log n$: return super-vertex with $S_\mathbf{v} = S$.
+(2) Query oracle to determine top-level split $S = A \sqcup B$.
+(3) Recursively apply \textsc{BuildPartial} to $A$ and $B$.
+(4) Return tree rooted at new internal node.
+\end{algorithm}
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Draw an example of a strongly consistent partial HC tree on $n=8$ leaves with two super-vertices.
+  \item Show weak consistency is strictly weaker than strong consistency.
+  \item Explain why the threshold $c\log n$ is necessary: what goes wrong at $O(1)$ size?
+\end{enumerate}

@@ -1,0 +1,70 @@
+% chapters/ch08_ultrametric.tex
+\chapter{Ultrametric Geometry and Hierarchical Trees}
+\label{ch:ultrametric}
+
+\epigraph{%
+  A finite ultrametric is a tree wearing a distance costume.%
+}{\textit{---Flyxion}}
+
+Chapter~\ref{ch:metrics} showed that every rooted tree induces an ultrametric. This chapter proves the converse: every finite ultrametric space arises from a unique rooted tree. The proof is constructive---given an ultrametric, we build the corresponding tree by applying single-linkage clustering at every scale---and it illuminates why the tree--ultrametric equivalence is more than a formal curiosity. It means that the entire apparatus of tree algorithms can be brought to bear on any problem formulated in terms of ultrametric distances, and vice versa. A full proof with uniqueness is given in Appendix~\ref{app:ultrametric_equiv}; this chapter sketches the construction and then focuses on the geometric consequences: how ultrametric inequalities encode branching order, and how the oracle response to a triplet query is precisely a local ultrametric measurement.
+
+\begin{figure}[ht]
+\centering
+% Threshold clustering visualization
+\begin{tikzpicture}[scale=0.9]
+% Points
+\foreach \x/\y/\lbl in {0/0/1, 0.8/0/2, 2.5/0/3, 3.3/0.1/4} {
+  \node[leafnode, label=below:{\small$\lbl$}] (\lbl) at (\x,\y) {};
+}
+% Threshold theta=1: clusters {1,2} and {3,4}
+\draw[draw=nodegreen!60, thick, rounded corners=4pt] (-0.2,-0.3) rectangle (1.0, 0.6);
+\node[font=\tiny, nodegreen!80] at (0.4, 0.75) {$\theta=1$};
+\draw[draw=nodegreen!60, thick, rounded corners=4pt] (2.3,-0.3) rectangle (3.5, 0.6);
+% Threshold theta=3: single cluster
+\draw[draw=nodeblue!50, thick, rounded corners=6pt, dashed] (-0.3,-0.45) rectangle (3.6, 0.95);
+\node[font=\tiny, nodeblue!70] at (1.65, 1.1) {$\theta=3$};
+
+% Arrows pointing to corresponding dendrogram
+\draw[->, >=stealth, nodegray!60] (1.8, -0.7) -- (1.8, -1.4)
+  node[right, font=\tiny] {builds};
+% Dendrogram sketch
+\begin{scope}[yshift=-3.2cm]
+\node[internalnode, scale=0.7, label=left:{\tiny $h{=}3$}] (R) at (1.65,1.5) {};
+\node[internalnode, scale=0.7, label=left:{\tiny $h{=}1$}] (L) at (0.4,0.5) {};
+\node[internalnode, scale=0.7, label=right:{\tiny $h{=}1$}] (Rr) at (2.9,0.5) {};
+\foreach \lbl/\x in {1/0, 2/0.8, 3/2.5, 4/3.3} {
+  \node[leafnode, scale=0.6, label=below:{\tiny$\lbl$}] (\lbl') at (\x,0) {};
+}
+\draw[treeedge] (R)--(L); \draw[treeedge] (R)--(Rr);
+\draw[treeedge] (L)--(1'); \draw[treeedge] (L)--(2');
+\draw[treeedge] (Rr)--(3'); \draw[treeedge] (Rr)--(4');
+\end{scope}
+\end{tikzpicture}
+\caption{Threshold clustering at $\theta=1$ reveals clusters $\{1,2\}$ and $\{3,4\}$; at $\theta=3$ the whole set merges. The sequence of threshold clusterings is equivalent to the dendrogram shown below.}
+\label{fig:threshold_cluster}
+\end{figure}
+
+\section{The Equivalence of Trees and Ultrametrics}
+
+\begin{theorem}[Ultrametrics correspond to trees]
+\label{thm:ultrametric_tree}
+Let $(X, d)$ be a finite ultrametric space. Then there exists a rooted tree $T$ with leaf set $X$ and height function $h$ such that $d(x,y) = h(\LCA_T(x,y))$ for all $x, y \in X$.
+\end{theorem}
+
+\begin{proof}[Sketch]
+Apply single-linkage clustering. For each threshold $\theta$, define $x \sim_\theta y$ if $d(x,y) \leq \theta$. The ultrametric property ensures these are genuine equivalence relations. The cluster hierarchy as $\theta$ varies defines the tree, with internal nodes assigned height equal to the threshold at which their cluster first appears. Full proof in Appendix~\ref{app:ultrametric_equiv}.
+\end{proof}
+
+\section{Ultrametric Inequalities as Branching Signatures}
+
+The triplet relation $(u,v)|w$ is equivalent to the strict ultrametric inequality
+$d(u,v) < d(u,w) = d(v,w)$
+by Proposition~\ref{prop:ultrametric_lca}. This correspondence is the geometric heart of the triplet oracle model: the oracle reveals which ultrametric inequality holds on each triple, effectively measuring the branching geometry of the hidden tree.
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Prove that the single-linkage construction produces a valid rooted tree.
+  \item Show that the tree is unique when all distance values are distinct.
+  \item Given the ultrametric on four points with $d(1,2)=1$, $d(3,4)=2$, and $d(i,j)=3$ for $i\in\{1,2\}$, $j\in\{3,4\}$, draw the corresponding dendrogram.
+\end{enumerate}

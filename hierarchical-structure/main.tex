@@ -1,0 +1,218 @@
+% ============================================================
+%  Hierarchical Structure from Minimal Observations
+%  A Mathematical Textbook on Constraint-Driven Entropy Reduction
+%  Author: Flyxion
+% ============================================================
+
+\documentclass[11pt, twoside, openright]{book}
+
+% ── Encoding & fonts ─────────────────────────────────────────
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[expansion=false]{microtype}
+
+% ── Page geometry ────────────────────────────────────────────
+\usepackage[
+  paperwidth=6.5in,
+  paperheight=9.5in,
+  top=1.1in,
+  bottom=1.1in,
+  inner=1.1in,
+  outer=0.9in,
+  marginparwidth=0pt
+]{geometry}
+
+% ── Mathematics ──────────────────────────────────────────────
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{bm}
+\usepackage{amsfonts}
+
+% ── Graphics & diagrams ──────────────────────────────────────
+\usepackage{tikz, pgfplots}
+\usetikzlibrary{trees, arrows, positioning, shapes, shapes.geometric, calc, decorations.pathreplacing, decorations.markings}
+\pgfplotsset{compat=1.18}
+
+% ── Tables ───────────────────────────────────────────────────
+\usepackage{booktabs, array, longtable}
+
+% ── Hyperlinks ───────────────────────────────────────────────
+\usepackage[
+  colorlinks=true,
+  linkcolor=black!70,
+  citecolor=black!60,
+  urlcolor=black!60
+]{hyperref}
+
+% ── Bibliography ─────────────────────────────────────────────
+\usepackage[numbers, sort&compress]{natbib}
+
+% ── Header / footer ──────────────────────────────────────────
+\usepackage{fancyhdr}
+\setlength{\headheight}{14pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\itshape\leftmark}
+\fancyhead[RO]{\small\itshape\rightmark}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ── Chapter titles ───────────────────────────────────────────
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\Large\bfseries}
+  {\chaptertitlename\ \thechapter}{16pt}{\LARGE}
+
+% ── Theorem environments ─────────────────────────────────────
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{algorithm}[theorem]{Algorithm}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{notation}[theorem]{Notation}
+
+% ── Diagram styles ───────────────────────────────────────────
+\usepackage{xcolor}
+\definecolor{nodeblue}{RGB}{70,130,180}
+\definecolor{nodered}{RGB}{180,70,70}
+\definecolor{nodegreen}{RGB}{60,150,90}
+\definecolor{nodegray}{RGB}{140,140,140}
+\definecolor{supercolor}{RGB}{210,140,50}
+\definecolor{constraintblue}{RGB}{100,160,220}
+
+\tikzset{
+  treenode/.style={circle, draw=nodeblue!80, fill=nodeblue!15,
+                   minimum size=7mm, inner sep=1pt, font=\small},
+  leafnode/.style={circle, draw=nodegreen!80, fill=nodegreen!20,
+                   minimum size=7mm, inner sep=1pt, font=\small},
+  internalnode/.style={circle, draw=nodeblue!80, fill=nodeblue!20,
+                   minimum size=6mm, inner sep=1pt, font=\tiny},
+  supervertex/.style={rectangle, rounded corners=4pt, draw=supercolor!80,
+                   fill=supercolor!20, minimum size=8mm, inner sep=3pt, font=\small},
+  ghostnode/.style={circle, draw=nodegray!60, fill=nodegray!10,
+                   minimum size=6mm, inner sep=1pt, font=\tiny, dashed},
+  treeedge/.style={draw=nodeblue!60, thick},
+  highlightedge/.style={draw=nodered!80, thick},
+  constraint/.style={draw=constraintblue!80, dashed, thick},
+  selectionfilter/.style={trapezium, trapezium left angle=70,
+                   trapezium right angle=110, draw=nodered!70,
+                   fill=nodered!10, minimum height=8mm, font=\small}
+}
+
+% ── Custom commands ──────────────────────────────────────────
+\newcommand{\LCA}{\operatorname{LCA}}
+\newcommand{\cost}{\operatorname{cost}}
+\newcommand{\reward}{\operatorname{reward}}
+\newcommand{\leaves}{\operatorname{leaves}}
+\newcommand{\FDR}{\mathrm{FDR}}
+\newcommand{\poly}{\operatorname{poly}}
+\newcommand{\polylog}{\operatorname{polylog}}
+\newcommand{\Obb}{\mathcal{O}}
+\newcommand{\Hyp}{\mathcal{H}}
+\newcommand{\Tree}{\mathcal{T}}
+\newcommand{\Cset}{\mathcal{C}}
+\newcommand{\Rset}{\mathcal{R}}
+\newcommand{\KL}{\mathrm{KL}}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\wh}[1]{\widehat{#1}}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+% ── Front matter / back matter helpers ───────────────────────
+\usepackage{tocloft}
+\setlength{\cftbeforechapskip}{6pt}
+
+% ── Epigraph ─────────────────────────────────────────────────
+\usepackage{epigraph}
+\setlength{\epigraphwidth}{0.62\textwidth}
+
+% ── Index ────────────────────────────────────────────────────
+\usepackage{makeidx}
+\makeindex
+
+% ============================================================
+\begin{document}
+
+\frontmatter
+\include{chapters/titlepage}
+\include{chapters/preface}
+\tableofcontents
+\listoffigures
+
+\mainmatter
+
+%% ── PART I ──────────────────────────────────────────────────
+\part{Prerequisites and Foundations}
+\include{chapters/ch01_orientation}
+\include{chapters/ch02_discrete}
+\include{chapters/ch03_probability}
+\include{chapters/ch04_entropy}
+\include{chapters/ch05_metrics}
+\include{chapters/ch06_constraints}
+
+%% ── PART II ─────────────────────────────────────────────────
+\part{Hierarchical Structure and Minimal Relational Information}
+\include{chapters/ch07_dendrograms}
+\include{chapters/ch08_ultrametric}
+\include{chapters/ch09_triplets}
+\include{chapters/ch10_reconstruction}
+
+%% ── PART III ────────────────────────────────────────────────
+\part{Classical Objectives and Hardness}
+\include{chapters/ch11_objectives}
+\include{chapters/ch12_hardness}
+
+%% ── PART IV ─────────────────────────────────────────────────
+\part{Learning-Augmented Clustering and the Splitting Oracle}
+\include{chapters/ch13_oracle}
+\include{chapters/ch14_partial_hc}
+\include{chapters/ch15_topdown}
+
+%% ── PART V ──────────────────────────────────────────────────
+\part{Approximation Guarantees and Algorithmic Consequences}
+\include{chapters/ch16_approx}
+\include{chapters/ch17_complexity}
+
+%% ── PART VI ─────────────────────────────────────────────────
+\part{Streaming, Parallelism, and Compressed Inference}
+\include{chapters/ch18_streaming}
+\include{chapters/ch19_parallel}
+
+%% ── PART VII ────────────────────────────────────────────────
+\part{Geometric and Information-Theoretic Reinterpretations}
+\include{chapters/ch20_curvature}
+\include{chapters/ch21_entropy_descent}
+\include{chapters/ch22_constraint_prop}
+
+%% ── PART VIII ───────────────────────────────────────────────
+\part{Inference Systems, Replication, and Knowledge Accumulation}
+\include{chapters/ch23_bayesian}
+\include{chapters/ch24_replication}
+\include{chapters/ch25_operators}
+\include{chapters/ch26_exploratory}
+
+%% ── PART IX (Appendices) ────────────────────────────────────
+\part{Full Derivations and Advanced Appendices}
+\appendix
+\include{chapters/appA_ultrametric_equiv}
+\include{chapters/appB_triplet_topology}
+\include{chapters/appC_noise_analysis}
+\include{chapters/appD_collapse_loss}
+\include{chapters/appE_variational}
+
+\backmatter
+\include{chapters/synthesis}
+\bibliographystyle{plainnat}
+\bibliography{references}
+\printindex
+
+\end{document}

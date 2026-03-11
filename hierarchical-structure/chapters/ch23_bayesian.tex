@@ -1,0 +1,53 @@
+% chapters/ch23_bayesian.tex
+\chapter{Bayesian and Variational Reformulations}
+\label{ch:bayesian}
+
+This chapter recasts hierarchical reconstruction as a problem of Bayesian inference over tree topologies and develops the variational approximation that connects oracle-augmented algorithms to probabilistic reasoning. In the Bayesian framing, oracle responses are observations that update a prior distribution over $\mathcal{T}_n$, and the accumulated posterior concentrates on trees consistent with the majority vote of all oracle queries. The partial HC tree emerges as a natural compressed representation of this posterior: the resolved portion carries nearly all the posterior probability, while super-vertices represent regions where the posterior remains diffuse. We then introduce the variational free energy, which provides a tractable lower bound on the log-evidence and connects inference over discrete tree spaces to continuous optimization. The ELBO decomposition---expected log-likelihood minus KL divergence from the prior---reappears in Appendix~\ref{app:variational}.
+
+
+
+\section{Bayesian Inference over Tree Metrics}
+
+The hierarchical clustering problem has a natural Bayesian formulation. Let $P_0(T)$ be a prior distribution over tree topologies and let the observed triplet relations $\Rset = \{r_1, \ldots, r_t\}$ be conditionally independent given $T$ with likelihoods $P(r_i \mid T)$. The posterior is
+\[
+P(T \mid \Rset) \propto P_0(T) \prod_{r \in \Rset} P(r \mid T).
+\]
+
+Under the noisy oracle model, $P(r \mid T) = p$ if $T \models r$ and $P(r \mid T) = (1-p)/2$ otherwise. The posterior concentrates on trees consistent with the majority vote of all oracle responses.
+
+\section{The Partial HC Tree as a Belief State}
+
+The partial HC tree is a compressed representation of the posterior $P(T \mid \Rset)$. The structure above the super-vertex level is essentially certain (probability approaching 1 for large $n$). The uncertainty is concentrated within the super-vertices, where the local posterior is approximately uniform over the $(2|S_\mathbf{v}| - 3)!!$ local topologies.
+
+\section{Variational Inference}
+
+When the exact posterior is intractable to compute, variational inference approximates it with a tractable distribution $Q$.
+
+\begin{definition}[Variational free energy]
+For a variational distribution $Q$ over $\Tree_n$, the \emph{free energy} is
+\[
+\mathcal{F}(Q) = \mathbb{E}_Q[-\log P(\Rset \mid T)] + \KL(Q \| P_0(T)).
+\]
+\end{definition}
+
+\begin{proposition}[Free energy as upper bound]
+$\mathcal{F}(Q) \geq -\log P(\Rset)$ for all $Q$, with equality when $Q = P(T \mid \Rset)$.
+\end{proposition}
+
+\begin{proof}
+This is a standard result in variational Bayes, following from the non-negativity of KL divergence.
+\end{proof}
+
+Minimizing $\mathcal{F}(Q)$ over a tractable family of distributions $Q$ provides a principled approximate inference procedure for tree structure.
+
+\section{Mean-Field Approximation for Trees}
+
+A tractable mean-field approximation assumes that the internal node assignments are independent. Under this assumption, the free energy decomposes into a sum over internal nodes, making optimization tractable. The resulting approximation is related to the partial HC tree construction: the high-confidence resolved nodes correspond to the converged mean-field assignments.
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Write out the log-posterior $\log P(T \mid \Rset)$ as a function of the number of consistent and inconsistent triplets in $\Rset$ under the noisy oracle model.
+  \item Show that minimizing free energy is equivalent to maximizing the evidence lower bound (ELBO).
+  \item Describe a mean-field approximation for trees on $n$ leaves and identify which parameters the variational distribution must specify.
+\end{enumerate}

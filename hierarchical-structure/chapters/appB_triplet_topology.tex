@@ -1,0 +1,50 @@
+% chapters/appB_triplet_topology.tex
+\chapter{Proof That Triplets Determine Topology}
+\label{app:triplet_topology}
+
+\section{Consistency and Compatibility}
+
+\begin{definition}
+A set of rooted triplet relations $\Rset$ is \emph{compatible} if there exists a rooted binary tree $T$ such that $T \models r$ for all $r \in \Rset$.
+\end{definition}
+
+\section{The Reconstruction Theorem}
+
+\begin{theorem}[Triplet determination theorem]
+\label{thm:triplet_det}
+Let $\Rset$ be a consistent, complete set of triplet relations on leaf set $V$ (i.e., for every triple $\{u,v,w\} \subseteq V$, exactly one of the three relations is in $\Rset$). Then $\Rset$ uniquely determines the rooted binary tree topology $T$ with $L(T) = V$.
+\end{theorem}
+
+\begin{proof}
+We proceed by induction on $|V| = n$.
+
+\textbf{Base case}: $n = 3$. There is exactly one triplet relation in $\Rset$, say $(u,v)|w$. There are three rooted binary tree topologies on three leaves, each corresponding to one of the three relations. The given relation selects a unique topology.
+
+\textbf{Inductive step}: Assume the result holds for all leaf sets of size $< n$. For leaf set $V$ with $|V| = n$, consider any internal node $v$ of the true tree $T$ with children $v_L$ and $v_R$. Let $A = L(T[v_L])$ and $B = L(T[v_R])$.
+
+\textbf{Identifying the top-level split}: The bipartition $\{A, B\}$ can be identified from $\Rset$ as follows. For any $a \in A$ and $b \in B$, every leaf $x \in V$ either:
+\begin{itemize}
+  \item satisfies $(a,b)|x$ (meaning $x$ splits before $a$ and $b$ merge, i.e., $x \notin \{$subtree rooted at $\LCA(a,b)\}$), which is impossible since $\LCA(a,b)$ is the root, or
+  \item satisfies $(a,x)|b$ or $(b,x)|a$ depending on whether $x \in A$ or $x \in B$.
+\end{itemize}
+Therefore: $x \in A$ if and only if $(a,x)|b$ for any fixed $b \in B$ and $a \in A$. This recovers $A$ (and hence $B$) from the triplets.
+
+\textbf{Recursive reconstruction}: Having identified $A$ and $B$, restrict $\Rset$ to triplets within $A$ and within $B$. By induction, each restricted triplet set uniquely determines the subtree on $A$ and the subtree on $B$.
+
+\textbf{Uniqueness}: The split $\{A, B\}$ is unique (being the top-level split of the true tree), and the subtrees on $A$ and $B$ are uniquely determined by induction. Therefore $T$ is unique.
+\end{proof}
+
+\begin{corollary}[Sufficiency of dense triplets]
+If $\Rset$ contains at least one triplet relation for every triple in $V$, then $\Rset$ uniquely determines the tree.
+\end{corollary}
+
+\section{Closure of Triplet Systems}
+
+\begin{definition}[Triplet closure]
+The \emph{closure} $\overline{\Rset}$ of a triplet set $\Rset$ is the maximal consistent triplet set containing $\Rset$. It is the set of all triplet relations implied by $\Rset$ under the tree axioms.
+\end{definition}
+
+Computing the closure can be done via the BUILD algorithm applied iteratively. If $\Rset$ is inconsistent, its closure is undefined.
+
+% ── Appendix C ─────────────────────────────────────────────────────────────────
+

@@ -1,0 +1,126 @@
+% chapters/ch03_probability.tex
+\chapter{Probability, Concentration, and Noisy Observations}
+\label{ch:probability}
+
+\epigraph{%
+  Noise is not the enemy of inference. It is the cost of sampling.%
+}{\textit{---Flyxion}}
+
+This chapter develops the probabilistic tools needed to work with the splitting oracle, which is the central device of Parts~IV and~V. The oracle answers queries correctly with probability $p > 1/2$---providing a weak but consistent signal in favor of the truth. The challenge is to aggregate many such weak signals into a reliable conclusion. We derive Hoeffding's inequality, which quantifies how rapidly the probability of a majority-vote error decays as the number of queries grows, and we compute the sample complexity: the minimum number of queries needed to achieve any desired level of reliability. We also introduce the union bound, which allows us to extend per-triplet guarantees to uniform guarantees over all triplets simultaneously. The chapter closes with the Bayesian framing of oracle aggregation, which connects the algorithmic oracle model to the inference framework developed in Part~VIII.
+
+%% ── Figure: majority vote convergence ───────────────────────
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=10cm, height=5.5cm,
+  xlabel={Number of queries $m$},
+  ylabel={Error probability bound},
+  xmin=1, xmax=80,
+  ymin=0, ymax=1,
+  xtick={10,20,40,60,80},
+  ytick={0,0.2,0.4,0.6,0.8,1.0},
+  grid=major, grid style={draw=nodegray!30},
+  legend pos=north east,
+  legend style={font=\small},
+  thick
+]
+% Hoeffding bound for p=0.6: exp(-2m*(0.1)^2) = exp(-0.02m)
+\addplot[nodeblue, thick, domain=1:80, samples=80]
+  {exp(-2*x*0.01)};
+\addlegendentry{$p=0.6$, bound $e^{-0.02m}$}
+
+% p=0.7: exp(-2m*(0.2)^2) = exp(-0.08m)
+\addplot[nodegreen, thick, domain=1:80, samples=80]
+  {exp(-2*x*0.04)};
+\addlegendentry{$p=0.7$, bound $e^{-0.08m}$}
+
+% p=0.9: exp(-2m*(0.4)^2) = exp(-0.32m)
+\addplot[nodered, thick, domain=1:80, samples=80]
+  {exp(-2*x*0.16)};
+\addlegendentry{$p=0.9$, bound $e^{-0.32m}$}
+
+\draw[dashed, nodegray] (axis cs:1,0.05) -- (axis cs:80,0.05)
+  node[right, font=\footnotesize] {$\delta=0.05$};
+\end{axis}
+\end{tikzpicture}
+\caption{Hoeffding's bound $\exp(-2m(p-\frac{1}{2})^2)$ on the majority-vote error probability as a function of the number of queries $m$, for three oracle accuracies $p \in \{0.6, 0.7, 0.9\}$. Even a weakly biased oracle ($p=0.6$) achieves error below $5\%$ with around 150 queries; a stronger oracle ($p=0.9$) achieves the same with fewer than 20.}
+\label{fig:hoeffding}
+\end{figure}
+
+\section{Probability Spaces and Random Variables}
+
+We assume familiarity with the standard axioms of probability. A \emph{probability space} is a triple $(\Omega, \mathcal{F}, \mathbb{P})$ where $\Omega$ is a sample space, $\mathcal{F}$ a $\sigma$-algebra of events, and $\mathbb{P}$ a probability measure.
+
+\section{The Noisy Oracle Model}
+
+\begin{definition}[Biased Bernoulli]
+A random variable $X \sim \operatorname{Ber}(p)$ satisfies $\mathbb{P}(X = 1) = p$ and $\mathbb{P}(X = 0) = 1 - p$.
+\end{definition}
+
+When the oracle is queried $m$ times on the same triplet, each query produces an independent $\operatorname{Ber}(p)$ outcome. The majority vote is correct whenever more than $m/2$ responses are correct.
+
+\section{Concentration Inequalities}
+
+\begin{theorem}[Hoeffding's inequality~{\cite{Hoeffding1963}}]
+\label{thm:hoeffding}
+Let $X_1, \ldots, X_m$ be independent with $X_i \in [0,1]$ and $\mathbb{E}[X_i] = p$. Then
+\[
+\mathbb{P}\!\left(\frac{1}{m}\sum_{i=1}^m X_i \leq \frac{1}{2}\right)
+\leq
+\exp\!\bigl(-2m(p - \tfrac{1}{2})^2\bigr).
+\]
+\end{theorem}
+
+\begin{corollary}[Sample complexity for reliable oracle aggregation]
+\label{cor:sample_complexity}
+To reduce the probability of a majority-vote error to at most $\delta > 0$, it suffices to make
+\[
+m \geq \frac{\log(1/\delta)}{2(p - \frac{1}{2})^2}
+\]
+queries per triplet.
+\end{corollary}
+
+\section{Union Bounds}
+
+\begin{lemma}[Union bound]
+\label{lem:union_bound}
+$\mathbb{P}\!\left(\bigcup_{i=1}^k A_i\right) \leq \sum_{i=1}^k \mathbb{P}(A_i)$.
+\end{lemma}
+
+\begin{corollary}[Uniform concentration]
+\label{cor:uniform_concentration}
+With $m = O\!\left(\frac{\log(n^3/\delta)}{(p-\frac{1}{2})^2}\right)$ queries per triplet, all $\binom{n}{3}$ triplets are answered correctly by majority vote simultaneously with probability $\geq 1 - \delta$.
+\end{corollary}
+
+\section{Bayesian Updating}
+
+The Bayesian update formula connects oracle aggregation to inference over tree topologies. Given a prior $P(T)$ over tree topologies and a triplet observation $r_t$,
+\[
+P(T \mid r_t) \propto P(r_t \mid T) \, P(T).
+\]
+After $t$ conditionally independent observations,
+\[
+P(T \mid r_1, \ldots, r_t) \propto P(T) \prod_{i=1}^t P(r_i \mid T).
+\]
+This Bayesian framing connects directly to the inference framework developed in Part~VIII.
+
+\section{Chernoff Bounds}
+
+\begin{theorem}[Chernoff bound]
+\label{thm:chernoff}
+Let $X = \sum_{i=1}^m X_i$ with $X_i \sim \operatorname{Ber}(p_i)$ independent and $\mu = \mathbb{E}[X]$. For $\delta \in (0,1)$,
+\[
+\mathbb{P}(X \leq (1-\delta)\mu) \leq \exp\!\left(-\frac{\delta^2 \mu}{2}\right).
+\]
+\end{theorem}
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Use Corollary~\ref{cor:sample_complexity} to compute the number of queries needed per triplet when $p \in \{0.6, 0.75, 0.9\}$, at confidence level $\delta = 0.01$.
+  \item Let $p = 0.51$. How many queries are needed to achieve failure probability at most $n^{-3}$ for $n = 1000$ leaves where $N = \binom{n}{3}$ triplets are queried?
+  \item Write out the Bayesian update for a uniform prior over the $|\mathcal{T}_3| = 3$ topologies on three leaves when the oracle returns $(u,v)|w$ with probability $p$ if that relation holds and $(1-p)/2$ for each incorrect answer.
+  \item Prove the union bound from the axioms of probability.
+  \item Show that majority vote of any number of queries still gives error probability $1/2$ when $p = 1/2$, and explain why Hoeffding's inequality does not apply.
+\end{enumerate}

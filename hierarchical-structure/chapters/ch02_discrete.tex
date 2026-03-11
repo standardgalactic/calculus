@@ -1,0 +1,203 @@
+% chapters/ch02_discrete.tex
+\chapter{Discrete Structures, Trees, and Combinatorics}
+\label{ch:discrete}
+
+\epigraph{%
+  Count the shapes before you measure the distances.%
+}{\textit{---Flyxion}}
+
+This chapter builds the combinatorial foundation for everything that follows. The central objects are rooted trees: finite graphs in which a single distinguished vertex, the root, imposes a directed structure on every edge. We define the key vocabulary---leaves, internal nodes, lowest common ancestors, laminar families---and then turn to a counting problem whose answer is both surprising and foundational. The number of distinct rooted binary tree topologies on $n$ labeled leaves is $(2n-3)!!$, a superexponential quantity that grows faster than any polynomial and faster than simple exponentials. This count defines the size of the hypothesis space over which inference must operate: before any observations are made, the algorithm faces uncertainty over an astronomically large set of candidate trees. Reducing that uncertainty, one constraint at a time, is the core task of the entire book. The chapter closes with the entropy of the uniform prior over tree topologies, which sets the information-theoretic scale for the reconstruction problem.
+
+%% ── Figure: basic rooted tree with LCA labels ───────────────
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[level distance=1.1cm,
+  level 1/.style={sibling distance=3.6cm},
+  level 2/.style={sibling distance=1.8cm},
+  edge from parent/.style={draw=nodeblue!60, thick}]
+
+\node[internalnode, label=right:{\footnotesize root $r$}] {}
+  child { node[internalnode, label=left:{\footnotesize $\mathrm{LCA}(u,v)$}] {}
+    child { node[leafnode, label=below:{$u$}] {} }
+    child { node[leafnode, label=below:{$v$}] {} }
+  }
+  child { node[internalnode, label=right:{\footnotesize $\mathrm{LCA}(w,x)$}] {}
+    child { node[leafnode, label=below:{$w$}] {} }
+    child { node[leafnode, label=below:{$x$}] {} }
+  };
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[node distance=0.5cm]
+% Laminar family as nested boxes
+\draw[draw=nodeblue!60, thick, rounded corners=6pt]
+  (0,0) rectangle (4.2,2.8) node[above left, font=\footnotesize] {$V$};
+\draw[draw=nodegreen!70, thick, rounded corners=4pt]
+  (0.2,0.2) rectangle (1.9,2.5) node[above left, font=\footnotesize] {$A$};
+\draw[draw=nodegreen!70, thick, rounded corners=4pt]
+  (2.1,0.2) rectangle (4.0,2.5) node[above right, font=\footnotesize] {$B$};
+\draw[draw=nodered!60, thick, rounded corners=3pt]
+  (0.35,0.35) rectangle (0.95,1.2);
+\draw[draw=nodered!60, thick, rounded corners=3pt]
+  (1.05,0.35) rectangle (1.75,1.2);
+\node[font=\tiny] at (0.65,0.78) {$\{u\}$};
+\node[font=\tiny] at (1.4,0.78)  {$\{v\}$};
+\node[font=\tiny] at (3.05,1.3)  {$B = \{w,x\}$};
+\node[font=\footnotesize] at (1.05,1.85) {$A=\{u,v\}$};
+\end{tikzpicture}
+\caption{\textit{Left}: A rooted binary tree on four leaves. Internal nodes are labeled with their lowest common ancestors. \textit{Right}: The corresponding laminar family of leaf sets. Each internal node of the tree corresponds to a set in the laminar family, and containment of sets mirrors the ancestor relation.}
+\label{fig:tree_and_laminar}
+\end{figure}
+
+%% ── Figure: all binary trees on 3 and 4 leaves ──────────────
+\begin{figure}[ht]
+\centering
+% n=3: one topology
+\begin{tikzpicture}[scale=0.85, level distance=0.9cm,
+  level 1/.style={sibling distance=1.4cm},
+  level 2/.style={sibling distance=0.7cm},
+  edge from parent/.style={draw=nodeblue!60}]
+\node[font=\footnotesize, above] at (0,0.3) {$n=3$, $|\mathcal{T}_3|=1$};
+\node[internalnode, scale=0.7] {}
+  child { node[leafnode, scale=0.7, label=below:{\tiny 1}] {} }
+  child { node[internalnode, scale=0.7] {}
+    child { node[leafnode, scale=0.7, label=below:{\tiny 2}] {} }
+    child { node[leafnode, scale=0.7, label=below:{\tiny 3}] {} }
+  };
+\end{tikzpicture}
+\hspace{0.6cm}
+% n=4: three topologies
+\begin{tikzpicture}[scale=0.72, level distance=0.85cm,
+  level 1/.style={sibling distance=1.3cm},
+  level 2/.style={sibling distance=0.65cm},
+  edge from parent/.style={draw=nodeblue!60}]
+\node[font=\footnotesize, above] at (2.2,0.3) {$n=4$, $|\mathcal{T}_4|=3$};
+% tree 1: (12)(34)
+\begin{scope}[xshift=0cm]
+\node[internalnode, scale=0.65] {}
+  child { node[internalnode, scale=0.65] {}
+    child { node[leafnode, scale=0.65, label=below:{\tiny 1}] {} }
+    child { node[leafnode, scale=0.65, label=below:{\tiny 2}] {} }
+  }
+  child { node[internalnode, scale=0.65] {}
+    child { node[leafnode, scale=0.65, label=below:{\tiny 3}] {} }
+    child { node[leafnode, scale=0.65, label=below:{\tiny 4}] {} }
+  };
+\end{scope}
+% tree 2: (13)(24)
+\begin{scope}[xshift=1.6cm]
+\node[internalnode, scale=0.65] {}
+  child { node[internalnode, scale=0.65] {}
+    child { node[leafnode, scale=0.65, label=below:{\tiny 1}] {} }
+    child { node[leafnode, scale=0.65, label=below:{\tiny 3}] {} }
+  }
+  child { node[internalnode, scale=0.65] {}
+    child { node[leafnode, scale=0.65, label=below:{\tiny 2}] {} }
+    child { node[leafnode, scale=0.65, label=below:{\tiny 4}] {} }
+  };
+\end{scope}
+% tree 3: (14)(23)
+\begin{scope}[xshift=3.2cm]
+\node[internalnode, scale=0.65] {}
+  child { node[internalnode, scale=0.65] {}
+    child { node[leafnode, scale=0.65, label=below:{\tiny 1}] {} }
+    child { node[leafnode, scale=0.65, label=below:{\tiny 4}] {} }
+  }
+  child { node[internalnode, scale=0.65] {}
+    child { node[leafnode, scale=0.65, label=below:{\tiny 2}] {} }
+    child { node[leafnode, scale=0.65, label=below:{\tiny 3}] {} }
+  };
+\end{scope}
+\end{tikzpicture}
+\caption{All distinct rooted binary tree topologies for $n=3$ (left) and $n=4$ (right), illustrating the combinatorial explosion $|\mathcal{T}_n| = (2n-3)!!$. For $n=5$ there are already 15 topologies, and for $n=10$ there are 945. This superexponential growth defines the difficulty of the inference problem.}
+\label{fig:tree_count}
+\end{figure}
+
+\section{Graphs and Trees}
+
+\begin{definition}[Graph]
+A \emph{graph} $G = (V, E)$ consists of a finite set of \emph{vertices} $V$ and a set of \emph{edges} $E \subseteq \binom{V}{2}$. A graph is \emph{connected} if for every pair $u, v \in V$ there exists a path from $u$ to $v$.
+\end{definition}
+
+\begin{definition}[Tree]
+A \emph{tree} is a connected acyclic graph. A \emph{rooted tree} is a tree $T = (V, E, r)$ with a distinguished vertex $r \in V$ called the \emph{root}. The root induces a natural parent--child relation: $u$ is the \emph{parent} of $v$ if $u$ lies on the unique path from $r$ to $v$ and is adjacent to $v$.
+\end{definition}
+
+\begin{definition}[Leaves and internal nodes]
+In a rooted tree, a vertex with no children is a \emph{leaf}. The set of all leaves is $L(T)$. A vertex with at least one child is an \emph{internal node}.
+\end{definition}
+
+\begin{definition}[Lowest common ancestor]
+For vertices $u, v$ in a rooted tree $T$, the \emph{lowest common ancestor} $\LCA_T(u,v)$ is the deepest vertex that is an ancestor of both $u$ and $v$.
+\end{definition}
+
+\begin{definition}[Binary tree]
+A rooted tree is \emph{binary} if every internal node has exactly two children.
+\end{definition}
+
+\section{Subtrees and Induced Structures}
+
+\begin{definition}[Subtree]
+For a set $S \subseteq L(T)$ of leaves, the \emph{subtree induced by $S$}, denoted $T[S]$, is the minimal connected subgraph of $T$ containing all vertices of $S$.
+\end{definition}
+
+\begin{notation}
+We write $T[i \vee j]$ for the subtree rooted at $\LCA_T(i,j)$.
+\end{notation}
+
+\begin{definition}[Laminar family]
+A collection $\mathcal{F}$ of subsets of a ground set $V$ is a \emph{laminar family} if for every $A, B \in \mathcal{F}$,
+\[
+A \cap B \in \{\varnothing, A, B\}.
+\]
+\end{definition}
+
+\begin{proposition}
+The family of leaf sets of all subtrees of a rooted binary tree on $n$ leaves forms a laminar family.
+\end{proposition}
+
+\begin{proof}
+Let $A = L(T[u])$ and $B = L(T[v])$. If $u$ is an ancestor of $v$, then $B \subseteq A$. If $v$ is an ancestor of $u$, then $A \subseteq B$. Otherwise $A \cap B = \varnothing$.
+\end{proof}
+
+\section{Counting Rooted Binary Trees}
+
+\begin{theorem}[Count of rooted binary trees]
+\label{thm:tree_count}
+The number of distinct rooted binary trees on $n$ labeled leaves is
+\[
+|\mathcal{T}_n| = (2n - 3)!! = 1 \cdot 3 \cdot 5 \cdots (2n-3),
+\]
+for $n \geq 2$, with $|\mathcal{T}_2| = 1$.
+\end{theorem}
+
+\begin{proof}
+A tree on $n$ leaves is constructed by inserting the $n$-th leaf into any of the $2n-3$ edges of a tree on $n-1$ leaves (splitting that edge inserts a new internal node). By induction, $|\mathcal{T}_n| = (2n-3) \cdot |\mathcal{T}_{n-1}| = (2n-3)!!$.
+\end{proof}
+
+\begin{corollary}[Entropy of the uniform prior]
+\label{cor:tree_entropy}
+The entropy of the uniform distribution over rooted binary tree topologies on $n$ leaves satisfies
+\[
+H_0 := \log |\mathcal{T}_n| \sim n \log n + O(n) \qquad \text{as } n \to \infty.
+\]
+\end{corollary}
+
+This corollary is fundamental: the initial uncertainty over tree topologies grows as $n \log n$ bits, setting the information-theoretic scale for reconstruction.
+
+\section{Paths, Distances, and Depth}
+
+\begin{definition}[Node height function]
+A \emph{node height function} assigns a nonnegative real value to each internal node, strictly decreasing toward the leaves, with $h(v) = 0$ for all leaves.
+\end{definition}
+
+Node height functions connect tree structure to ultrametric geometry in Chapter~\ref{ch:metrics}.
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Prove that a tree on $n$ vertices has exactly $n - 1$ edges.
+  \item Verify the recurrence $|\mathcal{T}_n| = (2n-3)|\mathcal{T}_{n-1}|$ for $n = 3, 4, 5$.
+  \item Prove that the leaf sets of a rooted tree form a laminar family, and show by example that not every laminar family arises from a rooted binary tree.
+  \item Draw all 15 rooted binary tree topologies on $n = 5$ labeled leaves.
+  \item Compute $H_0 = \log|\mathcal{T}_n|$ for $n = 5, 10, 20$ and comment on the rate of growth.
+\end{enumerate}

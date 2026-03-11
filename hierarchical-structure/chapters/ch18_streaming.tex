@@ -1,0 +1,70 @@
+% chapters/ch18_streaming.tex
+\chapter{Streaming Algorithms for Hierarchical Clustering}
+\label{ch:streaming}
+
+\epigraph{%
+  Memory is the bottleneck. Use it wisely.%
+}{\textit{---Flyxion}}
+
+In many practical settings the similarity matrix is too large to store in memory, arriving instead as a stream of individual entries $(i, j, w_{ij})$ in arbitrary order. This chapter adapts the partial HC tree construction to this demanding setting, showing that a single-pass semi-streaming algorithm can maintain a compressed representation of the evolving partial tree using only $O(n\log^3 n)$ bits---far less than the $\Theta(n^2)$ bits needed to store the full matrix. The key insight is that the oracle's responses provide a compact summary of the relevant structure: instead of storing all pairwise similarities, the algorithm stores only the inferred partial tree and a buffer of recent oracle answers sufficient to update it. The streaming result is particularly striking because previous algorithms achieving $O(1)$ approximation required exponential time; the oracle model enables polynomial time within the streaming memory constraint.
+
+%% ── Figure: streaming pipeline ──────────────────────────────
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw=nodeblue!60, fill=nodeblue!8, rounded corners=4pt,
+              minimum width=2.4cm, minimum height=0.85cm, font=\small, align=center},
+  arr/.style={->, >=stealth, thick, draw=nodegray!70}
+]
+% Stream
+\node[font=\small] (s1) at (-4.2, 0) {$(i_1,j_1,w_{i_1 j_1})$};
+\node[font=\small] (s2) at (-4.2, -0.7) {$(i_2,j_2,w_{i_2 j_2})$};
+\node[font=\small, nodegray] (s3) at (-4.2, -1.3) {$\vdots$};
+\draw[decorate, decoration={brace, amplitude=5pt}, nodeblue!50]
+  (-5.3,0.3) -- (-5.3,-1.6);
+\node[font=\footnotesize, nodeblue!70, left] at (-5.5,-0.65) {stream};
+
+% Processing box
+\node[box] (proc) at (-1.1, -0.65) {Oracle\\queries};
+\draw[arr] (-3.0, -0.65) -- (proc);
+
+% Partial tree state
+\node[box, minimum width=2.8cm] (state) at (1.8, -0.65)
+  {Partial HC\\tree state\\$O(n\log^3 n)$ bits};
+\draw[arr] (proc) -- (state);
+
+% Output
+\node[box, draw=nodegreen!60, fill=nodegreen!8] (out) at (5.0, -0.65)
+  {$\widehat{T}$\\(after stream)};
+\draw[arr] (state) -- (out);
+
+% Memory annotation
+\draw[decorate, decoration={brace, amplitude=4pt, mirror}, nodered!60]
+  (0.2,-1.35) -- (3.4,-1.35);
+\node[font=\footnotesize, nodered!70] at (1.8,-1.75)
+  {sub-quadratic memory};
+\end{tikzpicture}
+\caption{The streaming algorithm processes pairs $(i,j,w_{ij})$ in a single pass, querying the oracle as needed and maintaining a compact partial HC tree representation. The final tree $\widehat{T}$ is produced after the stream ends. Total memory is $O(n\log^3 n)$ bits, far below the $\Omega(n^2)$ needed to store the full similarity matrix.}
+\label{fig:streaming}
+\end{figure}
+
+\section{The Streaming Model}
+
+\begin{definition}[Semi-streaming algorithm]
+A \emph{semi-streaming algorithm} for hierarchical clustering is a single-pass streaming algorithm using $O(n \cdot \polylog n)$ bits of memory.
+\end{definition}
+
+\section{Main Result}
+
+\begin{theorem}[Streaming algorithm for Dasgupta~{\cite{Dasgupta2016}}]
+\label{thm:streaming}
+There exists a single-pass semi-streaming algorithm producing a partial HC tree achieving an $O(1)$-approximation to the Dasgupta objective, using $O(n\log^3 n)$ bits of space and polynomial time.
+\end{theorem}
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Show that any streaming algorithm for Dasgupta achieving a constant-factor approximation must use $\Omega(n)$ bits.
+  \item Describe how the partial HC tree can be updated incrementally as new similarity entries arrive.
+  \item Explain why the oracle model is especially powerful in the streaming setting: what information can be compressed that the similarity matrix cannot?
+\end{enumerate}

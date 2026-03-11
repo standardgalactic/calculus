@@ -1,0 +1,109 @@
+% chapters/ch06_constraints.tex
+\chapter{Constraint Systems and Emergent Global Structure}
+\label{ch:constraints}
+
+\epigraph{%
+  Global structure is not assembled. It is carved.%
+}{\textit{---Flyxion}}
+
+This chapter formalizes the constraint-accumulation process that is the organizing principle of the entire textbook. We define a constraint operator as a function that maps the hypothesis space to the subset consistent with a given observation, and we study how a sequence of such operators progressively narrows the space of viable hypotheses. The key theorem is that a sufficiently rich set of consistent triplet relations uniquely determines the underlying tree---global structure emerges from local relational observations through the accumulated pressure of constraint. We also introduce the probabilistic (soft-constraint) version of this framework, in which observations carry likelihoods rather than hard compatibility requirements, connecting the constraint view to Bayesian inference. The chapter ends by making precise the analogy between constraint propagation in tree reconstruction and constraint propagation in other complex systems, a theme that will recur in Part~VII and Part~VIII.
+
+%% ── Figure: constraint accumulation narrowing hypothesis space
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[node distance=0.3cm]
+% Step 0: many circles = many trees
+\node[font=\footnotesize, above] at (1.5, 3.0) {Step 0: $|\mathcal{H}_0|=15$};
+\foreach \x/\y in {0.3/2.3, 0.9/2.3, 1.5/2.3, 2.1/2.3, 2.7/2.3,
+                    0.3/1.6, 0.9/1.6, 1.5/1.6, 2.1/1.6, 2.7/1.6,
+                    0.6/0.9, 1.2/0.9, 1.8/0.9, 2.4/0.9, 1.5/0.25} {
+  \node[ghostnode, minimum size=5mm] at (\x,\y) {};
+}
+\draw[draw=nodegray!50, thick, rounded corners=8pt] (-0.1,-0.1) rectangle (3.1,2.9);
+
+% Arrow
+\draw[->, >=stealth, thick, nodeblue!60] (3.4,1.4) -- (4.1,1.4)
+  node[above, font=\footnotesize, midway] {$r_1$};
+
+% Step 1: after 1 observation
+\begin{scope}[xshift=4.4cm]
+\node[font=\footnotesize, above] at (1.5,3.0) {Step 1: $|\mathcal{H}_1|\approx 10$};
+\foreach \x/\y in {0.3/2.3, 0.9/2.3, 1.5/2.3, 2.1/2.3, 2.7/2.3,
+                    0.3/1.6, 0.9/1.6, 1.5/1.6, 2.1/1.6,
+                    0.6/0.9, 1.2/0.9, 1.8/0.9} {
+  \node[ghostnode, minimum size=5mm] at (\x,\y) {};
+}
+\draw[draw=nodegray!50, thick, rounded corners=8pt] (-0.1,-0.1) rectangle (3.1,2.9);
+\end{scope}
+
+% Arrow
+\draw[->, >=stealth, thick, nodeblue!60] (7.9,1.4) -- (8.6,1.4)
+  node[above, font=\footnotesize, midway] {$r_2,\ldots$};
+
+% Step 2: one remaining
+\begin{scope}[xshift=8.9cm]
+\node[font=\footnotesize, above] at (0.7,3.0) {Step $t$: $|\mathcal{H}_t|=1$};
+\node[treenode, minimum size=5mm] at (0.7,1.4) {};
+\draw[draw=nodegreen!60, thick, rounded corners=8pt] (-0.1,-0.1) rectangle (1.5,2.9);
+\end{scope}
+\end{tikzpicture}
+\caption{Constraint accumulation progressively narrows the hypothesis space $\mathcal{H}_t$. At step 0, all tree topologies are viable. Each triplet observation $r_i$ eliminates inconsistent hypotheses, reducing $|\mathcal{H}_t|$ monotonically. At step $t$, a single tree remains: the reconstruction is complete.}
+\label{fig:constraint_accumulation}
+\end{figure}
+
+\section{Constraint Satisfaction}
+
+A \emph{constraint satisfaction problem} consists of a hypothesis space $\mathcal{H}$, a domain, and a set of constraints $\mathcal{C}$ specifying valid assignments. In the tree reconstruction setting, $\mathcal{H} = \mathcal{T}_n$ and each observed triplet relation $r_i$ imposes a constraint.
+
+\begin{definition}[Constraint operator]
+For hypothesis space $\mathcal{H}$ and observation $o$, the \emph{constraint operator} is
+\[
+C_o : \mathcal{H} \to 2^{\mathcal{H}}, \qquad C_o(\mathcal{H}) = \{H \in \mathcal{H} : H \text{ is consistent with } o\}.
+\]
+\end{definition}
+
+\begin{definition}[Accumulated constraint space]
+After observations $o_1, \ldots, o_t$, the \emph{accumulated constraint space} is
+\[
+\mathcal{H}_t = C_{o_t} \circ \cdots \circ C_{o_1}(\mathcal{H}_0).
+\]
+\end{definition}
+
+\begin{proposition}[Monotone reduction]
+$\mathcal{H}_{t+1} \subseteq \mathcal{H}_t$ for all $t \geq 0$; constraint operators are commutative ($C_a \circ C_b = C_b \circ C_a$).
+\end{proposition}
+
+\section{Propagation of Local Constraints}
+
+\begin{proposition}[Triplet constraints propagate]
+\label{prop:triplet_propagation}
+A triplet observation $(u,v)|w$ constrains not only the local branching of $\{u,v,w\}$ but also the placement of every other leaf relative to this triple.
+\end{proposition}
+
+This propagation is why $O(n \log n)$ judiciously chosen triplets suffice to reconstruct the entire tree. Each triplet contributes local information that, in combination with others, propagates to constrain the global topology.
+
+\section{Soft Constraints and Probabilistic Inference}
+
+When observations are noisy, hard elimination is replaced by likelihood weighting. The posterior distribution after $t$ observations is
+\[
+P_t(H) \propto P_0(H) \prod_{i=1}^t P(o_i \mid H).
+\]
+Under the noisy triplet oracle model, $P(r_t \mid T) = p$ if $T \models r_t$ and $(1-p)/2$ otherwise.
+
+\section{Global Structure from Minimal Local Information}
+
+\begin{theorem}[Convergence of constraint accumulation]
+\label{thm:constraint_convergence}
+A consistent set $\mathcal{R}$ of rooted triplet relations uniquely determines a rooted binary tree topology if and only if for every bipartition $\{A,B\}$ of the leaf set, there exists a triplet in $\mathcal{R}$ witnessing the partition.
+\end{theorem}
+
+The proof is in Appendix~\ref{app:triplet_topology}.
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Write out the constraint operators $C_r$ for each of the three possible triplet relations on $\{1,2,3\}$ in a tree on four leaves. How many of the $|\mathcal{T}_4|=3$ topologies does each operator eliminate?
+  \item Show the accumulated constraint space is independent of the order of observations.
+  \item Define a \emph{redundant} observation as one that does not reduce $|\mathcal{H}_t|$. Give an example on four leaves.
+  \item Show that maximizing expected information gain per query is equivalent to choosing triplets that eliminate the largest expected fraction of consistent trees under the current posterior.
+\end{enumerate}

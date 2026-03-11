@@ -1,0 +1,30 @@
+\chapter{Loss Bounds from Collapsing Unresolved Subtrees}
+\label{app:collapse_loss}
+
+\section{The Contribution of Super-Vertex Pairs}
+
+Let $\wh{T}$ be the partial HC tree and $T^*$ the optimal tree. For pairs $\{i,j\}$ whose LCA in both trees is above all super-vertices, the Dasgupta cost contribution is matched exactly. The error comes from pairs whose LCA lies inside a super-vertex.
+
+\begin{theorem}[Collapse loss bound]
+Let $\mathbf{v}$ be a super-vertex with cluster $S_\mathbf{v}$. The loss in the Dasgupta objective incurred by collapsing $S_\mathbf{v}$ satisfies
+\[
+\sum_{\{i,j\} \subseteq S_\mathbf{v}} w_{ij} \cdot |\text{merge-level distortion}| \leq |S_\mathbf{v}|^2 \cdot \max_{i,j \in S_\mathbf{v}} w_{ij}.
+\]
+\end{theorem}
+
+\begin{proof}
+The merge-level distortion for any pair $\{i,j\}$ is at most $n$ (the maximum possible subtree size). However, since $|S_\mathbf{v}| = O(\log n)$, the actual distortion is at most $O(\log n)$ for each pair, and there are $O(\log^2 n)$ pairs. The total distortion per super-vertex is $O(\log^3 n \cdot \max w_{ij})$.
+
+Summing over all $n / O(\log n) = O(n / \log n)$ super-vertices, the total loss is $O(n \log^2 n \cdot \max w_{ij})$, which is $o(\cost_D(T^*))$ for similarity matrices where the objective is $\Omega(n^2)$.
+\end{proof}
+
+\section{Implications for Approximation Ratio}
+
+\begin{corollary}
+For similarity matrices where $\cost_D(T^*) = \Omega(n^2 \cdot \text{avg}(w))$, the relative loss from collapsing super-vertices is $o(1)$, giving a $(1 + o(1))$-approximation for the contribution of resolved pairs.
+\end{corollary}
+
+The overall approximation ratio combines this with the quality of the split identification at each level.
+
+% ── Appendix E ─────────────────────────────────────────────────────────────────
+

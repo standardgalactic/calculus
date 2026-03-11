@@ -1,0 +1,140 @@
+% chapters/ch05_metrics.tex
+\chapter{Metric Spaces and Ultrametric Geometry}
+\label{ch:metrics}
+
+\epigraph{%
+  In an ultrametric world, every triangle is isosceles.
+  This is not a limitation. It is the signature of a tree.%
+}{\textit{---Flyxion}}
+
+This chapter introduces the geometric framework that underlies hierarchical clustering. Ordinary metric spaces capture notions of distance in Euclidean and more general spaces, but hierarchical structure corresponds to a strictly stronger geometric condition: the ultrametric inequality. Whereas the ordinary triangle inequality permits triangles of any shape, the ultrametric inequality forces every triangle to be isosceles---the two longer sides must be equal. This isosceles property is not an incidental curiosity; it is the precise geometric signature of a tree. We prove that every rooted tree with a height function induces an ultrametric on its leaves, and we state the converse---that every finite ultrametric arises from a rooted tree---which is proved in full in Appendix~\ref{app:ultrametric_equiv}. Understanding this equivalence is the key to interpreting the splitting oracle geometrically in Chapter~\ref{ch:curvature}: each oracle response reveals which of the three ultrametric inequality patterns holds on a given triple, effectively measuring the branching curvature of the hidden tree.
+
+%% ── Figure: Euclidean vs ultrametric triangle ───────────────
+\begin{figure}[ht]
+\centering
+% Euclidean triangle
+\begin{tikzpicture}[scale=1.1]
+\coordinate (A) at (0,0);
+\coordinate (B) at (2.5,0);
+\coordinate (C) at (0.8,1.8);
+\draw[thick, nodeblue!70] (A) -- (B) -- (C) -- cycle;
+\node[below left, font=\small] at (A) {$x$};
+\node[below right, font=\small] at (B) {$y$};
+\node[above, font=\small] at (C) {$z$};
+\node[below, font=\footnotesize, nodegray] at (1.25,-0.35)
+  {$d(x,y)=2.5$};
+\node[left, font=\footnotesize, nodegray] at (-0.05,0.9)
+  {$1.97$};
+\node[right, font=\footnotesize, nodegray] at (1.7,0.9)
+  {$2.2$};
+\node[above, font=\small, nodeblue!80] at (1.25,-0.8)
+  {Euclidean: all sides may differ};
+\node[font=\footnotesize] at (1.25,2.3)
+  {$d(x,y)\le d(x,z)+d(z,y)$};
+\end{tikzpicture}
+\hspace{1.2cm}
+% Ultrametric triangle (isosceles: two long sides equal)
+\begin{tikzpicture}[scale=1.1]
+\coordinate (A) at (0,0);
+\coordinate (B) at (2.5,0);
+\coordinate (C) at (1.25,2.0);
+\draw[thick, nodered!70] (A) -- (C) -- (B);
+\draw[thick, nodegreen!70] (A) -- (B);
+\node[below left, font=\small] at (A) {$x$};
+\node[below right, font=\small] at (B) {$y$};
+\node[above, font=\small] at (C) {$z$};
+\node[below, font=\footnotesize, nodegreen!80] at (1.25,-0.35)
+  {$d(x,y)=2.3$ (short)};
+\node[left, font=\footnotesize, nodered!80] at (0.3,1.1)
+  {$2.5$};
+\node[right, font=\footnotesize, nodered!80] at (2.2,1.1)
+  {$2.5$};
+\node[above, font=\small, nodered!80] at (1.25,-0.8)
+  {Ultrametric: two sides equal};
+\node[font=\footnotesize] at (1.25,2.5)
+  {$d(x,y)\le \max\{d(x,z),d(z,y)\}$};
+\end{tikzpicture}
+\hspace{1.0cm}
+% Corresponding tree structure
+\begin{tikzpicture}[level distance=1.1cm,
+  level 1/.style={sibling distance=1.3cm},
+  edge from parent/.style={draw=nodegray!70, thick}]
+\node[internalnode, label=right:{\footnotesize $h=2.5$}] {}
+  child { node[leafnode, label=below:{$x$}] {} }
+  child { node[internalnode, label=right:{\footnotesize $h=2.3$}] {}
+    child { node[leafnode, label=below:{$z$}] {} }
+    child { node[leafnode, label=below:{$y$}] {} }
+  };
+\node[font=\small, nodegray] at (0,-2.2) {Corresponding tree};
+\end{tikzpicture}
+\caption{Left: A Euclidean triangle permits all three sides to have different lengths. Center: An ultrametric triangle is always isosceles---the two longest sides are equal. Right: The corresponding rooted tree, where $d_T(u,v) = h(\mathrm{LCA}_T(u,v))$. The short side of the ultrametric triangle corresponds to the pair sharing the deeper LCA.}
+\label{fig:ultrametric_triangle}
+\end{figure}
+
+\section{Metric Spaces}
+
+\begin{definition}[Metric]
+A \emph{metric} on $X$ is a function $d : X \times X \to \mathbb{R}_{\geq 0}$ satisfying non-negativity, identity of indiscernibles ($d(x,y)=0 \iff x=y$), symmetry, and the triangle inequality $d(x,y) \leq d(x,z) + d(z,y)$.
+\end{definition}
+
+\section{Ultrametric Spaces}
+
+\begin{definition}[Ultrametric]
+A metric $d$ is an \emph{ultrametric} if it satisfies the \emph{strong triangle inequality}:
+\[
+d(x,y) \leq \max\{d(x,z),\, d(z,y)\} \qquad \forall x, y, z \in X.
+\]
+\end{definition}
+
+\begin{proposition}[Isosceles property]
+\label{prop:isosceles}
+In an ultrametric space, every triangle is isosceles: the two largest pairwise distances in any triple are equal.
+\end{proposition}
+
+\begin{proof}
+Let $d(x,y) \leq d(x,z) \leq d(y,z)$. The strong triangle inequality applied at $x$ gives $d(y,z) \leq \max\{d(y,x), d(x,z)\} = d(x,z)$, contradicting $d(x,z) \leq d(y,z)$ unless $d(x,z) = d(y,z)$.
+\end{proof}
+
+\section{Trees Define Ultrametrics}
+
+\begin{definition}[Tree metric]
+Let $T$ be a rooted tree with node height function $h$. The \emph{tree metric} on $L(T)$ is
+\[
+d_T(u, v) = h(\LCA_T(u,v)).
+\]
+\end{definition}
+
+\begin{theorem}[Trees induce ultrametrics]
+\label{thm:tree_ultrametric}
+For any rooted tree $T$ with height function $h$, the function $d_T$ is an ultrametric on $L(T)$.
+\end{theorem}
+
+\begin{proof}
+Non-negativity and symmetry are immediate. Identity of indiscernibles follows because $h(u)=0$ for leaves and $h(\LCA(u,v))>0$ for $u\neq v$. For the strong triangle inequality, the three LCA values $\LCA(u,v)$, $\LCA(u,w)$, $\LCA(v,w)$ admit one that is an ancestor of the other two. If $\LCA(u,w)$ is the highest, then $d_T(u,v) \leq d_T(u,w) = \max\{d_T(u,w), d_T(v,w)\}$.
+\end{proof}
+
+The full converse---every ultrametric arises from a rooted tree---is proved in Appendix~\ref{app:ultrametric_equiv}.
+
+\section{Ultrametric Inequalities and Branching Order}
+
+\begin{proposition}[Ultrametric and LCA]
+\label{prop:ultrametric_lca}
+For leaves $u, v, w$ in a rooted tree $T$,
+\[
+d_T(u,v) < d_T(u,w) = d_T(v,w)
+\quad \iff \quad
+\LCA_T(u,v) \text{ is a strict descendant of } \LCA_T(u,w).
+\]
+\end{proposition}
+
+This connects the metric formalism directly to the triplet relation framework: the triplet $(u,v)\mid w$ is equivalent to $d_T(u,v) < d_T(u,w) = d_T(v,w)$.
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Verify that the $p$-adic metric on the integers is an ultrametric, and describe the hierarchical structure it encodes.
+  \item Prove the isosceles property (Proposition~\ref{prop:isosceles}) from the strong triangle inequality.
+  \item Let $T$ be the tree on $\{1,2,3,4\}$ with $\LCA(1,2)$ at height 1, $\LCA(3,4)$ at height 1, and root at height 2. Write the $4\times 4$ ultrametric distance matrix.
+  \item Show that Euclidean distance on $\mathbb{R}^2$ is not an ultrametric by exhibiting a violating triple.
+  \item Reconstruct the rooted tree corresponding to the ultrametric: $d(1,2)=1$, $d(1,3)=d(2,3)=2$, $d(1,4)=d(2,4)=d(3,4)=3$.
+\end{enumerate}

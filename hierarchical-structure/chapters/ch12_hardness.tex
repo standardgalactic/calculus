@@ -1,0 +1,93 @@
+% chapters/ch12_hardness.tex
+\chapter{Approximation Barriers and Complexity}
+\label{ch:hardness}
+
+\epigraph{%
+  Hardness is not a failure of algorithms. It is information about the problem.%
+}{\textit{---Flyxion}}
+
+This chapter establishes the computational barriers that motivate the learning-augmented approach. Optimizing the Dasgupta objective is NP-hard, and under the Small Set Expansion (SSE) hypothesis~\cite{Charikar2019,CohenAddad2019}, no polynomial-time algorithm can achieve a constant-factor approximation using only the pairwise similarity matrix. The best oblivious approximation achieves ratio $O(\sqrt{\log n})$ via semidefinite programming relaxations. For the Moseley--Wang objective, APX-hardness is known: no PTAS exists unless P $=$ NP. These results are not simply limitations to be complained about; they reveal that the optimization landscape is genuinely complex, with many locally good solutions far from the global optimum. The figure below illustrates intuitively how the graph partition structure that drives hardness manifests in the clustering objective: a wrong top-level split affects all cross-cluster pairs and accumulates a large penalty.
+
+%% ── Figure: wrong vs right split and objective cost ─────────
+\begin{figure}[ht]
+\centering
+% Graph with two dense communities
+\begin{tikzpicture}[node distance=0.7cm, scale=0.9]
+\node[font=\small, above] at (0,2.2) {Correct split};
+% Community 1: nodes 1-3
+\foreach \a/\x/\y in {1/0/1.5, 2/-0.8/0.0, 3/0.8/0.0} {
+  \node[treenode, scale=0.7] (c\a) at (\x,\y) {\tiny $\a$};
+}
+\foreach \a/\b in {1/2, 1/3, 2/3} {
+  \draw[nodeblue!50, thick] (c\a) -- (c\b);
+}
+% Community 2: nodes 4-6
+\foreach \a/\x/\y in {4/3.0/1.5, 5/2.2/0.0, 6/3.8/0.0} {
+  \node[treenode, scale=0.7] (c\a) at (\x,\y) {\tiny $\a$};
+}
+\foreach \a/\b in {4/5, 4/6, 5/6} {
+  \draw[nodeblue!50, thick] (c\a) -- (c\b);
+}
+% Cross edges (sparse)
+\draw[nodegray!40, dashed] (c2) -- (c5);
+\draw[nodegray!40, dashed] (c3) -- (c4);
+% Split line (correct)
+\draw[nodered!60, thick, dashed] (1.5, -0.4) -- (1.5, 2.0);
+\node[font=\tiny, nodered!70] at (1.5, 2.45) {correct split};
+% Cost annotation
+\node[font=\footnotesize, nodegreen!70, below] at (1.5,-0.7)
+  {Low cost: similar pairs merge early};
+\end{tikzpicture}
+\hspace{1.2cm}
+% Wrong split
+\begin{tikzpicture}[node distance=0.7cm, scale=0.9]
+\node[font=\small, above] at (0,2.2) {Wrong split};
+\foreach \a/\x/\y in {1/0/1.5, 2/-0.8/0.0, 3/0.8/0.0} {
+  \node[treenode, scale=0.7] (c\a) at (\x,\y) {\tiny $\a$};
+}
+\foreach \a/\b in {1/2, 1/3, 2/3} {
+  \draw[nodeblue!50, thick] (c\a) -- (c\b);
+}
+\foreach \a/\x/\y in {4/3.0/1.5, 5/2.2/0.0, 6/3.8/0.0} {
+  \node[treenode, scale=0.7] (c\a) at (\x,\y) {\tiny $\a$};
+}
+\foreach \a/\b in {4/5, 4/6, 5/6} {
+  \draw[nodeblue!50, thick] (c\a) -- (c\b);
+}
+\draw[nodegray!40, dashed] (c2) -- (c5);
+\draw[nodegray!40, dashed] (c3) -- (c4);
+% Wrong split: horizontal
+\draw[nodered!60, thick, dashed] (-1.2, 0.8) -- (4.2, 0.8);
+\node[font=\tiny, nodered!70] at (1.5, 2.45) {wrong split};
+\node[font=\footnotesize, nodered!70, below] at (1.5,-0.7)
+  {High cost: similar pairs merge late};
+\end{tikzpicture}
+\caption{A graph with two dense communities. The correct split (left) separates communities at the top level, so similar pairs merge in small subtrees---low Dasgupta cost. The wrong split (right) cuts across communities, forcing similar pairs to merge late in large subtrees---high cost. The difficulty of finding the correct split is the source of hardness.}
+\label{fig:hardness_intuition}
+\end{figure}
+
+\section{NP-Hardness of Optimal HC}
+
+\begin{theorem}[Hardness of Dasgupta objective~{\cite{Dasgupta2016}}]
+Optimizing $\mathrm{cost}_D(T)$ over all rooted binary tree topologies is NP-hard. Under the SSE hypothesis, no polynomial-time algorithm achieves a constant-factor approximation.
+\end{theorem}
+
+\section{Known Approximation Results}
+
+The best polynomial-time oblivious approximation for $\mathrm{cost}_D$ achieves ratio $O(\sqrt{\log n})$ via semidefinite programming~\cite{RoyPokutta2017}. For $\mathrm{reward}_{MW}$, APX-hardness holds: no PTAS exists unless P $=$ NP~\cite{CohenAddad2019}.
+
+\section{Small Set Expansion and Its Role}
+
+\begin{definition}[SSE hypothesis]
+It is NP-hard to distinguish between graphs with a set of $\delta n$ vertices of expansion $< \varepsilon$ and graphs where all such sets expand by $> 1-\varepsilon$, for every $\delta > 0$ and some $\varepsilon(\delta) > 0$.
+\end{definition}
+
+Under SSE, the $O(\sqrt{\log n})$ approximation for Dasgupta is essentially optimal for oblivious algorithms. The learning-augmented algorithms of Part~IV break this barrier by exploiting oracle information.
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Describe the reduction from graph partitioning to the Dasgupta objective optimization problem.
+  \item Explain why APX-hardness of $\mathrm{reward}_{MW}$ does not contradict the $(1-o(1))$-approximation achieved in the learning-augmented setting.
+  \item What feature of the oracle makes it possible to break the SSE-based lower bound?
+\end{enumerate}

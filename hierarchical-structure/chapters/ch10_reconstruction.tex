@@ -1,0 +1,97 @@
+% chapters/ch10_reconstruction.tex
+\chapter{Reconstruction from Triplets}
+\label{ch:reconstruction}
+
+\epigraph{%
+  A jigsaw puzzle is solvable even without seeing the box,
+  provided enough pieces constrain each other.%
+}{\textit{---Flyxion}}
+
+This chapter addresses the algorithmic core of Part~II: given a set of observed triplet relations, how does one efficiently reconstruct the underlying tree? The BUILD algorithm of Aho et al.~\cite{Aho1981} solves this problem in linear time by reducing it to a sequence of graph connectivity queries---at each level, the separation graph encodes which leaves can share a subtree, and its connected components identify the partition. We prove that BUILD succeeds if and only if the input triplet set is consistent, and we prove the fundamental reconstruction theorem: a complete, consistent triplet set uniquely determines the tree topology. We close with the sparse reconstruction result---that $O(n\log n)$ triplets suffice---which anticipates the oracle-based query strategies of Part~IV.
+
+%% ── Figure: overlapping triplets constraining a 5-leaf tree ─
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[level distance=1.0cm,
+  level 1/.style={sibling distance=3.2cm},
+  level 2/.style={sibling distance=1.6cm},
+  edge from parent/.style={draw=nodeblue!50, thick}]
+
+\node[internalnode] (root) {}
+  child { node[internalnode] (AB) {}
+    child { node[leafnode, label=below:{$A$}] (LA) {} }
+    child { node[leafnode, label=below:{$B$}] (LB) {} }
+  }
+  child { node[internalnode] (CDE) {}
+    child { node[leafnode, label=below:{$C$}] (LC) {} }
+    child { node[internalnode] (DE) {}
+      child { node[leafnode, label=below:{$D$}] (LD) {} }
+      child { node[leafnode, label=below:{$E$}] (LE) {} }
+    }
+  };
+
+% Highlight triplet (A,B)|C
+\draw[nodered!60, thick, rounded corners=3pt, densely dashed]
+  ($(LA)+(-0.25,-0.25)$) rectangle ($(AB)+(0.25,0.35)$);
+\node[font=\tiny, nodered!70] at (-1.6, 0.9) {$(A,B)|C$};
+
+% Highlight triplet (D,E)|C
+\draw[nodegreen!60, thick, rounded corners=3pt, densely dashed]
+  ($(LD)+(-0.25,-0.25)$) rectangle ($(DE)+(0.25,0.35)$);
+\node[font=\tiny, nodegreen!70] at (2.5, 0.55) {$(D,E)|C$};
+
+% Highlight triplet (A,B)|D
+\draw[supercolor!70, thick, rounded corners=3pt, densely dotted,
+  line width=1.2pt]
+  ($(LA)+(-0.32,-0.32)$) rectangle ($(AB)+(0.32,0.45)$);
+
+\node[font=\small, below] at (0,-2.3)
+  {Five-leaf tree determined by triplets:
+   $(A,B)|C$,\ $(A,B)|D$,\ $(A,B)|E$,\ $(D,E)|A$,\ $(D,E)|B$,\ $(D,E)|C$};
+\end{tikzpicture}
+\caption{A rooted binary tree on five leaves $\{A,B,C,D,E\}$. The dashed rectangles highlight two of the six triplet relations that collectively determine the topology uniquely. No single triplet suffices; together they constrain every internal branch point.}
+\label{fig:triplet_reconstruction}
+\end{figure}
+
+\section{The Reconstruction Problem}
+
+\begin{definition}[Triplet reconstruction problem]
+Given $\mathcal{R}$ on leaf set $V$, find a rooted binary tree $T$ with $T \models r$ for all $r \in \mathcal{R}$, or determine none exists.
+\end{definition}
+
+\section{The BUILD Algorithm}
+
+\begin{algorithm}[BUILD~{\cite{Aho1981}}]
+\label{alg:build}
+\textbf{Input}: Leaf set $V$, triplet set $\mathcal{R}$.
+\textbf{If} $|V|=1$: return a leaf.
+\textbf{Construct} the \emph{separation graph}: vertices $V$; edge $(u,v)$ iff $(u,v)|w \in \mathcal{R}$ for some $w$.
+\textbf{Find} connected components $V_1,\ldots,V_k$.
+\textbf{If} $k=1$: return \textsc{Fail} (inconsistency detected).
+\textbf{Recurse} on each $V_i$ with restricted triplet set.
+\textbf{Return} tree rooted at new node with $k$ subtrees.
+\end{algorithm}
+
+\begin{theorem}[Correctness of BUILD]
+BUILD returns a consistent tree iff $\mathcal{R}$ is consistent.
+\end{theorem}
+
+\section{Sufficiency for Reconstruction}
+
+\begin{theorem}[Dense triplets determine the tree]
+\label{thm:dense_triplets}
+If $\mathcal{R}$ contains a consistent triplet for every triple $\{u,v,w\}\subseteq V$, then $\mathcal{R}$ uniquely determines the tree topology.
+\end{theorem}
+
+\begin{theorem}[Sparse reconstruction]
+\label{thm:sparse_reconstruction}
+There exists a set $\mathcal{R}$ of $O(n\log n)$ rooted triplets that uniquely determines any rooted binary tree on $n$ leaves.
+\end{theorem}
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Apply BUILD to $\{(1,2)|3,\;(1,2)|4,\;(3,4)|1\}$ on four leaves.
+  \item Construct a minimum triplet set uniquely determining the balanced binary tree on $n=8$ leaves.
+  \item Show $\Omega(n\log n)$ triplets are necessary for reconstruction by an information-theoretic argument.
+\end{enumerate}

@@ -1,0 +1,58 @@
+% chapters/ch16_approx.tex
+\chapter{Approximation Guarantees}
+\label{ch:approx}
+
+\epigraph{%
+  Breaking a barrier means understanding why it was there in the first place.%
+}{\textit{---Flyxion}}
+
+This chapter presents the main approximation results of the book. The partial HC tree construction of Part~IV yields surprising guarantees: a constant-factor approximation for the Dasgupta objective using $O(n^3)$ queries, and a near-optimal $(1-o(1))$-approximation for the Moseley--Wang reward using only $O(n^2 \polylog n)$ queries. These results break the classical barriers established in Chapter~\ref{ch:hardness}---barriers that hold for any algorithm using only the pairwise similarity matrix, without oracle access. The key mechanism is that weakly consistent partial trees preserve enough of $T^*$'s structure to control the objective error, with the remaining error coming only from pairs whose LCA falls inside a super-vertex. Appendix~\ref{app:collapse_loss} proves that this error is small because super-vertices are small.
+
+%% ── Summary table ────────────────────────────────────────────
+\begin{table}[h]
+\centering
+\begin{tabular}{llll}
+\toprule
+Objective & Approximation & Query complexity & Significance \\
+\midrule
+Dasgupta  & $O(1)$           & $O(n^3)$               & breaks SSE barrier \\
+Dasgupta  & $O(\sqrt{\log\log n})$ & $O(n^3\log n)$   & beats oblivious $O(\sqrt{\log n})$ \\
+MW reward & $(1-o(1))$       & $O(n^2\!\cdot\!\polylog n)$ & breaks APX-hardness \\
+\bottomrule
+\end{tabular}
+\caption{Main approximation results under the splitting oracle model~\cite{Dasgupta2016,MoseleyWang2017}.}
+\label{tab:approx_results}
+\end{table}
+
+\section{Approximation for the Dasgupta Objective}
+
+\begin{theorem}[Constant-factor Dasgupta approximation]
+\label{thm:dasgupta_const}
+There exists an algorithm using $O(n^3)$ oracle queries returning $\widehat{T}$ with
+\[
+\mathrm{cost}_D(\widehat{T}) \leq C \cdot \mathrm{cost}_D(T^*)
+\]
+for an absolute constant $C$, with probability $\geq 1 - 1/n$.
+\end{theorem}
+
+\begin{proof}[Sketch]
+The partial HC tree is strongly consistent with $T^*$ at all scales above $c\log n$. Error comes only from pairs whose LCA is inside a super-vertex. By Appendix~\ref{app:collapse_loss}, this contribution is bounded by a constant times the optimal cost.
+\end{proof}
+
+\section{Near-Optimal Moseley--Wang Reward}
+
+\begin{theorem}[Near-optimal MW reward]
+\label{thm:mw_approx}
+There exists an algorithm using $O(n^2\!\cdot\!\polylog n)$ queries returning $\widehat{T}$ with
+\[
+\mathrm{reward}_{MW}(\widehat{T}) \geq (1-o(1))\cdot\mathrm{reward}_{MW}(T^*),
+\]
+with probability $\geq 1-1/n$.
+\end{theorem}
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Verify $\mathrm{cost}_D(T)+\mathrm{reward}_{MW}(T)=\mathrm{const}$ and explain why near-optimality for one implies near-optimality for the other.
+  \item Why does the constant-factor Dasgupta algorithm use more queries than the near-optimal MW algorithm?
+\end{enumerate}

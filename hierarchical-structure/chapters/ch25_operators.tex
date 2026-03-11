@@ -1,0 +1,67 @@
+% chapters/ch25_operators.tex
+\chapter{Observations as Operators on Hypothesis Space}
+\label{ch:operators}
+
+This chapter develops the formal proposal that scientific communication can be made more epistemically robust by representing experimental outcomes as mathematical operators on hypothesis space, rather than as narrative claims of success or failure. The evidence content of an observation---its action on $\mathcal{H}$---is determined entirely by its logical relationship to hypotheses and is independent of the social context in which it was produced. If experimental outcomes were submitted as anonymous constraint operators, the reputational incentive to suppress negative results would be severed: there is no such thing as a failed operator, only one that eliminates certain hypotheses. We formalize this proposal, show its compatibility with Bayesian inference, and draw the analogy to the triplet oracle: just as oracle responses are aggregated without regard to individual correctness, an epistemic infrastructure based on operators would aggregate evidence without regard to its social valence.
+
+
+
+\section{From Narratives to Operators}
+
+The previous chapter identified the root cause of the replication crisis as the social filtering of constraint operators: negative results are suppressed because they carry reputational costs. This chapter develops the proposal that scientific communication can be reformed by abstracting experimental outcomes from their social context.
+
+The central idea is to represent each experiment not as a narrative of success or failure but as a mathematical operator on the hypothesis space.
+
+\begin{definition}[Evidence operator]
+For a hypothesis space $\Hyp$ and an observation $o$, the \emph{evidence operator} is
+\[
+C_o : \Hyp \to \Hyp, \qquad
+C_o(H) = \begin{cases} H & \text{if } H \text{ is consistent with } o, \\ \varnothing & \text{otherwise.} \end{cases}
+\]
+\end{definition}
+
+In this formulation, there is no concept of a ``failed'' experiment. An experiment that rules out a hypothesis removes it from the feasible set. An experiment that confirms a hypothesis leaves only those consistent with the observation. Both operations reduce uncertainty.
+
+\section{Anonymization as Structural Preservation}
+
+The reputational dimension of scientific communication arises because experimental outcomes are attributed to individual researchers. Positive results earn credit; negative results risk embarrassment.
+
+If experimental outcomes were instead represented as anonymous constraint contributions -- formal operators on $\Hyp$ with no authorship information -- the reputational incentive to suppress negative results would be removed.
+
+\begin{proposition}[Anonymization preserves information]
+The evidence operator $C_o$ is fully determined by the logical content of observation $o$, independent of who produced it. Anonymizing authorship does not affect the operator's action on $\Hyp$.
+\end{proposition}
+
+This observation has a practical implication: scientific infrastructure that treats observations as formal mathematical objects can preserve the full constraint network regardless of social incentives, as long as researchers submit their operators even when the outcome is unexpected.
+
+\section{Bayesian Interpretation}
+
+The operator model is directly compatible with Bayesian inference. The Bayesian update for a prior $P_0$ over $\Hyp$ under observation $o$ is
+\[
+P(H \mid o) \propto P(o \mid H) P_0(H).
+\]
+Both positive and negative results update the posterior: a negative result assigns low likelihood $P(o \mid H)$ to the hypotheses it contradicts and high likelihood to the hypotheses it confirms.
+
+\begin{proposition}
+The information contributed by a negative result equals the information contributed by any other result with the same likelihood ratio. The distinction between positive and negative is epistemically irrelevant; only the likelihood function matters.
+\end{proposition}
+
+\section{Implications for Scientific Infrastructure Design}
+
+The mathematical framework points to specific features that a replication-resistant scientific infrastructure should possess.
+
+The system should accept submissions that consist of the evidence operator alone, without requiring a narrative claim about what the operator ``proves.''
+
+The system should record negative results with the same fidelity as positive ones, so that the accumulated constraint network is complete.
+
+The system should provide meta-analytic tools that aggregate operators across studies, computing the posterior distribution $P(H \mid \Rset)$ for any specified prior.
+
+These requirements are not merely social; they are mathematical necessities for robust inference from a distributed constraint network.
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Describe the evidence operator $C_o$ for a null hypothesis significance test that fails to reject the null at $\alpha = 0.05$. Which hypotheses does it eliminate?
+  \item Show that the cumulative evidence operator $C_{\Rset} = C_{o_k} \circ \cdots \circ C_{o_1}$ is commutative: the order of observations does not affect the accumulated constraint space.
+  \item Propose a formal representation format for evidence operators that would allow automatic aggregation across independent studies.
+\end{enumerate}

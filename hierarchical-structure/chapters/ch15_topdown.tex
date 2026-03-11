@@ -1,0 +1,92 @@
+% chapters/ch15_topdown.tex
+\chapter{Top-Down Recursive Partitioning}
+\label{ch:topdown}
+
+\epigraph{%
+  Divide until you can divide no further. Then stop.%
+}{\textit{---Flyxion}}
+
+This chapter details the algorithmic engine that builds the partial HC tree: the top-down recursive partitioning procedure. Starting from the full leaf set, the algorithm repeatedly identifies the correct top-level split of the current cluster by aggregating oracle responses over many sampled triplets, recurses on each half, and terminates by collapsing clusters below the $c\log n$ threshold into super-vertices. We prove the split identification theorem: for any cluster of size $\geq c\log n$, the correct partition is identified with high probability using $O(|S|^2 \log n)$ oracle queries. We then derive the total query count by summing over all levels of the recursion tree, establishing the $O(n^2 \polylog n)$ and $O(n^3)$ bounds that appear in the main results.
+
+%% ── Figure: recursive partition flow ────────────────────────
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw=nodeblue!60, fill=nodeblue!10, rounded corners=4pt,
+              minimum width=2.4cm, minimum height=0.7cm, font=\small, align=center},
+  sbox/.style={draw=supercolor!70, fill=supercolor!10, rounded corners=4pt,
+               minimum width=1.4cm, minimum height=0.7cm, font=\small},
+  arr/.style={->, >=stealth, thick, draw=nodegray!70},
+  label/.style={font=\footnotesize\itshape, nodegray}
+]
+% Level 0
+\node[box] (all) {$V$, $|V|=n$};
+\node[label, right=0.2cm of all] {oracle splits};
+
+% Level 1
+\node[box, below left=1.2cm and 1.4cm of all]  (L1) {$A_1$, $|A_1|\approx n/2$};
+\node[box, below right=1.2cm and 1.4cm of all] (R1) {$B_1$, $|B_1|\approx n/2$};
+\draw[arr] (all) -- (L1);
+\draw[arr] (all) -- (R1);
+
+% Level 2
+\node[box, below left=1.0cm and 0.8cm of L1, minimum width=1.8cm] (LL) {$A_2$};
+\node[box, below right=1.0cm and 0.8cm of L1, minimum width=1.8cm] (LR) {$B_2$};
+\node[box, below left=1.0cm and 0.8cm of R1, minimum width=1.8cm] (RL) {$C_2$};
+\node[box, below right=1.0cm and 0.8cm of R1, minimum width=1.8cm] (RR) {$D_2$};
+\draw[arr] (L1)--(LL); \draw[arr] (L1)--(LR);
+\draw[arr] (R1)--(RL); \draw[arr] (R1)--(RR);
+
+% Level 3: super-vertices (threshold reached)
+\node[sbox, below=0.9cm of LL] (sv1) {$S_1$};
+\node[sbox, below=0.9cm of LR] (sv2) {$S_2$};
+\node[sbox, below=0.9cm of RL] (sv3) {$S_3$};
+\node[sbox, below=0.9cm of RR] (sv4) {$S_4$};
+\draw[arr, draw=supercolor!60] (LL)--(sv1);
+\draw[arr, draw=supercolor!60] (LR)--(sv2);
+\draw[arr, draw=supercolor!60] (RL)--(sv3);
+\draw[arr, draw=supercolor!60] (RR)--(sv4);
+
+% Threshold annotation
+\draw[dashed, nodered!60] (-4.5,-4.2) -- (5.5,-4.2);
+\node[font=\footnotesize, nodered!70, right] at (5.5,-4.1)
+  {$|S|\le c\log n$};
+\node[font=\footnotesize, nodered!70, right] at (5.5,-4.4)
+  {collapse to super-vertex};
+\end{tikzpicture}
+\caption{Recursive top-down partitioning. Each cluster is split by querying the oracle on sampled triplets. The recursion terminates when a cluster reaches size $\leq c\log n$, at which point it is collapsed into a super-vertex (orange boxes). The recursion depth is $O(\log n)$; the total work is dominated by the per-level oracle query cost.}
+\label{fig:recursive_partition}
+\end{figure}
+
+\section{The Recursive Structure}
+
+At each level, the current cluster $S$ is split into two subclusters by querying the oracle on triplets drawn from $S$ and aggregating the responses.
+
+\begin{definition}[Correct split]
+A partition $S = A \sqcup B$ is \emph{correct} if it matches the top-level partition induced by $T^*$ restricted to $S$.
+\end{definition}
+
+\section{Identifying the Split from Oracle Queries}
+
+Fix a pivot $u \in S$ and query $(u, v, w)$ for sampled pairs $v, w \in S \setminus \{u\}$. Each query reveals whether $v$ and $w$ are on the same side of the split, and aggregating $O(|S|^2 \log n)$ queries identifies the correct partition with high probability.
+
+\begin{theorem}[Split identification]
+\label{thm:split_id}
+For any cluster $S$ with $|S| \geq c\log n$, after $O(|S|^2 \log n)$ oracle queries (with $m = O(\log n/(p-1/2)^2)$ repetitions each), the correct top-level split is identified with probability $\geq 1 - n^{-3}$.
+\end{theorem}
+
+\section{Recursion and Total Query Count}
+
+The recursion terminates at depth $O(\log n)$. At each level, clusters have total size $n$, and each cluster of size $k$ uses $O(k^2 \log n)$ queries. The total is
+\[
+T_q(n) = O(n^2 \log^2 n)
+\]
+for the efficient variant, and $O(n^3)$ for the Dasgupta-objective algorithm.
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Solve the recursion $T(n) \leq 2T(n/2) + cn^2\log n$ and compute the total.
+  \item Why is it critical that splits reduce cluster sizes by a constant factor at each level?
+  \item Describe how the pivot strategy can be made adaptive to minimize query count.
+\end{enumerate}

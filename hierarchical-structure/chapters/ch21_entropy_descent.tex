@@ -1,0 +1,82 @@
+% chapters/ch21_entropy_descent.tex
+\chapter{Entropy Descent on Tree Space}
+\label{ch:entropy_descent}
+
+\epigraph{%
+  Certainty is what remains when all alternatives have been eliminated.%
+}{\textit{---Flyxion}}
+
+This chapter returns to the information-theoretic perspective introduced in Chapter~\ref{ch:entropy} with the full algebraic formalism now in place. The residual hypothesis set $\mathcal{T}_n^{\mathcal{R}_t}$ shrinks monotonically as triplet observations accumulate, and its logarithm $H_t = \log|\mathcal{T}_n^{\mathcal{R}_t}|$ is a non-increasing entropy sequence that reaches zero exactly when reconstruction is complete. We compute the initial entropy $H_0 \sim n\log n$, derive the per-step reduction under the ideal strategy, and show that the partial HC tree construction drives entropy from $\Theta(n\log n)$ down to $O(n\log\log n)$---a nearly complete resolution. The residual entropy is concentrated in the super-vertices, each contributing $O(|S_\mathbf{v}|\log|S_\mathbf{v}|)$ bits, and their small sizes make the total residual negligible.
+
+%% ── Figure: hypothesis space landscape shrinking ─────────────
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.9]
+% Draw three "landscape" stages
+\foreach \stage/\xoff/\ncircles/\clr/\label in {
+  0/0/12/nodeblue!40/{$t=0$: $H_0 \sim n\log n$},
+  1/4.8/7/nodeblue!55/{$t=t_1$: $H_{t_1}$ reduced},
+  2/9.6/1/nodegreen!60/{$t=T$: $H_T=0$}
+} {
+  \draw[draw=nodegray!40, rounded corners=5pt]
+    (\xoff-0.3,-0.4) rectangle (\xoff+3.6, 3.2);
+  \node[font=\footnotesize, below] at (\xoff+1.65, -0.55) {\label};
+  % Random circles representing trees in hypothesis space
+  \pgfmathsetseed{\stage*42+7}
+}
+% Manual circles for stage 0 (many)
+\foreach \x/\y in {0.2/2.5, 0.9/2.7, 1.6/2.5, 2.4/2.6, 3.0/2.5,
+                    0.1/1.8, 0.7/1.9, 1.4/2.0, 2.1/1.8, 2.8/1.9,
+                    0.3/1.1, 1.1/1.2, 1.8/1.0, 2.5/1.1,
+                    0.5/0.4, 1.5/0.4, 2.5/0.3} {
+  \node[ghostnode, minimum size=4mm] at (\x,\y) {};
+}
+% Stage 1 (fewer)
+\foreach \x/\y in {5.1/2.5, 5.9/2.6, 6.8/2.5, 7.5/2.6,
+                    5.2/1.6, 6.1/1.7, 7.2/1.6,
+                    5.8/0.7} {
+  \node[ghostnode, minimum size=4mm] at (\x,\y) {};
+}
+% Stage 2 (one)
+\node[treenode, minimum size=6mm] at (10.8, 1.5) {};
+
+% Arrows between stages
+\draw[->, >=stealth, nodeblue!60, thick] (3.5, 1.4) -- (4.6, 1.4)
+  node[above, font=\tiny, midway] {constraints};
+\draw[->, >=stealth, nodeblue!60, thick] (8.3, 1.4) -- (9.4, 1.4)
+  node[above, font=\tiny, midway] {more};
+\end{tikzpicture}
+\caption{The hypothesis space at three stages of the oracle algorithm. Initially all tree topologies are viable. As triplet constraints accumulate, the feasible set shrinks monotonically. When a single topology remains, reconstruction is complete and $H_t = 0$.}
+\label{fig:hypothesis_landscape}
+\end{figure}
+
+\section{Residual Tree Set and Combinatorial Entropy}
+
+\begin{definition}[Residual tree set]
+Let $\mathcal{R}_t = \{r_1, \ldots, r_t\}$ be the observed triplet relations. The \emph{residual tree set} is
+\[
+\mathcal{T}_n^{\mathcal{R}_t} = \{T \in \mathcal{T}_n : T \models r_i \text{ for all } i \leq t\}, \qquad H_t = \log |\mathcal{T}_n^{\mathcal{R}_t}|.
+\]
+\end{definition}
+
+By Proposition~\ref{prop:entropy_descent}, $H_t$ is non-increasing.
+
+\section{Entropy in the Partial HC Tree}
+
+\begin{proposition}
+At the conclusion of the partial HC tree construction, the total residual entropy is
+\[
+H_t = \sum_{\text{super-vertices } \mathbf{v}} O(|S_\mathbf{v}|\log|S_\mathbf{v}|) = O(n\log\log n),
+\]
+since each $|S_\mathbf{v}| = O(\log n)$ and $\sum_\mathbf{v}|S_\mathbf{v}| = n$.
+\end{proposition}
+
+This shows the algorithm drives entropy from $\Theta(n\log n)$ to $O(n\log\log n)$: a nearly complete resolution.
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Compute the entropy remaining in a partial HC tree where all super-vertices have size exactly $c\log n$.
+  \item Show $k$ independent maximally informative triplet queries drive entropy to $H_0 - k\log(3/2)$.
+  \item Discuss why $O(n\log n / \log(3/2))$ queries are both necessary and sufficient for reconstruction.
+\end{enumerate}

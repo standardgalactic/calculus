@@ -1,0 +1,105 @@
+% chapters/ch07_dendrograms.tex
+\chapter{Hierarchical Clustering as a Branching Object}
+\label{ch:dendrograms}
+
+\epigraph{%
+  A dendrogram is a hypothesis about the history of similarity.%
+}{\textit{---Flyxion}}
+
+This chapter introduces dendrograms---the primary data structure of hierarchical clustering---and shows how they can be interpreted both combinatorially, as laminar families of subsets, and geometrically, as ultrametric spaces. The key object is the merge height: the value attached to each internal node of a dendrogram that records the scale at which two clusters merged. Reading the dendrogram at a fixed height threshold produces a flat clustering; varying the threshold produces the full hierarchy. We present two classical algorithms for constructing dendrograms---agglomerative (bottom-up) and divisive (top-down)---and note that neither optimizes any explicitly stated global objective. This motivates the formal objectives introduced in Chapter~\ref{ch:objectives} and the oracle-augmented methods of Part~IV. The visual comparison between a dendrogram and its corresponding ultrametric distance matrix---shown side by side in Figure~\ref{fig:dendrogram_matrix}---illustrates concretely the equivalence proved in Appendix~\ref{app:ultrametric_equiv}.
+
+%% ── Figure: dendrogram with merge heights and matrix ─────────
+\begin{figure}[ht]
+\centering
+% Dendrogram
+\begin{tikzpicture}[scale=0.95]
+% leaves at y=0
+\foreach \x/\lbl in {0/A, 1/B, 2.3/C, 3.3/D} {
+  \node[leafnode, label=below:{\small $\lbl$}] (\lbl) at (\x, 0) {};
+}
+% internal node AB at height 1
+\node[internalnode, label=left:{\footnotesize $h=1$}] (AB) at (0.5, 1.2) {};
+\draw[treeedge] (AB) -- (A);  \draw[treeedge] (AB) -- (B);
+
+% internal node CD at height 1.5
+\node[internalnode, label=right:{\footnotesize $h=1.5$}] (CD) at (2.8, 1.6) {};
+\draw[treeedge] (CD) -- (C);  \draw[treeedge] (CD) -- (D);
+
+% root at height 3
+\node[internalnode, label=left:{\footnotesize $h=3$}] (R) at (1.65, 3.0) {};
+\draw[treeedge] (R) -- (AB); \draw[treeedge] (R) -- (CD);
+
+% height axis
+\draw[dashed, nodegray!50] (-0.4, 1.2) -- (0.3, 1.2);
+\draw[dashed, nodegray!50] (-0.4, 1.6) -- (0.3, 1.6);  % approximate
+\draw[dashed, nodegray!50] (-0.4, 3.0) -- (0.3, 3.0);
+\draw[->, >=stealth, nodegray!70] (-0.5, 0) -- (-0.5, 3.4)
+  node[above, font=\tiny] {height};
+\end{tikzpicture}
+\hspace{1.8cm}
+% Ultrametric distance matrix
+\begin{tikzpicture}[scale=0.95]
+\node[font=\small, above] at (2,3.4) {Ultrametric distance matrix $d_T$};
+% Grid
+\foreach \i/\lbl in {0/A, 1/B, 2/C, 3/D} {
+  \node[font=\small] at (-0.4, 2.8-\i*0.75) {\lbl};
+  \node[font=\small] at (0.6+\i*0.85, 3.1)  {\lbl};
+}
+% Fill cells
+\foreach \row/\col/\val/\clr in {
+  0/0/0/nodegray!5,    1/0/1/nodegreen!25, 2/0/3/nodeblue!20, 3/0/3/nodeblue!20,
+  0/1/1/nodegreen!25, 1/1/0/nodegray!5, 2/1/3/nodeblue!20, 3/1/3/nodeblue!20,
+  0/2/3/nodeblue!20, 1/2/3/nodeblue!20, 2/2/0/nodegray!5, 3/2/1.5/nodered!20,
+  0/3/3/nodeblue!20, 1/3/3/nodeblue!20, 2/3/1.5/nodered!20, 3/3/0/nodegray!5
+} {
+  \fill[\clr] (0.2+\col*0.85, 2.5-\row*0.75) rectangle (0.95+\col*0.85, 3.1-\row*0.75);
+  \draw[nodegray!40] (0.2+\col*0.85, 2.5-\row*0.75) rectangle (0.95+\col*0.85, 3.1-\row*0.75);
+  \node[font=\footnotesize] at (0.575+\col*0.85, 2.8-\row*0.75) {\val};
+}
+\node[font=\footnotesize, nodegreen!80, below] at (0.9, -0.1) {merge at $h=1$};
+\node[font=\footnotesize, nodered!80, below] at (2.9, -0.5) {merge at $h=1.5$};
+\node[font=\footnotesize, nodeblue!80, below] at (2.0, -0.9) {merge at $h=3$};
+\end{tikzpicture}
+\caption{A dendrogram on four leaves (left) and its corresponding ultrametric distance matrix (right). Each internal node at height $h$ contributes the value $h$ to the distance between any pair of leaves whose LCA it is. The matrix encodes exactly the same information as the tree.}
+\label{fig:dendrogram_matrix}
+\end{figure}
+
+\section{Dendrograms and Laminar Families}
+
+\begin{definition}[Dendrogram]
+A \emph{dendrogram} over a ground set $V$ is a rooted binary tree $T$ with $L(T) = V$ equipped with a node height function $h : V(T) \to \mathbb{R}_{\geq 0}$.
+\end{definition}
+
+The height function encodes the scale at which clusters merge. Reading the tree at threshold $\theta$ produces a flat clustering.
+
+\begin{definition}[Horizontal cut]
+For a dendrogram $T$ and threshold $\theta \geq 0$, the \emph{$\theta$-cut clustering} partitions $V$ into parts that are maximal subtrees whose root has height $\leq \theta$.
+\end{definition}
+
+\begin{proposition}
+The collection of all parts of all $\theta$-cut clusterings forms a laminar family on $V$.
+\end{proposition}
+
+\section{Cluster Merges and the UPGMA Algorithm}
+
+\begin{algorithm}[UPGMA / Average-linkage]
+\label{alg:upgma}
+\textbf{Input}: Similarity matrix $w_{ij}$.
+\textbf{Initialize}: Clusters $\mathcal{C} = \{\{i\} : i \in V\}$.
+\textbf{Repeat} until $|\mathcal{C}| = 1$: find $A, B \in \mathcal{C}$ maximizing average inter-cluster similarity, merge into $A \cup B$ at height $h = \bar{w}(A,B)$, update $\mathcal{C}$.
+\textbf{Output}: the sequence of merge events defines a dendrogram $T$.
+\end{algorithm}
+
+UPGMA runs in $O(n^2 \log n)$ but does not optimize any global objective.
+
+\section{Divisive Clustering}
+
+Divisive methods begin with the full dataset and recursively partition it. The splitting oracle model (Part~IV) provides a principled way to perform the partition step using external information.
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Given $w(1,2)=5$, $w(1,3)=3$, $w(2,3)=4$, apply UPGMA and draw the resulting dendrogram.
+  \item Show that single and complete linkage can produce different dendrograms on the same similarity matrix by exhibiting an example on four points.
+  \item From the dendrogram in Figure~\ref{fig:dendrogram_matrix}, read off the flat clustering at threshold $\theta = 2$.
+\end{enumerate}

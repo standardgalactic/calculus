@@ -1,0 +1,127 @@
+% chapters/ch04_entropy.tex
+\chapter{Entropy and Information Theory}
+\label{ch:entropy}
+
+\epigraph{%
+  Information is not what you know. It is what you did not know before.%
+}{\textit{---Flyxion}}
+
+This chapter develops the information-theoretic language that frames the entire reconstruction enterprise. The central object is Shannon entropy, which measures the uncertainty of a probability distribution and therefore quantifies the difficulty of the inference problem at any stage of the algorithm~\cite{Cover2006}. We begin with the entropy of the uniform distribution over tree topologies---the initial uncertainty before any observations are made---and derive how each triplet observation reduces this entropy. The key monotonicity result, Proposition~\ref{prop:entropy_descent}, shows that entropy can only decrease as constraints accumulate: observations never increase uncertainty, though some may be redundant. We then derive a lower bound on the total number of queries needed for reconstruction, establishing that the algorithm's query complexity is fundamentally information-theoretically optimal up to logarithmic factors. The chapter closes with mutual information and KL divergence, tools that will reappear in the variational reformulation of tree inference in Appendix~\ref{app:variational}.
+
+%% ── Figure: entropy descent ─────────────────────────────────
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=10cm, height=5.5cm,
+  xlabel={Observation index $t$},
+  ylabel={Residual entropy $H_t$ (bits)},
+  xmin=0, xmax=50,
+  ymin=0, ymax=42,
+  xtick={0,10,20,30,40,50},
+  grid=major, grid style={draw=nodegray!30},
+  legend pos=north east,
+  legend style={font=\small},
+  thick
+]
+% Ideal descent: H_t = H_0 * (2/3)^t, H_0 = n log n ≈ 40 for n=10
+\addplot[blue!70!black, thick, domain=0:50, samples=51]
+  {40 * (0.585)^(x/3)};
+\addlegendentry{ideal: $H_t = H_0 \cdot (2/3)^t$}
+
+% More realistic: slower descent with plateaus
+\addplot[red!70!black, thick, mark=*, mark size=1.2pt,
+  mark options={fill=red!70!black}, only marks]
+  coordinates {
+    (0,40) (2,38.5) (4,36.8) (7,34.2) (10,31.5)
+    (14,27.8) (18,23.4) (23,18.2) (29,12.5)
+    (36,6.8) (42,2.9) (48,0.8) (50,0)
+  };
+\addlegendentry{typical oracle run}
+
+\draw[dashed, gray!60] (axis cs:0,0) -- (axis cs:50,0)
+  node[right, font=\footnotesize] {$H=0$};
+\node[font=\footnotesize, nodeblue] at (axis cs:30,22)
+  {reconstruction complete};
+\end{axis}
+\end{tikzpicture}
+\caption{Entropy of the hypothesis space $H_t = \log|\mathcal{T}_n^{\mathcal{R}_t}|$ as a function of the number of triplet observations. Each observation reduces $H_t$ monotonically. The ideal curve assumes each triplet eliminates exactly $2/3$ of remaining trees; the dotted points show a typical oracle run with variable information gain per query.}
+\label{fig:entropy_descent}
+\end{figure}
+
+\section{Shannon Entropy}
+
+\begin{definition}[Shannon entropy]
+Let $X$ be a discrete random variable on a finite set $\mathcal{X}$ with mass function $P(x)$. The \emph{Shannon entropy} is
+\[
+H(X) = -\sum_{x \in \mathcal{X}} P(x) \log P(x),
+\]
+with convention $0 \log 0 = 0$. Logarithms are in base 2 unless noted.
+\end{definition}
+
+\begin{proposition}[Bounds on entropy]
+For $|\mathcal{X}| = k$: (1) $H(X) \geq 0$, with equality iff $X$ is deterministic; (2) $H(X) \leq \log k$, with equality iff $X$ is uniform.
+\end{proposition}
+
+\section{Joint Entropy, Conditional Entropy, and Mutual Information}
+
+\begin{definition}[Conditional entropy and mutual information]
+\[
+H(X \mid Y) = H(X, Y) - H(Y), \qquad I(X; Y) = H(X) - H(X \mid Y).
+\]
+\end{definition}
+
+\begin{proposition}
+$I(X;Y) \geq 0$, with equality iff $X$ and $Y$ are independent.
+\end{proposition}
+
+\section{Entropy as Uncertainty over Tree Topologies}
+
+Let $T$ be uniform over $\mathcal{T}_n$. Then
+\[
+H_0 := H(T) = \log |\mathcal{T}_n| \sim n \log n + O(n)
+\]
+by Corollary~\ref{cor:tree_entropy}. After observing $\mathcal{R}_t = \{r_1,\ldots,r_t\}$, the residual uncertainty is
+\[
+H_t = \log |\mathcal{T}_n^{\mathcal{R}_t}|.
+\]
+
+\begin{proposition}[Monotone entropy descent~{\cite{Cover2006}}]
+\label{prop:entropy_descent}
+$H_{t+1} \leq H_t$ for all $t \geq 0$.
+\end{proposition}
+
+\begin{proposition}[Information per triplet]
+\label{prop:info_per_triplet}
+Each consistent triplet observation eliminates approximately two-thirds of remaining trees, contributing approximately $\log(3/2) \approx 0.585$ bits of information under the uniform prior.
+\end{proposition}
+
+\section{Information-Theoretic Lower Bounds on Query Complexity}
+
+\begin{theorem}[Query complexity lower bound]
+\label{thm:query_lower_bound}
+Any algorithm that reconstructs the tree topology with high probability must make at least $\Omega(n \log n)$ queries to a noiseless triplet oracle.
+\end{theorem}
+
+\begin{proof}
+The total information to determine is $H_0 = \Theta(n \log n)$ bits. Each query reveals at most $\log 3 < 2$ bits. Therefore at least $H_0 / \log 3 = \Omega(n \log n)$ queries are required.
+\end{proof}
+
+\section{KL Divergence and Model Comparison}
+
+\begin{definition}[KL divergence]
+\[
+\mathrm{KL}(P \| Q) = \sum_x P(x) \log \frac{P(x)}{Q(x)}.
+\]
+\end{definition}
+
+$\mathrm{KL}(P\|Q) \geq 0$ with equality iff $P = Q$. KL divergence appears in the variational reformulation of tree inference (Appendix~\ref{app:variational}), where the inference objective decomposes into an expected log-likelihood and a KL regularization term.
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Compute $H(T)$ for $n = 4, 5, 6$ under the uniform distribution over rooted binary tree topologies.
+  \item Show that observing a consistent triplet reduces $H(T)$ by exactly $\log(3/2)$ bits when the prior is uniform and the three triplet relations are equally probable a priori.
+  \item Show that the total number of triplet queries sufficient for noiseless reconstruction is $O(n \log n)$ by arguing each query can be chosen to eliminate at least a constant fraction of remaining consistent trees.
+  \item Compute $\mathrm{KL}(P\|Q)$ when $P = \operatorname{Ber}(p)$ and $Q = \operatorname{Ber}(q)$, and show it is zero iff $p = q$.
+\end{enumerate}

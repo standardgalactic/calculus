@@ -1,0 +1,105 @@
+% chapters/ch09_triplets.tex
+\chapter{Rooted Triplets and Minimal Topology}
+\label{ch:triplets}
+
+\epigraph{%
+  Two points tell you a distance. Three points tell you a branch.%
+}{\textit{---Flyxion}}
+
+This chapter identifies the minimal unit of relational information capable of revealing hierarchical structure. A pair of leaves can be compared by their distance, but distance alone does not determine the branching order---two pairs at the same distance may sit in very different positions relative to the rest of the tree. Three leaves, by contrast, contain enough relational information to specify a branching event unambiguously: for any triple $\{u,v,w\}$, exactly one of the three pairs shares the deeper lowest common ancestor, and this determines the rooted triplet relation. We prove that the set of all triplet relations on $n$ leaves distinguishes any two distinct tree topologies, establish the consistency conditions for triplet sets, and show that pairwise distance information alone cannot always determine topology. The figure below makes the key point visually: three leaves admit exactly three branching configurations, and the oracle's job is to identify which one holds.
+
+%% ── Figure: three rooted triplet configurations ─────────────
+\begin{figure}[ht]
+\centering
+% Triplet (u,v)|w
+\begin{tikzpicture}[level distance=1.0cm,
+  level 1/.style={sibling distance=1.3cm},
+  edge from parent/.style={draw=nodeblue!60, thick}]
+\node[internalnode, scale=0.8] (r) {}
+  child { node[internalnode, scale=0.8] {}
+    child { node[leafnode, scale=0.85, label=below:{$u$}] {} }
+    child { node[leafnode, scale=0.85, label=below:{$v$}] {} }
+  }
+  child { node[leafnode, scale=0.85, label=below:{$w$}] {} };
+\node[font=\footnotesize, nodeblue!80, below] at (0,-2.1)
+  {$(u,v)\mid w$};
+\node[font=\tiny, nodegray, below] at (0,-2.55)
+  {$\mathrm{LCA}(u,v)$ deeper};
+\end{tikzpicture}
+\hspace{1.0cm}
+% Triplet (u,w)|v
+\begin{tikzpicture}[level distance=1.0cm,
+  level 1/.style={sibling distance=1.3cm},
+  edge from parent/.style={draw=nodegreen!60, thick}]
+\node[internalnode, scale=0.8] {}
+  child { node[internalnode, scale=0.8] {}
+    child { node[leafnode, scale=0.85, label=below:{$u$}] {} }
+    child { node[leafnode, scale=0.85, label=below:{$w$}] {} }
+  }
+  child { node[leafnode, scale=0.85, label=below:{$v$}] {} };
+\node[font=\footnotesize, nodegreen!80, below] at (0,-2.1)
+  {$(u,w)\mid v$};
+\node[font=\tiny, nodegray, below] at (0,-2.55)
+  {$\mathrm{LCA}(u,w)$ deeper};
+\end{tikzpicture}
+\hspace{1.0cm}
+% Triplet (v,w)|u
+\begin{tikzpicture}[level distance=1.0cm,
+  level 1/.style={sibling distance=1.3cm},
+  edge from parent/.style={draw=nodered!60, thick}]
+\node[internalnode, scale=0.8] {}
+  child { node[leafnode, scale=0.85, label=below:{$u$}] {} }
+  child { node[internalnode, scale=0.8] {}
+    child { node[leafnode, scale=0.85, label=below:{$v$}] {} }
+    child { node[leafnode, scale=0.85, label=below:{$w$}] {} }
+  };
+\node[font=\footnotesize, nodered!80, below] at (0,-2.1)
+  {$(v,w)\mid u$};
+\node[font=\tiny, nodegray, below] at (0,-2.55)
+  {$\mathrm{LCA}(v,w)$ deeper};
+\end{tikzpicture}
+\caption{The three possible rooted triplet relations on leaves $\{u,v,w\}$. In each case exactly one pair shares the deeper LCA, which corresponds to the shorter ultrametric distance: $d(u,v) < d(u,w)=d(v,w)$ for $(u,v)\mid w$. Exactly one of these three configurations holds in any rooted binary tree.}
+\label{fig:triplet_configs}
+\end{figure}
+
+\section{Triplet Relations}
+
+\begin{definition}[Rooted triplet]
+For three distinct leaves $u, v, w$ in a rooted tree $T$, the \emph{rooted triplet relation} is
+\[
+(u,v) \mid w \quad \iff \quad \LCA_T(u,v) \text{ is a strict descendant of } \LCA_T(u,w).
+\]
+\end{definition}
+
+\begin{proposition}[Trichotomy]
+For any three distinct leaves $u, v, w$ in a rooted binary tree, exactly one of $(u,v)\mid w$, $(u,w)\mid v$, or $(v,w)\mid u$ holds.
+\end{proposition}
+
+\section{Why Three Leaves Suffice}
+
+\begin{proposition}[Pairwise distance is insufficient]
+The complete matrix of pairwise distances determines the tree topology if and only if all inter-leaf distances are distinct.
+\end{proposition}
+
+\begin{proposition}[Triplets determine topology]
+For any two distinct rooted binary trees $T_1 \neq T_2$ on the same leaf set, there exist three leaves $u,v,w$ such that the triplet relation on $\{u,v,w\}$ differs between $T_1$ and $T_2$.
+\end{proposition}
+
+\section{Triplet Consistency}
+
+\begin{definition}[Consistent triplet set]
+A set $\mathcal{R}$ of triplet relations is \emph{consistent} if there exists a rooted binary tree $T$ with $T \models r$ for all $r \in \mathcal{R}$.
+\end{definition}
+
+\begin{proposition}[Incompatible triplets]
+The triplets $(1,2)\mid 3$ and $(1,3)\mid 2$ and $(2,3)\mid 1$ on three leaves are mutually incompatible.
+\end{proposition}
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item List all rooted triplet relations for the tree on four leaves where $\LCA(1,2)$ is at depth 2 and $\LCA(3,4)$ is at depth 2 and the root is at depth 1.
+  \item Show that a triplet set containing all three relations on some triple is inconsistent.
+  \item Describe an efficient algorithm for checking whether a given triplet set is consistent, and state its time complexity.
+  \item Give an example of a pairwise distance matrix on four points that is consistent with two different rooted binary tree topologies, demonstrating that pairwise distances alone are insufficient.
+\end{enumerate}

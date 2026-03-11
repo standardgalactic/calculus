@@ -1,0 +1,72 @@
+% chapters/ch22_constraint_prop.tex
+\chapter{Constraint Propagation and Sparse Inference}
+\label{ch:constraint_prop}
+
+\epigraph{%
+  Local constraints speak globally through the language of consistency.%
+}{\textit{---Flyxion}}
+
+This chapter formalizes the mechanism by which local triplet observations determine global tree structure. A triplet observation concerns only three leaves, yet it constrains the relative placement of every other leaf---because any consistent tree must extend the local branching decision globally. We formalize this as constraint propagation in a network: the nodes are the $\binom{n}{3}$ possible triplets, and the edges represent logical implications (if this triplet relation holds, those relations must hold). Sufficiently many observations create a propagation cascade that determines the entire topology. We connect this mechanism to sparse inference in graphical models and to the broader principle of RSVP-style constraint propagation: local compatibility conditions, accumulated densely enough, drive an entropy descent toward a unique global structure~\cite{Semple2003}.
+
+%% ── Figure: constraint propagation network ──────────────────
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.0,
+  cnode/.style={circle, draw=constraintblue!70, fill=constraintblue!15,
+                minimum size=8mm, font=\footnotesize}]
+% Leaves
+\foreach \lbl/\x/\y in {A/0/0, B/1.5/0, C/3/0, D/1.5/2.2, E/0.75/3.8} {
+  \node[leafnode] (\lbl) at (\x,\y) {\small$\lbl$};
+}
+% Triplet constraint nodes (edges between leaves = inferred relations)
+\draw[constraintblue!50, thick] (A)--(B)
+  node[midway, below, font=\tiny] {$(A,B)|C$};
+\draw[constraintblue!50, thick] (B)--(C)
+  node[midway, below, font=\tiny] {$(B,C)|A$};
+\draw[constraintblue!40, dashed, thick] (A)--(D)
+  node[midway, left, font=\tiny] {implied};
+\draw[constraintblue!40, dashed, thick] (C)--(D)
+  node[midway, right, font=\tiny] {implied};
+\draw[nodegreen!60, thick, ->] (D)--(E)
+  node[midway, right, font=\tiny, nodegreen!70] {propagates};
+
+% Annotation
+\node[font=\small, below] at (1.5,-0.8)
+  {Two observed triplet relations (solid)};
+\node[font=\small, below] at (1.5,-1.2)
+  {propagate to constrain the whole tree (dashed)};
+\end{tikzpicture}
+\caption{Local triplet observations (solid edges) propagate through the consistency network to constrain distant branching events (dashed edges). The directed arrow to $E$ indicates that the observed relations, combined with consistency requirements, restrict where $E$ can be placed in any consistent tree topology.}
+\label{fig:constraint_propagation}
+\end{figure}
+
+\section{Sparse Inference as Constraint Satisfaction}
+
+\begin{definition}[Maximum consistency inference]
+Given observed triplet set $\mathcal{R}$ and noisy oracle responses, the \emph{maximum consistency tree} is
+\[
+\widehat{T} = \argmax_{T \in \mathcal{T}_n} \sum_{r \in \mathcal{R}} \mathbf{1}[T \models r]
+= \argmax_T \log P(T) + \sum_{r \in \mathcal{R}} \log P(r \mid T).
+\]
+\end{definition}
+
+\section{Constraint Propagation Bound}
+
+\begin{theorem}
+Let $\mathcal{R}$ be a consistent set of $k$ triplet observations. Under the uniform prior and maximally informative query strategy,
+\[
+|\mathcal{T}_n^{\mathcal{R}}| \leq |\mathcal{T}_n| \cdot (2/3)^k.
+\]
+\end{theorem}
+
+\section{Connection to Field Theories}
+
+The propagation mechanism described here---local observations determining global structure through consistency---is structurally analogous to constraint propagation in field theories such as the RSVP framework, where local gradient constraints propagate through a scalar field to determine global thermodynamic structure. Both are systems in which local compatibility constraints, accumulated in sufficient density, drive entropy descent toward a unique macroscopic configuration.
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Formalize: how many other triplet relations does a single triplet observation imply, as a function of $n$?
+  \item Show the maximum consistency inference problem is NP-hard in general but tractable under the noisy oracle model.
+  \item Describe the analogy between the constraint propagation algorithm and belief propagation in graphical models.
+\end{enumerate}

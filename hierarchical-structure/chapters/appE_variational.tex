@@ -1,0 +1,45 @@
+\chapter{Bayesian and Variational Reformulations}
+\label{app:variational}
+
+\section{Full Posterior over Tree Metrics}
+
+The complete Bayesian model for hierarchical reconstruction is:
+\[
+P(T \mid \Rset) \propto P(T) \prod_{r \in \Rset} P(r \mid T),
+\]
+where $P(T)$ is the prior over tree topologies and $P(r \mid T) = p \cdot \mathbf{1}[T \models r] + (1-p)/2 \cdot \mathbf{1}[T \not\models r]$.
+
+\section{Free Energy and ELBO}
+
+\begin{theorem}
+For any distribution $Q$ over $\Tree_n$,
+\[
+\log P(\Rset) \geq \mathbb{E}_Q[\log P(\Rset \mid T)] - \KL(Q \| P(T)).
+\]
+Equality holds when $Q = P(T \mid \Rset)$.
+\end{theorem}
+
+\begin{proof}
+\begin{align*}
+\log P(\Rset) &= \log \mathbb{E}_{P(T)}\!\left[P(\Rset \mid T)\right] \\
+&= \log \mathbb{E}_{Q}\!\left[\frac{P(\Rset \mid T) P(T)}{Q(T)}\right] \\
+&\geq \mathbb{E}_Q\!\left[\log \frac{P(\Rset \mid T) P(T)}{Q(T)}\right] \quad \text{(Jensen's inequality)} \\
+&= \mathbb{E}_Q[\log P(\Rset \mid T)] + \mathbb{E}_Q\!\left[\log \frac{P(T)}{Q(T)}\right] \\
+&= \mathbb{E}_Q[\log P(\Rset \mid T)] - \KL(Q \| P(T)).
+\end{align*}
+\end{proof}
+
+\section{Connection to the Partial HC Tree}
+
+The partial HC tree corresponds approximately to the MAP estimate of $P(T \mid \Rset)$: the tree of highest posterior probability given the oracle observations. The super-vertices represent regions where the posterior is locally diffuse -- where the evidence does not strongly favor any particular sub-topology -- so the MAP estimate collapses them.
+
+\section{Stochastic Variational Inference for Trees}
+
+A full variational inference scheme would parameterize $Q$ as a distribution over tree topologies and optimize $\mathcal{F}(Q)$ by gradient methods. For trees this is technically challenging due to the discrete, combinatorial nature of the space. Current approaches include:
+\begin{itemize}
+  \item \emph{Mean-field approximations}: factorize $Q$ over independent edge or node assignments.
+  \item \emph{Sampling-based methods}: approximate the ELBO gradient by Monte Carlo sampling from $Q$.
+  \item \emph{Structured variational families}: exploit the laminar structure of dendrograms to define tractable distributions.
+\end{itemize}
+
+The partial HC tree algorithm can be understood as a deterministic approximation to the variational inference problem, in which the oracle evidence is used to greedily maximize the ELBO at each level of the recursion.

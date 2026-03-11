@@ -1,0 +1,92 @@
+% chapters/ch01_orientation.tex
+\chapter{The Problem of Latent Hierarchy}
+\label{ch:orientation}
+
+\epigraph{%
+  Nature does not organize itself in lists.
+  It organizes itself in trees.%
+}{\textit{---Flyxion}}
+
+This opening chapter situates the central problem of the textbook within the broadest possible scientific context. We begin not with definitions but with a question that any careful observer of natural systems must eventually confront: given only pairwise or local measurements of similarity, how does one recover the branching structure that produced those measurements? The chapter surveys the landscape of systems in which this problem arises---from phylogenetics to linguistics to social organization---and then introduces the conceptual pipeline that the entire book will formalize. Observations become local constraints, constraints accumulate into a network, and the network drives an entropy descent toward the unique hierarchical structure consistent with all the evidence. No formal definitions appear here; those begin in Chapter~\ref{ch:discrete}. The purpose of this chapter is to build the reader's intuition for why the problem is deep, why it appears in so many domains, and why the learning-augmented framework developed in Parts~III through~V represents a genuine advance over classical approaches.
+
+% ── Conceptual pipeline diagram ──────────────────────────────
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  node distance=1.05cm,
+  box/.style={rectangle, rounded corners=5pt, draw=nodeblue!70, fill=nodeblue!10,
+              minimum width=4.5cm, minimum height=0.85cm, font=\small, align=center},
+  arr/.style={->, >=stealth, thick, draw=nodeblue!60},
+  ann/.style={font=\footnotesize\itshape, text=nodegray, align=left}
+]
+\node[box] (obs)  {Local observations\\(pairwise similarities)};
+\node[box, below=of obs] (con)  {Triplet constraints $r_t = (u,v)\mid w$};
+\node[box, below=of con] (net)  {Constraint network $\mathcal{R}_t$};
+\node[box, below=of net] (ent)  {Entropy descent $H_{t+1} \le H_t$};
+\node[box, below=of ent] (str)  {Hierarchical structure $\widehat{T}\approx T^*$};
+
+\draw[arr] (obs) -- (con);
+\draw[arr] (con) -- (net);
+\draw[arr] (net) -- (ent);
+\draw[arr] (ent) -- (str);
+
+\node[ann, right=0.6cm of net]
+  {$\mathcal{H}_{t+1} = \{H\in\mathcal{H}_t : H\models r_t\}$};
+\node[ann, left=0.6cm of ent, align=right]
+  {each step\\eliminates trees};
+\end{tikzpicture}
+\caption{The conceptual pipeline of the textbook. Each local observation
+ contributes a constraint that eliminates inconsistent tree topologies,
+ driving entropy monotonically downward until only the true hierarchy remains.}
+\label{fig:pipeline}
+\end{figure}
+
+\section{The Central Question}
+
+Many of the most important structures in science, language, and cognition are hierarchical. Biological species are organized by evolutionary branching. Lexical concepts form trees of semantic generality. Grammatical parse structures are rooted labeled trees over symbol sequences. Social organizations decompose into divisions, departments, and teams. Even the physical universe, at sufficiently large scales, exhibits a hierarchical clustering of matter into galaxies, clusters, and superclusters.
+
+What these phenomena share is that the hierarchy is latent. An observer typically cannot directly witness the branching events that produced the structure. Instead, they observe pairwise or local similarities among the objects at the leaves of the tree: genomic distances between species, semantic proximity between words, social connection strengths among individuals. The challenge is to infer the global branching structure from these local relational measurements.
+
+This textbook is an extended examination of that challenge. The central thesis is the following.
+
+\begin{quote}
+Hierarchical structure can be reconstructed from minimal relational information when those observations are consistent with a coherent constraint network. The reconstruction process is an instance of constraint-driven entropy reduction: each observation eliminates incompatible tree topologies, driving the residual uncertainty toward the true hierarchy.
+\end{quote}
+
+The primary technical vehicle is the study of hierarchical clustering algorithms, and in particular the learning-augmented framework in which a splitting oracle provides noisy triplet answers~\cite{Dasgupta2016,MoseleyWang2017}. The conceptual framework reaches further, connecting algorithmic theory to information geometry, Bayesian inference, and the epistemology of knowledge accumulation in scientific communities~\cite{Ioannidis2005,OpenScienceCollaboration2015}.
+
+\section{Examples of Latent Hierarchical Organization}
+
+Before introducing any formalism it is useful to survey the range of systems in which the problem arises.
+
+\subsection{Phylogenetics}
+
+In evolutionary biology, the taxa of interest are related by a branching history of speciation events. The hierarchy is the phylogenetic tree~\cite{Semple2003,Saitou1987}. It is not directly observable. What is observable is genomic sequence data, from which pairwise similarity scores or distance estimates can be computed.
+
+\subsection{Linguistic Hierarchies}
+
+Natural language exhibits hierarchical structure at multiple levels. Syntactic parse trees decompose sentences into phrases. Semantic hierarchies organize concepts from general to specific. In each case the hierarchy must be inferred from distributional evidence.
+
+\subsection{Cognitive Categories}
+
+Cognitive scientists have observed that human conceptual organization is approximately hierarchical. The concept ``dog'' is a subcategory of ``mammal,'' which is a subcategory of ``animal.'' This organization supports inference and knowledge transfer.
+
+\subsection{Social and Organizational Networks}
+
+In social networks, hierarchical community structure must be inferred from the edge structure. The resulting hierarchy is a model of the community decomposition at multiple resolutions.
+
+\section{The Role of Relational Observations}
+
+A key insight, developed in Chapter~\ref{ch:triplets}, is that pairwise distances are not the most efficient representation of hierarchical structure. Three objects in a hierarchy can be related in exactly three distinct ways, determined by which pair shares the lowest common ancestor. This triadic information is the minimal unit of evidence for branching order.
+
+A single triplet observation eliminates roughly two-thirds of the possible tree topologies on its three leaves. When many triplet observations are accumulated, the constraint network they define becomes sufficient to determine the entire tree uniquely.
+
+\section{The Learning-Augmented Perspective}
+
+Classical hierarchical clustering algorithms operate without external information. This leads to computational hardness results: optimizing natural objectives over all possible tree topologies is NP-hard under standard assumptions~\cite{Charikar2019,CohenAddad2019}.
+
+The learning-augmented framework allows access to a splitting oracle that answers noisy triplet queries. The remarkable result, which this textbook develops in full, is that such noisy oracle access is sufficient to break the classical computational barriers.
+
+\section{Overview of the Text}
+
+Part~I develops the mathematical prerequisites. Part~II introduces the core combinatorial and geometric objects. Part~III establishes the classical hardness setting. Parts~IV and~V introduce and analyze the learning-augmented algorithms. Parts~VI and~VII extend to streaming, parallel, and information-theoretic viewpoints. Part~VIII connects the framework to inference systems and the epistemology of science. The appendices provide complete proofs.

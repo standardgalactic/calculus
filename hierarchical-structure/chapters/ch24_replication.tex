@@ -1,0 +1,154 @@
+% chapters/ch24_replication.tex
+\chapter{The Replication Crisis as Constraint Distortion}
+\label{ch:replication}
+
+\epigraph{%
+  A scientific literature that systematically suppresses negative results
+  is a constraint network with missing edges.
+  The structure it implies is not the structure of nature.%
+}{\textit{---Flyxion}}
+
+This chapter applies the constraint accumulation framework to one of the most consequential problems in contemporary science: the replication crisis~\cite{Ioannidis2005,OpenScienceCollaboration2015}. We argue that the crisis is not merely a statistical pathology but a structural consequence of selection mechanisms that corrupt the constraint network from which scientific knowledge is inferred. The formalism is identical to that developed in Chapter~\ref{ch:constraints}: each experiment contributes a constraint operator on the hypothesis space, and accurate inference requires the full set of operators---including those from failed, null, or unexpected results. When selection mechanisms systematically suppress disconfirming operators, the accumulated constraint set becomes incomplete, and the hypothesis space it implies is inflated and biased. The analogy to the BUILD algorithm receiving only a biased subset of triplets---and converging to the wrong tree---is precise and predictive.
+
+%% ── Figure: scientific selection pipeline ───────────────────
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  stage/.style={draw=nodeblue!60, fill=nodeblue!10, rounded corners=4pt,
+                minimum width=2.2cm, minimum height=0.75cm, font=\small, align=center},
+  filter/.style={draw=nodered!60, fill=nodered!10, isosceles triangle,
+                 isosceles triangle apex angle=60, shape border rotate=-90,
+                 minimum height=0.6cm, font=\tiny, inner sep=1pt},
+  arr/.style={->, >=stealth, nodegray!70, thick}
+]
+% Pipeline stages
+\node[stage] (reality) at (0,0) {Reality\\$P_0(X)$};
+\node[stage] (expt) at (2.6,0) {Experiments};
+\node[stage] (analysis) at (5.2,0) {Analysis};
+\node[stage] (pub) at (7.8,0) {Publication};
+\node[stage] (lit) at (10.4,0) {Literature\\$P_k(X)$};
+
+\draw[arr] (reality)--(expt);
+\draw[arr] (expt)--(analysis);
+\draw[arr] (analysis)--(pub);
+\draw[arr] (pub)--(lit);
+
+% Selection filters below each arrow
+\foreach \x in {1.3, 3.9, 6.5, 9.1} {
+  \node[draw=nodered!60, fill=nodered!8, minimum width=0.8cm,
+        minimum height=0.5cm, rounded corners=2pt, font=\tiny]
+    at (\x,-1.1) {$S_i$};
+  \draw[nodered!50, dashed] (\x,-0.45) -- (\x,-0.88);
+}
+
+% Math annotation
+\node[font=\footnotesize, nodered!80, below] at (5.2, -1.65)
+  {$P_k(X) = \frac{S_k S_{k-1}\cdots S_1 P_0(X)}{Z}$};
+
+% Missing constraints annotation
+\draw[decorate, decoration={brace, amplitude=5pt, mirror}, nodegray!50]
+  (1.3,-1.4) -- (9.1,-1.4);
+\node[font=\footnotesize, nodegray, below] at (5.2,-1.9)
+  {each filter removes disconfirming observations};
+\end{tikzpicture}
+\caption{The scientific selection pipeline. Each stage---experiment design, analysis, peer review, editorial decisions---applies a selection function $S_i$ that may systematically favor statistically significant or confirmatory outcomes. The observed literature $P_k(X)$ is a distorted version of the true outcome distribution $P_0(X)$.}
+\label{fig:selection_pipeline}
+\end{figure}
+
+%% ── Figure: missing vs preserved constraints ─────────────────
+\begin{figure}[ht]
+\centering
+% Left: missing constraints
+\begin{tikzpicture}[scale=0.88,
+  cnode/.style={circle, draw=constraintblue!60, fill=constraintblue!10,
+                minimum size=6mm, font=\tiny}]
+\node[font=\small, above] at (1.5, 3.1) {With failures included};
+\foreach \n/\x/\y in {H1/0/2.5, H2/1.5/2.5, H3/3/2.5,
+                        H4/0/1.2, H5/1.5/1.2, H6/3/1.2} {
+  \node[cnode] (\n) at (\x,\y) {\n};
+}
+\foreach \a/\b in {H1/H2, H2/H3, H4/H5, H5/H6, H1/H4, H2/H5, H3/H6,
+                    H1/H5, H2/H4, H2/H6} {
+  \draw[constraintblue!50] (\a)--(\b);
+}
+\node[treenode, minimum size=5mm, nodegreen!60] (truth) at (1.5,0) {};
+\draw[->, nodegreen!60, thick] (1.5,0.85) -- (1.5,0.35)
+  node[right, font=\tiny] {converges};
+\end{tikzpicture}
+\hspace{0.8cm}
+% Right: with missing constraints
+\begin{tikzpicture}[scale=0.88,
+  cnode/.style={circle, draw=constraintblue!60, fill=constraintblue!10,
+                minimum size=6mm, font=\tiny}]
+\node[font=\small, above] at (1.5, 3.1) {Failures suppressed};
+\foreach \n/\x/\y in {H1/0/2.5, H2/1.5/2.5, H3/3/2.5,
+                        H4/0/1.2, H5/1.5/1.2, H6/3/1.2} {
+  \node[cnode] (\n) at (\x,\y) {\n};
+}
+% Only positive constraints shown
+\foreach \a/\b in {H1/H2, H2/H3, H1/H5, H2/H6} {
+  \draw[constraintblue!50] (\a)--(\b);
+}
+% Ghost constraints (missing)
+\foreach \a/\b in {H4/H5, H5/H6, H1/H4, H2/H5, H3/H6, H2/H4} {
+  \draw[nodegray!25, dashed] (\a)--(\b);
+}
+% Wrong convergence
+\node[treenode, minimum size=5mm, nodered!60] (wrong) at (1.5,0) {};
+\draw[->, nodered!60, thick] (1.5,0.85) -- (1.5,0.35)
+  node[right, font=\tiny] {wrong tree!};
+\end{tikzpicture}
+\caption{Left: when all experimental results are recorded---including failures (gray dashed edges)---the constraint network is dense and the hypothesis space collapses to the correct theory. Right: when failures are suppressed, the sparse constraint network is underdetermined, and inference converges to a hypothesis consistent with only the positive evidence---which may be far from the truth.}
+\label{fig:missing_constraints}
+\end{figure}
+
+\section{Selection as a Distribution Transformation}
+
+\begin{definition}[Selection mechanism]
+A \emph{selection mechanism} is $S : \mathcal{X} \to [0,1]$ assigning each outcome $x$ the probability of being reported. The \emph{selected distribution} is
+\[
+P_{\rm obs}(X) = \frac{S(X) P(X)}{\int S(x) P(x) \dd x}.
+\]
+\end{definition}
+
+\begin{proposition}[Selection bias is structural]
+Even when each individual experiment is unbiased, a selection mechanism correlated with the outcome produces a biased observed distribution.
+\end{proposition}
+
+\section{Statistical Power and the False Discovery Rate}
+
+Consider a research community testing many hypotheses, of which fraction $\pi_1$ are true. With significance threshold $\alpha$ and Type II error rate $\beta$, the false discovery rate among published results is
+\begin{equation}
+\label{eq:fdr}
+\FDR = \frac{\alpha \pi_0}{\alpha \pi_0 + (1-\beta)\pi_1}.
+\end{equation}
+
+\begin{proposition}[High FDR under low power~{\cite{Ioannidis2005}}]
+When $\pi_1 \ll 1$ and $1-\beta \approx \alpha$, $\FDR \approx \pi_0 \approx 1$: almost all published findings are false positives.
+\end{proposition}
+
+\section{Multiscale Selection}
+
+Scientific results pass through $k$ selection stages. The distribution visible after stage $k$ is
+\begin{equation}
+\label{eq:multiscale}
+P_k(X) = \frac{S_k \circ S_{k-1} \circ \cdots \circ S_1(P_0)(X)}{Z}.
+\end{equation}
+
+Small biases at each stage compound multiplicatively.
+
+\section{Missing Constraints and the Distorted Posterior}
+
+Let $R$ be reported results and $F$ the unreported failures. The community's posterior is $P(H \mid R) \propto P(H) P(R \mid H)$, whereas the correct posterior is $P(H \mid R, F) \propto P(H) P(R,F \mid H)$.
+
+\begin{theorem}[Distortion from missing constraints]
+$\mathcal{H}^{\mathcal{C}_R} \supseteq \mathcal{H}^{\mathcal{C}_R \cup \mathcal{C}_F}$. Inference using only $\mathcal{C}_R$ yields an inflated feasible set and overconfident posterior.
+\end{theorem}
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Compute FDR (equation~\ref{eq:fdr}) for $\pi_1=0.1$, $\alpha=0.05$, power $1-\beta \in \{0.8, 0.3\}$.
+  \item Give an example of a biased triplet set $\mathcal{R}' \subsetneq \mathcal{R}$ that causes BUILD to reconstruct a wrong tree.
+  \item Prove that funnel plot asymmetry in meta-analysis is a direct consequence of the selection mechanism defined here.
+\end{enumerate}

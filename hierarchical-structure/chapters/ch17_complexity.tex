@@ -1,0 +1,60 @@
+% chapters/ch17_complexity.tex
+\chapter{Query and Time Complexity}
+\label{ch:complexity}
+
+\epigraph{%
+  Count what you compute before you compute what you count.%
+}{\textit{---Flyxion}}
+
+This chapter derives the query and time complexity of the learning-augmented algorithms from the recursion structure established in Chapter~\ref{ch:topdown}. The analysis proceeds by summing work across all levels of the recursion tree: at each level, clusters of total size $n$ are processed, and each cluster of size $k$ incurs $O(k^2\log n)$ oracle queries. The total follows from the recursion $T(n) \leq 2T(n/2) + cn^2\log n$, which solves to $O(n^2\log^2 n)$ for the efficient variant. The computational time beyond oracle queries is dominated by aggregation and data structure maintenance, adding logarithmic factors. The lower bound from Chapter~\ref{ch:entropy} confirms that these algorithms are near information-theoretically optimal.
+
+%% ── Figure: recursion tree with work per level ───────────────
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=0.9]
+% Levels
+\foreach \lev/\label/\work in {
+  0/{Level 0: one cluster $n$}/{$O(n^2\log n)$},
+  1/{Level 1: two clusters $n/2$}/{$O(n^2\log n)$},
+  2/{Level 2: four clusters $n/4$}/{$O(n^2\log n)$},
+  3/{$\vdots\quad O(\log n)$ levels}{$\vdots$}
+} {
+  \node[draw=nodeblue!40, fill=nodeblue!7, rounded corners=3pt,
+        minimum width=5.5cm, minimum height=0.65cm, font=\small]
+    at (0,-1.1*\lev) {\label};
+  \node[font=\footnotesize, nodered!70] at (5.2,-1.1*\lev) {\work};
+}
+% Bottom: super-vertices
+\node[draw=supercolor!50, fill=supercolor!10, rounded corners=3pt,
+      minimum width=5.5cm, minimum height=0.65cm, font=\small]
+  at (0,-4.4) {Level $\log n$: $n/\log n$ super-vertices};
+\node[font=\footnotesize, supercolor!70] at (5.2,-4.4) {collapse};
+
+% Total brace
+\draw[decorate, decoration={brace, amplitude=5pt}, nodered!60, thick]
+  (3.2,0.4) -- (3.2,-3.7);
+\node[font=\small, nodered!70, right] at (3.5,-1.65)
+  {Total: $O(n^2\log^2 n)$};
+\end{tikzpicture}
+\caption{Work distribution across levels of the recursion tree. Each level processes clusters of total size $n$; the sum-of-squares property ensures the per-level work is $O(n^2\log n)$. With $O(\log n)$ levels, the total is $O(n^2\log^2 n)$ for the efficient algorithm.}
+\label{fig:complexity_tree}
+\end{figure}
+
+\section{Query Complexity}
+
+\begin{theorem}[Total query count]
+The top-down partial HC tree construction uses $O(n^3)$ oracle queries for the Dasgupta objective and $O(n^2\!\cdot\!\polylog n)$ for the Moseley--Wang objective.
+\end{theorem}
+
+\section{Time Complexity}
+
+\begin{theorem}[Time complexity]
+The algorithm runs in $O(n^3\log n)$ time for Dasgupta and $O(n^2\!\cdot\!\polylog n)$ time for Moseley--Wang, assuming $O(1)$ time per oracle query.
+\end{theorem}
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Solve $T(n) = 2T(n/2) + n^2$ and compare with $T(n) = 2T(n/2) + n^2\log n$.
+  \item Explain why the $O(n^2\polylog n)$ MW algorithm cannot obviously improve the Dasgupta guarantee.
+\end{enumerate}

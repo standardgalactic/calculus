@@ -1,0 +1,41 @@
+% chapters/appA_ultrametric_equiv.tex
+\chapter{Proof That Trees and Ultrametrics Are Equivalent}
+\label{app:ultrametric_equiv}
+
+\section{Statement of the Theorem}
+
+\begin{theorem}[Tree--ultrametric equivalence]
+\label{thm:full_equiv}
+There is a bijection between:
+\begin{enumerate}
+  \item Rooted trees $(T, h)$ on a leaf set $X$ with a strictly decreasing node height function $h$ taking distinct values at distinct internal nodes, and
+  \item Ultrametric spaces $(X, d)$ with distinct pairwise distances.
+\end{enumerate}
+The bijection sends $T$ to $d_T(x,y) = h(\LCA_T(x,y))$ and sends $d$ to the tree constructed by the single-linkage procedure.
+\end{theorem}
+
+\section{Proof: Trees Induce Ultrametrics}
+
+This was established in Chapter~\ref{ch:metrics} (Theorem~\ref{thm:tree_ultrametric}). Distinctness of distances follows from distinct height values.
+
+\section{Proof: Ultrametrics Induce Trees}
+
+\begin{proof}
+Let $(X, d)$ be a finite ultrametric with distinct distance values. We construct a rooted tree $T$ as follows.
+
+\textbf{Step 1}: Sort the distinct distance values as $\theta_1 < \theta_2 < \cdots < \theta_m$.
+
+\textbf{Step 2}: For each threshold $\theta_k$, define the $\theta_k$-partition of $X$ by: $x \sim_k y$ if $d(x,y) \leq \theta_k$. By the ultrametric property, each $\sim_k$ is an equivalence relation. The classes are the clusters at scale $\theta_k$.
+
+\textbf{Step 3}: The cluster hierarchy is the set of all clusters at all scales, ordered by inclusion. This forms a laminar family and thus defines a rooted tree.
+
+\textbf{Step 4}: Assign height $h(v) = \theta_k$ to the internal node corresponding to a cluster first appearing at scale $\theta_k$. The leaves have height 0.
+
+\textbf{Verification}: By construction, $d(x,y) = h(\LCA_T(x,y))$: the LCA of $x$ and $y$ is the internal node at height $d(x,y)$, which is the smallest $\theta_k$ at which $x$ and $y$ join the same cluster.
+
+\textbf{Uniqueness}: If two distinct trees $T_1$ and $T_2$ induced the same ultrametric, they would have the same clusters at every scale, hence the same laminar family, hence $T_1 = T_2$.
+\end{proof}
+
+\section{The Case of Non-Distinct Distances}
+
+When distance values are not all distinct, the tree is not unique: multiple internal nodes may have the same height. The correspondence becomes one-to-many. The textbook focuses on the generic case of distinct distances for clarity.

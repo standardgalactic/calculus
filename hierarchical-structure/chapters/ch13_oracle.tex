@@ -1,0 +1,111 @@
+% chapters/ch13_oracle.tex
+\chapter{The Splitting Oracle Model}
+\label{ch:oracle}
+
+\epigraph{%
+  A weak signal, repeated enough times, becomes certain knowledge.%
+}{\textit{---Flyxion}}
+
+This chapter introduces the splitting oracle, the central device that enables the learning-augmented algorithms to break the classical hardness barriers. The oracle is modeled as an imperfect external source of information that can answer questions about the structure of the unknown optimal tree $T^*$: given a triplet $(u,v,w)$, the oracle returns the leaf that splits away from the other two earliest in $T^*$. The answer is noisy---correct with probability $p > 1/2$---but the noise is handled by majority vote over repeated queries, using the concentration inequalities of Chapter~\ref{ch:probability}. We derive the per-triplet sample complexity, apply the union bound to obtain uniform correctness over all triplets simultaneously, and observe that the oracle's response is, geometrically, a local measurement of the ultrametric structure of $T^*$---a point elaborated in Chapter~\ref{ch:curvature}.
+
+%% ── Figure: oracle triplet query ────────────────────────────
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=1.0]
+% Three points
+\node[leafnode, label=above:{$u$}] (u) at (-1.5, 0) {};
+\node[leafnode, label=above:{$v$}] (v) at (0, 0) {};
+\node[leafnode, label=above:{$w$}] (w) at (1.5, 0) {};
+
+% Oracle box
+\node[draw=supercolor!80, fill=supercolor!10, rounded corners=6pt,
+      minimum width=2.8cm, minimum height=1.0cm, font=\small]
+  (oracle) at (0, -1.8) {Oracle $\mathcal{O}(u,v,w)$};
+
+% Arrows in
+\draw[->, >=stealth, nodegray!60] (u.south) -- (oracle.north west);
+\draw[->, >=stealth, nodegray!60] (v.south) -- (oracle.north);
+\draw[->, >=stealth, nodegray!60] (w.south) -- (oracle.north east);
+
+% Possible outputs: three small trees
+\begin{scope}[yshift=-4.2cm]
+  % Answer: w splits first = (u,v)|w
+  \begin{scope}[xshift=-3.2cm]
+    \node[internalnode, scale=0.7] at (0,1.1) {}
+      child[grow=south west, level distance=0.8cm]
+        { node[internalnode, scale=0.7] at (0,0) {}
+          child[grow=south west] { node[leafnode, scale=0.6, label=below:{\tiny$u$}] {} }
+          child[grow=south east] { node[leafnode, scale=0.6, label=below:{\tiny$v$}] {} }
+        }
+      child[grow=south east, level distance=0.8cm]
+        { node[leafnode, scale=0.6, label=below:{\tiny$w$}] {} };
+    \node[font=\tiny, nodered!80, below] at (0,-0.9)
+      {returns $w$: $(u,v)|w$};
+  \end{scope}
+  % Answer: v splits first = (u,w)|v
+  \begin{scope}[xshift=0cm]
+    \node[internalnode, scale=0.7] at (0,1.1) {}
+      child[grow=south west, level distance=0.8cm]
+        { node[internalnode, scale=0.7] at (0,0) {}
+          child[grow=south west] { node[leafnode, scale=0.6, label=below:{\tiny$u$}] {} }
+          child[grow=south east] { node[leafnode, scale=0.6, label=below:{\tiny$w$}] {} }
+        }
+      child[grow=south east, level distance=0.8cm]
+        { node[leafnode, scale=0.6, label=below:{\tiny$v$}] {} };
+    \node[font=\tiny, nodegreen!80, below] at (0,-0.9)
+      {returns $v$: $(u,w)|v$};
+  \end{scope}
+  % Answer: u splits first = (v,w)|u
+  \begin{scope}[xshift=3.2cm]
+    \node[internalnode, scale=0.7] at (0,1.1) {}
+      child[grow=south west, level distance=0.8cm]
+        { node[leafnode, scale=0.6, label=below:{\tiny$u$}] {} }
+      child[grow=south east, level distance=0.8cm]
+        { node[internalnode, scale=0.7] at (0,0) {}
+          child[grow=south west] { node[leafnode, scale=0.6, label=below:{\tiny$v$}] {} }
+          child[grow=south east] { node[leafnode, scale=0.6, label=below:{\tiny$w$}] {} }
+        };
+    \node[font=\tiny, nodeblue!80, below] at (0,-0.9)
+      {returns $u$: $(v,w)|u$};
+  \end{scope}
+\end{scope}
+
+% Arrow from oracle to outputs
+\draw[->, >=stealth, nodegray!60] (oracle.south) -- (0,-3.2)
+  node[right, font=\tiny, midway] {one of three};
+\end{tikzpicture}
+\caption{The splitting oracle $\mathcal{O}(u,v,w)$ receives a triplet query and returns one of three possible answers, each corresponding to a different rooted tree topology on the three leaves. The correct answer is returned with probability $p > 1/2$; incorrect answers are returned with probability $1-p$ (split uniformly between the two wrong options). Majority vote over $m$ repeated queries yields the correct answer with high probability.}
+\label{fig:oracle}
+\end{figure}
+
+\section{Definition of the Splitting Oracle}
+
+\begin{definition}[Splitting oracle]
+The \emph{splitting oracle} $\mathcal{O}$ takes a triplet $(u,v,w)$ and returns the leaf $x \in \{u,v,w\}$ such that $\LCA_{T^*}(u,v,w)$ separates $x$ from the other two first. Equivalently, $\mathcal{O}$ returns the triplet relation that holds in $T^*$.
+\end{definition}
+
+\begin{definition}[Noisy oracle]
+The oracle is \emph{$(p)$-noisy} if it returns the correct answer with probability $p > 1/2$ and an incorrect answer with probability $1-p$, independently across queries.
+\end{definition}
+
+\section{Oracle Aggregation}
+
+\begin{proposition}[Reliable aggregation]
+Using $m = O\!\left(\frac{\log(n^3/\delta)}{(p-1/2)^2}\right)$ repeated queries per triplet, the plurality vote is correct for all $O(n^3)$ triplet queries simultaneously with probability $\geq 1-\delta$.
+\end{proposition}
+
+\begin{proof}
+Apply Hoeffding's inequality (Theorem~\ref{thm:hoeffding}) per triplet, then the union bound over $\binom{n}{3}$ triplets.
+\end{proof}
+
+\section{What the Oracle Reveals}
+
+The oracle reveals the ultrametric branching structure of $T^*$ locally. Each response specifies which of the three ultrametric inequalities holds on the queried triple, providing direct geometric information about $T^*$'s structure without revealing the full tree. This geometric interpretation is elaborated in Chapter~\ref{ch:curvature}.
+
+\section{Exercises}
+
+\begin{enumerate}
+  \item Show that a single oracle query reduces uncertainty about a specific triple from $\log 3$ bits to at most $H(p, (1-p)/2, (1-p)/2)$ bits.
+  \item Derive the minimum number of queries per triplet needed to achieve error probability $\leq 1/n^3$ as a function of $p$.
+  \item Argue why the oracle model is more powerful than having access to a noisy estimate of the pairwise similarity matrix.
+\end{enumerate}

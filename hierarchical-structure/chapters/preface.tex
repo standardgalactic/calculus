@@ -1,0 +1,34 @@
+% chapters/preface.tex
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+\epigraph{%
+  Every observation is a constraint.
+  Every constraint is a reduction in uncertainty.
+  What we call knowledge is the residue of that reduction.%
+}{\textit{---Flyxion}}
+
+This textbook develops a unified mathematical account of a single phenomenon: hierarchical structure can be reconstructed from minimal relational information. The central argument is not merely algorithmic. It is a claim about the nature of structured knowledge itself. When a system of objects possesses latent hierarchical organization, that organization leaves observable traces in the pairwise and triadic relationships among those objects. The task of inference is to reconstruct the global structure from those local witnesses.
+
+The argument unfolds in nine parts. The first provides the prerequisites: discrete mathematics, probability and concentration inequalities, information theory, and the geometry of metric and ultrametric spaces. These tools are not reviewed for their own sake; each one plays a direct role in the main development. The reader who has a background in combinatorics and probability can move quickly through this material, returning to it as a reference.
+
+The second and third parts introduce hierarchical clustering as a formal object. A hierarchy is a laminar family of subsets, and its geometry is captured by an ultrametric. The minimal unit of evidence for branching structure is a rooted triplet relation, and a sufficiently rich collection of such relations uniquely determines the underlying tree. Classical clustering objectives formalize what it means for a hierarchy to represent a dataset well, and classical complexity theory establishes that optimizing these objectives is computationally hard without additional information.
+
+The fourth and fifth parts introduce the learning-augmented perspective. A splitting oracle provides noisy answers to triplet queries, and the paper of reference in this area shows that such oracle access, even with substantial noise, is sufficient to break the classical hardness barriers. The central construction is the partial hierarchical clustering tree, a data structure that captures the structure of the optimal tree at large scales while deferring resolution at small scales where evidence is thin. Precise approximation guarantees are established for both the Dasgupta and Moseley--Wang objectives.
+
+The sixth part examines how these algorithms extend to streaming and parallel computation models. The seventh part reinterprets the entire framework geometrically and information-theoretically. A triplet observation is equivalent to a local curvature measurement in ultrametric space, and the accumulation of triplet constraints drives an entropy descent on the space of tree topologies. This interpretation connects the algorithmic results to a broader principle: global structure emerges from sparse local measurements when those measurements form a coherent constraint network.
+
+The eighth part extends the framework into the sociology of knowledge. The replication crisis in empirical science is analyzed as a structural consequence of selection mechanisms that suppress disconfirming observations, thereby distorting the constraint network from which scientific knowledge is inferred. The mathematical formalism of constraint operators, Bayesian updating, and entropy reduction provides a precise language for this phenomenon and suggests design principles for more robust inference systems. The value of publishing exploratory, incomplete, and even incorrect reasoning is defended within this framework as a mechanism for preserving the search trajectory that underlies reliable knowledge.
+
+The final part collects the full proofs: the equivalence of trees and ultrametrics, the reconstruction theorem for triplet systems, the noise analysis for oracle aggregation, the loss bounds for collapsed subtrees, and the variational reformulation of Bayesian tree inference.
+
+The mathematical level throughout is graduate. The reader is expected to be comfortable with discrete probability, basic combinatorics, and standard asymptotic notation. Familiarity with information theory and metric geometry is helpful but not required, as these topics are developed from first principles in Part~I.
+
+A note on notation: throughout the text, $T^*$ denotes the unknown optimal tree, $\wh{T}$ the tree returned by an algorithm, $\mathcal{H}$ a hypothesis space, $\mathcal{R}$ a set of triplet relations, and $\Obb$ a splitting oracle. Calligraphic letters generally denote sets or spaces; roman capitals denote random variables or trees; lowercase letters denote vertices or scalars.
+
+\bigskip
+\noindent
+\textit{Flyxion}
+
+\noindent
+\textit{First Edition}

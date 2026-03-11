@@ -1,0 +1,50 @@
+\chapter{Noise Analysis for Oracle Aggregation}
+\label{app:noise_analysis}
+
+\section{Setup}
+
+Let the oracle answer each query correctly with probability $p > 1/2$, independently across queries. We want to use majority vote of $m$ queries to achieve failure probability $\delta$.
+
+\section{Single Triplet Analysis}
+
+\begin{theorem}[Majority vote error bound]
+Let $X_1, \ldots, X_m \sim_{\rm iid} \operatorname{Ber}(p)$ with $p > 1/2$. Then
+\[
+\mathbb{P}\!\left(\sum_{i=1}^m X_i \leq m/2\right) \leq \exp\!\bigl(-2m(p - 1/2)^2\bigr).
+\]
+\end{theorem}
+
+\begin{proof}
+This is Hoeffding's inequality (Theorem~\ref{thm:hoeffding}) applied directly.
+\end{proof}
+
+\begin{corollary}[Required sample size]
+To achieve $\mathbb{P}(\text{error}) \leq \delta$, it suffices to use
+\[
+m \geq \frac{\log(1/\delta)}{2(p - 1/2)^2}.
+\]
+queries per triplet.
+\end{corollary}
+
+\section{Uniform Bound over All Triplets}
+
+Let $N = \binom{n}{3}$ be the number of distinct triplets queried.
+
+\begin{theorem}[Uniform correctness]
+Setting $\delta' = \delta / N$ in the single-triplet bound, and using
+\[
+m = O\!\left(\frac{\log(N/\delta)}{(p - 1/2)^2}\right) = O\!\left(\frac{\log n + \log(1/\delta)}{(p-1/2)^2}\right)
+\]
+queries per triplet, all $N$ triplets are answered correctly simultaneously with probability $\geq 1 - \delta$.
+\end{theorem}
+
+\begin{proof}
+Apply the union bound over $N$ events, each with probability $\delta'$.
+\end{proof}
+
+\section{Adaptive Query Strategies}
+
+When the algorithm queries triplets adaptively (choosing the next query based on previous answers), the analysis remains valid because each individual query error event is independent. The union bound applies to any fixed set of at most $N$ queries regardless of the selection order.
+
+% ── Appendix D ─────────────────────────────────────────────────────────────────
+
