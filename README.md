@@ -1,3 +1,7 @@
+# Constraint Geometry
+
+[Audio Lectures](https://standardgalactic.github.io/calculus/working/)
+
 # The Geometry of Relationship and Controlled Change
 ## A Structural Textbook on Differential and Integral Theory
 
