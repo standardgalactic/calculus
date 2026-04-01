@@ -19,7 +19,7 @@ text-align:center;
 padding:20px;
 }
 
-/* ===== porthole frame ===== */
+/* ===== porthole ===== */
 
 .scope-wrap{
 position:relative;
@@ -28,7 +28,6 @@ height:360px;
 margin-bottom:20px;
 }
 
-/* metal rim */
 .scope-wrap::before{
 content:"";
 position:absolute;
@@ -42,7 +41,6 @@ box-shadow:
 inset 0 0 40px #00ff0020;
 }
 
-/* glass reflection */
 .scope-wrap::after{
 content:"";
 position:absolute;
@@ -53,7 +51,6 @@ linear-gradient(120deg, rgba(255,255,255,0.06), transparent 40%);
 pointer-events:none;
 }
 
-/* canvas inside */
 canvas{
 position:absolute;
 inset:20px;
@@ -62,9 +59,9 @@ height:320px;
 border-radius:50%;
 background:#000;
 box-shadow:inset 0 0 20px #00ff0020;
+touch-action:none;
 }
 
-/* scanline overlay */
 .scanlines{
 position:absolute;
 inset:20px;
@@ -80,7 +77,7 @@ transparent 4px
 pointer-events:none;
 }
 
-/* controls */
+/* ===== controls ===== */
 
 .controls{
 display:flex;
@@ -129,6 +126,8 @@ margin-top:10px;
 
 <button id="toggle">Play</button>
 
+<select id="track"></select>
+
 <select id="speed">
 <option value="0.75">0.75×</option>
 <option value="0.85">0.85×</option>
@@ -162,106 +161,169 @@ vtt:"Time_as_the_shadow_of_missing_information.vtt"
 }
 ]
 
-let current=0
-
-/* ===== canvas ===== */
-
-const canvas=document.getElementById("scope")
-const ctx=canvas.getContext("2d")
-
-const dpr=window.devicePixelRatio||1
-canvas.width=320*dpr
-canvas.height=320*dpr
-ctx.setTransform(dpr,0,0,dpr,0,0)
+let current = 0
+const memory = {}
 
 /* ===== elements ===== */
 
-const audio=document.getElementById("audio")
-const captions=document.getElementById("captions")
-const toggle=document.getElementById("toggle")
-const loop=document.getElementById("loop")
-const timer=document.getElementById("timer")
-const speed=document.getElementById("speed")
+const audio = document.getElementById("audio")
+const captions = document.getElementById("captions")
+const toggle = document.getElementById("toggle")
+const loop = document.getElementById("loop")
+const timer = document.getElementById("timer")
+const speed = document.getElementById("speed")
+const trackSelect = document.getElementById("track")
+
+/* ===== helpers ===== */
+
+function prettyName(f){
+return f.replace(".mp3","").replace(/_/g," ")
+}
+
+/* ===== populate selector ===== */
+
+function populateTracks(){
+
+trackSelect.innerHTML = ""
+
+playlist.forEach((t,i)=>{
+const opt = document.createElement("option")
+opt.value = i
+opt.textContent = prettyName(t.audio)
+trackSelect.appendChild(opt)
+})
+
+}
 
 /* ===== audio engine ===== */
 
 let audioCtx, analyser, buffer
 
 function initAudio(){
+
 if(audioCtx) return
-audioCtx=new(window.AudioContext||window.webkitAudioContext)()
-analyser=audioCtx.createAnalyser()
-analyser.fftSize=2048
-const src=audioCtx.createMediaElementSource(audio)
+
+audioCtx = new (window.AudioContext||window.webkitAudioContext)()
+
+analyser = audioCtx.createAnalyser()
+analyser.fftSize = 2048
+
+const src = audioCtx.createMediaElementSource(audio)
+
 src.connect(analyser)
 analyser.connect(audioCtx.destination)
-buffer=new Uint8Array(analyser.fftSize)
+
+buffer = new Uint8Array(analyser.fftSize)
+
 }
 
 /* ===== load track ===== */
 
 function loadTrack(i){
 
-current=i
+/* store previous position */
+if(audio.src){
+memory[current] = audio.currentTime
+}
+
+current = i
+trackSelect.value = i
 
 audio.pause()
 
-audio.src=playlist[i].audio
+audio.src = playlist[i].audio
 
-audio.innerHTML=`<track kind="captions" src="${playlist[i].vtt}" default>`
+audio.innerHTML = `<track kind="captions" src="${playlist[i].vtt}" default>`
 
-captions.textContent=""
+captions.textContent = ""
 
 audio.load()
 
-audio.addEventListener("loadedmetadata",attachTrack,{once:true})
+audio.addEventListener("loadedmetadata", ()=>{
+
+attachTrack()
+
+/* restore position */
+if(memory[i]){
+audio.currentTime = memory[i]
+}
+
+},{once:true})
+
+}
+
+/* ===== selector ===== */
+
+trackSelect.onchange = (e)=>{
+
+const i = parseInt(e.target.value)
+
+loadTrack(i)
+
+if(!audio.paused){
+audio.play()
+}
 
 }
 
 /* ===== subtitles ===== */
 
 function attachTrack(){
-const track=audio.textTracks[0]
+
+const track = audio.textTracks[0]
 if(!track) return
-track.mode="hidden"
-track.oncuechange=()=>{
-const cue=track.activeCues[0]
-captions.textContent=cue?cue.text:""
-}
+
+track.mode = "hidden"
+
+track.oncuechange = ()=>{
+const cue = track.activeCues[0]
+captions.textContent = cue ? cue.text : ""
 }
 
-/* ===== auto next ===== */
+}
+
+/* ===== auto advance ===== */
 
 audio.addEventListener("ended",()=>{
+
 if(audio.loop) return
-if(current<playlist.length-1){
-loadTrack(current+1)
+
+if(current < playlist.length - 1){
+
+loadTrack(current + 1)
 audio.play()
+
 }else{
-toggle.textContent="Play"
+
+toggle.textContent = "Play"
+
 }
+
 })
 
 /* ===== controls ===== */
 
-toggle.onclick=()=>{
+toggle.onclick = ()=>{
+
 initAudio()
+
 if(audio.paused){
 audioCtx.resume().then(()=>audio.play())
-toggle.textContent="Pause"
+toggle.textContent = "Pause"
 }else{
 audio.pause()
-toggle.textContent="Play"
-}
-}
-
-loop.onclick=()=>{
-audio.loop=!audio.loop
-loop.textContent=audio.loop?"Loop On":"Loop Off"
+toggle.textContent = "Play"
 }
 
-speed.onchange=()=>{
-audio.playbackRate=parseFloat(speed.value)
+}
+
+loop.onclick = ()=>{
+audio.loop = !audio.loop
+loop.textContent = audio.loop ? "Loop On" : "Loop Off"
+}
+
+speed.onchange = ()=>{
+audio.playbackRate = parseFloat(speed.value)
 }
 
 /* ===== timer ===== */
@@ -273,10 +335,20 @@ return`${m.toString().padStart(2,"0")}:${s.toString().padStart(2,"0")}`
 }
 
 function updateTimer(){
-if(audio.duration) timer.textContent=fmt(audio.duration-audio.currentTime)
+if(audio.duration) timer.textContent = fmt(audio.duration - audio.currentTime)
 requestAnimationFrame(updateTimer)
 }
 updateTimer()
+
+/* ===== canvas ===== */
+
+const canvas = document.getElementById("scope")
+const ctx = canvas.getContext("2d")
+
+const dpr = window.devicePixelRatio || 1
+canvas.width = 320 * dpr
+canvas.height = 320 * dpr
+ctx.setTransform(dpr,0,0,dpr,0,0)
 
 /* ===== interaction ===== */
 
@@ -328,20 +400,21 @@ if(analyser){
 
 analyser.getByteTimeDomainData(buffer)
 
-const e=entropy(buffer)
-eSmooth+=(e-eSmooth)*0.05
-const en=Math.min(eSmooth/5000,1)
+const e = entropy(buffer)
+eSmooth += (e - eSmooth)*0.05
+const en = Math.min(eSmooth/5000,1)
 
-/* hold → color accel */
+/* hold behavior */
+
 if(holding){
 if((performance.now()-holdStart)>600){
-colorSpeed+=0.002
+colorSpeed += 0.002
 }
 }else{
-colorSpeed*=0.95
+colorSpeed *= 0.95
 }
 
-colorPhase+=colorSpeed
+colorPhase += colorSpeed
 
 ctx.fillStyle="rgba(0,0,0,0.15)"
 ctx.fillRect(0,0,320,320)
@@ -367,16 +440,12 @@ else ctx.lineTo(px,py)
 
 }
 
-/* glow */
-
 ctx.strokeStyle=`rgb(${Math.sin(colorPhase)*80},255,${120+Math.cos(colorPhase)*80})`
 ctx.lineWidth=1.4+en
 ctx.shadowColor="#00ff88"
 ctx.shadowBlur=10+en*20
 ctx.stroke()
 ctx.shadowBlur=0
-
-/* sparkle */
 
 if(sparkle>0){
 for(let i=0;i<15;i++){
@@ -402,6 +471,7 @@ draw()
 
 /* ===== init ===== */
 
+populateTracks()
 loadTrack(0)
 
 </script>
