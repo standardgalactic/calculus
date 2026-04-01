@@ -1,5 +1,11 @@
 # Constraint Geometry
 
+[Adjunction and Irreversibility](https://standardgalactic.github.io/calculus/adjunction_and_irreversibility.pdf)
+
+* [Audio Lectures](https://standardgalactic.github.io/calculus/computation/)
+
+# Identiy after Collapse
+
 [Audio Lectures](https://standardgalactic.github.io/calculus/working/)
 
 # The Geometry of Relationship and Controlled Change

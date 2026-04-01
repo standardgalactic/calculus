@@ -1,0 +1,2368 @@
+This is LuaHBTeX, Version 1.17.0 (TeX Live 2023/Debian)  (format=lualatex 2025.12.31)  1 APR 2026 15:52
+ restricted system commands enabled.
+**adjunction_and_irreversibility.tex
+(./adjunction_and_irreversibility.tex
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-22>
+Lua module: luaotfload 2023-08-31 3.26 Lua based OpenType font support
+Lua module: lualibs 2023-07-13 2.76 ConTeXt Lua standard libraries.
+Lua module: lualibs-extended 2023-07-13 2.76 ConTeXt Lua libraries -- extended c
+ollection.
+luaotfload | conf : Root cache directory is "/home/flyxion/.texlive2023/texmf-va
+r/luatex-cache/generic/names".
+luaotfload | init : Loading fontloader "fontloader-2023-08-19.lua" from kpse-res
+olved path "/usr/share/texlive/texmf-dist/tex/luatex/luaotfload/fontloader-2023-
+08-19.lua".
+Lua-only attribute luaotfload@noligature = 1
+luaotfload | init : Context OpenType loader version 3.133
+Inserting `luaotfload.node_processor' in `pre_linebreak_filter'.
+Inserting `luaotfload.node_processor' in `hpack_filter'.
+Inserting `luaotfload.glyph_stream' in `glyph_stream_provider'.
+Inserting `luaotfload.define_font' in `define_font'.
+Lua-only attribute luaotfload_color_attribute = 2
+luaotfload | conf : Root cache directory is "/home/flyxion/.texlive2023/texmf-va
+r/luatex-cache/generic/names".
+Inserting `luaotfload.harf.strip_prefix' in `find_opentype_file'.
+Inserting `luaotfload.harf.strip_prefix' in `find_truetype_file'.
+Removing  `luaotfload.glyph_stream' from `glyph_stream_provider'.
+Inserting `luaotfload.harf.glyphstream' in `glyph_stream_provider'.
+Inserting `luaotfload.harf.finalize_vlist' in `post_linebreak_filter'.
+Inserting `luaotfload.harf.finalize_hlist' in `hpack_filter'.
+Inserting `luaotfload.cleanup_files' in `wrapup_run'.
+Inserting `luaotfload.harf.finalize_unicode' in `finish_pdffile'.
+Inserting `luaotfload.glyphinfo' in `glyph_info'.
+Lua-only attribute luaotfload.letterspace_done = 3
+Inserting `luaotfload.aux.set_sscale_dimens' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.set_font_index' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.patch_cambria_domh' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.fixup_fontdata' in `luaotfload.patch_font_unsafe'.
+Inserting `luaotfload.aux.set_capheight' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.set_xheight' in `luaotfload.patch_font'.
+Inserting `luaotfload.rewrite_fontname' in `luaotfload.patch_font'.
+Inserting `tracingstacklevels' in `input_level_string'. (/usr/share/texlive/tex
+mf-dist/tex/latex/memoir/memoir.cls
+Document Class: memoir 2024/01/26 v3.8.2 configurable book, report, article doc
+ument class
+(/usr/share/texlive/texmf-dist/tex/latex/xpatch/xpatch.sty
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2024-01-22 L3 programming layer (loader) 
+
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-luatex.def
+File: l3backend-luatex.def 2024-01-04 L3 backend support: PDF output (LuaTeX)
+\l__color_backend_stack_int=\count185
+Inserting `l3color' in `luaotfload.parse_color'.
+\l__pdf_internal_box=\box51
+))
+Package: xpatch 2020/03/25 v0.3a Extending etoolbox patching commands
+
+(/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+Package: xparse 2023-10-10 L3 Experimental document command parser
+)
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count186
+))
+\onelineskip=\skip48
+\lxvchars=\skip49
+\xlvchars=\skip50
+\@memcnta=\count187
+\c@@memmarkcntra=\count188
+
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+)
+\trimtop=\skip51
+\trimedge=\skip52
+
+(/usr/share/texlive/texmf-dist/tex/latex/memoir/mem12.clo
+File: mem12.clo 2022/07/29 v0.5 memoir class 12pt size option
+luaotfload | db : Font names database loaded from /home/flyxion/.texlive2023/tex
+mf-var/luatex-cache/generic/names/luaotfload-names.luc.gz)
+\binding=\skip53
+\spinemargin=\skip54
+\foremargin=\skip55
+\uppermargin=\skip56
+\lowermargin=\skip57
+\headdrop=\skip58
+\normalrulethickness=\skip59
+\mem@maxheadheight=\skip60
+\mem@maxfootheight=\skip61
+\headwidth=\skip62
+\c@storedpagenumber=\count189
+\memPD=\dimen139
+\m@mabparskip=\skip63
+\thanksmarkwidth=\skip64
+\thanksmarksep=\skip65
+\droptitle=\skip66
+\c@book=\count190
+\c@part=\count191
+\c@chapter=\count192
+\c@section=\count193
+\c@subsection=\count194
+\c@subsubsection=\count195
+\c@paragraph=\count196
+\c@subparagraph=\count197
+\beforechapskip=\skip67
+\midchapskip=\skip68
+\afterchapskip=\skip69
+\chapindent=\skip70
+\bottomsectionskip=\skip71
+\secindent=\skip72
+\beforesecskip=\skip73
+\aftersecskip=\skip74
+\subsecindent=\skip75
+\beforesubsecskip=\skip76
+\aftersubsecskip=\skip77
+\subsubsecindent=\skip78
+\beforesubsubsecskip=\skip79
+\aftersubsubsecskip=\skip80
+\paraindent=\skip81
+\beforeparaskip=\skip82
+\afterparaskip=\skip83
+\subparaindent=\skip84
+\beforesubparaskip=\skip85
+\aftersubparaskip=\skip86
+\pfbreakskip=\skip87
+\c@@ppsavesec=\count198
+\c@@ppsaveapp=\count199
+\ragrparindent=\dimen140
+\everylistparindent=\dimen141
+\parsepi=\skip88
+\topsepi=\skip89
+\itemsepi=\skip90
+\parsepii=\skip91
+\topsepii=\skip92
+\topsepiii=\skip93
+\itemsepii=\skip94
+\itemsepiii=\skip95
+\partopsepii=\skip96
+\partopsepiii=\skip97
+\m@msavetopsep=\skip98
+\m@msavepartopsep=\skip99
+\@enLab=\toks17
+\abstitleskip=\skip100
+\absleftindent=\skip101
+\abs@leftindent=\dimen142
+\absrightindent=\skip102
+\absparindent=\skip103
+\absparsep=\skip104
+\c@vslineno=\count266
+\c@poemline=\count267
+\c@modulo@vs=\count268
+\c@memfvsline=\count269
+\vleftskip=\skip105
+\vrightskip=\skip106
+\stanzaskip=\skip107
+\versewidth=\skip108
+\vgap=\skip109
+\vindent=\skip110
+\vleftmargin=\dimen143
+\c@verse=\count270
+\c@chrsinstr=\count271
+\beforepoemtitleskip=\skip111
+\afterpoemtitleskip=\skip112
+\c@poem=\count272
+\beforePoemTitleskip=\skip113
+\midPoemTitleskip=\skip114
+\afterPoemTitleskip=\skip115
+
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
+\col@sep=\dimen144
+\ar@mcellbox=\box52
+\extrarowheight=\dimen145
+\NC@list=\toks18
+\extratabsurround=\skip116
+\backup@length=\skip117
+\ar@cellbox=\box53
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/dcolumn.sty
+Package: dcolumn 2023/07/08 v1.06 decimal alignment package (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/delarray.sty
+Package: delarray 2014/10/28 v1.01 array delimiter package (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2023/07/08 v2.11c `tabularx' package (DPC)
+\TX@col@width=\dimen146
+\TX@old@table=\dimen147
+\TX@old@col=\dimen148
+\TX@target=\dimen149
+\TX@delta=\dimen150
+\TX@cols=\count273
+\TX@ftn=\toks19
+)
+(/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen151
+\lightrulewidth=\dimen152
+\cmidrulewidth=\dimen153
+\belowrulesep=\dimen154
+\belowbottomsep=\dimen155
+\aboverulesep=\dimen156
+\abovetopsep=\dimen157
+\cmidrulesep=\dimen158
+\cmidrulekern=\dimen159
+\defaultaddspace=\dimen160
+\@cmidla=\count274
+\@cmidlb=\count275
+\@aboverulesep=\dimen161
+\@belowrulesep=\dimen162
+\@thisruleclass=\count276
+\@lastruleclass=\count277
+\@thisrulewidth=\dimen163
+)
+\ctableftskip=\skip118
+\ctabrightskip=\skip119
+\abovecolumnspenalty=\count278
+\@linestogo=\count279
+\@cellstogo=\count280
+\@cellsincolumn=\count281
+\crtok=\toks20
+\@mincolumnwidth=\dimen164
+\c@newflo@tctr=\count282
+\mem@margin@floatbox=\box54
+\@contcwidth=\skip120
+\@contindw=\skip121
+\abovecaptionskip=\skip122
+\belowcaptionskip=\skip123
+\subfloattopskip=\skip124
+\subfloatcapskip=\skip125
+\subfloatcaptopadj=\skip126
+\subfloatbottomskip=\skip127
+\subfloatlabelskip=\skip128
+\subfloatcapmargin=\dimen165
+\c@@contsubnum=\count283
+\m@mscap@capbox=\box55
+\m@mscap@fbox=\box56
+\sidecapsep=\dimen166
+\sidecapwidth=\dimen167
+\m@m@tempdima=\dimen168
+\m@mscapraise=\dimen169
+\sidecapraise=\dimen170
+\m@mscapmainwidth=\dimen171
+\m@mscaplkern=\dimen172
+\beforeepigraphskip=\skip129
+\afterepigraphskip=\skip130
+\epigraphwidth=\skip131
+\epigraphrule=\skip132
+LaTeX Info: Redefining \em on input line 6932.
+LaTeX Info: Redefining \emph on input line 6940.
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2023-11-26 v2.56 Cross-referencing by name of section
+
+(/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+))
+(/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+
+(/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks21
+)
+(/usr/share/texlive/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+)))
+\c@section@level=\count284
+)
+\tocentryskip=\skip133
+\tocbaseline=\skip134
+\cftparskip=\skip135
+\cftbeforebookskip=\skip136
+\cftbookindent=\dimen173
+\cftbooknumwidth=\dimen174
+\cftbeforepartskip=\skip137
+\cftpartindent=\skip138
+\cftpartnumwidth=\skip139
+\cftbeforechapterskip=\skip140
+\cftchapterindent=\skip141
+\cftchapternumwidth=\skip142
+\cftbeforesectionskip=\skip143
+\cftsectionindent=\skip144
+\cftsectionnumwidth=\skip145
+\cftbeforesubsectionskip=\skip146
+\cftsubsectionindent=\skip147
+\cftsubsectionnumwidth=\skip148
+\cftbeforesubsubsectionskip=\skip149
+\cftsubsubsectionindent=\skip150
+\cftsubsubsectionnumwidth=\skip151
+\cftbeforeparagraphskip=\skip152
+\cftparagraphindent=\skip153
+\cftparagraphnumwidth=\skip154
+\cftbeforesubparagraphskip=\skip155
+\cftsubparagraphindent=\skip156
+\cftsubparagraphnumwidth=\skip157
+\prechapterprecisshift=\dimen175
+\c@maxsecnumdepth=\count285
+\bibindent=\dimen176
+\bibitemsep=\skip158
+\indexcolsep=\skip159
+\indexrule=\skip160
+\indexmarkstyle=\toks22
+\@indexbox=\insert252
+LaTeX Info: Redefining \raggedbottom on input line 7935.
+LaTeX Info: Redefining \flushbottom on input line 7939.
+\glossarycolsep=\dimen177
+\glossaryrule=\dimen178
+\sideparvshift=\skip161
+\sideins=\insert251
+\sidebartopsep=\skip162
+\sidebarhsep=\skip163
+\sidebarvsep=\skip164
+\sidebarwidth=\skip165
+\footmarkwidth=\skip166
+\footmarksep=\skip167
+\footparindent=\skip168
+\footinsdim=\skip169
+\footinsv@r=\insert250
+\@mpfootinsv@r=\insert249
+\m@m@k=\count286
+\m@m@h=\dimen179
+\m@mipn@skip=\skip170
+\sidefootins=\insert248
+\sidefootadjust=\skip171
+\sidefootheight=\skip172
+\sidefoothsep=\skip173
+\sidefootvsep=\skip174
+\sidefootwidth=\skip175
+\m@mdownsf=\skip176
+\c@sidefootnote=\count287
+\sidefootmarkwidth=\skip177
+\sidefootmarksep=\skip178
+\sidefootparindent=\skip179
+\c@pagenote=\count288
+\c@pagenoteshadow=\count289
+\mem@pn@lastkern=\skip180
+
+(/usr/share/texlive/texmf-dist/tex/latex/tools/verbatim.sty
+Package: verbatim 2023-11-06 v1.5v LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks23
+\verbatim@line=\toks24
+\verbatim@in@stream=\read2
+)
+\verbatimindent=\skip181
+\verbatim@out=\write3
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/shortvrb.sty
+Package: shortvrb 2022/11/13 v3.0m Standard LaTeX documentation package V3 (FMi
+)
+)
+\bvboxsep=\skip182
+\c@memfbvline=\count290
+\c@bvlinectr=\count291
+\bvnumlength=\skip183
+\fb@frw=\dimen180
+\fb@frh=\dimen181
+\FrameRule=\dimen182
+\FrameSep=\dimen183
+\c@cp@cntr=\count292
+\c@ism@mctr=\count293
+\c@xsm@mctr=\count294
+\c@csm@mctr=\count295
+\c@ksm@mctr=\count296
+\c@xksm@mctr=\count297
+\c@cksm@mctr=\count298
+\c@msm@mctr=\count299
+\c@xmsm@mctr=\count300
+\c@cmsm@mctr=\count301
+\c@bsm@mctr=\count302
+\c@workm@mctr=\count303
+\c@sheetsequence=\count304
+\c@lastsheet=\count305
+\c@lastpage=\count306
+
+(/usr/share/texlive/texmf-dist/tex/latex/textcase/textcase.sty
+Package: textcase 2023/07/27 v1.04 Text only upper/lower case changing (DPC)
+Package textcase Info: Defining Legacy names on input line 20.
+)
+\c@figure=\count307
+\c@lofdepth=\count308
+\cftbeforefigureskip=\skip184
+\cftfigureindent=\skip185
+\cftfigurenumwidth=\skip186
+\c@table=\count309
+\c@lotdepth=\count310
+\cftbeforetableskip=\skip187
+\cfttableindent=\skip188
+\cfttablenumwidth=\skip189
+Package abstract [2008/07/23] emulated by memoir.
+Package appendix [2008/07/23] emulated by memoir.
+Package ccaption [2008/07/23] emulated by memoir.
+Package changepage [2008/07/23] emulated by memoir.
+Package chngcntr [2008/07/23] emulated by memoir.
+Package chngpage [2008/07/23] emulated by memoir.
+Package crop emulated by memoir.
+Package enumerate [2008/07/23] emulated by memoir.
+Package epigraph [2008/07/23] emulated by memoir.
+Package ifmtarg [2008/07/23] emulated by memoir.
+Package index [2008/07/23] emulated by memoir.
+Package makeidx [2008/07/23] emulated by memoir.
+Package moreverb [2008/07/23] emulated by memoir.
+Package needspace [2008/07/23] emulated by memoir.
+Package newfile [2008/07/23] emulated by memoir.
+Package nextpage [2008/07/23] emulated by memoir.
+Package pagenote [2008/07/23] emulated by memoir.
+Package parskip [2008/07/23] emulated by memoir.
+Package patchcmd [2008/07/23] emulated by memoir.
+Package setspace [2008/07/23] emulated by memoir.
+Package shortvrb [2008/07/23] emulated by memoir.
+Package showidx [2008/07/23] emulated by memoir.
+Package titleref [2008/07/23] emulated by memoir.
+Package titling [2008/07/23] emulated by memoir.
+Package tocbibind [2008/07/23] emulated by memoir.
+Package tocloft [2008/07/23] emulated by memoir.
+Package tocvsec2 [2008/07/23] emulated by memoir.
+Package verbatim [2008/07/23] emulated by memoir.
+Package verse [2008/07/23] emulated by memoir.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 11
+2.
+
+(/usr/share/texmf/tex/latex/lm/t1lmr.fd
+File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+))
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2021/02/14 v1.3d Input encoding file
+\inpenc@prehook=\toks25
+\inpenc@posthook=\toks26
+
+
+Package inputenc Warning: inputenc package ignored with utf8 based engines.
+
+) (/usr/share/texlive/texmf-dist/tex/latex/psnfss/mathpazo.sty
+Package: mathpazo 2020/03/25 PSNFSS-v9.3 Palatino w/ Pazo Math (D.Puga, WaS) 
+\symupright=\mathgroup4
+)
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+)
+\Gm@cnth=\count311
+\Gm@cntv=\count312
+\c@Gm@tempcnt=\count313
+\Gm@bindingoffset=\dimen184
+\Gm@wd@mp=\dimen185
+\Gm@odd@mp=\dimen186
+\Gm@even@mp=\dimen187
+\Gm@layoutwidth=\dimen188
+\Gm@layoutheight=\dimen189
+\Gm@layouthoffset=\dimen190
+\Gm@layoutvoffset=\dimen191
+\Gm@dimlist=\toks27
+)
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.sty
+Package: microtype 2023/03/13 v3.1a Micro-typographical refinements (RS)
+\MT@toks=\toks28
+\MT@tempbox=\box57
+\MT@count=\count314
+LaTeX Info: Redefining \noprotrusionifhmode on input line 1059.
+LaTeX Info: Redefining \leftprotrusion on input line 1060.
+\MT@prot@toks=\toks29
+LaTeX Info: Redefining \rightprotrusion on input line 1078.
+LaTeX Info: Redefining \textls on input line 1368.
+\MT@outer@kern=\dimen192
+LaTeX Info: Redefining \textmicrotypecontext on input line 1988.
+\MT@listname@count=\count315
+
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype-luatex.def
+File: microtype-luatex.def 2023/03/13 v3.1a Definitions specific to luatex (RS)
+
+Lua module: microtype 2023/03/13 3.1a microtype module.
+Module microtype Info: overwriting function `keepligature' on input line 63
+LaTeX Info: Redefining \lsstyle on input line 688.
+LaTeX Info: Redefining \lslig on input line 688.
+\MT@outer@space=\skip190
+)
+Package microtype Info: Loading configuration file microtype.cfg.
+
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.cfg
+File: microtype.cfg 2023/03/13 v3.1a microtype main configuration file (RS)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
+\pgfutil@everybye=\toks30
+\pgfutil@tempdima=\dimen193
+\pgfutil@tempdimb=\dimen194
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box58
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+Package: pgfrcs 2023-01-15 v3.1.10 (3.1.10)
+))
+Package: pgf 2023-01-15 v3.1.10 (3.1.10)
+
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: luatex.def on input line 107.
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/luatex.def
+File: luatex.def 2022/09/22 v1.2d Graphics/color driver for luatex
+))
+\Gin@req@height=\dimen195
+\Gin@req@width=\dimen196
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks31
+\pgfkeys@temptoks=\toks32
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltered
+.code.tex
+\pgfkeys@tmptoks=\toks33
+))
+\pgf@x=\dimen197
+\pgf@y=\dimen198
+\pgf@xa=\dimen199
+\pgf@ya=\dimen256
+\pgf@xb=\dimen257
+\pgf@yb=\dimen258
+\pgf@xc=\dimen259
+\pgf@yc=\dimen260
+\pgf@xd=\dimen261
+\pgf@yd=\dimen262
+\w@pgf@writea=\write4
+\r@pgf@reada=\read3
+\c@pgf@counta=\count316
+\c@pgf@countb=\count317
+\c@pgf@countc=\count318
+\c@pgf@countd=\count319
+\t@pgf@toka=\toks34
+\t@pgf@tokb=\toks35
+\t@pgf@tokc=\toks36
+\pgf@sys@id@count=\count320
+ (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2023-01-15 v3.1.10 (3.1.10)
+)
+Driver file for pgf: pgfsys-luatex.def
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-luatex.def
+File: pgfsys-luatex.def 2023-01-15 v3.1.10 (3.1.10)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.de
+f
+File: pgfsys-common-pdf.def 2023-01-15 v3.1.10 (3.1.10)
+)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.
+tex
+File: pgfsyssoftpath.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfsyssoftpath@smallbuffer@items=\count321
+\pgfsyssoftpath@bigbuffer@items=\count322
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.
+tex
+File: pgfsysprotocol.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2023/11/15 v3.01 LaTeX color extensions (UK)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: luatex.def on input line 274.
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1350.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1354.
+Package xcolor Info: Model `RGB' extended on input line 1366.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1368.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1372.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+Package: pgfcore 2023-01-15 v3.1.10 (3.1.10)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen263
+\pgfmath@count=\count323
+\pgfmath@box=\box59
+\pgfmath@toks=\toks37
+\pgfmath@stack@operand=\toks38
+\pgfmath@stack@operation=\toks39
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonomet
+ric.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.cod
+e.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison
+.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerari
+thmetics.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count324
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te
+x
+File: pgfcorepoints.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@picminx=\dimen264
+\pgf@picmaxx=\dimen265
+\pgf@picminy=\dimen266
+\pgf@picmaxy=\dimen267
+\pgf@pathminx=\dimen268
+\pgf@pathmaxx=\dimen269
+\pgf@pathminy=\dimen270
+\pgf@pathmaxy=\dimen271
+\pgf@xx=\dimen272
+\pgf@xy=\dimen273
+\pgf@yx=\dimen274
+\pgf@yy=\dimen275
+\pgf@zx=\dimen276
+\pgf@zy=\dimen277
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.
+code.tex
+File: pgfcorepathconstruct.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@path@lastx=\dimen278
+\pgf@path@lasty=\dimen279
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code
+.tex
+File: pgfcorepathusage.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@shorten@end@additional=\dimen280
+\pgf@shorten@start@additional=\dimen281
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.te
+x
+File: pgfcorescopes.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfpic=\box60
+\pgf@hbox=\box61
+\pgf@layerbox@main=\box62
+\pgf@picture@serial@count=\count325
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c
+ode.tex
+File: pgfcoregraphicstate.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgflinewidth=\dimen282
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformation
+s.code.tex
+File: pgfcoretransformations.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@pt@x=\dimen283
+\pgf@pt@y=\dimen284
+\pgf@pt@temp=\dimen285
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
+File: pgfcorequick.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.t
+ex
+File: pgfcoreobjects.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing
+.code.tex
+File: pgfcorepathprocessing.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.te
+x
+File: pgfcorearrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfarrowsep=\dimen286
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
+File: pgfcoreshade.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@max=\dimen287
+\pgf@sys@shading@range@num=\count326
+\pgf@shadingcount=\count327
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
+File: pgfcoreimage.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.
+tex
+File: pgfcoreexternal.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfexternal@startupbox=\box63
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.te
+x
+File: pgfcorelayers.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.c
+ode.tex
+File: pgfcoretransparency.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.
+tex
+File: pgfcorepatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex
+File: pgfcorerdf.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
+File: pgfmoduleshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfnodeparttextbox=\box64
+) (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
+File: pgfmoduleplot.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65
+.sty
+Package: pgfcomp-version-0-65 2023-01-15 v3.1.10 (3.1.10)
+\pgf@nodesepstart=\dimen288
+\pgf@nodesepend=\dimen289
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18
+.sty
+Package: pgfcomp-version-1-18 2023-01-15 v3.1.10 (3.1.10)
+)) (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex))
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
+\pgffor@iter=\dimen290
+\pgffor@skip=\dimen291
+\pgffor@stack=\toks40
+\pgffor@toks=\toks41
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
+Package: tikz 2023-01-15 v3.1.10 (3.1.10)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers
+.code.tex
+File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@plot@mark@count=\count328
+\pgfplotmarksize=\dimen292
+)
+\tikz@lastx=\dimen293
+\tikz@lasty=\dimen294
+\tikz@lastxsaved=\dimen295
+\tikz@lastysaved=\dimen296
+\tikz@lastmovetox=\dimen297
+\tikz@lastmovetoy=\dimen298
+\tikzleveldistance=\dimen299
+\tikzsiblingdistance=\dimen300
+\tikz@figbox=\box65
+\tikz@figbox@bg=\box66
+\tikz@tempbox=\box67
+\tikz@tempbox@bg=\box68
+\tikztreelevel=\count329
+\tikznumberofchildren=\count330
+\tikznumberofcurrentchild=\count331
+\tikz@fig@count=\count332
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
+File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfmatrixcurrentrow=\count333
+\pgfmatrixcurrentcolumn=\count334
+\pgf@matrix@numberofcolumns=\count335
+)
+\tikz@expandcount=\count336
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)))
+(/usr/share/texlive/texmf-dist/tex/latex/tikz-cd/tikz-cd.sty
+Package: tikz-cd 2021/05/04 v1.0 Commutative diagrams with TikZ
+
+(/usr/share/texlive/texmf-dist/tex/generic/tikz-cd/tikzlibrarycd.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarymatrix.code.tex
+File: tikzlibrarymatrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryquotes.code.tex
+File: tikzlibraryquotes.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.
+code.tex
+File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfarrowinset=\dimen301
+\pgfarrowlength=\dimen302
+\pgfarrowwidth=\dimen303
+\pgfarrowlinewidth=\dimen304
+))) (/usr/share/texlive/texmf-dist/tex/latex/pgfplots/pgfplots.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
+Package: pgfplots 2021/05/15 v1.18.1 Data Visualization (1.18.1)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotscore.code.tex
+Package pgfplots info on input line 124: Initializing with LUA version Lua 5.3
+\pgfplots@luabackend@table=\catcodetable14
+\t@pgfplots@toka=\toks42
+\t@pgfplots@tokb=\toks43
+\t@pgfplots@tokc=\toks44
+\pgfplots@tmpa=\dimen305
+\c@pgfplots@coordindex=\count337
+\c@pgfplots@scanlineindex=\count338
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneric.code
+.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/libs/pgfplotslibrary.code.t
+ex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldp
+gfsupp_loader.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.code.tex
+)
+Package pgfplots: loading complementary utilities for your pgf version...
+\t@pgf@toka=\toks45
+\t@pgf@tokb=\toks46
+\t@pgf@tokc=\toks47
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldp
+gfsupp_pgfutil-common-lists.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/luamath/pgflibraryluam
+ath.code.tex)
+Package pgfplots info on input line 290: luamath library shipped with pgf 3.1.1
+0 is up-to-date
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.code.tex
+Package pgfplots info on input line 82: Found new luatex: initializing lua comm
+ands instead of write18 (shell-escape)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotslists
+tructure.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotslists
+tructureext.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsarray
+.code.tex
+\c@pgfplotsarray@tmp=\count339
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsmatri
+x.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstableshare
+d.code.tex
+\c@pgfplotstable@counta=\count340
+\t@pgfplotstable@a=\toks48
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsdeque
+.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.code.te
+x
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.data.co
+de.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.verb.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplots.sur
+fshading.code.tex
+\c@pgfplotslibrarysurf@no=\count341
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots.surf
+shading.pgfsys-luatex.def)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotscolormap.code.
+tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotscolor.code.tex
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotsstackedplots.code.t
+ex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotsplothandlers.code.t
+ex
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplothandler.cod
+e.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplotimage.code.
+tex)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.scaling.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotscoordprocessing.cod
+e.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.errorbars.code.tex
+) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.markers.code.tex
+) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotsticks.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.paths.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarydecorations.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduledecorations.cod
+e.tex
+\pgfdecoratedcompleteddistance=\dimen306
+\pgfdecoratedremainingdistance=\dimen307
+\pgfdecoratedinputsegmentcompleteddistance=\dimen308
+\pgfdecoratedinputsegmentremainingdistance=\dimen309
+\pgf@decorate@distancetomove=\dimen310
+\pgf@decorate@repeatstate=\count342
+\pgfdecorationsegmentamplitude=\dimen311
+\pgfdecorationsegmentlength=\dimen312
+)
+\tikz@lib@dec@box=\box69
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarydecorations.pathmorphing.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrary
+decorations.pathmorphing.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarydecorations.pathreplacing.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrary
+decorations.pathreplacing.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.co
+ntourlua.code.tex)
+\pgfplots@numplots=\count343
+\pgfplots@xmin@reg=\dimen313
+\pgfplots@xmax@reg=\dimen314
+\pgfplots@ymin@reg=\dimen315
+\pgfplots@ymax@reg=\dimen316
+\pgfplots@zmin@reg=\dimen317
+\pgfplots@zmax@reg=\dimen318
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryplotmarks.code.tex
+File: tikzlibraryplotmarks.code.tex 2023-01-15 v3.1.10 (3.1.10)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotmarks.co
+de.tex
+File: pgflibraryplotmarks.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarycalc.code.tex
+File: tikzlibrarycalc.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2023/05/13 v2.17o AMS math features
+\@mathmargin=\skip191
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks49
+\ex@=\dimen319
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen320
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count344
+LaTeX Info: Redefining \frac on input line 236.
+\uproot@=\count345
+\leftroot@=\count346
+LaTeX Info: Redefining \overline on input line 399.
+LaTeX Info: Redefining \colon on input line 410.
+\classnum@=\count347
+\DOTSCASE@=\count348
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box70
+\strutbox@=\box71
+LaTeX Info: Redefining \big on input line 722.
+LaTeX Info: Redefining \Big on input line 723.
+LaTeX Info: Redefining \bigg on input line 724.
+LaTeX Info: Redefining \Bigg on input line 725.
+\big@size=\dimen321
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count349
+LaTeX Info: Redefining \bmod on input line 905.
+LaTeX Info: Redefining \pmod on input line 910.
+LaTeX Info: Redefining \smash on input line 940.
+LaTeX Info: Redefining \relbar on input line 970.
+LaTeX Info: Redefining \Relbar on input line 971.
+\c@MaxMatrixCols=\count350
+\dotsspace@=\muskip16
+\c@parentequation=\count351
+\dspbrk@lvl=\count352
+\tag@help=\toks50
+\row@=\count353
+\column@=\count354
+\maxfields@=\count355
+\andhelp@=\toks51
+\eqnshift@=\dimen322
+\alignsep@=\dimen323
+\tagshift@=\dimen324
+\tagwidth@=\dimen325
+\totwidth@=\dimen326
+\lineht@=\dimen327
+\@envbody=\toks52
+\multlinegap=\skip192
+\multlinetaggap=\skip193
+\mathdisplay@stack=\toks53
+LaTeX Info: Redefining \[ on input line 2953.
+LaTeX Info: Redefining \] on input line 2954.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup5
+\symAMSb=\mathgroup6
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2020/05/29 v2.20.6
+\thm@style=\toks54
+\thm@bodyfont=\toks55
+\thm@headfont=\toks56
+\thm@notefont=\toks57
+\thm@headpunct=\toks58
+\thm@preskip=\skip194
+\thm@postskip=\skip195
+\thm@headsep=\skip196
+\dth@everypar=\toks59
+)
+(/usr/share/texlive/texmf-dist/tex/latex/mathtools/mathtools.sty
+Package: mathtools 2022/06/29 v1.29 mathematical typesetting tools
+
+(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2023/07/08 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count356
+\calc@Bcount=\count357
+\calc@Adimen=\dimen328
+\calc@Bdimen=\dimen329
+\calc@Askip=\skip197
+\calc@Bskip=\skip198
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count358
+\calc@Cskip=\skip199
+)
+(/usr/share/texlive/texmf-dist/tex/latex/mathtools/mhsetup.sty
+Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
+)
+\g_MT_multlinerow_int=\count359
+\l_MT_multwidth_dim=\dimen330
+\origjot=\skip256
+\l_MT_shortvdotswithinadjustabove_dim=\dimen331
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen332
+\l_MT_above_intertext_sep=\dimen333
+\l_MT_below_intertext_sep=\dimen334
+\l_MT_above_shortintertext_sep=\dimen335
+\l_MT_below_shortintertext_sep=\dimen336
+\xmathstrut@box=\box72
+\xmathstrut@dim=\dimen337
+)
+(/usr/share/texlive/texmf-dist/tex/latex/thmtools/thmtools.sty
+Package: thmtools 2023/05/04 v0.76
+\thmt@toks=\toks60
+\c@thmt@dummyctr=\count360
+
+(/usr/share/texlive/texmf-dist/tex/latex/thmtools/thm-patch.sty
+Package: thm-patch 2023/05/04 v0.76
+
+(/usr/share/texlive/texmf-dist/tex/latex/thmtools/parseargs.sty
+Package: parseargs 2023/05/04 v0.76
+\@parsespec=\toks61
+))
+(/usr/share/texlive/texmf-dist/tex/latex/thmtools/thm-kv.sty
+Package: thm-kv 2023/05/04 v0.76
+Package thm-kv Info: Theorem names will be uppercased on input line 42.
+Package thm-kv Info: kvsetkeys patch (v1.16 or later) on input line 158.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/thmtools/thm-autoref.sty
+Package: thm-autoref 2023/05/04 v0.76
+
+(/usr/share/texlive/texmf-dist/tex/latex/thmtools/aliasctr.sty
+Package: aliasctr 2023/05/04 v0.76
+))
+(/usr/share/texlive/texmf-dist/tex/latex/thmtools/thm-listof.sty
+Package: thm-listof 2023/05/04 v0.76
+)
+(/usr/share/texlive/texmf-dist/tex/latex/thmtools/thm-restate.sty
+Package: thm-restate 2023/05/04 v0.76
+)
+(/usr/share/texlive/texmf-dist/tex/latex/thmtools/thm-amsthm.sty
+Package: thm-amsthm 2023/05/04 v0.76
+\thmt@style@headstyle=\toks62
+))
+\c@theorem=\count361
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2024-01-20 v7.01h Hypertext links for LaTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+\pdftexcmds@toks=\toks63
+))
+(/usr/share/texlive/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+\@linkdim=\dimen338
+\Hy@linkcounter=\count362
+\Hy@pagecounter=\count363
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2024-01-20 v7.01h Hyperref: PDFDocEncoding definition (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+\Hy@SavedSpaceFactor=\count364
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2024-01-20 v7.01h Hyperref: PDF Unicode definition (HO)
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 4062.
+Package hyperref Info: Hyper figures OFF on input line 4179.
+Package hyperref Info: Link nesting OFF on input line 4184.
+Package hyperref Info: Hyper index ON on input line 4187.
+Package hyperref Info: Plain pages OFF on input line 4194.
+Package hyperref Info: Backreferencing OFF on input line 4199.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4446.
+\c@Hy@tempcnt=\count365
+
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4784.
+\XeTeXLinkMargin=\dimen339
+
+(/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count366
+\Field@Width=\dimen340
+\Fld@charsize=\dimen341
+Package hyperref Info: Hyper figures OFF on input line 6063.
+Package hyperref Info: Link nesting OFF on input line 6068.
+Package hyperref Info: Hyper index ON on input line 6071.
+Package hyperref Info: backreferencing OFF on input line 6078.
+Package hyperref Info: Link coloring ON on input line 6081.
+Package hyperref Info: Link coloring with OCG OFF on input line 6088.
+Package hyperref Info: PDF/A mode OFF on input line 6093.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
+)
+\Hy@abspage=\count367
+\c@Item=\count368
+\c@Hfootnote=\count369
+)
+Package hyperref Info: Driver (autodetected): hluatex.
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hluatex.def
+File: hluatex.def 2024-01-20 v7.01h Hyperref driver for luaTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/stringenc/stringenc.sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
+)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
+kage
+with kernel methods
+)
+\Fld@listcount=\count370
+\c@bookmark@seq@number=\count371
+
+(/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+85.
+)
+\Hy@SectionHShift=\skip257
+)
+(/usr/share/texlive/texmf-dist/tex/latex/memoir/memhfixc.sty
+Package: memhfixc 2023/09/10 v1.22 hyperref package fixes for memoir class
+\c@memhycontfloat=\count372
+\c@Hpagenote=\count373
+)
+(/usr/share/texlive/texmf-dist/tex/latex/cleveref/cleveref.sty
+Package: cleveref 2018/03/27 v0.21.4 Intelligent cross-referencing
+LaTeX Info: Redefining \Cref on input line 925.
+Package cleveref Info: `hyperref' support loaded on input line 2370.
+LaTeX Info: Redefining \cref on input line 2370.
+LaTeX Info: Redefining \Cref on input line 2370.
+LaTeX Info: Redefining \crefrange on input line 2370.
+LaTeX Info: Redefining \Crefrange on input line 2370.
+LaTeX Info: Redefining \cpageref on input line 2370.
+LaTeX Info: Redefining \Cpageref on input line 2370.
+LaTeX Info: Redefining \cpagerefrange on input line 2370.
+LaTeX Info: Redefining \Cpagerefrange on input line 2370.
+LaTeX Info: Redefining \labelcref on input line 2370.
+LaTeX Info: Redefining \labelcpageref on input line 2370.
+Package cleveref Info: `amsthm' support loaded on input line 3026.
+)
+LaTeX Font Info:    Trying to load font information for T1+pplj on input line 1
+33.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pplj.fd
+File: t1pplj.fd 2004/09/06 font definitions for T1/pplj.
+)
+(./adjunction_and_irreversibility.aux)
+\openout1 = adjunction_and_irreversibility.aux
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 133.
+LaTeX Font Info:    ... okay on input line 133.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 133.
+LaTeX Font Info:    ... okay on input line 133.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 133.
+LaTeX Font Info:    ... okay on input line 133.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 133.
+LaTeX Font Info:    ... okay on input line 133.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 133.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 1
+33.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 133.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 133.
+LaTeX Font Info:    ... okay on input line 133.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 133.
+LaTeX Font Info:    ... okay on input line 133.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 133.
+LaTeX Font Info:    ... okay on input line 133.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 133.
+LaTeX Font Info:    ... okay on input line 133.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 133.
+LaTeX Font Info:    ... okay on input line 133.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: luatex
+*geometry* verbose mode - [ preamble ] result:
+* driver: luatex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(90.3375pt, 451.68752pt, 72.26999pt)
+* v-part:(T,H,B)=(90.3375pt, 614.295pt, 90.3375pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=451.68752pt
+* \textheight=614.295pt
+* \oddsidemargin=18.0675pt
+* \evensidemargin=18.0675pt
+* \topmargin=-16.30629pt
+* \headheight=14.5pt
+* \headsep=19.8738pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=54.2025pt
+* \marginparsep=7.0pt
+* \columnsep=10.0pt
+* \skip\footins=12.0pt plus 4.0pt minus 4.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+LaTeX Info: Redefining \microtypecontext on input line 133.
+Package microtype Info: Applying patch `item' on input line 133.
+Package microtype Info: Applying patch `toc' on input line 133.
+Package microtype Info: Applying patch `eqnum' on input line 133.
+Package microtype Info: Applying patch `footnote' on input line 133.
+Package microtype Info: Applying patch `verbatim' on input line 133.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using default protrusion set `alltext'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `alltext-nott'.
+LaTeX Info: Redefining \showhyphens on input line 133.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of spacing.
+Package microtype Info: No adjustment of kerning.
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-ppl.cfg
+File: mt-ppl.cfg 2005/11/16 v1.6 microtype config. file: Palatino (RS)
+)
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count374
+\scratchdimen=\dimen342
+\scratchbox=\box73
+\nofMPsegments=\count375
+\nofMParguments=\count376
+\everyMPshowfont=\toks64
+\MPscratchCnt=\count377
+\MPscratchDim=\dimen343
+\MPnumerator=\count378
+\makeMPintoPDFobject=\count379
+\everyMPtoPDFconversion=\toks65
+) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+Package pgfplots notification 'compat/show suggested version=true': document ha
+s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
+
+Package hyperref Info: Link coloring ON on input line 133.
+(./adjunction_and_irreversibility.out) (./adjunction_and_irreversibility.out)
+\@outlinefile=\write5
+
+\openout5 = adjunction_and_irreversibility.out
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+(./adjunction_and_irreversibility.toc
+LaTeX Font Info:    Trying to load font information for OT1+pplx on input line 
+1.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pplx.fd
+File: ot1pplx.fd 2004/09/06 font definitions for OT1/pplx.
+)
+LaTeX Font Info:    Trying to load font information for OML+zplm on input line 
+1.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omlzplm.fd
+File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
+)
+LaTeX Font Info:    Trying to load font information for OMS+zplm on input line 
+1.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omszplm.fd
+File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
+)
+LaTeX Font Info:    Trying to load font information for OMX+zplm on input line 
+1.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omxzplm.fd
+File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
+)
+LaTeX Font Info:    Trying to load font information for OT1+zplm on input line 
+1.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1zplm.fd
+File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `zplm' (encoding: OT1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 12.50409pt on input line 1.
+
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 9.37807pt on input line 1.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 7.29405pt on input line 1.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 12.50409pt on input line 1.
+
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+)
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 9.37807pt on input line 1.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 7.29405pt on input line 1.
+
+warning  (pdf backend): ignoring duplicate destination with the name 'page.1'
+[1
+
+
+] [2] [3] [4] [5] [6]) [7] [8
+
+
+] [9] [10]
+Package hyperref Info: bookmark level for unknown definition defaults to 0 on i
+nput line 303.
+LaTeX Font Info:    Trying to load font information for U+fplmbb on input line 
+305.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ufplmbb.fd
+File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
+) [11
+
+
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 11.40997pt on input line 384.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 8.33606pt on input line 384.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 6.25204pt on input line 384.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 11.40997pt on input line 384.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 8.33606pt on input line 384.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 6.25204pt on input line 384.
+
+Overfull \hbox (118.88524pt too wide) in paragraph at lines 435--443
+ [][] 
+ []
+
+[12] [13
+Missing character: There is no — (U+2014) in font pplr9d!
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+[14
+
+] [15]
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmss' (encoding: OT1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+[16
+
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+[17]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+Package hyperref Info: bookmark level for unknown remark defaults to 0 on input
+ line 754.
+Package hyperref Info: bookmark level for unknown theorem defaults to 0 on inpu
+t line 807.
+[18
+
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+Overfull \hbox (26.11424pt too wide) in paragraph at lines 846--847
+[]\T1/pplj/b/n/12 Def-i-ni-tion 5.3.1 \T1/pplj/m/n/12 (Re-con-struc-tion op-er-a
+-tor)\T1/pplj/b/n/12 . []\T1/pplj/m/n/12 De-fine $\OML/zplm/m/it/12 G \OT1/zplm
+/m/n/12 : \OMS/zplm/m/n/12 Y ! X$ \T1/pplj/m/n/12 by $\OML/zplm/m/it/12 G\OT1/z
+plm/m/n/12 (\OML/zplm/m/it/12 y\OT1/zplm/m/n/12 ) := [][] \OML/zplm/m/it/12 L\O
+T1/zplm/m/n/12 (\OML/zplm/m/it/12 X \OMS/zplm/m/n/12 j
+ []
+
+[19]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+[20] [21]
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 15.0049pt on input line 965.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 10.42007pt on input line 965.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 15.0049pt on input line 965.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 10.42007pt on input line 965.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 965.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\sigma' on input line 965.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 965.
+
+
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+Package hyperref Info: bookmark level for unknown assumption defaults to 0 on i
+nput line 982.
+
+Overfull \hbox (2.3778pt too wide) in paragraph at lines 1010--1012
+[]\T1/pplj/m/n/12 Im-me-di-ate from Def-i-ni-tion [][]4.3.1[][] and As-sump-tion
+ [][]6.2.1[][]: dis-tinct Refuse-separated
+ []
+
+
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+[22
+
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'remark.2'
+
+Overfull \hbox (10.34834pt too wide) in paragraph at lines 1032--1038
+[]\T1/pplj/b/n/12 Re-mark 6.3.2. []\T1/pplj/m/n/12 The Jensen--Shannon di-ver-ge
+nce re-places the raw KL di-ver-gence $\OML/zplm/m/it/12 D[]\OT1/zplm/m/n/12 (\
+OML/zplm/m/it/12 \OMS/zplm/m/n/12 k[]\OT1/zplm/m/n/12 )$
+ []
+
+Package hyperref Info: bookmark level for unknown proposition defaults to 0 on 
+input line 1040.
+[23]
+LaTeX Font Info:    Trying to load font information for TS1+pplj on input line 
+1088.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1pplj.fd
+File: ts1pplj.fd 2004/09/06 font definitions for TS1/pplj.
+)
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1098.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1098.
+
+
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+[24
+
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+[25]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'assumption
+.1'
+[26
+
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.2'
+[27]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.2'
+[28
+
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+[29]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+[30]
+Overfull \hbox (5.72867pt too wide) in paragraph at lines 1514--1519
+[]\T1/pplj/m/n/12 (1) and (3) fol-low from Propo-si-tion [][]9.1.1[][]: the ker-
+nel is al-ways infinite-dimensional.
+ []
+
+[31]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1582.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathop' on input line 1582.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathcode' on input line 1582.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathcode' on input line 1582.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathcode' on input line 1582.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\Umathcharnumdef' on input line 1582.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\std@minus' on input line 1582.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\Umathcodenum' on input line 1582.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\-' on input line 1582.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathcode' on input line 1582.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\-' on input line 1582.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathcode' on input line 1582.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathcode' on input line 1582.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 1582.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 2.66638pt
+(hyperref)                removed on input line 1582.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathgroup' on input line 1582.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\symoperators' on input line 1582.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@ifnextchar' on input line 1582.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\eta' on input line 1582.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1582.
+
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+Package hyperref Info: bookmark level for unknown corollary defaults to 0 on in
+put line 1648.
+[32
+
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+[33]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+Overfull \hbox (3.3384pt too wide) in paragraph at lines 1717--1718
+[]\T1/pplj/m/it/12 Point-wise de-fect\T1/pplj/m/n/12 : $\OT1/zplm/m/n/12 (\OML
+/zplm/m/it/12 X\OT1/zplm/m/n/12 ) :=
+ []
+
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1768.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `superscript' on input line 1768.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1768.
+
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+[34
+
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+[35] [36]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.2'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+[37
+
+] [38] [39]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+
+Overfull \hbox (27.77136pt too wide) in paragraph at lines 2073--2076
+[]$\OT1/zplm/m/n/12 [] = \OMS/zplm/m/n/12 k\OT1/zplm/m/n/12 	[](\OML/zplm/m/it
+/12 X[]\OT1/zplm/m/n/12 ) \OMS/zplm/m/n/12 ^^@ \OML/zplm/m/it/12 \OT1/zplm/m/n
+/12 (	[](\OML/zplm/m/it/12 X[]\OT1/zplm/m/n/12 ))\OMS/zplm/m/n/12 k  k\OT1/zpl
+m/m/n/12 	[](\OML/zplm/m/it/12 X[]\OT1/zplm/m/n/12 ) \OMS/zplm/m/n/12 ^^@ \OT1/
+zplm/m/n/12 	[](\OML/zplm/m/it/12 \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 X[]\OT1/
+zplm/m/n/12 ))\OMS/zplm/m/n/12 k \OT1/zplm/m/n/12 + \OMS/zplm/m/n/12 k\OT1/zplm
+/m/n/12 	[](\OML/zplm/m/it/12 \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 X[]\OT1/zplm
+/m/n/12 )) \OMS/zplm/m/n/12 ^^@ \OML/zplm/m/it/12 \OT1/zplm/m/n/12 (	[](\OML/z
+plm/m/it/12 X[]\OT1/zplm/m/n/12 ))\OMS/zplm/m/n/12 k 
+ []
+
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 5.21004pt on input line 2151.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 5.21004pt on input line 2151.
+[40
+
+] [41]
+Package hyperref Info: bookmark level for unknown lemma defaults to 0 on input 
+line 2200.
+ [42
+
+] [43] [44]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'remark.2'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+[45
+
+] [46]
+Package hyperref Info: bookmark level for unknown conjecture defaults to 0 on i
+nput line 2439.
+
+warning  (pdf backend): ignoring duplicate destination with the name 'remark.2'
+[47
+
+] [48]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.2'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+[49
+
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'conjecture
+.1'
+[50]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+[51
+
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+[52] [53]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+Overfull \hbox (5.6034pt too wide) in paragraph at lines 2750--2755
+[]\T1/pplj/b/n/12 Def-i-ni-tion 19.2.1 \T1/pplj/m/n/12 (History-split boundary-v
+alue prob-lem)\T1/pplj/b/n/12 . []\T1/pplj/m/n/12 Let $\OT1/zplm/m/n/12 [](\OM
+L/zplm/m/it/12 \OT1/zplm/m/n/12 ) := [][] \OML/zplm/m/it/12 j[]\OT1/zplm/m/n/1
+2 (\OML/zplm/m/it/12 x[]\OT1/pplx/m/n/12 , \OML/zplm/m/it/12 t\OT1/zplm/m/n/12 
+) \OML/zplm/m/it/12 dt$
+ []
+
+
+warning  (pdf backend): ignoring duplicate destination with the name 'conjecture
+.1'
+[54
+
+] [55
+
+] [56]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'remark.2'
+[57
+
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+[58] [59]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+Overfull \hbox (8.3508pt too wide) in paragraph at lines 2995--2997
+[]\T1/pplj/b/n/12 Def-i-ni-tion 22.1.1 \T1/pplj/m/n/12 (Path groupoid of the ad-
+mis-si-ble space)\T1/pplj/b/n/12 . []\T1/pplj/m/n/12 The \T1/pplj/m/it/12 path 
+groupoid $\OT1/zplm/m/n/12 [](\OMS/zplm/m/n/12 X\OT1/pplx/m/n/12 , \OMS/zplm/m
+/n/12 P[]\OT1/zplm/m/n/12 )$
+ []
+
+
+warning  (pdf backend): ignoring duplicate destination with the name 'assumption
+.2'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+[60
+
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'remark.2'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+[61]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+[62]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.2'
+
+Overfull \hbox (26.73715pt too wide) in paragraph at lines 3166--3172
+[]\T1/pplj/m/n/12 The fea-ture map $[]$ de-com-poses over dis-joint do-mains: $
+[]\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 X[] \OMS/zplm/m/n/12 
+ \OML/zplm/m/it/12 X[]\OT1/zplm/m/n/12 ) = ([](\OML/zplm/m/it/12 X[]\OT1/zplm/m
+/n/12 )\OT1/pplx/m/n/12 , []\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 X[]\OT1/zplm/m/
+n/12 ))$
+ []
+
+
+Overfull \hbox (19.83675pt too wide) in paragraph at lines 3166--3172
+\T1/pplj/m/n/12 Lagrange op-er-a-tor $\OML/zplm/m/it/12 A$\T1/pplj/m/n/12 , the re-con-struc-tion also de-com-poses: $\OML/zplm/m/it/12 G\OT1/zplm/m/n/12 ([](\OML/zplm/m/it/12 X[] \OMS/zplm/m/n/12 
+ \OML/zplm/m/it/12 X[]\OT1/zplm/m/n/12 )) = \OML/zplm/m/it/12 G[]\OT1/zplm/m/n/
+12 ([](\OML/zplm/m/it/12 X[]\OT1/zplm/m/n/12 )) \OMS/zplm/m/n/12 
+
+ []
+
+
+warning  (pdf backend): ignoring duplicate destination with the name 'remark.3'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'conjecture
+.1'
+[63] [64]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+[65
+
+] [66] [67] [68
+
+] [69]
+Overfull \hbox (11.12833pt too wide) in paragraph at lines 3449--3458
+[]\T1/pplj/m/n/12 The hard prob-lem then be-comes: are there phys-i-cal sys-tems
+ whose self-representation
+ []
+
+[70] [71]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+[72]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+[73]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+[74] [75]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+[76
+Missing character: There is no — (U+2014) in font pplr9d!
+Missing character: There is no — (U+2014) in font pplr9d!
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.2'
+[77]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+[78
+Missing character: There is no — (U+2014) in font pplr9d!
+Missing character: There is no — (U+2014) in font pplr9d!
+Missing character: There is no — (U+2014) in font pplr9d!
+Missing character: There is no — (U+2014) in font pplr9d!
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+[79
+Missing character: There is no — (U+2014) in font pplr9d!
+] [80
+Missing character: There is no — (U+2014) in font pplr9d!
+Missing character: There is no — (U+2014) in font pplr9d!
+Missing character: There is no — (U+2014) in font pplr9d!
+Missing character: There is no — (U+2014) in font pplr9d!
+Missing character: There is no — (U+2014) in font pplr9d!
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+
+Overfull \hbox (6.69933pt too wide) in paragraph at lines 3988--3993
+[]\T1/pplj/b/n/12 Propo-si-tion 24.14.1 \T1/pplj/m/n/12 (Boot-strap-ping con-str
+aint for history-sensitive iden-tity)\T1/pplj/b/n/12 . []\T1/pplj/m/it/12 Let $
+\OML/zplm/m/it/12 D[]\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 k\OT1/zplm/m/n/12 )$
+ []
+
+[81]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+Overfull \hbox (17.0433pt too wide) detected at line 4048
+\OML/zplm/m/it/12 M[] \OT1/zplm/m/n/12 : \OMS/zplm/m/n/12 P  Y ! \U/fplmbb/m/n
+/12 R[]\OT1/pplx/m/n/12 ,  \OML/zplm/m/it/12 M[]\OT1/zplm/m/n/12 (\OML/zplm/m/i
+t/12 \OT1/pplx/m/n/12 , \OML/zplm/m/it/12 y\OT1/zplm/m/n/12 ) := []\OML/zplm/m
+/it/12 G\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 y\OT1/zplm/m/n/12 )[]\OML/zplm/m/it
+/12 \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 t\OT1/zplm/m/n/12 )\OT1/pplx/m/n/12 ,
+ []
+
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.2'
+[82
+Missing character: There is no — (U+2014) in font pplr9d!
+Missing character: There is no — (U+2014) in font pplr9d!
+Missing character: There is no — (U+2014) in font pplr9d!
+Missing character: There is no — (U+2014) in font pplr9d!
+] [83
+Missing character: There is no — (U+2014) in font pplr9d!
+Missing character: There is no — (U+2014) in font pplr9d!
+] [84
+Missing character: There is no — (U+2014) in font pplr9d!
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+[85
+Missing character: There is no — (U+2014) in font pplr9d!
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+[86
+Missing character: There is no — (U+2014) in font pplri9d!
+Missing character: There is no — (U+2014) in font pplri9d!
+Missing character: There is no — (U+2014) in font pplr9d!
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.2'
+[87
+Missing character: There is no — (U+2014) in font pplr9d!
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+[88
+Missing character: There is no — (U+2014) in font pplr9d!
+Missing character: There is no — (U+2014) in font pplr9d!
+Missing character: There is no — (U+2014) in font pplr9d!
+Missing character: There is no — (U+2014) in font pplr9d!
+Missing character: There is no — (U+2014) in font pplr9d!
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'conjecture
+.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+[89
+
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'remark.2'
+[90] [91]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.2'
+[92
+
+] [93] [94]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.2'
+[95
+
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.2'
+[96]
+warning  (pdf backend): ignoring duplicate destination with the name 'conjecture
+.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'remark.2'
+[97]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+[98
+
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'corollary.
+2'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+[99]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.2'
+[100]
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+[101]
+Overfull \hbox (36.75601pt too wide) in paragraph at lines 5011--5015
+[]\T1/pplj/m/n/12 From The-o-rem [][]5.4.1[][], $\OML/zplm/m/it/12 C[] \OMS/zpl
+m/m/n/12  \OML/zplm/m/it/12 \OMS/zplm/m/n/12 k\OML/zplm/m/it/12 F\OMS/zplm/m/
+n/12 k\OT1/zplm/m/n/12 / []\OMS/zplm/m/n/12 f\OML/zplm/m/it/12 \OT1/pplx/m/n/1
+2 , \OML/zplm/m/it/12 \OT1/pplx/m/n/12 , \OML/zplm/m/it/12 \OT1/pplx/m/n/12 , \OML/zplm/m/it/12 \OMS/zplm/m/n/12 g$ \T1/pplj/m/n/12 where $\OMS/zplm/m/n/12 k\OML/zplm/m/it/12 F\OMS/zplm/m/n/12 k \OT1/zplm/m/n/12 = []\OMS/zplm/m/n/12 fk\OML/zplm/m/it/12 F[]\OMS/zplm/m/n/12 k\OT1/pplx/m/n/12 , \OMS/zplm/m/n/12 k\OML/zplm/m/it/12 F[]\OMS/zplm/m/n/12 k\OT1/pplx/m/n/12 , \OMS/zplm/m/n/12 k\OML/zplm/m/it/12 F[]\OMS/zplm/m/n/12 kg$\T1/pplj/m/n/12 .
+ []
+
+
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.2'
+[102]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.2'
+[103]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 5124.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 5124.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 5124.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 5124.
+
+Package hyperref Info: bookmark level for unknown example defaults to 0 on inpu
+t line 5129.
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 5141.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 5141.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 5141.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 5141.
+
+
+Overfull \hbox (47.20285pt too wide) detected at line 5154
+[]
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 5161.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 5161.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 5161.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 5161.
+
+[104
+
+
+warning  (pdf backend): ignoring duplicate destination with the name 'example.1'
+
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'example.1'
+
+
+warning  (pdf backend): ignoring duplicate destination with the name 'remark.2'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'example.1'
+
+
+Overfull \hbox (8.25516pt too wide) in paragraph at lines 5206--5216
+ [] 
+ []
+
+[105]
+warning  (pdf backend): ignoring duplicate destination with the name 'example.1'
+
+
+Overfull \hbox (36.53337pt too wide) in paragraph at lines 5269--5281
+ [] 
+ []
+
+[106]
+warning  (pdf backend): ignoring duplicate destination with the name 'example.1'
+
+
+Overfull \hbox (30.45255pt too wide) detected at line 5307
+[][][]\OT1/zplm/m/n/12 [](\OML/zplm/m/it/12 []\OT1/zplm/m/n/12 ) \OMS/zplm/m/
+n/12 ^^@ \OT1/zplm/m/n/12 [](\OML/zplm/m/it/12 []\OT1/zplm/m/n/12 ) = \OT1/pp
+lx/m/n/12 2\OML/zplm/m/it/12 []![]\OT1/zplm/m/n/12 (\OT1/pplx/m/n/12 1 \OT1/zp
+lm/m/n/12 + \OML/zplm/m/it/12 a[]\OT1/zplm/m/n/12 ) + \OML/zplm/m/it/12 ![]a[]\
+OT1/zplm/m/n/12 (\OML/zplm/m/it/12 a[] \OMS/zplm/m/n/12 ^^@ \OT1/pplx/m/n/12 1\
+OT1/zplm/m/n/12 ) \OMS/zplm/m/n/12 ^^@ \OML/zplm/m/it/12 ![][] \OT1/zplm/m/n/12
+ + \OT1/pplx/m/n/12 2\OML/zplm/m/it/12 a[]a[]\OT1/zplm/m/n/12 (\OML/zplm/m/it/
+12 ![] \OMS/zplm/m/n/12 ^^@ \OML/zplm/m/it/12 ![]a[]\OT1/zplm/m/n/12 /(\OT1/ppl
+x/m/n/12 1 \OT1/zplm/m/n/12 + \OML/zplm/m/it/12 a[] \OT1/zplm/m/n/12 + \OML/zpl
+m/m/it/12 a[]\OT1/zplm/m/n/12 ))\OT1/pplx/m/n/12 .
+ []
+
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.2'
+[107]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 5330.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 5330.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 5330.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 5330.
+
+[108]
+Overfull \hbox (6.46745pt too wide) in paragraph at lines 5417--5420
+\T1/pplj/m/n/12 (Here $\OML/zplm/m/it/12 b \OT1/zplm/m/n/12 = \OMS/zplm/m/n/12 
+^^@\OML/zplm/m/it/12 \OT1/zplm/m/n/12 (\OML/zplm/m/it/12 a[] \OT1/zplm/m/n/12 
++ \OML/zplm/m/it/12 a[] \OT1/zplm/m/n/12 + \OML/zplm/m/it/12 a[]a[]\OT1/zplm/m/
+n/12 ) = \OMS/zplm/m/n/12 ^^@\OT1/zplm/m/n/12 (\OT1/pplx/m/n/12 4\OT1/zplm/m/n/
+12 /\OT1/pplx/m/n/12 5 \OT1/zplm/m/n/12 + \OT1/pplx/m/n/12 3\OT1/zplm/m/n/12 /\
+OT1/pplx/m/n/12 4 \OT1/zplm/m/n/12 + \OT1/pplx/m/n/12 12\OT1/zplm/m/n/12 /\OT1/
+pplx/m/n/12 20\OT1/zplm/m/n/12 ) = \OMS/zplm/m/n/12 ^^@\OT1/zplm/m/n/12 (\OT1/p
+plx/m/n/12 16\OT1/zplm/m/n/12 /\OT1/pplx/m/n/12 20 \OT1/zplm/m/n/12 + \OT1/pplx
+/m/n/12 15\OT1/zplm/m/n/12 /\OT1/pplx/m/n/12 20 \OT1/zplm/m/n/12 + \OT1/pplx/m/
+n/12 12\OT1/zplm/m/n/12 /\OT1/pplx/m/n/12 20\OT1/zplm/m/n/12 ) =
+ []
+
+
+Overfull \hbox (10.45213pt too wide) detected at line 5452
+[]
+ []
+
+[109] [110] [111
+
+]
+Overfull \hbox (4.7818pt too wide) in paragraph at lines 5593--5602
+\T1/pplj/m/n/12 via the ob-struc-tion ar-gu-ment of Propo-si-tion [][]22.3.1[][
+]---and that no finite-dimensional
+ []
+
+[112] [113] [114] [115] [116
+
+] [117] [118
+
+] [119
+
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'definition
+.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.2'
+
+Overfull \hbox (28.15381pt too wide) in paragraph at lines 5921--5924
+[]\T1/pplj/b/n/12 Propo-si-tion D.1.2 \T1/pplj/m/n/12 (Ex-is-tence of weak so-lu
+-tions)\T1/pplj/b/n/12 . []\T1/pplj/m/it/12 For $\OML/zplm/m/it/12 U[] \OMS/zpl
+m/m/n/12 2 \OML/zplm/m/it/12 L[]\OT1/zplm/m/n/12 (
+)[]$ \T1/pplj/m/it/12 and $\OMS/zplm/m/n/12 R 2 \OML/zplm/m/it/12 L[]\OT1/zplm/
+m/n/12 (\OT1/pplx/m/n/12 0, \OML/zplm/m/it/12 T\OT1/pplx/m/n/12 ; \OML/zplm/m/i
+t/12 L[]\OT1/zplm/m/n/12 (
+))$\T1/pplj/m/it/12 ,
+ []
+
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+[120
+
+]
+warning  (pdf backend): ignoring duplicate destination with the name 'remark.1'
+
+warning  (pdf backend): ignoring duplicate destination with the name 'propositio
+n.1'
+
+Overfull \hbox (45.27538pt too wide) in paragraph at lines 6005--6011
+\OML/zplm/m/it/12 a[] \OMS/zplm/m/n/12  \OT1/pplx/m/n/12 2\OML/zplm/m/it/12 E\
+OT1/zplm/m/n/12 (\OML/zplm/m/it/12 n\OT1/zplm/m/n/12 )$\T1/pplj/m/n/12 . Sim-i-l
+arly $\OML/zplm/m/it/12 v\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 n \OT1/zplm/m/n/12
+ + \OT1/pplx/m/n/12 1\OT1/zplm/m/n/12 )[] = (\OML/zplm/m/it/12 a[]v\OT1/zplm/m/
+n/12 (\OML/zplm/m/it/12 n\OT1/zplm/m/n/12 ) + \OML/zplm/m/it/12 cq\OT1/zplm/m/n
+/12 (\OML/zplm/m/it/12 n\OT1/zplm/m/n/12 ))[] \OMS/zplm/m/n/12  \OT1/pplx/m/n/
+12 2\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 a[]v\OT1/zplm/m/n/12 (\OML/zplm/m/it/12
+ n\OT1/zplm/m/n/12 )[] + \OML/zplm/m/it/12 c[]q\OT1/zplm/m/n/12 (\OML/zplm/m/it
+/12 n\OT1/zplm/m/n/12 )[]) \OMS/zplm/m/n/12  \OT1/pplx/m/n/12 2 []\OMS/zplm/m/
+n/12 f\OML/zplm/m/it/12 a[]\OT1/pplx/m/n/12 , \OML/zplm/m/it/12 c[]\OT1/zplm/m/
+n/12 /\OML/zplm/m/it/12 a[]\OMS/zplm/m/n/12 g 
+ []
+
+[121] [122] [123
+
+] [124] [125]
+bibitemlist
+
+Underfull \hbox (badness 1521) in paragraph at lines 6135--6139
+[]\T1/pplj/m/n/12 J. Bar-ton, \T1/pplj/m/it/12 Co-her-ence Ther-mo-dy-nam-ics: 
+A Frame-work for Se-man-tic Sys-tems\T1/pplj/m/n/12 ,
+ []
+
+[126
+
+] [127
+Missing character: There is no Ł (U+0141) in font pplr9d!
+] [128]
+\tf@toc=\write6
+
+\openout6 = adjunction_and_irreversibility.toc
+ (./adjunction_and_irreversibility.aux)
+ ***********
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2020/03/25>
+ ***********
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package rerunfilecheck Info: File `adjunction_and_irreversibility.out' has not 
+changed.
+(rerunfilecheck)             Checksum: 7B88455DD3EF44E70A6EA2CE7CF87743;53345.
+)
+
+Here is how much of LuaTeX's memory you used:
+ 44644 strings out of 476553
+ 125240,1977958 words of node,token memory allocated
+ 2111 words of node memory still in use:
+   8 hlist, 2 vlist, 2 rule, 1 local_par, 4 glue, 4 kern, 1 penalty, 10 sub_mlis
+t, 3 glyph, 213 attribute, 190 glue_spec, 213 attribute_list, 3 write, 3 pdf_act
+ion nodes
+   avail lists: 1:2,2:3093,3:1673,4:225,5:529,6:120,7:7627,8:110,9:817,10:25,11:
+688
+ 64584 multiletter control sequences out of 65536+600000
+ 286 fonts using 18156167 bytes
+ 102i,19n,101p,1110b,2899s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmss12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmss9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/fpl/fplbj8a.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/mathpazo/fplmbb.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/fpl/fplrc8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/fpl/fplrij8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplb8
+a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on adjunction_and_irreversibility.pdf (129 pages, 772836 bytes).
+
+PDF statistics: 2547 PDF objects out of 2984 (max. 8388607)
+ 2361 compressed objects within 24 object streams
+ 707 named destinations out of 1000 (max. 131072)
+ 1781 words of extra memory for PDF output out of 10000 (max. 100000000)
+
