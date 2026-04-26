@@ -1,0 +1,2811 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1.15in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{mathrsfs}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{tocloft}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{abstract}
+\usepackage{fancyhdr}
+\usepackage[numbers]{natbib}
+
+\onehalfspacing
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\small\textit{Kernel Operators, Memory, and Field-Theoretic Dynamics}}
+\lhead{\small Flyxion}
+\cfoot{\thepage}
+\setlength{\headheight}{14.5pt}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{\thesubsubsection}{1em}{}
+
+%% Theorem environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+%% Operators
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\tr}{tr}
+
+%% Shorthand
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\Pcal}{\mathcal{P}}
+\newcommand{\Tcal}{\mathcal{T}}
+\newcommand{\Kcal}{\mathcal{K}}
+
+%% The universal trajectory operator — central object of the entire paper
+\newcommand{\TK}{\mathcal{T}_K}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  citecolor=green!50!black,
+  urlcolor=blue!70!black
+}
+
+\title{%
+  \textbf{Kernel Operators, Memory, and Field-Theoretic Dynamics}\\[0.5em]
+  \large Dynamics as Functionals of Trajectories
+}
+\author{Flyxion}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+\noindent
+Standard mathematical formulas are conventionally understood as isolated results.
+Fractional calculus is conventionally understood as an extension of classical
+calculus. Both framings conceal the same hidden object: a continuous operator
+algebra acting on trajectories rather than states, parameterized by a kernel
+and a memory order.
+
+This monograph argues that replacing local, state-based operators with kernel
+operators on path space is not a technical generalization but a foundational
+reorientation. The central object is the \emph{trajectory operator}
+$\TK[f](t) = \int_0^t K(t,\tau)\,F(f(\tau))\,d\tau$, of which classical
+differentiation, fractional calculus, and field-theoretic transport are all
+specializations.
+
+Five existing theoretical frameworks are then shown to be representations
+of this object under different constraint and composition regimes:
+RSVP (scalar-vector-entropy field theory), Yarncrawler (sheaf-variational
+world-state reconstruction), Spherepop (irreversible event calculus),
+KES (kinetic-event synthesis as kernel composition), and Constraint Closure
+(trajectory fixed-point theory). The Unified Memory Theorem establishes that
+these frameworks are functorially related facets of a single kernel-operator
+structure, not independent constructions.
+
+The core thesis: \emph{dynamics are not functions of state but functionals of
+trajectories, and kernel operators provide the minimal algebra for expressing
+that dependence.} Memory, irreversibility, and constraint closure are algebraic
+consequences of operator structure, not additional hypotheses.
+\end{abstract}
+
+\newpage
+\tableofcontents
+\newpage
+
+%%=============================================================
+\section{Introduction}
+%%=============================================================
+
+\subsection{Formula Sheets as Operator Atlases}
+
+Consider the standard mathematical formula sheet. It lists, side by side,
+the quadratic formula, trigonometric identities, derivative rules, integral
+tables, fluid dynamics equations, kinematic relations. Presented as a flat
+collection of results, the sheet looks like a heterogeneous archive.
+
+But there is a hidden architecture. Every formula on the sheet is a
+\emph{transformation rule}: it maps one quantity to another under a specific
+constraint. The quadratic formula solves a polynomial constraint. The
+Pythagorean theorem encodes a geometric invariant. Derivative rules transform
+functions under the constraint of local approximability. Integral formulas
+accumulate values under the constraint of domain structure.
+
+Taken together, the sheet is not a list but an \emph{atlas}: a patchwork of
+local charts over a space of transformations. The hidden structure is that most
+of these charts fall into four deep classes---algebraic closure, geometric
+invariants, differential relations, and integral accumulations---and that the
+last two are more tightly linked than they appear.
+
+That link is the subject of this monograph.
+
+\subsection{The Hidden Assumption: Locality}
+
+Every differential formula on the standard sheet implicitly assumes an
+underlying ontology: that the rate of change of a quantity at time $t$
+depends only on the quantity's behavior in an arbitrarily small neighborhood
+of $t$. This is the \emph{locality assumption}.
+
+It is not a law of nature. It is an architectural choice.
+
+The classical derivative encodes this choice as a definition:
+\[
+  Df(t) = \lim_{h \to 0} \frac{f(t+h) - f(t)}{h}.
+\]
+This limit is a pointwise operation. It extracts information from an
+infinitesimal neighborhood and discards everything else. The function's
+history---its values at all prior times---is irrelevant by construction.
+
+The same assumption pervades the classical integral, the wave equation, the
+diffusion equation, kinematic formulas, and fluid conservation laws. Wherever
+there is a differential or integral operator in a formula, the locality
+assumption is at work.
+
+This creates a problem for systems that actually remember. Viscoelastic
+materials respond to the entire history of applied stress, not just to its
+current value. Anomalous diffusion in disordered media exhibits power-law
+waiting times that no finite-dimensional Markovian model can reproduce.
+Biological systems maintain memory of past inputs across long time windows.
+Financial instruments are priced against path-dependent risk. In all these
+cases, the formula-sheet framework either fails or requires the introduction
+of artificial hidden variables to simulate the memory it has excluded.
+
+\subsection{The Resolution: Kernel Operators on Trajectories}
+
+The resolution is not to add memory as a separate ingredient. It is to
+recognize that the local operator is a special case of a more general object:
+the \emph{kernel operator on path space}.
+
+Instead of asking ``what is the rate of change at $t$?'', we ask:
+``how does the entire past trajectory of the system, weighted by a specific
+kernel, determine the present behavior?''
+
+The central object of this monograph is the \emph{trajectory operator}:
+\[
+  \TK[f](t) = \int_0^t K(t,\tau)\, F(f(\tau))\, d\tau.
+\]
+Here $K(t,\tau)$ is the \emph{kernel}---a function encoding how strongly the
+past state at time $\tau$ influences the present behavior at time $t$. The
+function $F$ encodes the system-specific dynamics.
+
+Every other construction in this monograph is a specialization or composition
+of $\TK$:
+
+\begin{itemize}[leftmargin=2em]
+  \item Classical integration: $K(t,\tau) = 1$, $F = \id$.
+  \item Classical differentiation: $K(t,\tau) = \delta'(t-\tau)$
+    (singular limit).
+  \item Fractional calculus: $K_\alpha(t,\tau) =
+    (t-\tau)^{-\alpha}/\Gamma(1-\alpha)$, $F = \id$ or $F = d/dt$.
+  \item RSVP field transport: $K = K_\alpha$, $F(\phi) =
+    -\mathbf{v}\cdot\nabla\Phi + D_\Phi\Delta\Phi - \lambda S\Phi$.
+  \item Yarncrawler reconstruction: $K = K_Y$ (the consistency kernel).
+  \item KES event synthesis: $K = K_{\mathrm{syn}} =
+    \psi\cdot\phi\cdot K_\alpha$.
+  \item Constraint closure: fixed-point condition $\TK[f^*] = f^*$.
+\end{itemize}
+
+The monograph develops each of these specializations in full, but holds the
+operator $\TK$ invariant throughout. This is the principle of notation
+stability: every framework speaks the same algebraic language.
+
+\subsection{The Core Thesis}
+
+\medskip
+\begin{center}
+\textit{Dynamics are not functions of state but functionals of trajectories,\\
+and kernel operators provide the minimal algebra for expressing that dependence.}
+\end{center}
+\medskip
+
+Classical mathematical physics was organized around states because states
+are computationally convenient. A finite-dimensional state vector is tractable;
+an infinite-dimensional trajectory is not. The locality assumption is the
+price paid for tractability.
+
+Kernel operators recover the trajectory without sacrificing rigor. The semigroup
+law---$K_\alpha * K_\beta = K_{\alpha+\beta}$---shows that the space of kernels
+is algebraically well-behaved. The trajectory operator $\TK$ provides the
+universal form. The kernel $K$ plays the role of a Green's function over
+trajectory space, encoding how past configurations propagate forward under
+the system's internal constraints. Everything follows.
+
+\subsection{Organization}
+
+Section~\ref{sec:prelim} establishes the mathematical foundations: path spaces,
+convolution, and the trajectory operator $\TK$. Section~\ref{sec:semigroup}
+proves the semigroup structure of the fractional kernel family.
+Section~\ref{sec:fractal} shows how fractional calculus arises as operator
+interpolation entirely within the kernel framework. Section~\ref{sec:cat}
+gives the categorical formulation: $\TK$ as a morphism, kernel composition as
+the compositional law. Sections~\ref{sec:rsvp}--\ref{sec:constraint} embed
+the five frameworks. Section~\ref{sec:unified} states and proves the Unified
+Memory Theorem. Section~\ref{sec:discussion} draws out implications for
+physics, cognition, and computation.
+
+%%=============================================================
+\section{Mathematical Preliminaries}
+\label{sec:prelim}
+%%=============================================================
+
+We establish notation that will persist unchanged throughout the monograph.
+The key discipline: everything is expressed using $K$, $F$, and $\TK$. No
+competing notational systems are introduced later.
+
+Let $X$ be a Banach space and $T > 0$ a fixed time horizon.
+
+\subsection{Path Space}
+
+\begin{definition}[Path space]
+The \emph{path space} over $X$ on $[0,T]$ is
+\[
+  \Pcal = \Pcal([0,T], X)
+  := \bigl\{f \colon [0,T] \to X \;\big|\;
+  f\text{ measurable, locally integrable}\bigr\}.
+\]
+\end{definition}
+
+Elements of $\Pcal$ are called \emph{trajectories}. They are interpreted as
+histories rather than instantaneous states. Classical dynamics act on the
+point value $f(t)$; kernel dynamics act on the restricted history
+$f|_{[0,t]}$.
+
+This distinction is not aesthetic. When the state space of a system is
+$X = \R^n$, a classical analysis selects a point in $\R^n$ at each time.
+A trajectory-based analysis selects a point in the infinite-dimensional
+space $\Pcal$. These are different objects and carry different information.
+
+\begin{definition}[Causal restriction]
+For $0 \leq s \leq t \leq T$, the \emph{causal restriction}
+$\rho_{s,t} \colon \Pcal \to \Pcal([s,t],X)$ is defined by
+$\rho_{s,t}(f) = f|_{[s,t]}$.
+\end{definition}
+
+Causal restrictions are transitive: if $r \leq s \leq t$ then
+$\rho_{r,s} \circ \rho_{r,t} = \rho_{r,s}$. This is the sheaf-presheaf
+compatibility condition; we return to it in Section~\ref{sec:yarncrawler}.
+
+\subsection{Kernels}
+
+\begin{definition}[Kernel]
+A \emph{kernel} is a measurable function
+\[
+  K \colon \Delta_T \to \R,
+  \qquad
+  \Delta_T = \{(t,\tau) \in [0,T]^2 \colon 0 \leq \tau \leq t \leq T\},
+\]
+such that
+\[
+  \|K\| := \sup_{t \in [0,T]} \int_0^t |K(t,\tau)|\, d\tau < \infty.
+\]
+The space of all such kernels is denoted $\Kcal(\Delta_T)$.
+\end{definition}
+
+The triangular domain $\Delta_T$ encodes causality: $K(t,\tau)$ is defined
+only for $\tau \leq t$, so the kernel cannot reach into the future.
+
+\subsection{Kernel Convolution}
+
+\begin{definition}[Convolution of a kernel with a trajectory]
+For $K \in \Kcal(\Delta_T)$ and $f \in \Pcal$, the \emph{convolution}
+is
+\[
+  (K * f)(t) := \int_0^t K(t,\tau)\, f(\tau)\, d\tau.
+\]
+\end{definition}
+
+This defines a causal operator on $\Pcal$: the output at time $t$ depends
+only on $f|_{[0,t]}$.
+
+\begin{definition}[Composition of kernels]
+For $K_1, K_2 \in \Kcal(\Delta_T)$, their \emph{composition} is
+\[
+  (K_1 \circ K_2)(t,\tau) := \int_\tau^t K_1(t,s)\, K_2(s,\tau)\, ds.
+\]
+\end{definition}
+
+\begin{lemma}[Boundedness]
+\label{lem:bounded}
+For any $K \in \Kcal(\Delta_T)$ and $f \in L^1([0,T],X)$,
+\[
+  \|(K*f)(t)\|_X \leq \|K\|\cdot \|f\|_{L^1}.
+\]
+\end{lemma}
+
+\begin{proof}
+$|(K*f)(t)| \leq \int_0^t |K(t,\tau)|\cdot|f(\tau)|\,d\tau
+\leq \bigl(\sup_t \int_0^t |K|\bigr)\cdot\|f\|_{L^1} = \|K\|\cdot\|f\|_{L^1}$.
+\end{proof}
+
+\subsection{The Trajectory Operator}
+
+We now introduce the central object. It incorporates both the kernel
+(memory structure) and the system dynamics (the function $F$).
+
+\begin{definition}[Trajectory operator]
+\label{def:trajop}
+Let $K \in \Kcal(\Delta_T)$ and $F \colon X \to X$ measurable. The
+\emph{trajectory operator} associated to $(K, F)$ is
+\[
+  \TK[f](t) := \int_0^t K(t,\tau)\, F(f(\tau))\, d\tau.
+\]
+\end{definition}
+
+Every construction in this monograph is a specialization or composition
+of $\TK$. The following table records the principal instances:
+
+\medskip
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{lll}
+\toprule
+\textbf{Framework} & \textbf{Kernel $K(t,\tau)$} & \textbf{Dynamics $F$} \\
+\midrule
+Integration & $1$ & $\id$ \\
+Fractional calculus & $(t-\tau)^{-\alpha}/\Gamma(1-\alpha)$ & $d/dt$ \\
+RSVP transport & $K_\alpha(t-\tau)$ & $-\mathbf{v}\cdot\nabla\Phi + D_\Phi\Delta\Phi - \lambda S\Phi$ \\
+KES synthesis & $\psi(t)\cdot\phi(\tau)\cdot K_\alpha(t-\tau)$ & $\id$ \\
+Constraint closure & general contractive $K$ & $\id$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\medskip
+
+\begin{remark}[What varies; what does not]
+The kernel $K$ controls \emph{how much of the past contributes} and with
+what weight. The function $F$ controls \emph{what the system does} with
+each past state. Separating these two roles is the architectural choice
+that makes notation stable across all five frameworks.
+\end{remark}
+
+\subsection{Volterra Equations and the Resolvent}
+
+Evolution equations expressed through $\TK$ take the form of Volterra
+integral equations.
+
+\begin{definition}[Volterra equation of the second kind]
+A \emph{Volterra equation of the second kind} for unknown $f \in \Pcal$ is
+\[
+  f(t) - \lambda (K * f)(t) = g(t), \quad t \in [0,T],
+\]
+for given $g \in \Pcal$ and $\lambda \in \R$.
+\end{definition}
+
+\begin{theorem}[Resolvent and unique solvability]
+\label{thm:resolvent}
+For any $K \in \Kcal(\Delta_T)$, $g \in L^\infty([0,T])$, and $\lambda \in \R$,
+the Volterra equation of the second kind has a unique solution
+$f \in L^\infty([0,T])$, given by the Neumann series
+\[
+  f(t) = g(t) + \lambda \int_0^t R(t,\tau;\lambda)\, g(\tau)\, d\tau,
+\]
+where the resolvent kernel is $R(t,\tau;\lambda) = \sum_{n=1}^\infty
+\lambda^n K^{(n)}(t,\tau)$, with $K^{(n)}$ the $n$-fold iterated composition.
+\end{theorem}
+
+\begin{proof}
+Bound each iterated kernel by $K^{(n)}(t,\tau) \leq \|K\|^n (t-\tau)^{n-1}/(n-1)!$,
+giving convergence of the Neumann series in $L^\infty$ norm uniformly in $t$.
+\end{proof}
+
+The resolvent theorem guarantees that all evolution equations expressed
+through $\TK$ with bounded kernels are well-posed. This will be invoked
+implicitly in each of the five framework sections.
+
+
+\paragraph{Bridge to Kernel Algebra.}
+The trajectory operator $\TK$ introduced above isolates two degrees of
+freedom: the kernel $K$, governing temporal memory structure, and $F$,
+governing local state transformation. The question is no longer how a
+single kernel acts, but how kernels compose. The answer is that
+$\Kcal(\Delta_T)$ carries an intrinsic composition law inherited from
+iterated trajectory evolution, admitting a one-parameter semigroup
+structure. But first, we derive $\TK$ itself from a variational principle,
+showing it is not an arbitrary construction but the Euler--Lagrange operator
+of a natural action on path space.
+
+%%=============================================================
+\section{Variational Origin of Kernel Operators}
+\label{sec:variational}
+%%=============================================================
+
+\subsection{From Local Action to Path Functionals}
+
+Classical mechanics derives dynamics from the local action
+$\mathcal{S}[x] = \int_0^T L(x(t),\dot{x}(t))\,dt$,
+whose stationary points satisfy the Euler--Lagrange equations. To
+incorporate memory, we generalize to a \emph{path-dependent} functional
+depending on pairs of points along the trajectory, weighted by a kernel.
+
+\begin{definition}[Nonlocal action functional]
+Let $K \in \Kcal(\Delta_T)$ and $\mathcal{L} \colon X \times X \to \R$
+a measurable interaction Lagrangian. Define
+\[
+  \mathcal{F}[f]
+  :=
+  \int_0^T \int_0^t
+  K(t,\tau)\,\mathcal{L}\bigl(f(t), f(\tau)\bigr)\,d\tau\,dt.
+\]
+\end{definition}
+
+The kernel determines how strongly past states $f(\tau)$ influence the
+present in the variational principle itself.
+
+\subsection{First Variation}
+
+Let $f_\varepsilon = f + \varepsilon h$ with $h \in \Pcal$ compactly
+supported in $(0,T)$. The first variation is
+\[
+  \frac{d}{d\varepsilon}\mathcal{F}[f_\varepsilon]\Big|_{\varepsilon=0}
+  =
+  \int_0^T\!\int_0^t K(t,\tau)\!\left[
+    \partial_1\mathcal{L}(f(t),f(\tau))\,h(t)
+    +\partial_2\mathcal{L}(f(t),f(\tau))\,h(\tau)
+  \right]d\tau\,dt.
+\]
+Separating and swapping integration order in the second term yields two
+contributions: a \emph{term at $t$} involving $\partial_1\mathcal{L}$ and
+a \emph{term at $\tau$} involving $\partial_2\mathcal{L}$ integrated forward.
+
+\subsection{Euler--Lagrange Equation on Path Space}
+
+Stationarity $\delta\mathcal{F}=0$ for all $h$ gives the
+\emph{nonlocal Euler--Lagrange equation}:
+\begin{equation}
+\label{eq:nonlocalEL}
+  \int_0^t K(t,\tau)\,\partial_1\mathcal{L}(f(t),f(\tau))\,d\tau
+  +\int_t^T K(s,t)\,\partial_2\mathcal{L}(f(s),f(t))\,ds = 0.
+\end{equation}
+This couples past and future through the kernel.
+
+\subsection{Causal Reduction to the Trajectory Operator}
+
+\begin{definition}[Causal separable Lagrangian]
+A Lagrangian is \emph{causal separable} if
+$\mathcal{L}(x,y) = \Phi(x) - \langle x, F(y)\rangle$
+for some potential $\Phi$ and map $F$.
+\end{definition}
+
+Under this structure, equation~\eqref{eq:nonlocalEL} reduces to
+$\nabla\Phi(f(t)) = \int_0^t K(t,\tau)\,F(f(\tau))\,d\tau$.
+If $\nabla\Phi$ is invertible, we obtain
+\begin{equation}
+\label{eq:TKderived}
+  f(t) = (\nabla\Phi)^{-1}\!\left(\int_0^t K(t,\tau)\,F(f(\tau))\,d\tau\right).
+\end{equation}
+In the canonical case $\Phi(x) = \tfrac{1}{2}\|x\|^2$,
+equation~\eqref{eq:TKderived} becomes exactly $f(t) = \TK[f](t)$.
+
+\begin{theorem}[Variational origin of $\TK$]
+\label{thm:variational}
+The trajectory operator $\TK$ is the Euler--Lagrange operator of
+$\mathcal{F}$ with a causal separable Lagrangian and
+$\Phi(x) = \tfrac{1}{2}\|x\|^2$.
+\end{theorem}
+
+\subsection{Consequences}
+
+\begin{itemize}
+  \item \textbf{Classical mechanics}: $K = \delta$ recovers a local
+    Lagrangian and the classical derivative.
+  \item \textbf{Fractional dynamics}: $K = K_\alpha$ produces power-law
+    memory through the same variational principle.
+  \item \textbf{Constraint closure}: $\TK[f^*] = f^*$ is equivalent to
+    stationarity of $\mathcal{F}$, linking fixed points to variational
+    equilibria.
+  \item \textbf{Nonlocality as structure}: memory is a structural
+    consequence of an action depending on pairs of trajectory points.
+\end{itemize}
+
+\begin{proposition}[Variational form of constraint closure]
+\label{prop:var_closure}
+A trajectory $f^*$ satisfies $\TK[f^*] = f^*$ if and only if it is a
+stationary point of $\mathcal{F}$ with $\Phi(x) = \tfrac{1}{2}\|x\|^2$.
+\end{proposition}
+
+\begin{proof}
+Under this choice of $\Phi$, the Euler--Lagrange equation reduces directly
+to $f = \TK[f]$.
+\end{proof}
+
+\paragraph{Bridge to Kernel Algebra.}
+Theorem~\ref{thm:variational} establishes that $\TK$ is the canonical
+output of a variational principle. The remaining freedom lies in the choice
+of kernel $K$. The next section imposes algebraic structure on this choice
+by analyzing how kernels compose under sequential trajectory evolution,
+revealing the fractional semigroup as the unique scale-invariant solution.
+
+%%=============================================================
+\section{Kernel Operators and the Semigroup Structure}
+\label{sec:semigroup}
+%%=============================================================
+
+\subsection{The Monoid of Kernels}
+
+\begin{theorem}[Monoid structure]
+\label{thm:monoid}
+$(\Kcal(\Delta_T), \circ, \delta)$ is a monoid, where $\delta(t,\tau) =
+\delta(t-\tau)$ (the Dirac distribution) is the identity kernel, satisfying:
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{Associativity}: $(K_1 \circ K_2)\circ K_3 =
+  K_1\circ(K_2\circ K_3)$.
+\item \textbf{Left unit}: $\delta \circ K = K$.
+\item \textbf{Right unit}: $K \circ \delta = K$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Associativity: both $(K_1\circ K_2)\circ K_3$ and $K_1\circ(K_2\circ K_3)$
+expand to
+\[
+  \int_\tau^t\!\int_r^t K_1(t,s)\,K_2(s,r)\,K_3(r,\tau)\, ds\, dr,
+\]
+the equality following from Fubini's theorem on the simplex
+$\{\tau \leq r \leq s \leq t\}$.
+Unitality: $(\delta\circ K)(t,\tau) = \int_\tau^t \delta(t-s)K(s,\tau)\,ds =
+K(t,\tau)$; similarly on the right.
+\end{proof}
+
+\subsection{Fractional Kernels}
+
+\begin{definition}[Fractional kernel family]
+\label{def:frac}
+For $\alpha \in (0,1)$, the \emph{fractional kernel of order $\alpha$} is
+\[
+  K_\alpha(t,\tau) = \frac{(t-\tau)^{-\alpha}}{\Gamma(1-\alpha)}.
+\]
+The family extends to boundary cases: $K_0 = \delta$ (identity, $\alpha = 0$)
+and $K_1(t,\tau) \equiv 1$ (uniform integration, $\alpha = 1$).
+\end{definition}
+
+\begin{remark}
+The kernel $K_\alpha$ is positive, causal, and scale-invariant under the
+substitution $(t,\tau) \mapsto (\lambda t, \lambda\tau)$. These three
+properties together characterize the fractional family within all possible
+causal kernels.
+\end{remark}
+
+\subsection{The Semigroup Law}
+
+\begin{theorem}[Semigroup law]
+\label{thm:semigroup}
+For all $\alpha, \beta \in [0,1]$,
+\[
+  K_\alpha \circ K_\beta = K_{\alpha+\beta}.
+\]
+The family $(K_\alpha)_{\alpha \geq 0}$ is therefore a one-parameter semigroup
+in $(\Kcal(\Delta_T), \circ)$.
+\end{theorem}
+
+\begin{proof}
+We compute directly:
+\[
+  (K_\alpha \circ K_\beta)(t,\tau)
+  = \int_\tau^t \frac{(t-s)^{-\alpha}}{\Gamma(1-\alpha)}\cdot
+    \frac{(s-\tau)^{-\beta}}{\Gamma(1-\beta)}\, ds.
+\]
+Substituting $s = \tau + (t-\tau)u$, so that $ds = (t-\tau)\,du$:
+\begin{align*}
+  &= \frac{(t-\tau)^{-\alpha}}{\Gamma(1-\alpha)}\cdot
+    \frac{(t-\tau)^{-\beta}}{\Gamma(1-\beta)}\cdot (t-\tau)
+    \int_0^1 (1-u)^{-\alpha} u^{-\beta}\, du \\
+  &= \frac{(t-\tau)^{1-\alpha-\beta}}{\Gamma(1-\alpha)\Gamma(1-\beta)}
+    \cdot B(1-\alpha, 1-\beta).
+\end{align*}
+The Beta function satisfies $B(1-\alpha, 1-\beta) =
+\Gamma(1-\alpha)\Gamma(1-\beta)/\Gamma(2-\alpha-\beta)$.
+Using $\Gamma(2-\alpha-\beta) = (1-\alpha-\beta)\Gamma(1-\alpha-\beta)$, we obtain
+\[
+  (K_\alpha \circ K_\beta)(t,\tau)
+  = \frac{(t-\tau)^{1-(\alpha+\beta)}}{\Gamma(2-(\alpha+\beta))}
+  = \frac{(t-\tau)^{-((\alpha+\beta)-1)}}{\Gamma(1-(\alpha+\beta))\cdot(1-(\alpha+\beta))},
+\]
+which simplifies to $K_{\alpha+\beta}(t,\tau)$ after applying the recurrence
+$\Gamma(z+1)=z\Gamma(z)$ with $z=1-(\alpha+\beta)$.
+\end{proof}
+
+\begin{remark}[Why this is not a coincidence]
+The semigroup law is the algebraic reason that fractional calculus is
+consistent. The composition $K_{1/2}\circ K_{1/2} = K_1$ says that applying
+a half-order derivative twice yields the first-order derivative---not by
+definition, but as a consequence of the Beta function identity. The
+semigroup law is the algebraic inevitability of the power-law kernel.
+\end{remark}
+
+\subsection{The Generator}
+
+\begin{definition}[Semigroup generator]
+The \emph{generator} of the semigroup $(K_\alpha)$ characterizes how
+infinitesimal increases in memory order deform the operator, providing the
+analogue of a differential generator for the fractional semigroup. It is
+the operator
+\[
+  \mathcal{L}f := \lim_{\alpha\to 0^+} \frac{\TK[\id][f] - f}{\alpha}
+  = \lim_{\alpha\to 0^+} \frac{\int_0^t K_\alpha(t,\tau)f(\tau)\,d\tau - f(t)}{\alpha},
+\]
+when the limit exists in $L^\infty$.
+\end{definition}
+
+\begin{proposition}
+The generator acts as
+\[
+  \mathcal{L}f(t) = \int_0^t \ln\frac{1}{t-\tau}\, f(\tau)\, d\tau - \gamma f(t),
+\]
+where $\gamma = -\Gamma'(1)$ is the Euler--Mascheroni constant. This is a
+logarithmic memory kernel: as $\alpha \to 0$, the range of historical
+dependence diverges logarithmically.
+\end{proposition}
+
+\paragraph{Bridge to Operator Interpolation.}
+The semigroup law $K_\alpha \circ K_\beta = K_{\alpha+\beta}$ shows that
+kernel composition is parameterized by a continuous order variable, so
+classical operators treated as discrete objects are in fact points along a
+continuous family. What appears as a distinction between differentiation
+and integration is a difference in kernel order. Fractional calculus does
+not extend classical calculus; it reveals that classical calculus is a
+degenerate slice of a larger operator algebra. The next section makes this
+identification explicit by expressing both as instances of $\TK$.
+
+%%=============================================================
+\section{Fractional Calculus as Operator Interpolation}
+\label{sec:fractal}
+%%=============================================================
+
+\subsection{Integration and Differentiation as Kernel Operators}
+
+We now express classical integration and differentiation as specializations
+of $\TK$, bringing them into the same notational family as the fractional
+operators. This is the step that makes fractional calculus a
+\emph{consequence} rather than an \emph{extension}.
+
+\subsubsection{Integration}
+
+The classical integral is
+\[
+  (If)(t) = \int_0^t f(\tau)\, d\tau = (K_1 * f)(t)
+  \quad\text{with}\quad K_1(t,\tau) \equiv 1.
+\]
+So: \textit{integration is $\TK$ with the uniform kernel and $F = \id$.}
+
+\subsubsection{Differentiation}
+
+The classical derivative is formally
+\[
+  (Df)(t) = \int_0^t \delta'(t-\tau)\, f(\tau)\, d\tau,
+\]
+where $\delta'$ is the distributional derivative of the Dirac delta.
+In trajectory-operator language: \textit{differentiation is $\TK$ with the
+singular kernel $K(t,\tau) = \delta'(t-\tau)$ and $F = \id$.}
+
+The singularity of this kernel is precisely the locality assumption made
+visible. The delta kernel has zero support width: it contributes only the
+instantaneous value. Every other kernel in $\Kcal(\Delta_T)$ has positive
+support and therefore encodes memory.
+
+\subsection{Fractional Operators as Kernel Operators}
+
+\begin{definition}[Fractional integral]
+For $\beta > 0$, the \emph{fractional integral of order $\beta$} is
+\[
+  (I^\beta f)(t) = \frac{1}{\Gamma(\beta)}\int_0^t (t-\tau)^{\beta-1} f(\tau)\, d\tau
+  = \bigl(K_{1-\beta} * f\bigr)(t).
+\]
+\end{definition}
+
+This is $\TK$ with $K = K_{1-\beta}$ and $F = \id$.
+
+\begin{definition}[Caputo fractional derivative]
+\label{def:caputo}
+For $\alpha \in (0,1)$, the \emph{Caputo derivative of order $\alpha$} is
+\[
+  (D^\alpha f)(t)
+  = \int_0^t \frac{(t-\tau)^{-\alpha}}{\Gamma(1-\alpha)}\, f'(\tau)\, d\tau
+  = \TK[f'](t),
+\]
+with $K = K_\alpha(t,\tau) = (t-\tau)^{-\alpha}/\Gamma(1-\alpha)$ and
+$F = d/dt$.
+\end{definition}
+
+This is the key identification. The Caputo derivative is exactly $\TK$
+with the fractional kernel and differentiation as the dynamics function.
+No new notation is required.
+
+\begin{definition}[Riemann--Liouville derivative]
+\label{def:rl}
+For $\alpha \in (0,1)$, the \emph{Riemann--Liouville derivative} is
+\[
+  (D^\alpha_{\mathrm{RL}} f)(t)
+  = \frac{d}{dt}(I^{1-\alpha} f)(t)
+  = \frac{d}{dt}\bigl(K_\alpha * f\bigr)(t).
+\]
+\end{definition}
+
+Both forms are derivable from $\TK$ with the fractional kernel family.
+The Caputo form (Definition~\ref{def:caputo}) places differentiation
+inside the integral; the Riemann--Liouville form (Definition~\ref{def:rl})
+places it outside. For smooth functions, they agree; for functions with
+nontrivial initial values, the Caputo form is often more natural for
+physical applications.
+
+\subsection{The Operator Interpolation Table}
+
+The following table displays the continuous transition across the kernel
+family:
+
+\medskip
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{lll}
+\toprule
+\textbf{Order $\alpha$} & \textbf{Kernel $K_\alpha(t,\tau)$} & \textbf{Operator} \\
+\midrule
+$\alpha = 0$ & $\delta(t-\tau)$ & Identity \\
+$\alpha \in (0,1)$ & $(t-\tau)^{-\alpha}/\Gamma(1-\alpha)$ & Fractional derivative \\
+$\alpha = 1$ & $1$ & Integral \\
+$\alpha < 0$ & $(t-\tau)^{|\alpha|-1}/\Gamma(|\alpha|)$ & Fractional integral \\
+\bottomrule
+\end{tabular}
+\end{center}
+\medskip
+
+The table displays what the notes called the ``operator as a dial'':
+positive $\alpha$ extracts change (differentiates), negative $\alpha$
+accumulates history (integrates), and intermediate values do both
+simultaneously.
+
+\subsection{The Loss of Markov Structure}
+
+\begin{definition}[Markovian dynamics]
+A dynamical system $u(t)$ is \emph{Markovian} if its future evolution from
+time $t$ depends only on $u(t)$, not on the full trajectory
+$u|_{[0,t]}$.
+\end{definition}
+
+\begin{proposition}[Non-Markovian character of fractional dynamics]
+\label{prop:nonmarkov}
+Let $u$ satisfy the fractional evolution equation
+$D^\alpha u(t) = F(u(t))$ for $\alpha \in (0,1)$. Then $u$ is
+non-Markovian.
+\end{proposition}
+
+\begin{proof}
+Expanding the Caputo derivative:
+\[
+  \int_0^t \frac{(t-\tau)^{-\alpha}}{\Gamma(1-\alpha)}\, u'(\tau)\, d\tau = F(u(t)).
+\]
+The left side is a Volterra integral over the full history $u|_{[0,t]}$.
+No finite augmentation of the state vector renders this Markovian, since
+the kernel $(t-\tau)^{-\alpha}$ is not exponential and therefore not
+generated by any finite-dimensional ODE (exponential kernels are the only
+ones arising from finite-rank semigroups).
+\end{proof}
+
+\begin{remark}[The ontological shift]
+This is not a perturbation of classical behavior. The state space of a
+fractional system is not $X$ but $\Pcal$. A point in $\Pcal$ carries the
+full history; a point in $X$ carries only the present. These are categorically
+different objects, and the passage from one to the other is not a limit
+but a change of domain.
+\end{remark}
+
+\subsection{Fractional Diffusion as a Worked Example}
+
+We carry the diffusion equation through the full transition as the worked
+example the notes require.
+
+\subsubsection{Classical diffusion}
+
+\[
+  \partial_t \Phi(x,t) = D_\Phi\, \Delta\Phi(x,t).
+\]
+
+In trajectory-operator language with $K = \delta$ and $F(\Phi) = D_\Phi\Delta\Phi$:
+\[
+  \partial_t \Phi = \TK[\id][\Phi](t)\big|_{K=\delta},
+\]
+with local response: the present curvature of $\Phi$ drives instantaneous change.
+
+\subsubsection{Fractional diffusion}
+
+Replace $\partial_t$ with the Caputo operator $D^\alpha_t$:
+\[
+  D^\alpha_t \Phi(x,t) = D_\Phi\, \Delta\Phi(x,t), \quad \alpha \in (0,1).
+\]
+Expanding:
+\[
+  \frac{1}{\Gamma(1-\alpha)}\int_0^t (t-\tau)^{-\alpha}\,
+  \partial_\tau \Phi(x,\tau)\, d\tau = D_\Phi\, \Delta\Phi(x,t).
+\]
+The left side is exactly $\mathcal{T}_{K_\alpha}[\partial_t \Phi](t)$.
+The causal geometry is now: \textit{curvature generates change, but that
+change is integrated through a long-memory filter before affecting the field.}
+
+\subsubsection{Anomalous scaling}
+
+Solutions to fractional diffusion satisfy
+\[
+  \langle x^2(t)\rangle = \frac{2D_\Phi}{\Gamma(1+\alpha)}\, t^\alpha,
+\]
+as opposed to the classical $\langle x^2\rangle \propto t$. The exponent
+$\alpha < 1$ marks subdiffusion: the system spreads more slowly because
+it carries memory of where it has been. This is the physical signature
+of the power-law kernel.
+
+\paragraph{Bridge to Categorical Structure.}
+Once differentiation, integration, and their fractional interpolants are
+expressed uniformly as kernel operators, the distinction between operators
+becomes purely structural: each is determined by its position in the kernel
+algebra, and composition of operators corresponds to convolution of kernels.
+This invites a categorical reformulation in which operators are morphisms
+between trajectory spaces, with kernel composition as the fundamental law.
+The semigroup structure becomes functorial, and the entire operator calculus
+is subsumed into a single category $\Kcal\mathsf{Op}$.
+
+%%=============================================================
+\section{The Category of Kernel Operators}
+\label{sec:cat}
+%%=============================================================
+
+\subsection{Why Categorical Language}
+
+The monoid structure of Section~\ref{sec:semigroup} organizes kernels acting
+on a single path space $\Pcal$. To describe morphisms between different
+trajectory spaces---to encode how one system's history influences another's
+evolution---we need a richer structure. Category theory provides it.
+
+A category consists of \emph{objects} and \emph{morphisms} (arrows) between
+them, with an associative composition law and identity morphisms. The
+categorical language here does one thing: it names the structure that is
+already present in the kernel algebra. It does not add new content. The
+reader unfamiliar with category theory can understand every result by
+interpreting ``morphism'' as ``kernel operator'' and ``functor'' as
+``kernel-preserving map between systems.''
+
+\subsection{The Category \texorpdfstring{$\Kcal\mathsf{Op}$}{KOp}}
+
+\begin{definition}[The category $\Kcal\mathsf{Op}$]
+\label{def:kop}
+\begin{itemize}
+  \item \textbf{Objects}: path spaces $\Pcal([0,T], X)$ for Banach spaces $X$
+    and intervals $[0,T]$.
+  \item \textbf{Morphisms}: $\Hom(\Pcal, \Pcal') = \{(K, F) :
+    \mathcal{T}_K$ maps $\Pcal$ to $\Pcal'\}$.
+  \item \textbf{Composition}: $(K_1, F_1)\circ(K_2, F_2) = (K_1\circ K_2,
+    F_1 \circ F_2)$.
+  \item \textbf{Identities}: $(\delta, \id)$.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[$\Kcal\mathsf{Op}$ is a category]
+Definition~\ref{def:kop} satisfies the categorical axioms.
+\end{theorem}
+
+\begin{proof}
+Associativity of composition follows from Theorem~\ref{thm:monoid} (kernel
+associativity) and associativity of function composition. Identity morphisms
+exist: $\mathcal{T}_\delta[f](t) = \int_0^t \delta(t-\tau) f(\tau)\,d\tau = f(t)$,
+so $(\delta, \id)$ acts as the identity on every path space.
+\end{proof}
+
+\subsection{The Semigroup as a Functor}
+
+\begin{definition}[Semigroup functor]
+Let $([0,\infty), +)$ be the additive monoid of non-negative reals, viewed
+as a one-object category with morphisms $\alpha \colon * \to *$. The
+\emph{semigroup functor} is
+\[
+  F_{\mathrm{sg}} \colon ([0,\infty), +) \to \Kcal\mathsf{Op},
+  \quad
+  F_{\mathrm{sg}}(\alpha) = (K_\alpha, \id).
+\]
+\end{definition}
+
+\begin{proposition}[Functoriality]
+$F_{\mathrm{sg}}$ is a functor: $F_{\mathrm{sg}}(\alpha + \beta) =
+F_{\mathrm{sg}}(\alpha) \circ F_{\mathrm{sg}}(\beta)$ and
+$F_{\mathrm{sg}}(0) = \id$.
+\end{proposition}
+
+\begin{proof}
+The composition law $F_{\mathrm{sg}}(\alpha+\beta) = (K_{\alpha+\beta}, \id) =
+(K_\alpha \circ K_\beta, \id) = F_{\mathrm{sg}}(\alpha)\circ F_{\mathrm{sg}}(\beta)$
+is Theorem~\ref{thm:semigroup}. The unit law $F_{\mathrm{sg}}(0) = (K_0, \id)
+= (\delta, \id) = \id$ holds by definition.
+\end{proof}
+
+The interpolation between classical operators is now categorical: moving along
+the semigroup functor from $\alpha = 0$ to $\alpha = 1$ is a path in
+$\Kcal\mathsf{Op}$ from differentiation to integration.
+
+\subsection{Natural Transformations as Kernel Changes}
+
+A \emph{natural transformation} $\eta \colon F \Rightarrow G$ between two
+functors assigns to each object a morphism that commutes with all arrows.
+In the kernel context, a natural transformation is a change-of-kernel
+operation that commutes with temporal evolution: if two kernels $K, K'$
+are related by a natural transformation, then switching between them at any
+time $t$ produces the same result as switching at any other time. This is
+the form of gauge invariance relevant to RSVP field theory.
+
+\subsection{The Linear Subcategory \texorpdfstring{$\mathbf{Ker}$}{Ker}}
+
+For many purposes it is convenient to work with the linear subcategory in
+which $F = \id$ and morphisms are pure kernel operators.
+
+\begin{definition}[The category $\mathbf{Ker}$]
+\label{def:ker}
+The category $\mathbf{Ker}$ has:
+\begin{itemize}
+  \item \textbf{Objects}: trajectory spaces $\Pcal$.
+  \item \textbf{Morphisms}: kernel operators $\mathcal{K} \colon \Pcal \to
+    \Pcal$ of the form $(\mathcal{K}f)(t) = \int_0^t K(t,\tau)\,f(\tau)\,d\tau$.
+  \item \textbf{Composition}: kernel convolution.
+  \item \textbf{Identities}: the Dirac kernel $K_{\id}(t,\tau) = \delta(t-\tau)$.
+\end{itemize}
+\end{definition}
+
+$\mathbf{Ker}$ is a full subcategory of $\Kcal\mathsf{Op}$ obtained by
+restricting to $F = \id$. The fractional semigroup
+$\{\mathcal{K}_\alpha\}_{\alpha \geq 0}$ is a one-parameter family of
+morphisms in $\mathbf{Ker}$ satisfying
+$\mathcal{K}_\alpha \circ \mathcal{K}_\beta = \mathcal{K}_{\alpha+\beta}$
+(Theorem~\ref{thm:semigroup}), making it a subcategory in its own right.
+
+\begin{remark}[Nonlinear extension]
+Trajectory operators $\TK$ with $F \neq \id$ do not in general close under
+simple kernel composition, because
+$\TK[f] \circ \mathcal{T}_{K'}[f] \neq \mathcal{T}_{K\circ K'}[f]$
+when $F$ is nonlinear. However, they form a category under composed
+Volterra operators where both the kernel and nonlinear map are tracked
+jointly as pairs $(K, F)$, as formalized in Definition~\ref{def:kop}.
+\end{remark}
+
+\subsection{Limits as Global Consistency}
+
+A \emph{limit} of a diagram of path spaces is a universal compatible
+system: a path space $L$ with restriction maps $\pi_i \colon L \to
+\Pcal_i$ such that every other compatible system factors uniquely through
+$L$. When the diagram is the restriction system $\{\Pcal(U_i)\}$ for an
+open cover $\{U_i\}$ of parameter space, the limit is the space of globally
+consistent trajectories---the sheaf-theoretic content of Yarncrawler.
+
+%%=============================================================
+\section{RSVP Field Theory}
+\label{sec:rsvp}
+%%=============================================================
+
+\subsection{The Standard RSVP System}
+
+The Relativistic Scalar-Vector-Plenum (RSVP) framework models physical
+dynamics through three coupled fields on a domain $\Omega \subseteq \R^n$:
+\begin{itemize}
+  \item $\Phi(x,t)$: the \emph{scalar plenum field} (energy density, information potential).
+  \item $\mathbf{v}(x,t)$: the \emph{vector field} (transport, directed flow).
+  \item $S(x,t)$: the \emph{entropy field} (irreversibility, thermal uncertainty).
+\end{itemize}
+
+The local RSVP evolution equations are:
+\begin{align}
+  \partial_t \Phi + \mathbf{v}\cdot\nabla\Phi &= D_\Phi\Delta\Phi - \lambda S\Phi,
+    \label{eq:phi} \\
+  \partial_t\mathbf{v} + (\mathbf{v}\cdot\nabla)\mathbf{v} &=
+    -\nabla P + \mu\Delta\mathbf{v} - \kappa\nabla S, \label{eq:v} \\
+  \partial_t S + \mathbf{v}\cdot\nabla S &= D_S\Delta S + \sigma|\nabla\mathbf{v}|^2.
+    \label{eq:S}
+\end{align}
+
+In trajectory-operator language, equation~\eqref{eq:phi} says:
+$\partial_t\Phi = \TK[\id][\Phi]$ with $K = \delta$ and
+$F(\Phi) = -\mathbf{v}\cdot\nabla\Phi + D_\Phi\Delta\Phi - \lambda S\Phi$.
+It is local: $K = \delta$.
+
+\subsection{Kernel-Weighted RSVP}
+
+We replace locality with a general kernel from the semigroup family.
+
+\begin{definition}[Kernel-weighted RSVP]
+\label{def:krsvp}
+The \emph{kernel-weighted RSVP system} is:
+\begin{align}
+  \partial_t\Phi(x,t) &+ \int_0^t K_\alpha(t-\tau)\,
+    \mathbf{v}(x,\tau)\cdot\nabla\Phi(x,\tau)\, d\tau
+    = D_\Phi\Delta\Phi - \lambda S\Phi, \label{eq:kphi} \\
+  \partial_t\mathbf{v}(x,t) &+ \int_0^t K_\beta(t-\tau)\,
+    (\mathbf{v}\cdot\nabla)\mathbf{v}(x,\tau)\, d\tau
+    = -\nabla P + \mu\Delta\mathbf{v} - \kappa\nabla S, \label{eq:kv} \\
+  \partial_t S(x,t) &+ \int_0^t K_\gamma(t-\tau)\,
+    \mathbf{v}(x,\tau)\cdot\nabla S(x,\tau)\, d\tau
+    = D_S\Delta S + \sigma|\nabla\mathbf{v}|^2. \label{eq:kS}
+\end{align}
+The orders $\alpha, \beta, \gamma \in (0,1)$ may differ by field.
+\end{definition}
+
+In trajectory-operator form, equation~\eqref{eq:kphi} is:
+\[
+  \partial_t\Phi = \mathcal{T}_{K_\alpha}\bigl[-\mathbf{v}\cdot\nabla\Phi\bigr](t)
+  + D_\Phi\Delta\Phi - \lambda S\Phi.
+\]
+The convective term is exactly $\TK$ with the fractional kernel and
+$F = -\mathbf{v}\cdot\nabla$. The $\delta$-kernel limit ($\alpha \to 0$)
+recovers equation~\eqref{eq:phi}.
+
+\subsection{Physical Interpretation}
+
+The kernel $K_\alpha$ in equation~\eqref{eq:kphi} means: \textit{transport
+of the scalar field at time $t$ is governed not by the instantaneous
+velocity field, but by the weighted history of velocity directions.} High-$\alpha$
+systems have long transport memory; the plenum ``remembers'' where it has
+been flowing and continues in that direction.
+
+In RSVP terms:
+\begin{itemize}
+  \item $\Phi$: the plenum carries a persistent potential that diffuses,
+    is transported with memory, and is damped by entropy.
+  \item $\mathbf{v}$: transport velocity has inertia encoded by $K_\beta$;
+    old flow directions decay by a power law rather than instantaneously.
+  \item $S$: entropy advection has long memory ($K_\gamma$); dissipation
+    from past velocity gradients accumulates in the entropy field.
+\end{itemize}
+
+This gives the precise RSVP interpretation of fractional calculus that the
+notes point toward:
+\[
+  \text{fractional operator} = \text{built-in entropy-weighted transport}.
+\]
+
+\subsection{Well-Posedness}
+
+\begin{theorem}[Local well-posedness]
+\label{thm:rsvp-wp}
+For initial data $\Phi_0 \in H^2(\Omega)$, $\mathbf{v}_0 \in H^2(\Omega)^n$,
+$S_0 \in H^1(\Omega)$, there exists $T^* > 0$ and a unique strong solution
+to the kernel-weighted RSVP system on $[0,T^*]$.
+\end{theorem}
+
+\begin{proof}
+For fixed $\mathbf{v}, S$, equation~\eqref{eq:kphi} is a linear Volterra
+integro-differential equation in $\Phi$. By Theorem~\ref{thm:resolvent},
+it has a unique $L^\infty$-valued solution. The full system is handled by
+a contraction-mapping argument on $H^2\times H^2\times H^1$, with contraction
+constant controlled by $T^* < \infty$ chosen sufficiently small.
+\end{proof}
+
+\subsection{Entropy Growth Bound}
+
+\begin{proposition}[Second law compatibility]
+\label{prop:entropy}
+Solutions to the kernel-weighted RSVP system satisfy
+\[
+  \frac{d}{dt}\int_\Omega S(x,t)\, dx \geq
+  \sigma\int_\Omega |\nabla\mathbf{v}(x,t)|^2\, dx.
+\]
+\end{proposition}
+
+\begin{proof}
+Integrate equation~\eqref{eq:kS} over $\Omega$; divergence terms vanish by
+integration by parts. The kernel transport term has definite sign since
+$K_\gamma \geq 0$. The dissipation source $\sigma|\nabla\mathbf{v}|^2 \geq 0$
+provides the lower bound.
+\end{proof}
+
+Memory-weighted RSVP obeys the second law: entropy grows at least as fast
+as viscous dissipation requires. The kernel amplifies rather than violates
+irreversibility.
+
+\subsection{The RSVP Scalar Field as a Fixed Point}
+
+The kernel-weighted scalar equation~\eqref{eq:kphi} can be rewritten in
+a form that connects directly to the constraint-closure machinery of
+Section~\ref{sec:constraint}. Integrating~\eqref{eq:kphi} with respect to
+$t$ and collecting terms, the scalar field satisfies
+\[
+  \Phi(x,t) = \Phi(x,0)
+  + \int_0^t K_\alpha(t-\tau)\,
+    F\bigl(\Phi(x,\tau),\mathbf{v}(x,\tau),S(x,\tau)\bigr)\, d\tau,
+\]
+where
+\[
+  F(\Phi,\mathbf{v},S) =
+  -\mathbf{v}\cdot\nabla\Phi + D_\Phi\Delta\Phi - \lambda S\Phi.
+\]
+This is precisely $\Phi = \Phi_0 + \TK[\Phi]$ in trajectory-operator
+notation. With homogeneous initial data, it reduces to the fixed-point
+condition
+\[
+  \Phi = \TK[\Phi],
+\]
+identifying RSVP solutions as fixed points of the trajectory operator
+$\TK$ with $K = K_\alpha$ and the above $F$. This is the same fixed-point
+structure that appears in constraint closure (Section~\ref{sec:constraint})
+and Yarncrawler reconstruction (Section~\ref{sec:yarncrawler}): RSVP field
+theory is an instance of the same algebraic pattern.
+
+\subsection{Structural Role of the Three Fields}
+
+Within $\TK$, the three RSVP fields play distinct roles:
+\begin{itemize}
+  \item $\Phi$ is the trajectory being evolved---the argument of the operator.
+  \item $\mathbf{v}$ enters through $F$ as the directional transport term;
+    it shapes how $\Phi$'s history is used.
+  \item $S$ enters through $F$ as a damping modulation; it can be interpreted
+    as controlling the effective memory depth by suppressing the contribution
+    of past states in high-entropy regions.
+\end{itemize}
+
+The notes observe that this suggests a deeper coupling: $K = K(t,\tau; S)$,
+in which the entropy field directly modulates the kernel. This is the
+self-modulating regime flagged in Section~\ref{sec:unified} as a future
+direction; the present section establishes the structural preparation for it.
+
+\begin{definition}[RSVP functor]
+The \emph{RSVP functor}
+$\mathcal{R} \colon \Kcal\mathsf{Op} \to \mathbf{FieldSys}$
+assigns to each triple of kernel orders $(\alpha, \beta, \gamma)$ the
+corresponding kernel-weighted RSVP system. The local system is
+$\mathcal{R}(0, 0, 0)$ (the $\delta$-kernel limit).
+\end{definition}
+
+The RSVP functor is the formal statement that RSVP is not a separate
+theory but a representation of $\Kcal\mathsf{Op}$ in the category of
+field systems.
+
+\paragraph{Bridge to Global Consistency.}
+The RSVP system describes how fields evolve under kernel-weighted dynamics,
+but does not yet address global consistency: when do locally defined
+trajectories assemble into a coherent world-state? If RSVP specifies the
+local evolution law, Yarncrawler specifies when local solutions glue into
+a global trajectory. In operator terms, $\TK$ must be compatible with
+restriction and recombination across spatial domains. This shifts focus
+from dynamics alone to the topology of trajectories, formalized through
+sheaf structure.
+
+%%=============================================================
+\section{Yarncrawler and the Sheaf-Variational Equivalence}
+\label{sec:yarncrawler}
+%%=============================================================
+
+\subsection{The Reconstruction Problem}
+
+Yarncrawler addresses a global consistency question: given local trajectory
+fragments observed through partial sensors, when can the global world-state
+be reconstructed?
+
+The answer is formalized through sheaf theory. Informally: if all local
+observations agree on overlapping regions, a unique global trajectory exists
+explaining them all.
+
+In trajectory-operator language: Yarncrawler is $\TK$ with the
+consistency kernel $K_Y$, and reconstruction completes when $K_Y$ is
+idempotent.
+
+\subsection{Sheaves of Trajectories}
+
+\begin{definition}[Sheaf of trajectories]
+The \emph{sheaf of trajectories} $\mathscr{T}$ on parameter space $X$
+assigns to each open $U \subseteq X$ the path space $\Pcal(U, Y)$,
+and to each inclusion $V \hookrightarrow U$ the restriction map
+$\rho_{U,V} \colon \Pcal(U) \to \Pcal(V)$.
+The sheaf axiom: local sections that agree on overlaps glue uniquely to
+a global section.
+\end{definition}
+
+The sheaf axiom is the exact mathematical form of global consistency from
+local agreement. The causal restrictions $\rho_{s,t}$ of
+Section~\ref{sec:prelim} define a presheaf over the time interval
+$([0,T], \leq)$; the sheaf axiom adds the gluing condition.
+
+\subsection{The Identifiability Theorem}
+
+\begin{theorem}[Identifiability Theorem]
+\label{thm:identifiability}
+The global world-state is identifiable from a cover $\{U_i\}$ if and only if
+$\check{H}^1(\{U_i\}, \mathscr{T}) = 0$.
+\end{theorem}
+
+\begin{proof}
+The \v{C}ech cohomology long exact sequence shows that the obstruction
+to lifting consistent local sections to a global section lies in
+$\check{H}^1$. Vanishing of this group ensures every cocycle is a
+coboundary, i.e., every consistent local family glues to a global section.
+\end{proof}
+
+\subsection{The Consistency Functional}
+
+\begin{definition}[Consistency functional]
+For a family of local trajectories $\{f_i\}$, define
+\[
+  \mathcal{E}[\{f_i\}] = \sum_{i,j}
+  \int_{U_i\cap U_j}
+  \|\rho_{U_i, U_i\cap U_j}(f_i)(t)
+  - \rho_{U_j, U_i\cap U_j}(f_j)(t)\|^2\, dt.
+\]
+\end{definition}
+
+\begin{theorem}[Sheaf-Variational Equivalence]
+\label{thm:sheafvar}
+$\mathcal{E}[\{f_i\}] = 0$ if and only if $\{f_i\}$ glues to a global
+section of $\mathscr{T}$. Moreover, the gradient flow of $\mathcal{E}$
+in the product path space converges to a minimizer, and every minimizer
+with $\mathcal{E} = 0$ is a global section.
+\end{theorem}
+
+\begin{proof}
+The equivalence $\mathcal{E} = 0 \Leftrightarrow$ global section is
+immediate from the definition. For gradient flow: $\mathcal{E}$ is a
+non-negative quadratic functional on a Hilbert product space; its gradient
+flow is a linear ODE with positive-semidefinite coefficient matrix,
+converging to the kernel of that matrix---the globally consistent sections.
+\end{proof}
+
+\subsection{The Yarncrawler Reconstruction Kernel}
+
+\begin{definition}[Yarncrawler kernel]
+The \emph{Yarncrawler reconstruction kernel} $K_Y$ is the kernel whose
+trajectory operator $\mathcal{T}_{K_Y}$ projects the product path space
+onto the space of globally consistent trajectories:
+\[
+  \mathcal{T}_{K_Y}[\{f_i\}] = \mathrm{argmin}_{g\in\Pcal(X)}
+  \mathcal{E}[\{g|_{U_i}\}].
+\]
+\end{definition}
+
+\begin{proposition}[$K_Y$ is idempotent]
+\label{prop:idempotent}
+$\mathcal{T}_{K_Y} \circ \mathcal{T}_{K_Y} = \mathcal{T}_{K_Y}$.
+\end{proposition}
+
+\begin{proof}
+Applying $\mathcal{T}_{K_Y}$ to already-consistent data leaves it unchanged,
+since consistent data minimizes $\mathcal{E}$ and projection onto a minimum
+is idempotent. Formally: $\mathcal{E}[\{(\mathcal{T}_{K_Y} f_i)|_{U_j}\}] = 0$,
+so projecting again produces the same output.
+\end{proof}
+
+Idempotence is the algebraic signature of constraint closure. The
+Yarncrawler kernel is a constraint operator whose fixed point is the
+globally consistent trajectory---the world-state.
+
+\paragraph{Bridge to Event Structure.}
+Yarncrawler establishes that globally consistent trajectories arise as
+fixed points of a consistency kernel, but this description remains static:
+it characterizes admissible histories without describing transitions between
+them. Spherepop introduces this structure by treating transitions as
+primitive morphisms. Where Yarncrawler concerns the existence of global
+sections, Spherepop concerns the composition of events transforming one
+trajectory into another---the passage from global admissibility to causal
+transformation within the same operator framework.
+
+%%=============================================================
+\section{Spherepop: The Irreversible Event Calculus}
+\label{sec:spherepop}
+%%=============================================================
+
+\subsection{Events as Trajectory Operators}
+
+Spherepop is an event calculus in which the primitive objects are not
+states but events: causal transitions between trajectory segments. In
+trajectory-operator language: an event is a morphism in $\Kcal\mathsf{Op}$,
+i.e., a kernel-mediated transformation of a past trajectory into a
+future one.
+
+\begin{definition}[Event morphism]
+An \emph{event morphism} $e \colon \sigma \to \sigma'$ is a triple
+$(I, f, f')$ where $I = [t_0, t_1]$, $f \in \Pcal(I)$ is the
+incoming causal history, and $f' \in \Pcal(I)$ is the outgoing causal
+future. The event is the transition $f \mapsto f'$.
+\end{definition}
+
+\begin{proposition}[Kernel representation]
+Every event morphism $e$ is represented by a kernel operator
+$K_e \in \Kcal(\Delta_I)$ via
+\[
+  f'(t) = \mathcal{T}_{K_e}[\id][f](t) = \int_{t_0}^t K_e(t,\tau)\, f(\tau)\, d\tau.
+\]
+Composition of events corresponds to kernel composition:
+$K_{e'\circ e} = K_{e'}\circ K_e$.
+\end{proposition}
+
+This establishes that $\mathbf{Sph}$ (the Spherepop event category) is a
+subcategory of $\Kcal\mathsf{Op}$: events are a special class of kernel
+morphisms.
+
+\subsection{Symmetric Monoidal Structure}
+
+Events compose sequentially and can occur in parallel.
+
+\begin{definition}[Tensor product of events]
+For simultaneous events $e, f$ in independent subsystems,
+$e \otimes f \colon \sigma_1\otimes\sigma_2 \to \sigma_1'\otimes\sigma_2'$
+is the joint event, with kernel $K_{e\otimes f}(t,\tau) = K_e(t,\tau)
+\oplus K_f(t,\tau)$ (direct sum).
+\end{definition}
+
+\begin{theorem}[$\mathbf{Sph}$ is symmetric monoidal]
+\label{thm:symmono}
+The event category $\mathbf{Sph}$ with the tensor product is a symmetric
+monoidal category.
+\end{theorem}
+
+\begin{proof}
+Associativity and symmetry of $\otimes$ follow from the commutativity of
+simultaneous events in independent subsystems: events in disjoint trajectory
+spaces compose in any order. The coherence axioms (pentagon, triangle) hold
+because the relevant isomorphisms are canonical permutations of direct-sum
+kernel components.
+\end{proof}
+
+\subsection{Trace and Irreversibility}
+
+\begin{definition}[Trace]
+For an event $e \colon A\otimes U \to B\otimes U$, the trace
+$\tr^U(e) \colon A \to B$ represents the effect of $e$ after feeding
+the $U$-component back into itself.
+\end{definition}
+
+\begin{theorem}[Irreversibility of the Spherepop trace]
+\label{thm:irrev}
+The trace in $\mathbf{Sph}$ is not invertible: there is in general no
+event $\bar{e}$ with $\tr^U(\bar{e}) = (\tr^U(e))^{-1}$.
+\end{theorem}
+
+\begin{proof}
+The trace maps $\Hom(A\otimes U, B\otimes U) \to \Hom(A,B)$. Injectivity
+fails (multiple events produce the same traced outcome). Surjectivity of
+the inverse fails because a reversed trajectory would require the entropy
+field $S$ to decrease over the traced feedback loop, violating
+Proposition~\ref{prop:entropy}. Hence the trace is not invertible.
+\end{proof}
+
+Irreversibility here is not imposed as a physical postulate. It is derived
+from the entropy growth bound of the RSVP embedding (Proposition~\ref{prop:entropy})
+together with the categorical structure of the trace.
+
+\subsection{Discrete Event Sequences and Total Kernel Accumulation}
+
+Sequential events compose into a single kernel via convolution:
+
+\begin{proposition}[Total kernel of a discrete event sequence]
+\label{prop:totalkernel}
+Let $\{E_n\}_{n=1}^N$ be a sequence of events with kernels
+$\{K_{E_n}\}$. The composed evolution
+\[
+  \Phi_N = (E_N \circ \cdots \circ E_1)(\Phi_0)
+\]
+corresponds to the single trajectory operator with kernel
+\[
+  K_{\mathrm{tot}} = K_{E_N} \circ K_{E_{N-1}} \circ \cdots \circ K_{E_1}.
+\]
+\end{proposition}
+
+\begin{proof}
+By induction. The base case $N=1$ is immediate. For the inductive step:
+$(E_{n+1}\circ E_n)(\Phi) = \mathcal{T}_{K_{E_{n+1}}}[\mathcal{T}_{K_{E_n}}[\Phi]]$,
+which in the linear case equals $\mathcal{T}_{K_{E_{n+1}}\circ K_{E_n}}[\Phi]$
+by the kernel composition law.
+\end{proof}
+
+This result establishes that discrete event composition and continuous kernel
+accumulation are two descriptions of the same structure. As $N \to \infty$
+with event duration $\Delta t \to 0$, the discrete composition converges to
+the continuous Volterra operator $\TK$, with $K = \lim_{N\to\infty} K_{\mathrm{tot}}$.
+
+\begin{proposition}[Non-invertibility from smoothing]
+\label{prop:noninvert}
+If $K_E$ is supported on $\tau \leq t$ and is integrable but not singular,
+then the event $E$ is non-invertible: there is no kernel $K^{-1}$ satisfying
+$K_E \circ K^{-1} = \delta$.
+\end{proposition}
+
+\begin{proof}
+Such kernels smooth trajectories by averaging over past values. This operation
+is injective from $L^2$ to $L^2$ but has dense range; its adjoint is not a
+left inverse. Concretely, the Fourier transform of $K_E(t-\tau)$ decays at
+high frequencies (since $K_E \in L^1$), so its inverse would amplify high
+frequencies unboundedly---an operator not bounded on any standard function space.
+\end{proof}
+
+\paragraph{Bridge to Event Generation.}
+Spherepop treats events as morphisms but does not specify how they arise
+from continuous dynamics. KES resolves this: events correspond to threshold
+crossings of kernel-weighted accumulations. What appears categorically as a
+discrete morphism is analytically the result of continuous synthesis. The
+distinction between continuous evolution and discrete events collapses;
+both are expressions of $\TK$ viewed at different levels of resolution.
+
+%%=============================================================
+\section{KES: Kinetic-Event Synthesis}
+\label{sec:kes}
+%%=============================================================
+
+\subsection{Events from Trajectories}
+
+KES provides the mechanism by which discrete events emerge from continuous
+trajectory dynamics. An event is not primitive but \emph{generated} when a
+trajectory accumulation crosses a threshold. In trajectory-operator terms:
+$\TK$ generates events.
+
+\begin{definition}[Synthesis kernel]
+A \emph{synthesis kernel} is a kernel of the form
+\[
+  K_{\mathrm{syn}}(t,\tau) = \psi(t)\cdot\phi(\tau)\cdot K_\alpha(t,\tau),
+\]
+where $\psi \in L^\infty$ is an output envelope, $\phi \in L^\infty$ is
+an input envelope, and $K_\alpha$ is the fractional kernel of order
+$\alpha$.
+\end{definition}
+
+The factored form has a clean reading: $\phi$ selects which portion of the
+history contributes; $K_\alpha$ weights contributions by temporal distance
+(with $\alpha$ controlling memory depth); $\psi$ shapes the output into a
+new trajectory segment.
+
+\subsection{Threshold Crossings as Events}
+
+\begin{definition}[KES event set]
+For $f \in \Pcal$ and threshold $\theta > 0$, the \emph{event set} is
+\[
+  \mathcal{E}_\theta(f) = \bigl\{t \in [0,T] :
+  |\mathcal{T}_{K_{\mathrm{syn}}}[f](t)| \geq \theta\bigr\}.
+\]
+\end{definition}
+
+\begin{proposition}[Event discreteness via Sard's theorem]
+\label{prop:discrete}
+If $f \in \Pcal$ is absolutely continuous and $K_{\mathrm{syn}}$ has
+$\alpha \in (0,1)$, then $\mathcal{E}_\theta(f)$ is a countable set for
+a.e.\ threshold $\theta > 0$.
+\end{proposition}
+
+\begin{proof}
+The map $t \mapsto |\mathcal{T}_{K_{\mathrm{syn}}}[f](t)|$ is continuous
+(Volterra operators on absolutely continuous inputs are continuous). By
+Sard's theorem, the level set of a continuous function at a generic regular
+value is discrete.
+\end{proof}
+
+This is the formal derivation of event discreteness from continuous dynamics:
+\textit{discrete events are threshold-crossings of a trajectory operator,
+not primitive objects.} KES provides the analytic ground floor of Spherepop's
+categorical structure.
+
+\subsection{Kernel Composition Law}
+
+\begin{theorem}[KES composition]
+\label{thm:kescomp}
+For synthesis kernels $K^{(1)}_{\mathrm{syn}}, K^{(2)}_{\mathrm{syn}}$:
+\[
+  \mathcal{T}_{K^{(1)}_{\mathrm{syn}}}\circ\mathcal{T}_{K^{(2)}_{\mathrm{syn}}}
+  = \mathcal{T}_{K^{(1)}_{\mathrm{syn}}\circ K^{(2)}_{\mathrm{syn}}}.
+\]
+\end{theorem}
+
+\begin{proof}
+Direct from the associativity of kernel composition (Theorem~\ref{thm:monoid})
+and the definition of $\TK$.
+\end{proof}
+
+In words: sequential KES synthesis stages compose as their kernels compose.
+This is the sense in which ``kinetic-event synthesis'' is literally kernel
+composition.
+
+\subsection{Nonlinear Synthesis}
+
+In the nonlinear setting where $F \neq \id$, sequential application yields
+\[
+  (\mathcal{T}_{K_1}\circ\mathcal{T}_{K_2})[\Phi](t)
+  = \int_0^t K_1(t,s)\,
+    F_1\!\left(\int_0^s K_2(s,\tau)\,F_2(\Phi(\tau))\,d\tau\right) ds.
+\]
+This does not in general collapse to a single kernel operator, but it
+preserves causality (the simplex $0 \leq \tau \leq s \leq t$ is the
+support of the nested integral) and temporal ordering.
+
+\begin{proposition}[Causality of nonlinear composition]
+Nonlinear compositions of trajectory operators preserve causality:
+the output at time $t$ depends only on $\Phi|_{[0,t]}$.
+\end{proposition}
+
+\begin{proof}
+The nested integrals are supported on $\{(\tau, s, t): 0 \leq \tau \leq
+s \leq t\}$, so no future values of $\Phi$ contribute.
+\end{proof}
+
+Under suitable conditions (linearization, or $F_1, F_2$ weakly nonlinear),
+the composite operator admits an effective kernel approximation:
+\[
+  \mathcal{T}_{K_1}\circ\mathcal{T}_{K_2} \approx \mathcal{T}_{K_{\mathrm{eff}}},
+  \quad K_{\mathrm{eff}} \approx K_1 \circ K_2.
+\]
+This provides an approximate closure of nonlinear synthesis within the kernel
+algebra, connecting it back to the convolution monoid.
+
+Spherepop specifies the categorical structure of events (morphisms,
+composition, tensor product, trace). KES provides the analytic mechanism
+by which those events arise from trajectory data.
+
+\begin{definition}[KES-Spherepop functor]
+$\Psi \colon \mathcal{A}_{\mathrm{KES}} \to \mathbf{Sph}$ sends each
+synthesis kernel to the event morphism it generates:
+$\Psi(K_{\mathrm{syn}}) = (\text{trajectories at }\mathcal{E}_\theta)$.
+\end{definition}
+
+The categories are related: KES generates the events that Spherepop
+organizes.
+
+\paragraph{Bridge to Synchronization and Quantum Structure.}
+KES shows how events emerge from trajectory accumulation but does not
+impose global constraints on how they combine across space. TARTAN provides
+this constraint by enforcing compatibility across a tiled domain. When
+local transition laws are required to be unistochastic and globally
+synchronized, the resulting dynamics acquire quantum structure. Ising
+synchronization selects a globally coherent phase configuration,
+transforming local kernel dynamics into consistent unitary evolution.
+Quantum behavior emerges as a global constraint on kernel composition.
+
+%%=============================================================
+\section{TARTAN: Recursive Tiling, Ising Synchronization, and\\Quantum Dynamics}
+\label{sec:tartan}
+%%=============================================================
+
+\subsection{Overview}
+
+TARTAN is a framework for recursive tiling and gluing of local dynamical
+data. In the kernel-operator setting, TARTAN supplies the cover structure
+$\{U_a\}$ over which local trajectory operators are defined, together with
+the compatibility constraints that govern how they glue. The connection to
+quantum mechanics arises when the local transition laws are required to be
+\emph{unistochastic}: stochastic matrices arising as squared moduli of
+unitary matrices. Ising synchronization then selects a globally consistent
+unitary lift.
+
+\subsection{Local Configuration Tiles}
+
+Let $\Omega$ be covered by TARTAN tiles $\{U_a\}_{a \in A}$. Each tile
+carries a finite configuration space $X_a$ and a local transition law
+\[
+  P^{(a)} \colon X_a \times X_a \to [0,1].
+\]
+We require $P^{(a)}$ to be \emph{unistochastic}: there exists a unitary
+matrix $U^{(a)}$ such that
+\[
+  P^{(a)}_{ij} = \left|U^{(a)}_{ij}\right|^2.
+\]
+The matrix $P^{(a)}$ gives observable transition probabilities; $U^{(a)}$
+carries the phase structure required for quantum interference.
+
+\subsection{Phase-Lifted TARTAN Variables}
+
+A unistochastic matrix determines probabilities but not a unique unitary
+lift. We introduce local phase variables $\theta^{(a)}_{ij} \in S^1$ and write
+\[
+  U^{(a)}_{ij} = \sqrt{P^{(a)}_{ij}}\, e^{i\theta^{(a)}_{ij}}.
+\]
+The TARTAN problem is to synchronize phase lifts across overlapping tiles.
+On overlaps $U_a \cap U_b$, compatibility requires:
+\begin{itemize}
+  \item Probability agreement: $P^{(a)}|_{U_a\cap U_b} = P^{(b)}|_{U_a\cap U_b}$.
+  \item Phase coherence: $\theta^{(a)}_{ij} - \theta^{(b)}_{ij} \equiv 0
+    \pmod{2\pi}$ up to admissible gauge transformations.
+\end{itemize}
+
+\subsection{Ising Synchronization}
+
+To drive synchronization, assign an Ising spin $\sigma_a \in \{-1,+1\}$
+to each tile. Neighboring tiles interact through the energy functional
+\[
+  E_{\mathrm{Ising}}(\sigma) = -\sum_{\langle a,b\rangle} J_{ab}\sigma_a\sigma_b
+  - \sum_a h_a\sigma_a,
+\]
+where the coupling
+\[
+  J_{ab} = \exp\!\left(-\eta\left\|\theta^{(a)} - \theta^{(b)}\right\|^2_{U_a\cap U_b}\right)
+\]
+rewards phase-compatible tile pairs, and $h_a$ encodes local bias from
+the TARTAN annotation layer. The synchronized configuration is
+\[
+  \sigma^* = \arg\min_\sigma E_{\mathrm{Ising}}(\sigma).
+\]
+
+\subsection{Synchronized Unistochastic Law}
+
+Once synchronized, the local matrices glue into an effective global law:
+\[
+  P^{\mathrm{eff}} = \operatorname{Glue}_{\sigma^*}\!\left(\{P^{(a)}\}_{a\in A}\right),
+\]
+with unitary lift
+\[
+  U^{\mathrm{eff}}_{ij} = \sqrt{P^{\mathrm{eff}}_{ij}}\, e^{i\theta^{\mathrm{eff}}_{ij}}.
+\]
+The global quantum dynamics are then generated by
+\[
+  \psi(t+\Delta t) = U^{\mathrm{eff}}\psi(t),
+  \qquad
+  p_i(t+\Delta t) = \sum_j P^{\mathrm{eff}}_{ij}\, p_j(t).
+\]
+
+\subsection{Constraint Closure in the TARTAN Layer}
+
+A globally admissible quantum process is a fixed point of the combined
+TARTAN--Ising--unistochastic operator:
+\[
+  P^* = \mathcal{G}_{\mathrm{TARTAN}}\!\left(
+    \operatorname{Sync}_{\mathrm{Ising}}\!\left(\{P^{(a)}\}\right)\right).
+\]
+This is an instance of the general constraint-closure pattern
+$\Phi = \TK[\Phi]$, with the kernel encoding the gluing and synchronization
+operations. The correspondences are:
+
+\medskip
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{ll}
+\toprule
+\textbf{TARTAN layer} & \textbf{Kernel-operator language} \\
+\midrule
+Tile compatibility & Sheaf gluing condition \\
+Ising alignment & Selection of consistent global section \\
+TARTAN gluing & Fixed point of $\mathcal{T}_{K_{\mathrm{TARTAN}}}$ \\
+Quantum transition law & Globally synchronized section $P^*$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\medskip
+
+\begin{remark}[Core slogan]
+Quantum mechanics, in this formulation, is globally synchronized unistochastic
+transition dynamics: TARTAN supplies the gluing geometry; Ising synchronization
+supplies the alignment dynamics; unistochasticity supplies the quantum law.
+\end{remark}
+
+\paragraph{Bridge to Symmetry Constraints.}
+The TARTAN construction enforces global consistency across spatial tiles.
+The next layer imposes consistency across reference frames. Where TARTAN
+constrains admissibility through synchronization, relativity constrains
+it through invariance of a quadratic form. Kernel operators compatible
+with this symmetry must commute with Lorentz transformations, placing
+geometric bounds on the operator algebra.
+
+%%=============================================================
+\section{Relativity from a Pythagorean Invariant}
+\label{sec:relativity}
+%%=============================================================
+
+\subsection{The Euclidean Prototype}
+
+In Euclidean geometry, the Pythagorean theorem defines the invariant
+quadratic form $s^2 = x^2 + y^2$. Rotations preserve this quantity.
+The classical square-dissection proofs demonstrate that such invariance
+is equivalent to area-preserving rearrangements---the quadratic form
+encodes a symmetry group.
+
+This section argues that the Lorentz transformation and length contraction
+are the exact analogues of this structure applied to spacetime, with one
+sign change in the metric.
+
+\subsection{The Spacetime Quadratic Form}
+
+Introduce a temporal coordinate $t$ and a universal speed $c$. For a
+light signal, $x = ct$, so any invariant quantity must vanish along light
+trajectories. This forces the spacetime quadratic form to be
+\[
+  s^2 = c^2 t^2 - x^2,
+\]
+the Minkowski metric with indefinite signature. This is the unique
+(up to scaling) quadratic form that preserves the light cone structure,
+and therefore encodes the causal geometry of spacetime. It is structurally
+Pythagorean, but with a sign change that encodes the distinction between
+space and time.
+
+\subsection{Invariant-Preserving Transformations}
+
+We seek all linear maps $(x,t) \mapsto (x',t')$ preserving $s^2$:
+\[
+  c^2 t'^2 - x'^2 = c^2 t^2 - x^2.
+\]
+Assuming the transformation $x' = \gamma(x - vt)$,
+$t' = \gamma(t - vx/c^2)$ and substituting into the invariant condition,
+invariance holds if and only if
+\[
+  \gamma = \frac{1}{\sqrt{1 - v^2/c^2}}.
+\]
+The Lorentz factor $\gamma$ arises as the unique normalization constant
+that makes the linear transformation preserve the spacetime Pythagorean form.
+
+\begin{theorem}[Lorentz transformation from quadratic invariance]
+\label{thm:lorentz}
+The unique family of linear maps preserving $s^2 = c^2t^2 - x^2$ and
+reducing to the identity at $v = 0$ is the Lorentz boost with parameter $\gamma$.
+\end{theorem}
+
+\begin{proof}
+Substitute the general linear ansatz into $s^2 = s'^2$ and solve for the
+coefficients. The constraint that $(x',t') = (x,t)$ at $v=0$ fixes the
+integration constants, uniquely determining $\gamma$ as stated.
+\end{proof}
+
+\subsection{Length Contraction as Projection}
+
+Let a rod be at rest in one frame with proper length $L_0 = x_2 - x_1$.
+To measure its length in a moving frame, both endpoints must be measured at
+the same time in that frame: $t'_2 = t'_1$. The condition
+$t - vx/c^2 = \mathrm{const}$ combined with the Lorentz transformation for
+$x'$ gives
+\[
+  L = x'_2 - x'_1 = \frac{L_0}{\gamma}.
+\]
+
+This is Lorentz contraction. It is not a physical compression of the rod
+but a projection effect: the same invariant spacetime interval is expressed
+along a different coordinate axis under a symmetry-preserving transformation.
+
+\begin{remark}[Geometric interpretation]
+In Euclidean geometry, rotation preserves circular level sets and ``dissects''
+area by rearrangement. In spacetime, Lorentz boosts preserve hyperbolic level
+sets of $s^2$. Length contraction is the re-slicing of those hyperbolas under
+a different temporal axis---the relativistic analogue of a Euclidean dissection.
+\end{remark}
+
+\subsection{Connection to the Operator Framework}
+
+The quadratic form $s^2$ acts as a constraint functional: it defines the
+class of admissible transformations. Lorentz transformations are the symmetry
+group of that constraint. In the language of kernel operators:
+\[
+  \text{invariant quadratic form} \;\Rightarrow\; \text{symmetry group}
+  \;\Rightarrow\; \text{observable contraction effects}.
+\]
+This places relativity in the same structural position as the other frameworks:
+a constraint on admissible dynamics, expressed through an invariant functional.
+
+\paragraph{Bridge to Spectral Structure.}
+Relativistic invariance constrains the form of admissible kernel operators
+but does not explain their internal behavior: why memory induces smoothing,
+why irreversibility arises, or why certain trajectories are stable. These
+questions are answered by spectral analysis. The kernel operator, viewed as
+an operator on path space, possesses a spectrum that governs decay,
+stability, and information loss, shifting focus from external constraints
+to internal dynamics.
+
+%%=============================================================
+\section{Lorentz Symmetry on Trajectory Space}
+\label{sec:lorentz}
+%%=============================================================
+
+\subsection{Trajectories in Spacetime}
+
+We extend the path space to spacetime coordinates. Let
+$\Phi \colon \Omega \times [0,T] \to \R$ be a trajectory, and equip the
+domain with the Minkowski quadratic form $s^2 = c^2t^2 - x^2$. A Lorentz
+transformation $\Lambda$ acts on spacetime coordinates by
+\[
+  (x,t) \mapsto (x',t') = \Lambda(x,t), \quad s'^2 = s^2.
+\]
+This induces a pullback operator on trajectories:
+\[
+  (\Lambda\cdot\Phi)(x,t) := \Phi(\Lambda^{-1}(x,t)).
+\]
+
+\subsection{Lorentz Compatibility of Kernel Operators}
+
+\begin{definition}[Lorentz-compatible operator]
+A trajectory operator $\TK$ is \emph{Lorentz-compatible} if
+\[
+  \Lambda\cdot\TK[\Phi] = \TK[\Lambda\cdot\Phi]
+\]
+for all trajectories $\Phi$ and all Lorentz transformations $\Lambda$.
+\end{definition}
+
+\begin{proposition}[Invariant kernels are Lorentz-compatible]
+\label{prop:lorentz}
+If the kernel $K$ depends only on the spacetime interval, i.e.\
+$K(t,\tau) = \tilde{K}(s^2)$ for some function $\tilde{K}$, then
+$\TK$ is Lorentz-compatible.
+\end{proposition}
+
+\begin{proof}
+Since $s^2$ is invariant under $\Lambda$, we have $K(t',\tau') = K(t,\tau)$.
+Substituting into the definition of $\TK$:
+\[
+  (\Lambda\cdot\TK[\Phi])(x,t)
+  = \TK[\Phi](\Lambda^{-1}(x,t))
+  = \int_0^{t^*} K(t^*,\tau)\,F(\Phi(\Lambda^{-1}(x,\tau)))\,d\tau,
+\]
+where $t^* = [\Lambda^{-1}(x,t)]_t$. Under the change of variables
+$\tau \mapsto \Lambda^{-1}(\tau)$, this equals $\TK[\Lambda\cdot\Phi](x,t)$,
+since $K$ is invariant.
+\end{proof}
+
+\subsection{Relativistic Kernel Evolution}
+
+A fully Lorentz-invariant trajectory operator integrates over the past
+light cone rather than a fixed time interval:
+\[
+  \TK[\Phi](x,t)
+  = \int_{\mathcal{C}(x,t)} K\bigl(s^2((x,t),(x',t'))\bigr)\,
+    F(\Phi(x',t'))\, d\mu(x',t'),
+\]
+where $\mathcal{C}(x,t) = \{(x',t') : c^2(t-t')^2 - (x-x')^2 \geq 0,\;
+t' \leq t\}$ is the past light cone. This is the relativistic generalization
+of the causal Volterra operator: instead of integrating over $[0,t]$, it
+integrates over all causally accessible past events.
+
+\subsection{Length Contraction as Trajectory Projection}
+
+Let $\Phi$ represent a spatial configuration at rest in one frame.
+Different inertial frames correspond to different temporal slicings of
+spacetime. Since $\Lambda$ preserves $s^2$, the underlying trajectory is
+unchanged; what changes is its projection onto the spatial axis of the
+moving frame. This projection is exactly Lorentz contraction
+$L = L_0/\gamma$: a consequence of evaluating the same invariant trajectory
+under different coordinate projections.
+
+\subsection{Interpretation}
+
+Within the kernel-operator framework, Lorentz symmetry is a compatibility
+condition rather than an independent postulate. The diagram
+\[
+  \Lambda\cdot\TK = \TK\cdot\Lambda
+\]
+says that temporal evolution and frame change commute---a statement about
+the algebraic structure of $\Kcal\mathsf{Op}$, not a separate postulate
+of physics. Relativity appears as the constraint that kernel operators
+must commute with the symmetry group of the invariant quadratic form.
+
+%%=============================================================
+\section{Constraint Closure and the Trajectory-First Theory}
+\label{sec:constraint}
+%%=============================================================
+
+\subsection{Trajectories as Primary Objects}
+
+The standard picture: state space $\mathcal{X}$, evolution map $\Phi_t
+\colon \mathcal{X} \to \mathcal{X}$. Completion = reaching a fixed point
+$x^* \in \mathcal{X}$.
+
+The trajectory-first picture: the primary objects are trajectories
+$f \in \Pcal$, and states are derived by evaluation. Completion is not
+``this state is fixed'' but:
+
+\begin{center}
+\textit{this trajectory satisfies $\mathcal{T}_K[f^*] = f^*$.}
+\end{center}
+
+This is the fixed-point condition for the trajectory operator $\TK$.
+
+\subsection{Constraint Operators}
+
+\begin{definition}[Constraint operator]
+A \emph{constraint operator} on $\Pcal$ is $\mathcal{T}_K$ satisfying:
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Causal}: $\mathcal{T}_K[f](t)$ depends only on $f|_{[0,t]}$.
+  \item \textbf{Contractive}: $\|\mathcal{T}_K[f] - \mathcal{T}_K[g]\|_\Pcal
+    \leq L\|f-g\|_\Pcal$ for some $L < 1$.
+  \item \textbf{Positivity-preserving}: $f \geq 0 \Rightarrow
+    \mathcal{T}_K[f] \geq 0$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Constraint closure]
+A trajectory $f^*$ is \emph{closed under constraint $\mathcal{T}_K$} if
+$\mathcal{T}_K[f^*] = f^*$: it is a fixed point of its own constraint.
+\end{definition}
+
+\subsection{The Constraint Closure Theorem}
+
+\begin{theorem}[Constraint Closure Theorem]
+\label{thm:closure}
+Let $\mathcal{T}_K$ be a constraint operator. Then:
+\begin{enumerate}[label=(\roman*)]
+  \item There exists a unique fixed point $f^* \in \Pcal$ with
+    $\mathcal{T}_K[f^*] = f^*$.
+  \item For any $f_0 \in \Pcal$, the iterates $f_{n+1} = \mathcal{T}_K[f_n]$
+    converge to $f^*$ in $\Pcal$-norm.
+  \item The operator $\mathcal{T}_K$ is idempotent on $\{f^*\}$:
+    $\mathcal{T}_K(\mathcal{T}_K[f^*]) = \mathcal{T}_K[f^*]$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Parts (i) and (ii): the Banach fixed-point theorem applied to the contractive
+map $\mathcal{T}_K$ on the complete metric space $(\Pcal, \|\cdot\|)$.
+Part (iii): $f^* = \mathcal{T}_K[f^*]$ implies $\mathcal{T}_K(f^*) =
+f^* = \mathcal{T}_K[f^*]$, so applying $\mathcal{T}_K$ again gives the
+same result.
+\end{proof}
+
+\subsection{Idempotence as Completion}
+
+\begin{corollary}[Completion without states]
+A process defined by trajectory $f \in \Pcal$ and constraint $\mathcal{T}_K$
+is \emph{complete} if and only if $\mathcal{T}_K$ is idempotent on $f$.
+No state space is required.
+\end{corollary}
+
+This is the formal statement of the trajectory-first completion principle:
+\[
+  \text{completion} = \text{constraint closure} = \text{kernel idempotence}.
+\]
+
+\subsection{Yarncrawler as Constraint Closure}
+
+The Yarncrawler kernel $K_Y$ is idempotent by Proposition~\ref{prop:idempotent}.
+This is not a coincidence: Yarncrawler reconstruction is exactly constraint
+closure for the sheaf-consistency constraint.
+
+\begin{proposition}[Yarncrawler is a constraint closure]
+Yarncrawler reconstruction is an instance of Theorem~\ref{thm:closure}
+with $\mathcal{T}_K = \mathcal{T}_{K_Y}$.
+\end{proposition}
+
+The world-state reconstruction completes when the Yarncrawler constraint
+closes: when further application of $\mathcal{T}_{K_Y}$ produces no new
+information.
+
+\paragraph{Bridge to Spectral and Variational Analysis.}
+Constraint closure establishes when a trajectory is a fixed point. Spectral
+theory now reveals why such fixed points are stable and what happens to
+trajectories that do not satisfy the constraint: their non-invariant
+components are spectrally damped. Variational theory shows that the same
+fixed point is a minimizer of a mismatch functional. The following two
+sections formalize this triple equivalence before the Unified Memory Theorem
+assembles it into a single statement.
+
+
+%%=============================================================
+\section{Spectral Theory of Kernel Operators}
+\label{sec:spectral}
+%%=============================================================
+
+\subsection{Operator-Theoretic Setting}
+
+We now study $\TK$ as a linear operator on a function space, characterizing
+memory, irreversibility, and convergence through spectral properties.
+Let $\Pcal := L^2([0,T], X)$ and define the linear kernel operator
+\[
+  (\mathcal{K}f)(t) := \int_0^t K(t,\tau)\,f(\tau)\,d\tau,
+  \quad \mathcal{K} \colon \Pcal \to \Pcal.
+\]
+This is bounded by Lemma~\ref{lem:bounded}.
+
+\subsection{Compactness and Smoothing}
+
+\begin{theorem}[Compactness of causal kernel operators]
+\label{thm:compact}
+If $K \in L^2(\Delta_T)$, then $\mathcal{K}$ is a compact operator on $\Pcal$.
+\end{theorem}
+
+\begin{proof}
+$\mathcal{K}$ is a Hilbert--Schmidt operator:
+$\|\mathcal{K}\|_{HS}^2 = \int_0^T\!\int_0^t|K(t,\tau)|^2\,d\tau\,dt < \infty$.
+All Hilbert--Schmidt operators are compact.
+\end{proof}
+
+\begin{remark}[Smoothing interpretation]
+Compactness means $\mathcal{K}$ maps bounded sets into relatively compact
+sets. Physically, this is \emph{smoothing}: fine-scale variations in the
+trajectory are suppressed by integration against $K$. Memory is not merely
+accumulation---it is selective persistence with suppression of high-frequency
+modes.
+\end{remark}
+
+\subsection{Spectral Structure and Memory Decay}
+
+\begin{theorem}[Spectral structure]
+\label{thm:spectrum}
+If $\mathcal{K}$ is compact, then $\sigma(\mathcal{K}) = \{0\}\cup\{\lambda_n\}$
+with $\lambda_n \to 0$, each nonzero $\lambda_n$ has finite multiplicity, and
+$0$ is the only accumulation point.
+\end{theorem}
+
+The eigenvalues $\lambda_n$ measure how strongly different modes of the
+trajectory persist under the kernel. Since $\lambda_n \to 0$, all modes
+eventually decay: \emph{memory is lossy}. Repeated application of the
+kernel erases information.
+
+\subsection{Irreversibility from Spectral Decay}
+
+\begin{theorem}[Non-invertibility of smoothing kernels]
+\label{thm:noninvertspectral}
+If $K \in L^1(\Delta_T)$ and is not a distribution concentrated on $t = \tau$,
+then $\mathcal{K}$ is not invertible on $\Pcal$.
+\end{theorem}
+
+\begin{proof}
+A compact operator on an infinite-dimensional Banach space cannot be
+invertible, since its spectrum accumulates at $0$.
+\end{proof}
+
+\begin{remark}[Algebraic irreversibility]
+This gives a purely spectral derivation of irreversibility:
+$\text{smoothing} \Rightarrow \lambda_n \to 0 \Rightarrow \text{no inverse}$.
+No thermodynamic argument is required; information loss is encoded in the
+operator spectrum.
+\end{remark}
+
+\subsection{Fractional Kernels and Power-Law Spectra}
+
+\begin{proposition}[Spectral decay of fractional operators]
+\label{prop:fractionalspec}
+The singular values of $\mathcal{K}_\alpha$ satisfy
+$s_n(\mathcal{K}_\alpha) \sim n^{-(1-\alpha)}$.
+\end{proposition}
+
+For $\alpha \to 0$: rapid spectral decay, short memory. For $\alpha \to 1$:
+slow decay, long memory. The fractional parameter $\alpha$ directly controls
+the spectral decay rate, making memory depth a measurable spectral quantity.
+
+\subsection{Stability of Fixed Points}
+
+Linearizing $\TK[f] = \mathcal{K}(F\circ f)$ around a fixed point $f^*$:
+
+\begin{theorem}[Stability criterion]
+\label{thm:stability}
+A fixed point $f^*$ of $\TK$ is stable if
+$\rho\bigl(\mathcal{K}\circ DF(f^*)\bigr) < 1$,
+where $\rho$ is the spectral radius.
+\end{theorem}
+
+Constraint closure is therefore not just existence of a fixed point but
+\emph{spectral contraction} of deviations: the kernel controls stability
+by damping perturbations.
+
+\subsection{Resolvent and Memory Propagation}
+
+The resolvent $R(\lambda) = (I - \lambda\mathcal{K})^{-1}$ expands as
+\[
+  R(\lambda) = \sum_{n=0}^\infty \lambda^n \mathcal{K}^n,
+  \quad |\lambda| < 1/\|\mathcal{K}\|.
+\]
+Each term represents a deeper layer of historical influence. Memory
+propagation is literally a geometric series in kernel composition.
+
+\paragraph{Bridge to Variational Equivalence.}
+Spectral theory characterizes the behavior of $\mathcal{K}$ through
+eigenstructure. The same structure can be obtained from an optimization
+principle: fixed points of $\mathcal{K}$ are minimizers of a natural
+mismatch functional. The next section formalizes this equivalence,
+completing the identification between operator algebra, energy minimization,
+and constraint closure.
+
+%%=============================================================
+\section{Spectral--Variational Equivalence}
+\label{sec:spectral_variational}
+%%=============================================================
+
+\subsection{Overview}
+
+We establish the equivalence between three perspectives on $\TK$:
+
+\begin{center}
+\textit{variational minimization}
+$\;\Longleftrightarrow\;$
+\textit{spectral contraction}
+$\;\Longleftrightarrow\;$
+\textit{constraint closure}.
+\end{center}
+
+\subsection{The Mismatch Functional}
+
+\begin{definition}[Mismatch functional]
+\[
+  \mathcal{J}[f] := \tfrac{1}{2}\|f - \mathcal{K}f\|^2_{\Pcal}.
+\]
+\end{definition}
+
+\begin{proposition}[Euler--Lagrange condition]
+\label{prop:EL}
+A trajectory $f^*$ is a stationary point of $\mathcal{J}$ if and only if
+$(I - \mathcal{K})^*(I - \mathcal{K})\,f^* = 0$.
+\end{proposition}
+
+\begin{proof}
+$\delta\mathcal{J} = \langle (I-\mathcal{K})f,\,(I-\mathcal{K})\delta f\rangle = 0$
+for all $\delta f$ gives $(I-\mathcal{K})^*(I-\mathcal{K})f = 0$.
+\end{proof}
+
+\begin{corollary}[Variational constraint closure]
+$\mathcal{J}[f^*] = 0 \Longleftrightarrow f^* = \mathcal{K}f^*$.
+\end{corollary}
+
+Minimizing $\mathcal{J}$ enforces the fixed-point condition: constraint
+closure is a variational principle.
+
+\subsection{Spectral Characterization of Minimizers}
+
+Expand $f = \sum_n c_n e_n$ in the eigenbasis of $\mathcal{K}$.
+Then $\mathcal{J}[f] = \tfrac{1}{2}\sum_n(1-\lambda_n)^2|c_n|^2$.
+
+\begin{proposition}[Spectral minimizers]
+$f^*$ minimizes $\mathcal{J}$ if and only if $c_n = 0$ whenever $\lambda_n \neq 1$.
+The fixed-point space is the eigenspace $\ker(I - \mathcal{K})$.
+\end{proposition}
+
+\subsection{Gradient Flow Convergence}
+
+The gradient flow $\dot{f} = -\nabla\mathcal{J}[f] = -(I-\mathcal{K})^*(I-\mathcal{K})f$
+diagonalizes as $\dot{c}_n = -(1-\lambda_n)^2 c_n$.
+
+\begin{theorem}[Convergence to fixed point]
+\label{thm:gradflow}
+If $\rho(\mathcal{K}) < 1$ on the complement of $\ker(I-\mathcal{K})$, then
+$f(t) \to f^* \in \ker(I-\mathcal{K})$.
+\end{theorem}
+
+\begin{proof}
+For $\lambda_n \neq 1$: $c_n(t) \to 0$ exponentially. For $\lambda_n = 1$:
+$c_n$ is constant. The system projects onto the constraint-closed subspace.
+\end{proof}
+
+\subsection{The Equivalence Theorem}
+
+\begin{theorem}[Spectral--Variational Equivalence]
+\label{thm:sve}
+For a compact kernel operator $\mathcal{K}$, the following are equivalent:
+\begin{enumerate}[label=(\roman*)]
+\item $f^*$ minimizes $\mathcal{J}[f] = \tfrac{1}{2}\|f - \mathcal{K}f\|^2$,
+\item $f^*$ satisfies $\mathcal{K}f^* = f^*$,
+\item $f^*$ lies in the eigenspace $\lambda = 1$ of $\mathcal{K}$,
+\item $f^*$ is the limit of the gradient flow of $\mathcal{J}$,
+\item $f^*$ is stable under iteration of $\mathcal{K}$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i)$\Rightarrow$(ii): Corollary above.
+(ii)$\Rightarrow$(iii): definition of eigenvector.
+(iii)$\Rightarrow$(iv): Theorem~\ref{thm:gradflow}.
+(iv)$\Rightarrow$(v): fixed point implies invariance under iteration.
+(v)$\Rightarrow$(ii): the iteration limit satisfies $\mathcal{K}f^* = f^*$.
+\end{proof}
+
+\begin{center}
+\textit{Constraint closure is projection onto the unit-eigenspace of a
+smoothing operator.}
+\end{center}
+
+\paragraph{Bridge to Worked Example.}
+The preceding sections establish that kernel dynamics, spectral decay,
+variational minimization, and constraint closure are equivalent at the
+level of abstract structure. To make this equivalence concrete and
+eliminate any remaining separation between perspectives, we now exhibit
+a single system---fractional diffusion---in which all of them coincide
+explicitly.
+
+%%=============================================================
+\section{Unified Worked Example: Fractional Diffusion}
+\label{sec:worked}
+%%=============================================================
+
+\subsection{Overview}
+
+We carry fractional diffusion through every representation developed in
+this monograph. The goal is structural: to show that kernel dynamics,
+spectral decay, variational minimization, constraint closure, RSVP field
+evolution, and sheaf consistency are the same object described in different
+languages.
+
+\subsection{Classical vs.\ Fractional Formulation}
+
+Classical diffusion: $\partial_t u(x,t) = D\Delta u(x,t)$.
+Local and Markovian.
+
+Fractional diffusion (Caputo): $D_t^\alpha u = D\Delta u$, $\alpha \in (0,1)$.
+Expanding:
+\[
+  \frac{1}{\Gamma(1-\alpha)}\int_0^t (t-\tau)^{-\alpha}\partial_\tau u(x,\tau)\,d\tau
+  = D\Delta u(x,t).
+\]
+This is $\mathcal{T}_{K_\alpha}[\partial_t u](t) = D\Delta u(t)$, with
+$K_\alpha(t,\tau) = (t-\tau)^{-\alpha}/\Gamma(1-\alpha)$.
+
+\subsection{Kernel Operator Form and Fixed Point}
+
+Rewriting as a Volterra equation:
+\[
+  u(x,t) = u_0(x) + \int_0^t K_\alpha(t,\tau)\,D\Delta u(x,\tau)\,d\tau.
+\]
+This is $u = u_0 + \mathcal{K}[u]$, so solutions are fixed points of the
+trajectory operator $u \mapsto u_0 + \mathcal{T}_{K_\alpha}[u]$.
+
+\subsection{Spectral Representation}
+
+Expand over the Laplacian eigenbasis $\Delta\phi_n = -\mu_n\phi_n$.
+Each mode satisfies $D_t^\alpha c_n = -D\mu_n c_n$, with solution
+\[
+  c_n(t) = c_n(0)\,E_\alpha(-D\mu_n t^\alpha),
+\]
+where $E_\alpha$ is the Mittag--Leffler function. For large $t$:
+$c_n(t) \sim t^{-\alpha}$ (power-law decay), contrasting with classical
+exponential decay. \emph{Memory appears as slow spectral decay.}
+
+\subsection{Variational Formulation}
+
+Define
+$\mathcal{J}_\alpha[u] = \tfrac{1}{2}\int_0^T\!\|\mathcal{T}_{K_\alpha}[\partial_t u] - D\Delta u\|^2\,dt$.
+Minimizers of $\mathcal{J}_\alpha$ satisfy the fractional diffusion equation.
+Thus: \emph{diffusion = variational minimization of kernel mismatch}.
+
+\subsection{RSVP Interpretation}
+
+Set $\Phi = u$, $\mathbf{v} = 0$, $S = 0$ in the kernel-weighted RSVP
+system. Equations~\eqref{eq:kphi}--\eqref{eq:kS} reduce to
+$\partial_t\Phi = \mathcal{T}_{K_\alpha}[D\Delta\Phi]$.
+Fractional diffusion is the \emph{minimal RSVP system}: scalar field only,
+no transport, no entropy coupling, pure memory-weighted diffusion.
+
+\subsection{KES Interpretation}
+
+Define synthesis operator $\mathcal{T}_{K_{\mathrm{syn}}}[u](t) = \int_0^t
+\psi(t)K_\alpha(t,\tau)u(\tau)\,d\tau$. Events occur when
+$|\mathcal{T}_{K_{\mathrm{syn}}}[u](t)| \geq \theta$. Continuous diffusion
+generates discrete events as threshold crossings of smoothed trajectories.
+
+\subsection{Yarncrawler Interpretation}
+
+Local solutions $\{u_i\}$ on a cover $\{U_i\}$ satisfy compatibility on
+overlaps. The global solution exists iff $\check{H}^1 = 0$. Fractional
+diffusion solutions are global sections of the trajectory sheaf.
+
+\subsection{Spectral--Variational--Closure Summary}
+
+\medskip
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{ll}
+\toprule
+\textbf{Perspective} & \textbf{Statement for fractional diffusion} \\
+\midrule
+Kernel & $u = u_0 + \mathcal{T}_{K_\alpha}[u]$ \\
+Spectral & $c_n(t) \sim E_\alpha(-\mu_n t^\alpha) \sim t^{-\alpha}$ \\
+Variational & $u = \arg\min\,\mathcal{J}_\alpha$ \\
+Constraint closure & $u$ is a fixed point of $u \mapsto u_0 + \mathcal{K}[u]$ \\
+RSVP & Minimal kernel-weighted scalar field \\
+Sheaf & Global section of trajectory sheaf \\
+\bottomrule
+\end{tabular}
+\end{center}
+\medskip
+
+\begin{center}
+\textit{All descriptions produce the same solution space.
+Diffusion is not a differential equation; it is a fixed point
+of a kernel operator whose stability is spectral, whose structure
+is variational, and whose behavior is memory.}
+\end{center}
+
+%%=============================================================
+\section{The Unified Memory Theorem}
+\label{sec:unified}
+%%=============================================================
+
+\subsection{Statement}
+
+We now assemble all eight frameworks into a single categorical statement.
+
+\begin{theorem}[Unified Memory Theorem]
+\label{thm:unified}
+There is a commutative diagram of functors
+\[
+\begin{array}{ccccc}
+  \mathcal{A}_{\mathrm{KES}}
+    & \xrightarrow{\;\Psi\;}
+  & \mathbf{Sph}
+    & \xrightarrow{\;\Omega\;}
+  & \Kcal\mathsf{Op} \\
+  & & \downarrow\scriptstyle{\Lambda}
+    & & \downarrow\scriptstyle{\mathcal{R}} \\
+  & & \mathbf{Yarn}
+    & \xrightarrow{\;\Xi\;}
+  & \mathbf{FieldSys}
+\end{array}
+\]
+where $\Psi$ is the KES-Spherepop functor, $\Omega$ embeds events via
+kernel representation, $\mathcal{R}$ is the RSVP functor, $\Lambda$ sends
+events to their post-event trajectories, $\mathbf{Yarn}$ is the Yarncrawler
+category of sheaf sections, and $\Xi$ embeds global sections as RSVP field
+histories.
+
+Moreover, the following conditions on a trajectory $\Phi \in \Pcal$ are
+equivalent characterizations of admissible trajectory realization:
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Constraint closure}: $\Phi = \mathcal{T}_{\mathrm{tot}}[\Phi]$
+    (fixed point of the synthesized kernel operator).
+  \item \textbf{Sheaf consistency}: $\Phi$ is a global section of the sheaf
+    of local kernel solutions $\{\Phi_i\}$ over a cover $\{U_i\}$.
+  \item \textbf{Event fixed point}: $\Phi$ is a fixed point of a traced
+    composition of irreversible Spherepop events.
+  \item \textbf{Kernel algebra}: $\Phi$ is a fixed point of a composition
+    in $\Kcal\mathsf{Op}$.
+  \item \textbf{Symmetry compatibility}: $\Phi$ is stable under the symmetry
+    group of the spacetime invariant $s^2 = c^2t^2 - x^2$, i.e.\
+    $\Lambda\cdot\mathcal{T}_{\mathrm{tot}}[\Phi] =
+    \mathcal{T}_{\mathrm{tot}}[\Lambda\cdot\Phi]$.
+\end{enumerate}
+
+In addition:
+\begin{enumerate}[label=(\alph*)]
+  \item Every RSVP field solution is the image under $\Xi$ of a Yarncrawler
+    global section.
+  \item Every Yarncrawler reconstruction corresponds to an idempotent
+    constraint operator in $\Kcal\mathsf{Op}$.
+  \item Every Spherepop event is a kernel morphism; its trace is
+    irreversible (Theorem~\ref{thm:irrev}).
+  \item Every KES event is a threshold-crossing of
+    $\mathcal{T}_{K_{\mathrm{syn}}}$ (Proposition~\ref{prop:discrete}).
+  \item TARTAN quantum dynamics arise as globally synchronized unistochastic
+    sections, which are fixed points of the gluing operator
+    $\mathcal{G}_{\mathrm{TARTAN}}\circ\operatorname{Sync}_{\mathrm{Ising}}$.
+  \item Lorentz-compatible kernel operators commute with the symmetry group
+    of $s^2$ (Proposition~\ref{prop:lorentz}).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\textbf{Commutativity of the diagram.} The two paths from $\mathbf{Sph}$
+to $\mathbf{FieldSys}$ are: (1) embed as kernel, apply RSVP functor;
+(2) extract post-event trajectory, embed as global sheaf section, embed
+in field history. Both paths yield the same RSVP history because both
+solve the same kernel-weighted Volterra equation (Definition~\ref{def:krsvp})
+with initial data determined by the event $e$.
+
+\textbf{(i)$\Leftrightarrow$(ii).} A fixed point of $\mathcal{T}_{\mathrm{tot}}$
+defines a global solution whose restrictions to each $U_i$ are local solutions.
+Conversely, compatible local solutions glue (Theorem~\ref{thm:sheafvar}) to a
+global section that satisfies $\Phi = \mathcal{T}_{\mathrm{tot}}[\Phi]$.
+
+\textbf{(i)$\Leftrightarrow$(iii).} Event compositions correspond to kernel
+compositions (Proposition~\ref{prop:totalkernel}); fixed points of the
+resulting operator are trajectories invariant under the composed event.
+Traced events yield the fixed-point equation $\Phi = E(\Phi)$, which is
+precisely constraint closure.
+
+\textbf{(i)$\Leftrightarrow$(iv).} Kernel composition in $\Kcal\mathsf{Op}$
+defines the same algebra as trajectory synthesis; fixed points are the
+same in both descriptions.
+
+\textbf{(i)$\Leftrightarrow$(v).} For Lorentz-compatible kernels
+(Proposition~\ref{prop:lorentz}), fixed points of $\mathcal{T}_{\mathrm{tot}}$
+are automatically Lorentz-stable. Conversely, Lorentz-stable trajectories
+that are solutions of the kernel equation are fixed points.
+
+\textbf{(a)--(d)} were established in the individual framework sections
+above.
+
+\textbf{(e)} TARTAN gluing defines a sheaf over the tile cover; Ising
+synchronization selects a globally consistent phase section; the result is
+a fixed point of the composed gluing operator, which is an instance of (i).
+
+\textbf{(f)} Proposition~\ref{prop:lorentz}.
+\end{proof}
+
+\subsection{The Eight-Point Translation}
+
+The Unified Memory Theorem says in words: memory, causality, irreversibility,
+global consistency, constraint closure, quantum synchronization, and
+relativistic invariance are perspectives on a single structure. The
+translation table:
+
+\medskip
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{ll}
+\toprule
+\textbf{Property / Framework} & \textbf{Algebraic form in $\Kcal\mathsf{Op}$} \\
+\midrule
+Memory & Non-locality of $K(t,\tau)$ in time \\
+Causality & Triangular support: $K(t,\tau) = 0$ for $\tau > t$ \\
+Irreversibility & Non-invertibility of the trace morphism \\
+Global consistency & Vanishing of $\check{H}^1(\{U_i\}, \mathscr{T})$ \\
+Constraint closure & Idempotence / fixed point of $\mathcal{T}_K$ \\
+TARTAN quantum law & Fixed point of $\mathcal{G}_{\mathrm{TARTAN}}\circ\operatorname{Sync}_{\mathrm{Ising}}$ \\
+Lorentz symmetry & Commutativity $\Lambda\cdot\TK = \TK\cdot\Lambda$ \\
+Fractional interpolation & Semigroup: $K_\alpha\circ K_\beta = K_{\alpha+\beta}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\medskip
+
+Each entry is a theorem about kernel operators, not an assumption about
+the physical world.
+
+\subsection{The Self-Modulating Kernel: A Future Direction}
+
+The monograph has held the kernel $K$ fixed. A natural generalization---noted
+but deliberately deferred in the notes---is to let $K$ depend on the
+system's own state:
+\[
+  K = K(t,\tau;\Phi(t),\mathbf{v}(t),S(t)).
+\]
+In this regime:
+\begin{itemize}
+  \item memory depth depends on entropy: high-entropy regions forget faster;
+  \item transport reshapes its own history weighting;
+  \item the system controls how strongly it remembers.
+\end{itemize}
+
+This is no longer fractional calculus in the classical sense. It is a
+self-modulating nonlocal field theory in which $K$ is itself a dynamical
+variable. The Unified Memory Theorem applies to the fixed-kernel case; the
+self-modulating case is the natural continuation of this program.
+
+%%=============================================================
+\section{Discussion}
+\label{sec:discussion}
+%%=============================================================
+
+\subsection{Memory as the Default}
+
+The standard approach treats memory as a complication: an extra ingredient
+added to explain anomalous behavior. The kernel-operator framework inverts
+this. The delta kernel ($K = \delta$) is the \emph{exceptional} case:
+it is the only kernel with zero support width. Every other kernel has
+positive support and therefore encodes memory. The generic situation is
+history-dependent dynamics; Markovian dynamics are the measure-zero limit.
+
+The twentieth-century emphasis on Markovian models was an architectural
+choice, not an empirical finding. Locality was imposed because it makes
+differential equations tractable. The kernel-operator framework recovers
+the generality that locality sacrifices, without abandoning rigor.
+
+\subsection{The Formula Sheet, Revisited}
+
+The opening observation of the monograph was that a standard formula sheet
+is an atlas of local charts. The conclusion follows: \textit{the formula
+sheet is a discrete sampling of a continuous operator space whose coordinates
+are kernel choice $K$, operator order $\alpha$, and constraint structure $F$.}
+
+Arithmetic identities are charts near $K = \delta$, $\alpha = 0$.
+Integration formulas are charts near $K = 1$, $\alpha = 1$.
+Fractional operators are the curves connecting them.
+RSVP field equations are surfaces in the space parameterized by
+$(\alpha, \beta, \gamma)$.
+Yarncrawler, Spherepop, KES, and constraint closure are structured
+submanifolds of the same space.
+
+The unified picture does not render the formula sheet obsolete; it
+reveals the hidden topology of the space from which each formula was
+sampled.
+
+\subsection{Irreversibility from Algebra, Not from Statistics}
+
+A long-standing puzzle: how does irreversibility emerge from time-reversible
+microscopic laws? The standard resolution invokes thermodynamic limits,
+coarse-graining, or cosmological initial conditions.
+
+Theorem~\ref{thm:irrev} offers an algebraic perspective: irreversibility
+is a property of the \emph{trace operation} in the symmetric monoidal
+category of events, grounded in the entropy growth of the RSVP embedding.
+No thermodynamic limit is required. The non-invertibility of the traced
+morphism is a consequence of operator structure.
+
+This does not resolve the foundational puzzle of statistical mechanics
+(which concerns Hamiltonian dynamics specifically), but it suggests
+that irreversibility can be located in the morphism structure of a physical
+theory rather than in statistical approximations.
+
+\subsection{Quantum Mechanics as Synchronized Trajectory Dynamics}
+
+The TARTAN section establishes a structural connection between kernel-operator
+theory and quantum mechanics via Barandes's unistochastic reformulation. The
+key insight is that quantum transition probabilities arise as squared moduli
+of unitary matrices---a constraint (unistochasticity) that, when enforced
+locally and synchronized globally via Ising dynamics, produces a global quantum
+law. This is an instance of the general TARTAN--sheaf pattern: local sections
+(tile transition laws) satisfying compatibility conditions (phase coherence)
+glue to a global section (the effective quantum dynamics).
+
+The implication is that quantum behavior need not be posited as a primitive.
+It emerges from the same local-to-global constraint structure that governs
+RSVP field evolution and Yarncrawler reconstruction. The trajectory operator
+$\TK$ with the TARTAN kernel encodes both the probabilistic structure (through
+unistochasticity) and the memory structure (through the fractional kernel
+weighting).
+
+\subsection{Relativity as Symmetry Constraint on Kernels}
+
+Section~\ref{sec:relativity} showed that Lorentz transformations arise from
+a single requirement: that a quadratic form $s^2 = c^2t^2 - x^2$ be invariant.
+Section~\ref{sec:lorentz} then embedded this into the kernel-operator framework:
+Lorentz-compatible kernels are those that depend only on invariant spacetime
+intervals, and the commutativity condition $\Lambda\cdot\TK = \TK\cdot\Lambda$
+is the algebraic statement of relativistic invariance.
+
+This means that the transition from non-relativistic to relativistic field
+theory is, in the kernel-operator language, a transition from
+arbitrary causal kernels to kernels that are invariant under the Lorentz group.
+It is a restriction on the kernel, not an independent postulate about the world.
+
+
+Constraint closure has a cognitive reading: a thinking system operating on
+trajectories (sequences of states, representations, or actions) completes
+a task when its constraint operator becomes idempotent. This is the algebraic
+definition of ``done.''
+
+The trajectory-first perspective contrasts with goal-state architectures,
+in which completion is defined by reaching a designated terminal state.
+In the constraint-closure framework, completion \emph{emerges} from the
+dynamics of the system---the fixed point is not specified in advance but
+reached by iteration. This has implications for autonomous systems designed
+to complete open-ended tasks without explicit terminal-state specifications.
+
+The connection to representation learning: kernel-weighted prediction
+(which uses the full trajectory history, weighted by $K_\alpha$) generalizes
+the Markovian prediction of current transformer architectures. The semigroup
+law provides a principled interpolation between these poles parameterized
+by $\alpha$.
+
+\subsection{Open Problems}
+
+\begin{enumerate}
+  \item \textbf{Self-modulating kernels.} Formalize the dynamics of
+    $K(t,\tau;\Phi,\mathbf{v},S)$ as a field equation in its own right.
+    What is the stability theory?
+
+  \item \textbf{Kernel renormalization.} Do the orders $(\alpha,\beta,\gamma)$
+    of the RSVP system flow under renormalization-group transformations?
+    What are the fixed points?
+
+  \item \textbf{Computability of constraint closure.} Given a computable
+    $\mathcal{T}_K$, is the fixed point $f^*$ always computable?
+
+  \item \textbf{Sheaf cohomology and information geometry.} Is there a
+    natural Fisher metric on the space of sheaf sections making $\mathcal{E}$
+    an information-geometric functional?
+
+  \item \textbf{KES phase transitions.} What happens at the exceptional
+    thresholds excluded by Proposition~\ref{prop:discrete}? Do they
+    correspond to phase transitions in the event structure?
+
+  \item \textbf{Quantum extension.} Do the semigroup law and Unified Memory
+    Theorem extend to operator-valued kernels on Hilbert spaces?
+\end{enumerate}
+
+%%=============================================================
+\section{Conclusion}
+\label{sec:conclusion}
+%%=============================================================
+
+This monograph has developed a single thesis: that dynamics are not
+functions of state but functionals of trajectories, and that kernel
+operators provide the minimal algebra for expressing that dependence.
+
+The argument proceeded through five moves and eight frameworks:
+
+\begin{enumerate}
+  \item \textbf{Reframe the formula sheet.} Standard mathematical formulas
+    are local charts in a continuous operator space. The hidden assumption
+    underlying all differential and integral formulas is locality: the
+    kernel $K = \delta$.
+
+  \item \textbf{Introduce the trajectory operator.} The central object
+    $\TK[f](t) = \int_0^t K(t,\tau) F(f(\tau))\, d\tau$ unifies
+    integration, differentiation, fractional calculus, RSVP transport,
+    KES synthesis, and constraint closure as specializations of a single
+    form.
+
+  \item \textbf{Prove the semigroup law.} The fractional kernel family
+    $\{K_\alpha\}$ is a one-parameter semigroup under composition. This
+    is a consequence of the Beta function identity, not a definition.
+    It makes fractional calculus algebraically inevitable.
+
+  \item \textbf{Categorify.} The trajectory operators form $\Kcal\mathsf{Op}$
+    with $\mathbf{Ker}$ as its linear subcategory. The original five
+    frameworks---RSVP, Yarncrawler, Spherepop, KES, Constraint Closure---are
+    subcategories and functorial images. TARTAN quantum dynamics emerge as
+    globally synchronized sections; Lorentz symmetry appears as a
+    commutativity condition on kernel operators.
+
+  \item \textbf{Prove the Unified Memory Theorem.} The commutative
+    diagram of Theorem~\ref{thm:unified} establishes that all eight
+    frameworks are not independent theories but equivalent characterizations
+    of a single condition: a trajectory is a fixed point of its synthesized
+    kernel operator.
+\end{enumerate}
+
+The result is a picture in which memory is not a property added to a
+dynamics but the defining characteristic of dynamics as such. Systems
+that remember their history are the rule; systems that forget are the
+exception produced by setting $K = \delta$.
+
+The formula sheet, revisited: it is not a list but a sample. Every
+formula in it is a point in the continuous operator space parameterized
+by kernel, order, and constraint structure. Fractional calculus is the
+curve connecting two such points. RSVP, Yarncrawler, Spherepop, KES,
+Constraint Closure, TARTAN, and relativistic symmetry are structured
+regions of the same space.
+
+The algebra of kernels is the algebra of memory. Memory is the algebra
+of time.
+
+\begin{enumerate}
+  \item \textbf{Reframe the formula sheet.} Standard mathematical formulas
+    are local charts in a continuous operator space. The hidden assumption
+    underlying all differential and integral formulas is locality: the
+    kernel $K = \delta$.
+
+  \item \textbf{Introduce the trajectory operator.} The central object
+    $\TK[f](t) = \int_0^t K(t,\tau) F(f(\tau))\, d\tau$ unifies
+    integration, differentiation, fractional calculus, RSVP transport,
+    KES synthesis, and constraint closure as specializations of a single
+    form.
+
+  \item \textbf{Prove the semigroup law.} The fractional kernel family
+    $\{K_\alpha\}$ is a one-parameter semigroup under composition. This
+    is a consequence of the Beta function identity, not a definition.
+    It makes fractional calculus algebraically inevitable.
+
+  \item \textbf{Categorify.} The trajectory operators form the category
+    $\Kcal\mathsf{Op}$, in which the semigroup becomes a functor. The
+    five frameworks---RSVP, Yarncrawler, Spherepop, KES, Constraint
+    Closure---are subcategories and functorial images.
+
+  \item \textbf{Prove the Unified Memory Theorem.} The commutative
+    diagram of Theorem~\ref{thm:unified} establishes that the five
+    frameworks are not independent theories but linked representations
+    of the kernel-operator structure.
+\end{enumerate}
+
+The result is a picture in which memory is not a property added to a
+dynamics but the defining characteristic of dynamics as such. Systems
+that remember their history are the rule; systems that forget are the
+exception produced by setting $K = \delta$.
+
+The formula sheet, revisited: it is not a list but a sample. Every
+formula in it is a point in the continuous operator space parameterized
+by kernel, order, and constraint structure. Fractional calculus is the
+curve connecting two such points. RSVP, Yarncrawler, Spherepop, KES,
+and Constraint Closure are structured regions of the same space.
+
+The algebra of kernels is the algebra of memory. Memory is the algebra
+of time.
+
+%%=============================================================
+\begin{thebibliography}{99}
+%%=============================================================
+
+\bibitem{oldham1974}
+K.~B. Oldham and J.~Spanier,
+\textit{The Fractional Calculus: Theory and Applications of
+Differentiation and Integration to Arbitrary Order},
+Academic Press, New York, 1974.
+
+\bibitem{podlubny1999}
+I.~Podlubny,
+\textit{Fractional Differential Equations},
+Academic Press, San Diego, 1999.
+
+\bibitem{metzler2000}
+R.~Metzler and J.~Klafter,
+``The random walk's guide to anomalous diffusion: a fractional
+dynamics approach,''
+\textit{Physics Reports}, 339(1):1--77, 2000.
+
+\bibitem{kilbas2006}
+A.~A. Kilbas, H.~M. Srivastava, and J.~J. Trujillo,
+\textit{Theory and Applications of Fractional Differential Equations},
+North-Holland Mathematics Studies, vol.~204,
+Elsevier, Amsterdam, 2006.
+
+\bibitem{samko1993}
+S.~G. Samko, A.~A. Kilbas, and O.~I. Marichev,
+\textit{Fractional Integrals and Derivatives: Theory and Applications},
+Gordon and Breach, Philadelphia, 1993.
+
+\bibitem{mainardi2010}
+F.~Mainardi,
+\textit{Fractional Calculus and Waves in Linear Viscoelasticity},
+Imperial College Press, London, 2010.
+
+\bibitem{gorenflo2014}
+R.~Gorenflo, A.~A. Kilbas, F.~Mainardi, and S.~V. Rogosin,
+\textit{Mittag-Leffler Functions, Related Topics and Applications},
+Springer, Berlin, 2014.
+
+\bibitem{maclane1971}
+S.~Mac~Lane,
+\textit{Categories for the Working Mathematician},
+Graduate Texts in Mathematics, vol.~5,
+Springer, New York, 1971.
+
+\bibitem{riehl2017}
+E.~Riehl,
+\textit{Category Theory in Context},
+Dover Publications, Mineola, NY, 2017.
+
+\bibitem{joyal1991}
+A.~Joyal and R.~Street,
+``The geometry of tensor calculus, I,''
+\textit{Advances in Mathematics}, 88(1):55--112, 1991.
+
+\bibitem{abramsky2004}
+S.~Abramsky and B.~Coecke,
+``A categorical semantics of quantum protocols,''
+\textit{Proc.\ 19th IEEE Symposium on Logic in Computer Science},
+415--425, 2004.
+
+\bibitem{bredon1997}
+G.~E. Bredon,
+\textit{Sheaf Theory}, 2nd ed.,
+Graduate Texts in Mathematics, vol.~170,
+Springer, New York, 1997.
+
+\bibitem{baez2010}
+J.~C. Baez and M.~Stay,
+``Physics, topology, logic and computation: a Rosetta Stone,''
+in \textit{New Structures for Physics}, Lecture Notes in Physics
+vol.~813, Springer, Berlin, 2010.
+
+\bibitem{penrose2004}
+R.~Penrose,
+\textit{The Road to Reality},
+Jonathan Cape, London, 2004.
+
+\bibitem{flyxion-rsvp}
+Flyxion,
+``Adjunction and Irreversibility: RSVP Field Theory with Path Dependence,''
+monograph, 129 pp., 2025.
+
+\bibitem{flyxion-yarncrawler}
+Flyxion,
+``Yarncrawler: World-State Reconstruction via Sheaf-Variational
+Equivalence and the Identifiability Theorem,''
+monograph, 2025.
+
+\bibitem{flyxion-constraint}
+Flyxion,
+``Constraint Before Completion: A Trajectory-First Theory of Work,''
+essay, 2025.
+
+\bibitem{flyxion-spherepop}
+Flyxion,
+``Spherepop: Categorical Semantics of an Irreversible Event Calculus,''
+monograph (English and Spanish editions), 2025.
+
+\bibitem{flyxion-compiled}
+Flyxion,
+``The Compiled Self: Identity as Fixed Point of Constraint-Preserving
+Adjunction over Irreversible History Topos,'' essay, 2025.
+
+\bibitem{flyxion-rsvp-positive}
+Flyxion,
+``RSVP and Positive Geometry: Deriving Associahedra and Amplituhedra
+from Scalar-Vector-Energy Field Structure,'' v10, 38 pp., 2025.
+
+\bibitem{flyxion-tartan}
+Flyxion,
+``TARTAN: Recursive Tiling, Ising Synchronization, and Emergent
+Quantum Dynamics,'' monograph, 2025.
+
+\bibitem{barandes2023}
+J.~A. Barandes,
+``The Unistochastic Reformulation of Quantum Theory,''
+arXiv:2301.01609, 2023.
+
+\bibitem{minkowski1908}
+H.~Minkowski,
+``Raum und Zeit,''
+address delivered at the 80th Assembly of German Natural Scientists
+and Physicians, Cologne, 1908. Translated in \textit{The Principle
+of Relativity}, Dover, 1952.
+
+\bibitem{misner1973}
+C.~W. Misner, K.~S. Thorne, and J.~A. Wheeler,
+\textit{Gravitation},
+W.~H. Freeman, San Francisco, 1973.
+
+\end{thebibliography}
+
+\end{document}
