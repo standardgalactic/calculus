@@ -17,25 +17,25 @@ html,body{
   color:var(--green);
 }
 
-/* CRT scanlines */
-body::after{
-  content:"";
+/* selector */
+.selector{
   position:fixed;
-  inset:0;
-  pointer-events:none;
-  background:repeating-linear-gradient(
-    to bottom,
-    rgba(255,255,255,0.04) 0,
-    rgba(255,255,255,0.04) 1px,
-    transparent 2px,
-    transparent 4px
-  );
-  opacity:.15;
+  top:12px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(0,0,0,0.6);
+  border:1px solid rgba(0,255,136,0.3);
+  padding:6px 10px;
+  font-size:12px;
+  cursor:pointer;
+  text-shadow:0 0 6px var(--green);
 }
 
-canvas{
-  position:fixed;
-  inset:0;
+.selector select{
+  background:black;
+  color:var(--green);
+  border:none;
+  font-family:monospace;
 }
 
 /* subtitles */
@@ -48,80 +48,53 @@ canvas{
   text-align:center;
   font-size:14px;
   line-height:1.5;
-  word-wrap:break-word;
   white-space:pre-wrap;
   text-shadow:0 0 8px var(--green);
-  padding:0 10px;
-  user-select:none;
 }
 
-/* essay link */
-.essay-link{
+/* canvas */
+canvas{
   position:fixed;
-  bottom:6px;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(90vw,520px);
-
-  text-align:center;
-  font-size:12px;
-  line-height:1.4;
-
-  color:var(--green);
-  text-decoration:none;
-
-  border-top:1px solid rgba(0,255,136,0.25);
-  padding-top:6px;
-
-  opacity:0.75;
-  text-shadow:0 0 6px var(--green);
-  user-select:none;
-
-  transition:opacity 0.6s ease;
-}
-
-/* fade state */
-.essay-link.fade-out{
-  opacity:0.05;
-}
-
-.essay-link:hover{
-  opacity:1;
-  color:#baffea;
+  inset:0;
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="c"></canvas>
+<div class="selector">
+  Track:
+  <select id="trackSelect"></select>
+</div>
 
+<canvas id="c"></canvas>
 <div class="sub" id="sub"></div>
 
-<a class="essay-link"
-   href="https://standardgalactic.github.io/calculus/kernel-memory.pdf"
-   target="_blank">
-  Kernel Operators, Memory, and Field-Theoretic Dynamics
-</a>
-
-<audio id="audio" preload="auto">
-  <source src="The_Physics_of_Universal_Memory.mp3" type="audio/mpeg">
-  <track src="The_Physics_of_Universal_Memory.vtt" kind="subtitles" default>
-</audio>
+<audio id="audio" preload="auto"></audio>
 
 <script>
+const tracks = [
+  {
+    name: "Foreclosing the Future",
+    audio: "The_physics_of_foreclosing_the_future.mp3",
+    vtt: "The_physics_of_foreclosing_the_future.vtt"
+  },
+  {
+    name: "Universal Memory",
+    audio: "The_Physics_of_Universal_Memory.mp3",
+    vtt: "The_Physics_of_Universal_Memory.vtt"
+  }
+]
+
 const audio = document.getElementById('audio')
 const subEl = document.getElementById('sub')
-const link = document.querySelector('.essay-link')
+const select = document.getElementById('trackSelect')
 
-/* audio context */
 let ctxA, analyser, buf
 
 function initAudio(){
   if(ctxA) return
-
   ctxA = new (window.AudioContext||window.webkitAudioContext)()
-
   analyser = ctxA.createAnalyser()
   analyser.fftSize = 1024
   buf = new Uint8Array(analyser.fftSize)
@@ -131,21 +104,36 @@ function initAudio(){
   analyser.connect(ctxA.destination)
 }
 
-/* fade logic */
-let fadeTimer = null
+/* populate dropdown */
+tracks.forEach((t,i)=>{
+  const opt = document.createElement('option')
+  opt.value = i
+  opt.textContent = t.name
+  select.appendChild(opt)
+})
 
-function showLinkTemporarily(){
-  clearTimeout(fadeTimer)
-  link.classList.remove('fade-out')
+/* load track */
+function loadTrack(i){
+  const t = tracks[i]
 
-  fadeTimer = setTimeout(()=>{
-    if(!audio.paused){
-      link.classList.add('fade-out')
-    }
-  }, 8000)
+  audio.innerHTML = `
+    <source src="${t.audio}" type="audio/mpeg">
+    <track src="${t.vtt}" kind="subtitles" default>
+  `
+
+  audio.load()
 }
 
-/* click anywhere */
+/* default = NEW FILE */
+loadTrack(0)
+
+/* change track */
+select.onchange = ()=>{
+  audio.pause()
+  loadTrack(select.value)
+}
+
+/* click anywhere to play */
 document.body.onclick = async ()=>{
   initAudio()
 
@@ -155,17 +143,13 @@ document.body.onclick = async ()=>{
 
   if(audio.paused){
     await audio.play()
-    showLinkTemporarily()
   } else {
     audio.pause()
-    link.classList.remove('fade-out')
   }
 }
 
-/* prevent link click from toggling audio */
-link.onclick = e=>{
-  e.stopPropagation()
-}
+/* prevent selector clicks from toggling audio */
+select.onclick = e => e.stopPropagation()
 
 /* subtitles */
 audio.ontimeupdate = ()=>{
@@ -191,43 +175,11 @@ function resize(){
 resize()
 addEventListener('resize',resize)
 
-/* decorative rings */
-let r1=0,r2=0,r3=0
-
-function ring(r,rot,ticks,alpha){
-  g.save()
-  g.translate(cx,cy)
-  g.rotate(rot)
-
-  g.beginPath()
-  g.arc(0,0,r,0,Math.PI*2)
-  g.strokeStyle=`rgba(0,255,136,${alpha})`
-  g.lineWidth=0.8
-  g.stroke()
-
-  for(let i=0;i<ticks;i++){
-    const a=(i/ticks)*Math.PI*2
-    g.beginPath()
-    g.moveTo(Math.cos(a)*(r-4),Math.sin(a)*(r-4))
-    g.lineTo(Math.cos(a)*(r+4),Math.sin(a)*(r+4))
-    g.stroke()
-  }
-
-  g.restore()
-}
-
-/* draw */
 function draw(){
-
   g.fillStyle='rgba(0,0,0,0.12)'
   g.fillRect(0,0,w,h)
 
   const R = Math.min(w,h)*0.38
-
-  g.save()
-  g.beginPath()
-  g.arc(cx,cy,R,0,Math.PI*2)
-  g.clip()
 
   if(analyser){
     analyser.getByteTimeDomainData(buf)
@@ -253,22 +205,6 @@ function draw(){
     g.stroke()
     g.shadowBlur = 0
   }
-
-  g.restore()
-
-  g.beginPath()
-  g.arc(cx,cy,R,0,Math.PI*2)
-  g.strokeStyle='rgba(0,255,136,0.7)'
-  g.lineWidth=1.5
-  g.stroke()
-
-  r1+=0.0008
-  r2-=0.0012
-  r3+=0.0018
-
-  ring(R*0.72,r1,32,0.25)
-  ring(R*0.54,r2,24,0.20)
-  ring(R*0.36,r3,16,0.15)
 
   requestAnimationFrame(draw)
 }
