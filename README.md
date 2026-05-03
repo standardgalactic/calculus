@@ -2,9 +2,11 @@
 
 ## Operators & Trajectory-First Dynamics
 
+[Mesoscale Matter as Constrained Field Dynamics](https://standardgalactic.github.io/calculus/mesoscale_matter.pdf)
+
 [Kernel Operators, Memory, and Field-Theoretic Dynamics](https://standardgalactic.github.io/calculus/kernel-memory.pdf)
 
-* [The Physics of Universal Memory](https://standardgalactic.github.io/calculus/) — *Audio Overview*
+* [Universal Memory Monitor](https://standardgalactic.github.io/calculus/) — *Audio Overview*
 
 This repository explores a unified, trajectory-first framework for understanding dynamics, memory, and physical law through kernel operators.
 
