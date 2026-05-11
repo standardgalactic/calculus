@@ -1,0 +1,4864 @@
+% ============================================================
+% The Elements of Computational Worlds
+% Building a 4X Civilization Simulator from First Principles
+% in Spherepop
+%
+% Flyxion
+% ============================================================
+
+\documentclass[11pt,a4paper,openany]{book}
+
+% ── Packages ────────────────────────────────────────────────
+\usepackage{iftex}
+\ifluatex
+  % lualatex: use fontspec for proper small caps
+  \usepackage{fontspec}
+  \setmainfont{Latin Modern Roman}[SmallCapsFont={Latin Modern Roman Caps}]
+  \setmonofont{Latin Modern Mono}[Scale=0.9]
+\else
+  % pdflatex: standard OT1 fonts
+\fi
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+\usepackage{listings}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable,skins}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{epigraph}
+\usepackage{mdframed}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{xspace}
+
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, fit, backgrounds,
+                calc, matrix, decorations.pathreplacing}
+
+% ── Page geometry ───────────────────────────────────────────
+\geometry{
+  a4paper,
+  top=1.1in, bottom=1.1in,
+  inner=1.25in, outer=1.0in,
+  marginparwidth=0.7in,
+  headsep=0.25in
+}
+
+% ── Colors ──────────────────────────────────────────────────
+\definecolor{sphereblue}{RGB}{30, 80, 160}
+\definecolor{sphereteal}{RGB}{20, 140, 140}
+\definecolor{sphereamber}{RGB}{210, 130, 20}
+\definecolor{spherered}{RGB}{180, 40, 40}
+\definecolor{spheregray}{RGB}{90, 90, 100}
+\definecolor{codebg}{RGB}{245, 247, 250}
+\definecolor{codeborder}{RGB}{180, 190, 210}
+\definecolor{projectbg}{RGB}{240, 248, 255}
+\definecolor{defbg}{RGB}{250, 248, 240}
+
+% ── Hyperref ────────────────────────────────────────────────
+\hypersetup{
+  colorlinks=true,
+  linkcolor=sphereblue,
+  urlcolor=sphereteal,
+  citecolor=spheregray,
+  pdftitle={The Elements of Computational Worlds},
+  pdfauthor={Flyxion}
+}
+
+% ── Listings (Spherepop pseudocode) ─────────────────────────
+\lstdefinelanguage{Spherepop}{
+  keywords={bubble, gate, inputs, output, logic, if, then, else, and, or, not,
+            produce, consume, emit, absorb, fire, latch, counter, tile,
+            agent, world, when, while, do, end, true, false, self, let},
+  keywordstyle=\color{sphereblue}\bfseries,
+  comment=[l]{--},
+  commentstyle=\color{spheregray}\itshape,
+  stringstyle=\color{sphereteal},
+  morestring=[b]",
+  sensitive=false,
+  literate={->}{{$\to$}}{2} {=>}{{$\Rightarrow$}}{2}
+           {AND}{{$\wedge$}}{3} {OR}{{$\vee$}}{3}
+           {NOT}{{$\neg$}}{3}
+}
+
+\lstset{
+  language=Spherepop,
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{codeborder},
+  framesep=4pt,
+  xleftmargin=8pt,
+  xrightmargin=8pt,
+  breaklines=true,
+  tabsize=4,
+  showstringspaces=false,
+  captionpos=b,
+  numbers=left,
+  numberstyle=\tiny\color{spheregray},
+  numbersep=6pt
+}
+
+% ── Theorem environments ─────────────────────────────────────
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem*{gamerul}{Rule}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{note}[theorem]{Note}
+\newtheorem{observation}[theorem]{Observation}
+
+% ── Custom environments ──────────────────────────────────────
+
+% Background box — mdframed to avoid tcolorbox font-state bleed
+\newenvironment{background}{%
+  \begin{mdframed}[
+    linecolor=sphereblue!40, backgroundcolor=sphereblue!5,
+    linewidth=1pt, innertopmargin=8pt, innerbottommargin=8pt,
+    innerleftmargin=10pt, innerrightmargin=10pt,
+    skipabove=10pt, skipbelow=6pt
+  ]%
+  \setlength{\parindent}{0pt}%
+  \noindent{\textcolor{sphereblue}{\textbf{Background}}}\par\smallskip\ignorespaces
+}{\end{mdframed}}
+
+% Specification box
+\newenvironment{specification}{%
+  \begin{mdframed}[
+    linecolor=sphereteal!60, backgroundcolor=sphereteal!5,
+    linewidth=1pt, innertopmargin=8pt, innerbottommargin=8pt,
+    innerleftmargin=10pt, innerrightmargin=10pt,
+    skipabove=10pt, skipbelow=6pt
+  ]%
+  \setlength{\parindent}{0pt}%
+  \noindent{\textcolor{sphereteal}{\textbf{Specification}}}\par\smallskip\ignorespaces
+}{\end{mdframed}}
+
+% Implementation box
+\newenvironment{implementation}{%
+  \begin{mdframed}[
+    linecolor=sphereamber!80, backgroundcolor=sphereamber!5,
+    linewidth=1pt, innertopmargin=8pt, innerbottommargin=8pt,
+    innerleftmargin=10pt, innerrightmargin=10pt,
+    skipabove=10pt, skipbelow=6pt
+  ]%
+  \setlength{\parindent}{0pt}%
+  \noindent{\textcolor{sphereamber!80!black}{\textbf{Implementation}}}\par\smallskip\ignorespaces
+}{\end{mdframed}}
+
+% Perspective box
+\newenvironment{perspective}{%
+  \begin{mdframed}[
+    linecolor=spherered!40, backgroundcolor=spherered!4,
+    linewidth=1pt, innertopmargin=8pt, innerbottommargin=8pt,
+    innerleftmargin=10pt, innerrightmargin=10pt,
+    skipabove=10pt, skipbelow=6pt
+  ]%
+  \setlength{\parindent}{0pt}%
+  \noindent{\textcolor{spherered}{\textbf{Perspective}}}\par\smallskip\ignorespaces
+}{\end{mdframed}}
+
+% Project box
+\newenvironment{project}[1]{%
+  \begin{tcolorbox}[
+    title={\textbf{Project: #1}},
+    colback=projectbg,
+    colframe=sphereblue,
+    fonttitle=\bfseries\color{white},
+    coltitle=white,
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=sphereblue, sharp corners},
+    sharp corners,
+    breakable,
+    before upper={\normalfont\setlength{\parindent}{0pt}\tolerance=9999\hbadness=9999}
+  ]
+}{\end{tcolorbox}}
+
+% Definition box
+\newenvironment{defbox}[1]{%
+  \begin{tcolorbox}[
+    title={\textbf{Definition:} #1},
+    colback=defbg,
+    colframe=sphereamber!80,
+    fonttitle=\bfseries,
+    coltitle=sphereamber!60!black,
+    sharp corners,
+    breakable,
+    before upper={\normalfont\setlength{\parindent}{0pt}\tolerance=9999\hbadness=9999}
+  ]
+}{\end{tcolorbox}}
+
+% World mechanic callout
+\newenvironment{mechanic}[1]{%
+  \begin{tcolorbox}[
+    title={\textbf{World Mechanic:} #1},
+    colback=sphereteal!5,
+    colframe=sphereteal,
+    fonttitle=\bfseries\color{white},
+    coltitle=white,
+    sharp corners,
+    breakable,
+    before upper={\normalfont\setlength{\parindent}{0pt}\tolerance=9999\hbadness=9999}
+  ]
+}{\end{tcolorbox}}
+
+% ── Headers/footers ──────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\textcolor{spheregray}{\textit{\leftmark}}}
+\fancyhead[RO]{\small\textcolor{spheregray}{\textit{\rightmark}}}
+\fancyfoot[C]{\small\textcolor{spheregray}{\thepage}}
+\renewcommand{\headrulewidth}{0.3pt}
+
+% ── Chapter title style ──────────────────────────────────────
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{sphereblue}}
+  {\normalfont\large\color{spheregray}\chaptername\ \thechapter}
+  {8pt}
+  {\Huge}
+  [\vspace{2pt}\color{sphereblue!30}\rule{\linewidth}{1.5pt}]
+
+\titlespacing{\chapter}{0pt}{20pt}{30pt}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{sphereblue!80!black}}
+  {\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{sphereteal}}
+  {\thesubsection}{1em}{}
+
+% ── Epigraph style ───────────────────────────────────────────
+\setlength{\epigraphwidth}{0.65\linewidth}
+\renewcommand{\epigraphflush}{flushright}
+
+% ── Misc macros ──────────────────────────────────────────────
+\newcommand{\Sp}{\textsc{Spherepop}\xspace}
+\ifluatex
+  \newcommand{\Spbox}{\textsc{Spherepop}\xspace}
+\else
+  \newcommand{\Spbox}{\textbf{Spherepop}\xspace}
+\fi
+\newcommand{\bool}{\mathbb{B}}
+\newcommand{\AND}{\ensuremath{\wedge}}
+\newcommand{\OR}{\ensuremath{\vee}}
+\newcommand{\NOT}{\ensuremath{\neg}}
+\newcommand{\XOR}{\ensuremath{\oplus}}
+\newcommand{\nand}{\ensuremath{\barwedge}}
+\newcommand{\tile}[1]{\mathtt{T}_{#1}}
+\newcommand{\agent}[1]{\mathcal{A}_{#1}}
+\newcommand{\world}{\ensuremath{\mathcal{W}}}
+\newcommand{\state}{\ensuremath{\mathcal{S}}}
+\newcommand{\trans}[1]{\xrightarrow{#1}}
+\newcommand{\latch}[1]{\mathtt{Q}_{#1}}
+\newcommand{\signal}[1]{\sigma_{#1}}
+
+% World-transition operator
+\newcommand{\Fworld}{F_{\mathcal{W}}}
+\newcommand{\Feco}{F_{\mathrm{eco}}}
+\newcommand{\Fagent}{F_{\mathrm{agent}}}
+\newcommand{\Fecon}{F_{\mathrm{econ}}}
+\newcommand{\Fcombat}{F_{\mathrm{combat}}}
+\newcommand{\Fdip}{F_{\mathrm{dip}}}
+
+% Fixed-point shorthand
+\newcommand{\fx}[1]{\langle #1 \rangle_{\mathrm{fx}}}
+
+% Chapter quote (typographically stable replacement for epigraph in chapter openers)
+\newcommand{\chapterquote}[2]{%
+  \par\vspace{0.8em}%
+  \begin{flushright}%
+    \begin{minipage}{0.65\textwidth}%
+      {\itshape #1\par}%
+      \ifx&#2&\else\vspace{0.3em}{\raggedleft\small--- #2\par}\fi%
+    \end{minipage}%
+  \end{flushright}%
+  \vspace{0.8em}\par\noindent}
+
+% mdframed global defaults (prevent bad page splits)
+\mdfsetup{skipabove=10pt, skipbelow=8pt}
+
+% Hyphenation exceptions
+\hyphenation{Sphere-pop}
+
+% ── Document ─────────────────────────────────────────────────
+\begin{document}
+
+\sloppy
+\setlength{\emergencystretch}{3em}
+\hfuzz=4pt
+\frontmatter
+
+% ── Title page ───────────────────────────────────────────────
+\begin{titlepage}
+  \centering
+  \vspace*{1.5cm}
+  {\color{sphereblue}\rule{\linewidth}{2pt}}\\[0.6cm]
+  {\Huge\bfseries\color{sphereblue} The Elements of\\[0.3em]
+   Computational Worlds}\\[0.5cm]
+  {\color{sphereblue!30}\rule{\linewidth}{1pt}}\\[0.4cm]
+  {\Large\itshape\color{sphereteal}
+   Building a 4X Civilization Simulator\\
+   from First Principles in \textsc{Spherepop}}\\[1.2cm]
+  {\color{sphereblue!30}\rule{0.4\linewidth}{0.4pt}}\\[0.5cm]
+  {\large Flyxion}\\[0.2cm]
+  {\small\color{spheregray} Independent Researcher}\\[2.5cm]
+  \begin{tikzpicture}[scale=1.0]
+    % Schematic of the abstraction tower
+    \foreach \y/\col/\lbl in {
+      0/spheregray!60/{\small Signals},
+      1/sphereblue!40/{\small Logic Gates},
+      2/sphereblue!60/{\small Memory \& State},
+      3/sphereteal!60/{\small Tiles \& Terrain},
+      4/sphereteal!80/{\small Agents \& Economies},
+      5/sphereblue!80/{\small Civilization \& History}
+    }{
+      \fill[\col, rounded corners=3pt]
+        (-3.2+\y*0.12, \y*0.65) rectangle (3.2-\y*0.12, \y*0.65+0.55);
+      \node at (0, \y*0.65+0.27) {\lbl};
+    }
+    \draw[-Stealth, thick, sphereblue] (0,-0.15) -- (0,-0.55)
+      node[below]{\small\itshape\color{spheregray} from gates to worlds};
+  \end{tikzpicture}
+  \vfill
+  {\color{sphereblue!30}\rule{\linewidth}{1pt}}\\[0.3cm]
+  {\small\color{spheregray} First Edition}
+\end{titlepage}
+
+% ── Copyright ────────────────────────────────────────────────
+\thispagestyle{empty}
+\vspace*{\fill}
+\noindent\textit{The Elements of Computational Worlds}\\
+\noindent Copyright \copyright\ Cogito Ergo Sum.\\[0.5em]
+\noindent All rights reserved. No part of this work may be reproduced
+without prior written permission of the author.\\[1em]
+\noindent This textbook was developed in conjunction with the
+\Sp{} computational framework, the RSVP field-theoretic programme,
+and the KES (Kinetic-Event Synthesis) formalism.\\[1em]
+\noindent\textit{``A world is a layered state machine whose global
+history emerges from local logical permissions.''}
+\vspace*{\fill}
+\newpage
+
+% ── Preface ──────────────────────────────────────────────────
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+\chapterquote{The elements of every science are at once its lowest and its
+  highest truths: lowest because they are common to all, highest because
+  they are the key to all.
+}{--- paraphrase of Aristotle, \textit{Prior Analytics}}
+
+This book is about building worlds from scratch. Not artistic worlds, not
+narrative worlds, but \emph{computational} worlds: persistent, rule-governed
+systems of state that support exploration, expansion, exploitation, and
+conflict---the four pillars of the 4X strategy genre.
+
+The organizing thesis is simple. A 4X world is a civilization-scale circuit.
+Everything that makes such a world interesting---territory, resources, memory,
+agency, diplomacy, history---emerges from a small set of computational
+primitives: signals, logic gates, latches, counters, and state machines.
+
+This book follows the pedagogical architecture of Noam Nisan and Shimon
+Schocken's masterwork \textit{The Elements of Computing Systems}. Each
+chapter introduces an abstraction, provides a formal specification, works
+through an implementation in the \Sp{} language, offers a philosophical
+perspective, and closes with a construction project. The ascent of the
+book mirrors the ascent of complexity:
+\[
+  \text{Signals} \to \text{Gates} \to \text{Memory}
+  \to \text{Tiles} \to \text{Agents}
+  \to \text{Economies} \to \text{Diplomacy}
+  \to \text{History}
+\]
+What distinguishes this from a standard computing systems course is the
+endpoint. Nisan and Schocken build a general-purpose computer. This book
+builds a world. Every abstraction is motivated not by the needs of an
+operating system, but by the demands of a civilization that must remember,
+perceive, decide, and endure.
+
+\Sp{} is our medium throughout. It treats computation as the interaction of
+\emph{bubbles}: self-contained units that may carry values, execute rules,
+spawn children, consume neighbors, or pass signals along. Bubbles are
+simultaneously data, process, interface, and environment. This unification
+makes \Sp{} unusually well suited to world simulation: a tile is a bubble.
+An agent is a bubble. A diplomatic treaty is a bubble. The world itself is
+a bubble.
+
+The book is divided into five parts:
+\begin{enumerate}[leftmargin=*, label=\Roman*.]
+  \item \textbf{Foundations of Computation.}
+    Signals, Boolean algebra, logic gates, and bubble interaction.
+  \item \textbf{State and Memory.}
+    Latches, registers, counters, and the persistence of time.
+  \item \textbf{Spatial Worlds.}
+    Tiles, terrain, visibility, and the geometry of territory.
+  \item \textbf{Agents and Economies.}
+    Perception, action, resources, trade, and conflict.
+  \item \textbf{Civilization and Emergence.}
+    Technology, diplomacy, ecology, and the accumulation of history.
+\end{enumerate}
+
+A student who completes all five parts and their associated projects will
+have constructed, from first principles, a functioning 4X world simulation.
+They will also have understood \emph{why} that world works the way it does,
+because they will have built every layer themselves.
+
+\bigskip
+\noindent\textit{Flyxion}\\
+\noindent\textit{Canada}
+
+% ── How to Use This Book ─────────────────────────────────────
+\chapter*{How to Use This Book}
+\addcontentsline{toc}{chapter}{How to Use This Book}
+
+Each chapter is structured in five sections following the pedagogical
+pattern of Nisan and Schocken:
+
+\begin{description}[style=nextline]
+  \item[\textcolor{sphereblue}{Background}]
+    Motivates the chapter's central concept from first principles.
+    Why does a world need this abstraction?
+
+  \item[\textcolor{sphereteal}{Specification}]
+    Defines the abstraction precisely. What are its inputs, outputs,
+    and behavioral contracts?
+
+  \item[\textcolor{sphereamber!80!black}{Implementation}]
+    Constructs the abstraction in \Sp{}. How is it realized
+    from the primitives introduced in prior chapters?
+
+  \item[\textcolor{spherered}{Perspective}]
+    Reflects on what the abstraction means philosophically, ecologically,
+    economically, or strategically.
+
+  \item[\textcolor{sphereblue}{Project}]
+    A hands-on construction task. The student builds the abstraction,
+    tests it, and integrates it into the growing simulation.
+\end{description}
+
+Projects are cumulative. Each project produces a component that later
+chapters will use. By the final chapter, the student has assembled a
+working civilization simulator from nothing but bubble interactions.
+
+\tableofcontents
+
+\mainmatter
+
+% ============================================================
+% PART I: FOUNDATIONS OF COMPUTATION
+% ============================================================
+
+\part{Foundations of Computation}
+
+\chapterquote{Before a world can have empires, cities, or history, it must
+  have a logic of difference.
+}{}
+
+% ── Chapter 1 ────────────────────────────────────────────────
+\chapter{Boolean Worlds}
+\label{ch:boolean}
+
+\chapterquote{Something is passable or impassable, known or unknown,
+  owned or unowned. These distinctions are prior to everything else.
+}{}
+
+\begin{background}
+  A 4X world is, at its core, a system of distinctions. Before there can
+  be empires or wars, there must be a way to say: this tile is mine and
+  that one is not; this unit is alive and that one is dead; this technology
+  is known and that one is not. Such distinctions are not merely
+  descriptive---they drive computation. The world \emph{acts} differently
+  depending on whether a tile is owned, whether a unit is visible, whether
+  a treaty is active.
+
+  The mathematics of yes/no distinctions is Boolean algebra. Developed by
+  George Boole in the 1840s as an algebra of thought, Boolean algebra turns
+  out to be the foundation of all digital computation. We begin there.
+\end{background}
+
+\section{Signals}
+
+\begin{defbox}{Signal}
+  A \emph{signal} is an element of $\bool$. We call $0$ \emph{inactive}
+  (or \emph{false}) and $1$ \emph{active} (or \emph{true}).
+\end{defbox}
+
+In a 4X context, the same Boolean distinction recurs at every scale:
+
+\begin{center}
+\begin{tabular}{lll}
+  \toprule
+  \textbf{Domain} & \textbf{Signal $= 0$} & \textbf{Signal $= 1$} \\
+  \midrule
+  Map visibility  & Unexplored           & Explored              \\
+  Ownership       & Neutral              & Claimed               \\
+  Unit status     & Dead                 & Alive                 \\
+  Technology      & Unknown              & Researched            \\
+  Terrain         & Impassable           & Passable              \\
+  Treaty          & Hostile              & Allied                \\
+  Resource node   & Depleted             & Active                \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+A single bit contains one unit of world-state. Stacked across millions of
+tiles and thousands of game-turns, bits become civilizations.
+
+\section{Boolean Operations}
+
+Three operations are primitive:
+
+\begin{definition}[Boolean Operations]
+  For $a, b \in \bool$:
+  \begin{align}
+    a \AND b &= 1 \quad \Leftrightarrow \quad a = 1 \text{ and } b = 1 \\
+    a \OR b  &= 1 \quad \Leftrightarrow \quad a = 1 \text{ or } b = 1
+                        \text{ (or both)} \\
+    \NOT a   &= 1 - a
+  \end{align}
+\end{definition}
+
+\begin{mechanic}{Permission Logic}
+  The most fundamental 4X question is: ``Is this action permitted?''
+  Permissions are conjunctions:
+  \[
+    \texttt{can\_move} = \texttt{passable} \AND \texttt{not\_occupied}
+    \AND \texttt{has\_movement\_points}
+  \]
+  \[
+    \texttt{can\_settle} = \texttt{unowned} \AND \texttt{adjacent\_to\_unit}
+    \AND \NOT\, \texttt{at\_war}
+  \]
+  Every game rule is ultimately a Boolean expression over world state.
+\end{mechanic}
+
+\section{NAND Universality}
+
+One gate is sufficient for all Boolean computation:
+
+\begin{theorem}[NAND Universality]
+  Every Boolean function $f : \bool^n \to \bool^m$ can be expressed
+  using only NAND gates, where
+  \[
+    \text{NAND}(a, b) = \NOT(a \AND b) = 1 - ab.
+  \]
+\end{theorem}
+
+The derivations:
+\begin{align*}
+  \NOT(a) &= \text{NAND}(a, a) \\
+  a \AND b &= \NOT(\text{NAND}(a,b)) = \text{NAND}(\text{NAND}(a,b),\,\text{NAND}(a,b)) \\
+  a \OR b &= \text{NAND}(\text{NAND}(a,a),\,\text{NAND}(b,b))
+\end{align*}
+
+This is the first deep fact of the book: \emph{one primitive suffices to build
+everything}. In computation, as in worlds, power emerges from iteration of
+simple rules.
+
+\begin{specification}
+  \textbf{NAND gate.}\par
+  \textit{Inputs:}\enspace $a, b \in \bool$.\par
+  \textit{Output:}\enspace $\texttt{out} \in \bool$.\par
+  \textit{Contract:}\enspace $\texttt{out} = 1$ iff not both $a = 1$ and $b = 1$.
+\end{specification}
+
+\begin{implementation}
+  In \Spbox , a gate is a named bubble with declared ports and a logic body.
+  The NAND gate is the primitive from which all others are derived:
+
+\begin{lstlisting}[caption={NAND gate in \Spbox }]
+bubble NAND {
+    inputs:  a, b
+    output:  out
+
+    -- NAND is the primitive: 0 only when both inputs are 1
+    out = not (a and b)
+}
+\end{lstlisting}
+
+  All subsequent gates in this chapter are specifications, to be implemented
+  as compositions of \texttt{NAND} in the Project.
+\end{implementation}
+
+\begin{perspective}
+  NAND universality is not merely a technical curiosity. It tells us that
+  the universe of Boolean functions is reachable from a single operation.
+  This is philosophically resonant: a world that begins with only
+  ``not-both-true'' can, through composition, express every distinction
+  that civilization might require. The architecture of complexity does not
+  demand a rich initial vocabulary. It demands iteration.
+\end{perspective}
+
+\begin{project}{Boolean Gates}
+  \textbf{Objective:} Implement the following gates in \Sp{} using only
+  the primitive \texttt{NAND} bubble. Do not use \texttt{and}, \texttt{or},
+  or \texttt{not} directly---derive them from \texttt{NAND}.
+
+  \begin{enumerate}
+    \item \texttt{NOT(a)} --- logical negation
+    \item \texttt{AND(a, b)} --- logical conjunction
+    \item \texttt{OR(a, b)} --- logical disjunction
+    \item \texttt{XOR(a, b)} --- exclusive disjunction (odd parity)
+    \item \texttt{MUX(a, b, sel)} --- multiplexer: output $a$ if
+          $\texttt{sel} = 0$, else $b$
+    \item \texttt{DMUX(in, sel)} --- demultiplexer: route \texttt{in}
+          to output $a$ or $b$ depending on \texttt{sel}
+  \end{enumerate}
+
+  For each gate, verify your implementation against its truth table.
+  Then implement \texttt{PermissionCheck}, a 4-input bubble that is
+  \texttt{true} only when \texttt{passable}, \texttt{visible},
+  \texttt{NOT occupied}, and \texttt{NOT at\_war} are all true.
+\end{project}
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[
+  gate/.style={draw, rounded corners=2pt, minimum width=1.3cm,
+               minimum height=0.7cm, fill=sphereblue!10, thick},
+  wire/.style={thick, color=sphereblue}
+]
+  \node[gate] (n1) at (0,0) {\small NAND};
+  \draw[wire] (-1.8, 0.2) node[left]{\small$a$} -- (n1.west);
+  \draw[wire] (-1.8,-0.2) -- (n1.west);
+  \draw[wire] (n1.east) -- (2.0,0) node[right]{\small$\neg a$};
+  \node[below, color=spheregray, font=\small] at (0,-0.55)
+    {NOT $=$ NAND$(a,a)$};
+  \begin{scope}[yshift=-2.3cm]
+    \node[gate] (n2) at (0,0) {\small NAND};
+    \node[gate] (n3) at (2.6,0) {\small NAND};
+    \draw[wire] (-1.8, 0.2) node[left]{\small$a$} -- (n2.west);
+    \draw[wire] (-1.8,-0.2) node[left]{\small$b$} -- (n2.west);
+    \draw[wire] (n2.east) -- (n3.west);
+    \draw[wire] (1.55, 0.15) |- (n3.west);
+    \draw[wire] (n3.east) -- (4.3,0) node[right]{\small$a \wedge b$};
+    \node[below, color=spheregray, font=\small] at (1.3,-0.55)
+      {AND $=$ NAND(NAND$(a,b)$, NAND$(a,b)$)};
+  \end{scope}
+\end{tikzpicture}
+\caption{Constructing NOT and AND from NAND: functional completeness in action.}
+\label{fig:nand-derivation}
+\end{figure}
+
+% ── Chapter 2 ────────────────────────────────────────────────
+\chapter{Gates and Bubble Logic}
+\label{ch:gates}
+
+\chapterquote{A bubble may contain a value, a rule, a signal, or another
+  structure of bubbles.
+}{}
+
+\begin{background}
+  In the previous chapter we treated gates as abstract functions over
+  $\bool$. Now we ask: what is a gate made of, and how does \Spbox  realize
+  it? The answer is \emph{bubbles}. A bubble is a self-contained
+  computational unit. It has a boundary, a set of ports through which
+  signals enter and leave, and an interior that transforms inputs into
+  outputs. Crucially, bubbles can contain other bubbles: abstraction is
+  nesting.
+\end{background}
+
+\section{The Bubble Model}
+
+\begin{defbox}{Bubble}
+  A \emph{bubble} $B$ consists of:
+  \begin{itemize}
+    \item a finite set of \emph{input ports} $I_B$,
+    \item a finite set of \emph{output ports} $O_B$,
+    \item an \emph{interior} specifying how outputs are computed from inputs,
+    \item a \emph{boundary} separating interior from exterior.
+  \end{itemize}
+  The interior may be primitive (an irreducible gate) or composite
+  (an arrangement of sub-bubbles connected by wires).
+\end{defbox}
+
+Composing two bubbles $B_1, B_2$ means connecting an output port of $B_1$
+to an input port of $B_2$. The resulting composite is itself a bubble.
+
+\section{Multi-Bit Buses}
+
+World state rarely fits in one bit. A tile may have a terrain type coded
+in 3 bits, a resource count in 8 bits, a population in 16 bits. We extend
+the model to \emph{buses}: ordered tuples of signals.
+
+\begin{definition}[Bus]
+  An $n$-bit bus is an element of $\bool^n$. We write buses with subscripts:
+  $a[0..n{-}1]$ denotes an $n$-bit value whose $k$-th bit is $a[k]$.
+\end{definition}
+
+\begin{defbox}{Half Adder}
+  The \emph{half adder} computes the binary sum of two bits:
+  \begin{align*}
+    \texttt{sum}  &= a \XOR b \\
+    \texttt{carry} &= a \AND b
+  \end{align*}
+\end{defbox}
+
+\begin{defbox}{Full Adder}
+  The \emph{full adder} includes a carry-in:
+  \begin{align*}
+    \texttt{sum}   &= a \XOR b \XOR c \\
+    \texttt{carry} &= (a \AND b) \OR (c \AND (a \XOR b))
+  \end{align*}
+\end{defbox}
+
+Chaining $n$ full adders gives an $n$-bit adder: the circuit that adds
+two $n$-bit numbers. Population growth, resource accumulation, and
+production totals all reduce to addition.
+
+\section{Bubbles as World Objects}
+
+The insight that will carry us through the entire book is this:
+\emph{every world object is a bubble}.
+
+\begin{center}
+\begin{tabular}{ll}
+  \toprule
+  \textbf{World Object} & \textbf{Bubble Type} \\
+  \midrule
+  Terrain tile          & Primitive state bubble \\
+  City                  & Composite bubble (production, population, defense) \\
+  Unit                  & Mobile bubble with perception ports \\
+  Trade route           & Wire connecting two city bubbles \\
+  Treaty                & Shared state bubble between two agent bubbles \\
+  Technology tree       & Directed acyclic graph of gate bubbles \\
+  History               & Trace of past bubble activations \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+The world is the outermost bubble. Inside it, civilization emerges from
+composition.
+
+\begin{implementation}
+\begin{lstlisting}[caption={Multi-bit AND in \Spbox }]
+bubble AND16 {
+    inputs:  a[0..15], b[0..15]
+    output:  out[0..15]
+
+    -- Apply single-bit AND to each bit position
+    let i = 0
+    while i < 16 do
+        out[i] = AND(a[i], b[i])
+        i = i + 1
+    end
+}
+
+bubble Add16 {
+    inputs:  a[0..15], b[0..15]
+    output:  out[0..15]
+
+    -- Ripple-carry addition across 16 bits
+    let carry = 0
+    let i = 0
+    while i < 16 do
+        out[i] = XOR(XOR(a[i], b[i]), carry)
+        carry   = OR(AND(a[i], b[i]),
+                     AND(carry, XOR(a[i], b[i])))
+        i = i + 1
+    end
+}
+\end{lstlisting}
+\end{implementation}
+
+\begin{project}{Arithmetic Unit}
+  Build the following multi-bit bubbles, each from simpler components
+  assembled in prior steps:
+
+  \begin{enumerate}
+    \item \texttt{NOT16}: bitwise NOT of a 16-bit bus
+    \item \texttt{AND16}: bitwise AND of two 16-bit buses
+    \item \texttt{OR16}: bitwise OR of two 16-bit buses
+    \item \texttt{MUX16}: 16-bit multiplexer
+    \item \texttt{Add16}: 16-bit ripple-carry adder
+    \item \texttt{Inc16}: increment a 16-bit value by 1
+    \item \texttt{ResourceAdder}: an \texttt{Add16} variant that
+          saturates at a maximum value (models bounded resources)
+    \item \texttt{PopulationALU}: an arithmetic unit accepting
+          \texttt{births}, \texttt{deaths}, and \texttt{migration}
+          signals, outputting updated population counts
+  \end{enumerate}
+\end{project}
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[
+  gate/.style={draw, minimum width=1.3cm, minimum height=0.75cm,
+               fill=sphereteal!10, thick},
+  wire/.style={thick, color=sphereteal}
+]
+  \node[gate] (xor) at (0,1.1)  {\small XOR};
+  \node[gate] (and) at (0,-1.1) {\small AND};
+  \draw[wire] (-2, 1.35) node[left]{\small$a$} -- (xor.west);
+  \draw[wire] (-2, 0.85) -- (xor.west);
+  \draw[wire] (-2,-0.85) node[left]{\small$b$} -- (and.west);
+  \draw[wire] (-2,-1.35) -- (and.west);
+  \draw[wire] (-1.6, 1.35) |- (-0.65, 0.85);
+  \draw[wire] (-1.6,-1.35) |- (-0.65,-0.85);
+  \draw[wire] (xor.east) -- (2.2, 1.1) node[right]{\small sum};
+  \draw[wire] (and.east) -- (2.2,-1.1) node[right]{\small carry};
+  \node[below, color=spheregray, font=\small] at (0,-2.0)
+    {Half-adder: 1-bit addition with carry};
+\end{tikzpicture}
+\caption{A half-adder from XOR and AND. This is the first arithmetic circuit: two bits in, sum and carry out.}
+\label{fig:half-adder}
+\end{figure}
+
+
+% ============================================================
+% PART II: STATE AND MEMORY
+% ============================================================
+
+\part{State and Memory}
+
+\chapterquote{Without memory, there is no territory, no ownership,
+  no accumulated production, no history, and no strategy.
+}{}
+
+
+\section{Numerical Representation and Fixed-Point Arithmetic}
+\label{sec:fixedpoint}
+
+Before worlds can compute resources, growth, or influence, they need numbers
+--- not just bits. This section develops the numerical substrate that all
+later simulation layers depend on.
+
+\subsection{Unsigned Integers}
+
+An $n$-bit unsigned integer represents a value in $\{0, 1, \ldots, 2^n - 1\}$
+via binary positional notation:
+\[
+  v = \sum_{i=0}^{n-1} b_i \cdot 2^i
+\]
+where $b_i$ is the $i$-th bit. Addition of two $n$-bit values produces a
+$(n+1)$-bit result; the carry bit signals overflow.
+
+\subsection{Fixed-Point Arithmetic for Simulation}
+
+Ecology fields, influence values, and resource yields are continuous in
+principle but must be stored in finite registers. We use $k.f$ fixed-point
+notation: $k$ bits for the integer part, $f$ bits for the fractional part,
+representing values in multiples of $2^{-f}$.
+
+\begin{definition}[Fixed-Point Value]
+  A $k.f$ fixed-point register stores the real value
+  \[
+    v = \frac{\text{raw\_int}}{2^f}
+  \]
+  where \texttt{raw\_int} is the underlying unsigned integer.
+  Addition in fixed-point is ordinary integer addition. Multiplication
+  of two $k.f$ values requires a right-shift of $f$ bits to renormalize.
+\end{definition}
+
+For the ecological diffusion equation
+\[
+  x_{t+1} = \alpha x_t + \beta y_t
+\]
+we store $\alpha, \beta$ as 0.8 fixed-point values (8 fractional bits,
+approximating real numbers in $[0,1]$ with resolution $2^{-8} \approx 0.004$).
+
+\begin{defbox}{Saturation Arithmetic}
+  To prevent register overflow in resource accumulations, we use
+  \emph{saturation arithmetic}: instead of wrapping around, values clamp
+  at the maximum (or minimum) representable value.
+  \[
+    \texttt{sat\_add}(a, b) = \min(a + b,\; 2^n - 1)
+  \]
+  This is essential for population and resource registers that should never
+  go negative or overflow silently.
+\end{defbox}
+
+\begin{implementation}
+\begin{lstlisting}[caption={Fixed-point multiply in \Spbox }]
+bubble FixedMul8 {
+    -- Multiply two 8-bit 0.8 fixed-point values
+    inputs:  a[8], b[8]
+    output:  result[8]
+
+    -- Full 16-bit product, then right-shift 8 to renormalize
+    let product[16] = a * b      -- unsigned 16-bit multiply
+    result = product[15:8]       -- take upper 8 bits
+}
+\end{lstlisting}
+\end{implementation}
+
+Fixed-point arithmetic is used throughout the book for ecology fields
+(Chapter~\ref{ch:ecology}), influence propagation (Chapter~\ref{ch:diplomacy}),
+and trajectory entropy calculations (Chapter~\ref{ch:optionality}).
+
+
+% ── Chapter 3 ────────────────────────────────────────────────
+\chapter{Sequential Memory}
+\label{ch:memory}
+
+\chapterquote{The past is not the opposite of the present.
+  It is the infrastructure of the present.
+}{}
+
+\begin{background}
+  Everything so far has been \emph{combinational}: given inputs, compute
+  outputs immediately, with no memory of prior states. A combinational
+  circuit is stateless---it knows only the present moment. But a world
+  requires history. A tile must remember whether it has been explored.
+  A city must remember its accumulated food surplus. An empire must
+  remember its treaties.
+
+  Memory requires \emph{feedback}: a circuit whose output influences its
+  future input. The simplest such circuit is the SR latch.
+\end{background}
+
+\section{The SR Latch}
+
+\begin{defbox}{SR Latch}
+  The \emph{SR latch} has two inputs, \texttt{S} (set) and
+  \texttt{R} (reset), and two outputs, \texttt{Q} and $\overline{Q}$.
+  Its behavior:
+  \begin{align*}
+    S = 1, R = 0 &\implies Q := 1 \quad \text{(set)} \\
+    S = 0, R = 1 &\implies Q := 0 \quad \text{(reset)} \\
+    S = 0, R = 0 &\implies Q \text{ holds its prior value} \quad \text{(memory)} \\
+    S = 1, R = 1 &\implies \text{undefined (forbidden)}
+  \end{align*}
+\end{defbox}
+
+The ``memory'' case is the decisive one. When both inputs are inactive,
+the latch \emph{holds}. This is the birth of time in our circuit model.
+
+\begin{mechanic}{Tile Ownership Memory}
+  A tile's ownership is implemented as an SR latch:
+  \begin{align*}
+    S &= \texttt{conquered}(t) \\
+    R &= \texttt{liberated}(t) \\
+    Q &= \texttt{is\_owned}(t)
+  \end{align*}
+  When neither conquering nor liberation occurs, the tile remembers its
+  owner across turns---which is precisely sovereignty.
+\end{mechanic}
+
+\section{The Data Flip-Flop}
+
+The D flip-flop (DFF) is the canonical memory element: it samples its
+input \texttt{in} on the rising edge of a clock signal, and holds that
+value until the next edge.
+
+\begin{defbox}{Data Flip-Flop (DFF)}
+  \begin{align*}
+    Q(t+1) &= D(t)
+  \end{align*}
+  The DFF is the one-tick delay: it stores what its input was one clock
+  cycle ago.
+\end{defbox}
+
+In \Sp{}, time is a sequence of discrete \emph{ticks}. Each tick
+corresponds to one game turn at the world's lowest level.
+
+\section{Registers and RAM}
+
+From DFFs we build registers (multi-bit storage) and RAM arrays
+(addressed multi-register storage).
+
+\begin{defbox}{$n$-Bit Register}
+  An $n$-bit register stores one $n$-bit word. On each tick, if
+  \texttt{load} is active, the register updates to hold \texttt{in};
+  otherwise it holds its prior value.
+  \[
+    Q[n](t+1) = \begin{cases}
+      \texttt{in}(t) & \text{if } \texttt{load}(t) = 1 \\
+      Q[n](t)        & \text{otherwise}
+    \end{cases}
+  \]
+\end{defbox}
+
+\begin{defbox}{RAM}
+  An $n$-word RAM with $k$-bit address width provides:
+  \begin{itemize}
+    \item \texttt{address[$k$]}: select which of $n = 2^k$ registers to read/write
+    \item \texttt{in[$w$]}: data to write
+    \item \texttt{load}: write enable
+    \item \texttt{out[$w$]}: data read from addressed register
+  \end{itemize}
+\end{defbox}
+
+\begin{implementation}
+\begin{lstlisting}[caption={World-state register in \Spbox }]
+bubble TileRegister {
+    inputs:  in[16], load
+    output:  out[16]
+
+    -- Internal state: one DFF per bit
+    latch state[0..15]
+
+    when load = 1 do
+        state[0..15] := in[0..15]
+    end
+
+    out[0..15] = state[0..15]
+}
+
+bubble WorldRAM {
+    -- 256 tiles, each holding 16 bits of state
+    inputs:  address[8], in[16], load
+    output:  out[16]
+
+    latch memory[256][16]
+
+    when load = 1 do
+        memory[address] := in
+    end
+
+    out = memory[address]
+}
+\end{lstlisting}
+\end{implementation}
+
+\begin{project}{World Memory}
+  \begin{enumerate}
+    \item Build a \texttt{Bit} bubble (single-bit register) from a DFF.
+    \item Build a \texttt{Register16} from 16 \texttt{Bit} bubbles.
+    \item Build \texttt{RAM8}, \texttt{RAM64}, \texttt{RAM512},
+          \texttt{RAM4K}, \texttt{RAM16K} by recursive composition.
+    \item Design a \texttt{TileState} bubble that stores:
+          terrain type (3 bits), resource count (8 bits),
+          owner ID (4 bits), visibility (1 bit).
+    \item Build a \texttt{WorldMap} of $16 \times 16 = 256$ \texttt{TileState}
+          bubbles, addressable by $(x, y)$ coordinates.
+  \end{enumerate}
+\end{project}
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[
+  gate/.style={draw, minimum width=1.4cm, minimum height=0.85cm,
+               fill=sphereamber!10, thick},
+  wire/.style={thick, color=sphereamber!80!black}
+]
+  \node[gate] (na) at (0, 1.3) {\small NAND};
+  \node[gate] (nb) at (0,-1.3) {\small NAND};
+  \draw[wire] (-2.2, 1.6) node[left]{\small$S$} -- (na.west);
+  \draw[wire] (-2.2,-1.6) node[left]{\small$R$} -- (nb.west);
+  \draw[wire] (na.east) -- (2.4, 1.3) node[right]{\small$Q$};
+  \draw[wire] (nb.east) -- (2.4,-1.3) node[right]{\small$\overline{Q}$};
+  % Cross-coupling feedback wires
+  \draw[wire] (1.5, 1.3) -- (1.5, 0.4) -- (-0.7, 0.4) -- (-0.7,-0.95);
+  \draw[wire] (1.5,-1.3) -- (1.5,-0.4) -- (-0.7,-0.4) -- (-0.7, 0.95);
+  \node[below, color=spheregray, font=\small] at (0,-2.2)
+    {Cross-coupled NAND SR latch: persistence through feedback};
+\end{tikzpicture}
+\caption{The SR latch: the first \emph{stateful} circuit. Feedback makes memory possible.}
+\label{fig:sr-latch}
+\end{figure}
+
+
+% ── Chapter 4 ────────────────────────────────────────────────
+\chapter{Spatial State Machines}
+\label{ch:spatial}
+
+\begin{background}
+  Once memory exists, we can define \emph{space}. A spatial state machine
+  is a collection of cells, each maintaining local state, evolving according
+  to local rules that depend on neighbor state. The canonical example is
+  Conway's Game of Life. For 4X worlds, the relevant spatial machine is
+  much richer: cells carry terrain, resources, ownership, units, and local
+  history---but the principle is identical. Local rules, globally applied,
+  produce emergent geography.
+\end{background}
+
+\section{Cellular Automata as World Physics}
+
+A \emph{cellular automaton} on a grid $G = \mathbb{Z}^2$ assigns to each
+cell $(i,j)$ a state $s_{ij}(t) \in \Sigma$ and a local update rule $\phi$:
+\[
+  s_{ij}(t+1) = \phi\bigl(s_{ij}(t),\; \{s_{i'j'}(t) : (i',j') \in N(i,j)\}\bigr)
+\]
+where $N(i,j)$ is the neighborhood of cell $(i,j)$.
+
+In a 4X world, $\Sigma$ is not a single bit but a rich product of state
+components, and $\phi$ is the full physics of one game tick.
+
+\section{Local Rules as World Laws}
+
+\begin{mechanic}{Terrain Diffusion}
+  Pollution, disease, or fire can spread according to a local rule:
+  \[
+    \texttt{burning}_{ij}(t+1) = \texttt{burning}_{ij}(t) \OR
+    \bigl(\texttt{flammable}_{ij} \AND \textstyle\bigvee_{(i',j') \in N}
+    \texttt{burning}_{i'j'}(t)\bigr)
+  \]
+\end{mechanic}
+
+\begin{mechanic}{Influence Fields}
+  An empire's cultural influence can diffuse spatially:
+  \[
+    \texttt{influence}_{ij}(t+1) = \alpha\, \texttt{influence}_{ij}(t) +
+    (1-\alpha) \cdot \frac{1}{|N|}\sum_{(i',j')\in N}
+    \texttt{influence}_{i'j'}(t)
+  \]
+  with $\alpha \in (0,1)$ a decay coefficient. Discretized to integers for
+  our Boolean substrate.
+\end{mechanic}
+
+\begin{project}{Spatial State Machine}
+  \begin{enumerate}
+    \item Implement a $16 \times 16$ cellular automaton in \Sp{} with
+          binary state per cell. Verify Conway's Game of Life rules.
+    \item Extend cell state to include \texttt{terrain} (forest, plains,
+          mountains, coast, ocean), \texttt{resource}, and \texttt{owner}.
+    \item Implement a fire-spread rule operating on the terrain layer.
+    \item Implement an influence-diffusion rule producing a continuous
+          influence field from discrete city bubbles.
+    \item Render the $16\times 16$ world as a text map, displaying
+          each cell's dominant attribute.
+  \end{enumerate}
+\end{project}
+
+% ============================================================
+% PART III: SPATIAL WORLDS
+% ============================================================
+
+\part{Spatial Worlds}
+
+\chapterquote{A map is not a picture of a world.
+  It is a compressed encoding of a state machine.
+}{}
+
+% ── Chapter 5 ────────────────────────────────────────────────
+\chapter{Tile Architectures}
+\label{ch:tiles}
+
+\begin{background}
+  The map is the primary interface through which a 4X player experiences
+  the world. But a map is not a display: it is a database. Every tile is
+  a structured memory cell holding multiple state variables, updated each
+  turn by local rules, queried by agents making decisions. The architecture
+  of a tile determines what the world can represent.
+\end{background}
+
+\section{The Tile as a Structured Bubble}
+
+\begin{defbox}{Tile}
+  A \emph{tile} at position $(x, y)$ is a bubble $\tile{xy}$ with the
+  following state registers:
+  \begin{align*}
+    \texttt{terrain} &\in \{0,\ldots,7\} &&\text{3-bit terrain class} \\
+    \texttt{resource} &\in \{0,\ldots,255\} &&\text{8-bit resource count} \\
+    \texttt{owner} &\in \{0,\ldots,15\} &&\text{4-bit empire ID (0 = unowned)} \\
+    \texttt{visible} &\in \bool &&\text{explored flag} \\
+    \texttt{in\_fog} &\in \bool &&\text{fog-of-war flag} \\
+    \texttt{improvement} &\in \{0,\ldots,15\} &&\text{built improvement type} \\
+    \texttt{unit} &\in \{0,\ldots,255\} &&\text{unit ID (0 = empty)} \\
+    \texttt{city} &\in \{0,\ldots,63\} &&\text{city ID (0 = no city)} \\
+  \end{align*}
+\end{defbox}
+
+A $256 \times 256$ world requires $256 \times 256 \times 40 = 2{,}621{,}440$ bits
+of state---about 320 KB. Every fact about the world is stored here.
+
+\section{Terrain Classes}
+
+\begin{center}
+\begin{tabular}{clccc}
+  \toprule
+  \textbf{Code} & \textbf{Terrain} & \textbf{Passable} & \textbf{Base Food}
+                & \textbf{Base Prod.} \\
+  \midrule
+  000 & Ocean      & 0 (ships only) & 1 & 0 \\
+  001 & Coast      & 1              & 2 & 0 \\
+  010 & Plains     & 1              & 2 & 1 \\
+  011 & Grassland  & 1              & 3 & 0 \\
+  100 & Hills      & 1              & 1 & 2 \\
+  101 & Mountains  & 0              & 0 & 1 \\
+  110 & Forest     & 1              & 1 & 2 \\
+  111 & Desert     & 1              & 0 & 1 \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{project}{Tile Architecture}
+  \begin{enumerate}
+    \item Define the \texttt{TileState} bubble with all registers above.
+    \item Build a \texttt{TerrainDecoder} that maps a 3-bit terrain code
+          to Boolean output flags: \texttt{passable}, \texttt{naval\_only},
+          \texttt{yields\_food}, \texttt{yields\_production}.
+    \item Build a \texttt{TileYield} bubble computing:
+          \[
+            \texttt{food\_yield} = \texttt{base\_food} +
+            \texttt{improvement\_food\_bonus} +
+            \texttt{river\_bonus}
+          \]
+    \item Extend the $16\times 16$ world from Chapter~4 with full
+          \texttt{TileState} bubbles. Initialize using procedural terrain
+          generation (a simple noise function approximated with XOR patterns).
+  \end{enumerate}
+\end{project}
+
+% ── Chapter 6 ────────────────────────────────────────────────
+\chapter{Resource Circuits}
+\label{ch:resources}
+
+\begin{background}
+  A 4X world is driven by \emph{constrained transformation}. Food becomes
+  population. Minerals become buildings. Research becomes technology. Energy
+  becomes movement. These transformations are not arbitrary---they are
+  governed by logical permissions, capacity limits, and priority rules.
+  The resource circuit is the metabolism of civilization.
+\end{background}
+
+\section{Resource Types}
+
+\begin{defbox}{Resource}
+  A \emph{resource} is a quantized, persistent, transferable form of
+  potential. Resources are produced by tiles and consumed by agents,
+  cities, and units.
+\end{defbox}
+
+Standard 4X resources:
+
+\begin{center}
+\begin{tabular}{lll}
+  \toprule
+  \textbf{Resource} & \textbf{Produced by}       & \textbf{Consumed by} \\
+  \midrule
+  Food              & Farms, grassland, coast     & Population growth \\
+  Production        & Mines, hills, workshops     & Building, training \\
+  Gold              & Trade routes, commerce      & Maintenance, purchase \\
+  Research (beakers)& Libraries, universities     & Technology progress \\
+  Culture           & Monuments, wonders          & Border expansion \\
+  Faith             & Shrines, temples            & Religious spread \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\section{Production as a Circuit}
+
+Each city maintains a \emph{production queue}: an ordered list of items to
+build, each requiring a fixed production cost. The city accumulates
+production points each turn, and completes the head of the queue when
+accumulated points meet or exceed the item's cost.
+
+\[
+  \texttt{prod\_accum}(t+1) = \texttt{prod\_accum}(t) + \texttt{prod\_yield}
+\]
+\[
+  \texttt{complete} = \bigl(\texttt{prod\_accum} \geq \texttt{item\_cost}\bigr)
+\]
+
+This is an \emph{integrating circuit}: it accumulates inputs over time and
+fires when a threshold is reached.
+
+\begin{implementation}
+\begin{lstlisting}[caption={City production bubble}]
+bubble CityProduction {
+    inputs:
+        tile_yields[16],   -- sum of surrounding tile yields
+        improvement_bonus, -- +prod from workshops, etc.
+        item_cost[16]      -- cost of current build item
+
+    output:
+        complete,          -- 1 when item is finished
+        overflow[16]       -- leftover production
+
+    latch accumulated[16]
+
+    let total_yield = Add16(tile_yields, improvement_bonus)
+
+    -- Accumulate each turn
+    accumulated := Add16(accumulated, total_yield)
+
+    -- Check completion
+    complete = (accumulated >= item_cost)
+
+    when complete = 1 do
+        overflow   := accumulated - item_cost
+        accumulated := overflow
+    end
+}
+\end{lstlisting}
+\end{implementation}
+
+\begin{project}{Resource Circuits}
+  \begin{enumerate}
+    \item Build \texttt{FoodIntegrator}: accumulates food, fires when
+          population growth threshold is met.
+    \item Build \texttt{GoldLedger}: tracks income and expenditure;
+          signals \texttt{bankrupt} when balance goes negative.
+    \item Build \texttt{ResearchAccumulator}: fires on technology completion.
+    \item Connect five $\texttt{TileState}$ bubbles to a city bubble via
+          a \texttt{YieldSummer}, accumulating food and production
+          from the city's working tiles.
+    \item Implement a 4-turn simulation: watch population and production
+          change in response to terrain yields.
+  \end{enumerate}
+\end{project}
+
+% ── Chapter 7 ────────────────────────────────────────────────
+\chapter{Visibility and Exploration}
+\label{ch:visibility}
+
+\begin{background}
+  Exploration is the beginning of geography. An unexplored tile is
+  not absent from the world---it is present but unknown. The player
+  does not know its terrain, resources, or strategic value. The moment
+  a unit enters adjacency, the fog lifts and knowledge enters the game.
+  This is not merely a display convention: the fog of war is a
+  \emph{computational barrier} that shapes all subsequent decisions.
+\end{background}
+
+\section{The Visibility System}
+
+Each tile maintains two Boolean flags:
+
+\begin{align*}
+  \texttt{explored}_{xy} &= 1 \text{ if tile has ever been visible to empire } e \\
+  \texttt{visible}_{xy}  &= 1 \text{ if tile is currently in line of sight}
+\end{align*}
+
+A tile transitions from unexplored to explored exactly once, and never
+reverts. A tile transitions between visible and not-visible each turn
+based on unit positions.
+
+\section{Line of Sight}
+
+\begin{defbox}{Vision Range}
+  A unit at position $(x, y)$ with vision radius $r$ grants visibility to
+  all tiles $(x', y')$ satisfying:
+  \[
+    d\bigl((x,y),(x',y')\bigr) \leq r
+  \]
+  where $d$ is Chebyshev distance: $\max(|x-x'|, |y-y'|)$.
+\end{defbox}
+
+\begin{mechanic}{Fog of War Activation}
+  \[
+    \texttt{visible}_{xy}(t) = \bigvee_{\text{unit } u \in \text{empire } e}
+    \bigl(d(\texttt{pos}(u), (x,y)) \leq r_u\bigr)
+  \]
+  \[
+    \texttt{explored}_{xy}(t) = \texttt{explored}_{xy}(t-1) \OR
+    \texttt{visible}_{xy}(t)
+  \]
+\end{mechanic}
+
+\begin{project}{Fog of War}
+  \begin{enumerate}
+    \item Implement \texttt{ChebyshevCheck}: given unit position and tile
+          position, output 1 if tile is within vision radius~3.
+    \item Build \texttt{VisionBroadcaster}: given a unit's position, set
+          the \texttt{visible} flag on all tiles within radius.
+    \item Build \texttt{FogUpdater}: on each tick, clear all
+          \texttt{visible} flags, then re-broadcast from current unit positions.
+    \item Implement \texttt{ExplorationTracker}: maintain \texttt{explored}
+          flags (monotonically increasing).
+    \item Test: place one unit at $(8, 8)$ on your $16\times 16$ map.
+          Move it north 4 tiles. Observe which tiles transition from
+          fog to explored.
+  \end{enumerate}
+\end{project}
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[scale=0.62]
+  % Draw grid
+  \foreach \x in {0,...,8}{
+    \foreach \y in {0,...,8}{
+      \draw[gray!30, thin] (\x,\y) rectangle ++(1,1);
+    }
+  }
+  % Fog (unexplored) - dark
+  \foreach \x in {0,...,8}{
+    \foreach \y in {0,...,8}{
+      \fill[spheregray!20] (\x,\y) rectangle ++(1,1);
+    }
+  }
+  % Explored but not visible ring
+  \foreach \x/\y in {
+    1/2, 1/3, 1/4, 1/5, 1/6,
+    2/1, 2/7,
+    3/1, 3/7,
+    4/1, 4/7,
+    5/1, 5/7,
+    6/1, 6/7,
+    7/2, 7/3, 7/4, 7/5, 7/6
+  }{
+    \fill[sphereblue!12] (\x,\y) rectangle ++(1,1);
+  }
+  % Visible tiles (inner ring)
+  \foreach \x/\y in {
+    2/2, 2/3, 2/4, 2/5, 2/6,
+    3/2, 3/6,
+    4/2, 4/6,
+    5/2, 5/6,
+    6/2, 6/3, 6/4, 6/5, 6/6
+  }{
+    \fill[sphereteal!25] (\x,\y) rectangle ++(1,1);
+  }
+  % Unit
+  \fill[sphereblue] (4,4) rectangle ++(1,1);
+  \node[white, font=\bfseries\small] at (4.5,4.5) {U};
+  % Redraw grid lines on top
+  \foreach \x in {0,...,8}{
+    \foreach \y in {0,...,8}{
+      \draw[gray!40, thin] (\x,\y) rectangle ++(1,1);
+    }
+  }
+  % Legend
+  \fill[spheregray!20] (0,-1.5) rectangle ++(1,0.5);
+  \node[right, font=\tiny] at (1.1,-1.25) {fog (unknown)};
+  \fill[sphereblue!12] (3.5,-1.5) rectangle ++(1,0.5);
+  \node[right, font=\tiny] at (4.6,-1.25) {explored};
+  \fill[sphereteal!25] (7,-1.5) rectangle ++(1,0.5);
+  \node[right, font=\tiny] at (8.1,-1.25) {visible};
+\end{tikzpicture}
+\caption{Fog-of-war as a spatial Boolean field. Each tile carries two bits: \texttt{explored} and \texttt{visible}. The unit broadcasts visibility to its radius-2 neighbourhood.}
+\label{fig:fog-of-war}
+\end{figure}
+
+
+% ============================================================
+% PART IV: AGENTS AND ECONOMIES
+% ============================================================
+
+\part{Agents and Economies}
+
+\chapterquote{An agent is a state-changing process with memory,
+  perception, and action.
+}{}
+
+% ── Chapter 8 ────────────────────────────────────────────────
+\chapter{Agent Machines}
+\label{ch:agents}
+
+\begin{background}
+  A tile is passive: it holds state and obeys update rules, but does not
+  choose. An \emph{agent} is different. An agent perceives its environment,
+  maintains private memory, deliberates (however simply), and acts. Units,
+  cities, empires, and AI players are all agents. The computational model
+  of an agent is a \emph{finite state machine with perception}.
+\end{background}
+
+\section{The Agent Model}
+
+\begin{defbox}{Agent}
+  An \emph{agent} $\agent{}$ consists of:
+  \begin{itemize}
+    \item a finite state space $\Sigma_A$,
+    \item a perception function $\pi : \world \to P$ mapping world state
+          to a percept $P$,
+    \item a transition function $\delta : \Sigma_A \times P \to \Sigma_A$,
+    \item an action function $\alpha : \Sigma_A \times P \to \text{Act}$,
+    \item an initial state $s_0 \in \Sigma_A$.
+  \end{itemize}
+\end{defbox}
+
+The agent loop per turn:
+\begin{enumerate}
+  \item Receive percept $p = \pi(\world)$.
+  \item Compute action $a = \alpha(s, p)$.
+  \item Apply action to world: $\world' = a(\world)$.
+  \item Update state: $s' = \delta(s, p)$.
+\end{enumerate}
+
+\section{Unit as Agent}
+
+A unit is the simplest agent: it has position, movement points, health,
+and a limited action repertoire (move, attack, fortify, settle).
+
+\begin{implementation}
+\begin{lstlisting}[caption={Unit agent in \Spbox }]
+bubble Unit {
+    -- Private state
+    latch pos_x[8], pos_y[8]
+    latch health[8]
+    latch movement[4]
+    latch owner[4]
+    latch unit_type[4]
+
+    -- Perception: nearby tiles and units
+    inputs:
+        world_query_result[256],  -- tiles within vision
+        orders[8]                 -- command from empire AI
+
+    output:
+        action_type[4],   -- 0=wait 1=move 2=attack 3=settle
+        action_target_x[8],
+        action_target_y[8]
+
+    -- Simple order decoder
+    action_type = orders[0..3]
+    action_target_x = orders[4..7]  -- simplified
+
+    -- Movement validity gate
+    let can_move =
+        AND(movement > 0,
+        AND(passable(action_target),
+            adjacent(pos_x, pos_y, action_target_x, action_target_y)))
+
+    when action_type = MOVE and can_move = 1 do
+        pos_x := action_target_x
+        pos_y := action_target_y
+        movement := movement - 1
+    end
+}
+\end{lstlisting}
+\end{implementation}
+
+\begin{project}{Agent Machines}
+  \begin{enumerate}
+    \item Build \texttt{UnitFSM} with states: \texttt{idle},
+          \texttt{moving}, \texttt{combat}, \texttt{fortified}.
+    \item Implement \texttt{MoveValidator} as a gate composition checking:
+          adjacency, passability, movement points, unit occupancy.
+    \item Build \texttt{CombatResolver} computing attack outcome from
+          attacker strength, defender strength, and terrain bonus.
+    \item Place two opposing units on the map. Simulate three turns of
+          combat. Observe health depletion and unit death.
+  \end{enumerate}
+\end{project}
+
+% ── Chapter 9 ────────────────────────────────────────────────
+\chapter{Expansion Dynamics}
+\label{ch:expansion}
+
+\begin{background}
+  Expansion is the act by which an empire converts neutral or external
+  territory into its own. This is not just a matter of moving units.
+  It requires satisfying a complex conjunction of permissions: adjacency,
+  military presence, unowned status, and the completion of a founding action.
+  The expansion circuit is the most politically loaded set of gates in
+  the world.
+\end{background}
+
+\section{Settling}
+
+A city is founded when a Settler unit on an unowned tile executes the
+\texttt{settle} action. The permission circuit:
+
+\begin{align*}
+  \texttt{can\_settle} = &\; \texttt{is\_settler}(u) \\
+  \AND &\; \NOT\,\texttt{owned}(x,y) \\
+  \AND &\; \NOT\,\texttt{city\_adjacent}(x,y) \\
+  \AND &\; \texttt{passable}(x,y) \\
+  \AND &\; \NOT\,\texttt{at\_war}(e) \OR \texttt{at\_war\_exception}
+\end{align*}
+
+Each conjunct is a separate gate. The city is founded only when all
+pass simultaneously.
+
+\section{Border Growth}
+
+After founding, a city's cultural borders expand over time, claiming
+adjacent tiles. The border expansion rule:
+
+\[
+  \texttt{claimed}_{xy}(t+1) = \texttt{claimed}_{xy}(t) \OR
+  \bigl(\texttt{adj\_to\_owned}(x,y) \AND \texttt{culture\_overflow}(e)\bigr)
+\]
+
+This is the spatial analogue of the production integrator from
+Chapter~\ref{ch:resources}.
+
+\begin{project}{Expansion System}
+  \begin{enumerate}
+    \item Implement \texttt{SettlePermission} as a gate composition.
+    \item Build \texttt{CityFounder}: when \texttt{SettlePermission}
+          fires, it creates a new city bubble, assigns the tile, and
+          removes the Settler unit.
+    \item Build \texttt{BorderExpander}: each turn, checks
+          \texttt{culture\_overflow} and claims one adjacent unowned tile.
+    \item Simulate 10 turns: found a city, watch borders grow.
+  \end{enumerate}
+\end{project}
+
+% ── Chapter 10 ────────────────────────────────────────────────
+\chapter{Trade and Logistics}
+\label{ch:trade}
+
+\begin{background}
+  Trade is computation over distance. A trade route is not merely an
+  exchange of goods---it is a persistent signal path between two city
+  bubbles, producing gold for both as long as the path remains intact.
+  Disrupting trade is strategic precisely because trade is a circuit.
+\end{background}
+
+\section{Trade Routes as Wires}
+
+A trade route between cities $C_1$ and $C_2$ can be modeled as:
+
+\begin{itemize}
+  \item A \emph{path} through passable tiles connecting the two cities.
+  \item A \emph{connection signal}: $\texttt{connected}(C_1, C_2) = 1$
+        if the path remains unblocked.
+  \item A \emph{gold yield}: proportional to distance and city sizes.
+\end{itemize}
+
+\[
+  \texttt{trade\_gold} = \texttt{connected} \AND
+  \bigl(\texttt{city\_size}(C_1) + \texttt{city\_size}(C_2)\bigr)
+  \cdot k_{\text{distance}}
+\]
+
+\begin{mechanic}{Trade Disruption}
+  An enemy unit on a tile in the trade route path sets
+  $\texttt{connected} = 0$, cutting gold yield to zero. Clearing the
+  tile restores the signal. Trade becomes a front in the war.
+\end{mechanic}
+
+\begin{project}{Trade and Logistics}
+  \begin{enumerate}
+    \item Implement \texttt{PathChecker}: BFS over the tile graph,
+          returning 1 if a path of passable tiles connects two positions.
+    \item Build \texttt{TradeRoute} bubble with a persistent
+          \texttt{connected} flag.
+    \item Build \texttt{GoldCalculator} for a network of up to 8 cities.
+    \item Simulate: establish two trade routes, then place an enemy unit
+          on one path. Observe gold loss.
+  \end{enumerate}
+\end{project}
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[
+  city/.style={circle, draw, thick, minimum size=1.05cm, fill=sphereteal!18},
+  route/.style={thick, sphereblue, -Stealth}
+]
+  \node[city] (A) at (0,0)   {\small A};
+  \node[city] (B) at (4,2)   {\small B};
+  \node[city] (C) at (8,0)   {\small C};
+  \draw[route] (A) -- node[above, font=\small]{gold} (B);
+  \draw[route] (B) -- node[above, font=\small]{food} (C);
+  % Blockade
+  \draw[spherered, ultra thick, dashed] (5.3,1.4) -- (7.0,0.7);
+  \node[spherered, font=\small\bfseries] at (6.8,1.7) {blockade};
+  \node[below, color=spheregray, font=\small] at (4,-0.6)
+    {Trade disruption: \texttt{connected}$(B,C) := 0 \Rightarrow$ gold~$= 0$};
+\end{tikzpicture}
+\caption{A trade network as a signal graph. Blocking any edge on the path sets \texttt{connected} to 0, cutting all downstream gold yield.}
+\label{fig:trade-routes}
+\end{figure}
+
+
+% ── Chapter 11 ────────────────────────────────────────────────
+\chapter{War and Conflict Resolution}
+\label{ch:war}
+
+\begin{background}
+  Conflict arises when two agents attempt to claim the same state
+  transition. Combat is not introduced as violence---it is introduced as
+  a \emph{mutual exclusion problem}. Two units cannot occupy the same tile
+  simultaneously. The conflict resolution circuit decides which unit
+  prevails and updates health, position, and ownership accordingly.
+\end{background}
+
+\section{Combat as Mutual Exclusion}
+
+\begin{defbox}{Combat Resolution}
+  When attacker $u_A$ targets defender $u_D$ on tile $(x,y)$:
+  \begin{align*}
+    \texttt{str\_A} &= \texttt{base\_str}(u_A) + \texttt{terrain\_bonus}(\texttt{atk\_tile}) \\
+    \texttt{str\_D} &= \texttt{base\_str}(u_D) + \texttt{terrain\_bonus}(x,y)
+                    + \texttt{fortification}(u_D) \\
+    \Delta_D &= f(\texttt{str\_A}, \texttt{str\_D}) \\
+    \Delta_A &= g(\texttt{str\_A}, \texttt{str\_D})
+  \end{align*}
+  where $f, g$ are damage functions, typically:
+  $f(a,d) = \lfloor a \cdot 30 / d \rfloor$.
+\end{defbox}
+
+\begin{project}{Combat System}
+  \begin{enumerate}
+    \item Implement \texttt{DamageCalculator} bubble.
+    \item Implement \texttt{CombatRound}: one round of exchange.
+    \item Build \texttt{CombatSequence}: run rounds until one unit
+          reaches 0 health.
+    \item Implement \texttt{CaptureCity}: when attacker wins on a
+          city tile, transfer city ownership.
+    \item Simulate a 3-unit vs 2-unit engagement over 5 turns.
+  \end{enumerate}
+\end{project}
+
+% ============================================================
+% PART V: CIVILIZATION AND EMERGENCE
+% ============================================================
+
+\part{Civilization and Emergence}
+
+\chapterquote{History is the trace of all state transitions that led here.
+}{}
+
+% ── Chapter 12 ────────────────────────────────────────────────
+\chapter{Diplomacy and Recursive Belief}
+\label{ch:diplomacy}
+
+\begin{background}
+  Diplomacy is computation over promises, memory, threat, trust, and
+  expected future behavior. A treaty is not a handshake---it is a shared
+  mutable bubble, readable by both parties, modified only with bilateral
+  consent. Diplomatic AI is the first place in our construction where
+  agents must model each other's beliefs.
+\end{background}
+
+\section{Treaties as Shared Bubbles}
+
+\begin{defbox}{Treaty}
+  A treaty between empires $e_1$ and $e_2$ is a shared bubble
+  $\tau(e_1, e_2)$ with:
+  \begin{itemize}
+    \item \texttt{type}: peace, alliance, trade, open borders, \ldots
+    \item \texttt{duration}: turns remaining ($0 = $ expired or
+          indefinite)
+    \item \texttt{signed}: Boolean (active iff $1$)
+    \item \texttt{violated}: Boolean (set if either party breaches)
+  \end{itemize}
+\end{defbox}
+
+\begin{mechanic}{Trust Decay}
+  Each violated treaty decrements the trust counter between two empires:
+  \[
+    \texttt{trust}(e_1, e_2)(t+1) = \max(0,\;
+    \texttt{trust}(e_1, e_2)(t) - \texttt{violation\_penalty})
+  \]
+  Low trust raises the threshold for accepting new proposals:
+  \[
+    \texttt{accept} = (\texttt{proposed\_value} > \texttt{threshold}(\texttt{trust}))
+  \]
+\end{mechanic}
+
+\section{Recursive Belief}
+
+A strategically sophisticated agent does not merely observe the world.
+It maintains a model of the other agent's model of the world. This is
+second-order belief:
+\[
+  B_e(B_{e'}(\world))
+\]
+In \Sp{}, this is implemented as a shadow-state bubble: empire $e$'s
+bubble maintains an \emph{estimated} tile state for tiles it cannot
+directly observe, inferred from spy reports, shared intelligence, and
+historical data.
+
+\begin{project}{Diplomacy System}
+  \begin{enumerate}
+    \item Implement the \texttt{Treaty} bubble with lifecycle
+          (propose, accept, reject, expire, violate).
+    \item Build a \texttt{TrustMatrix} for 4 empires: $4\times 4$ symmetric
+          matrix of trust values.
+    \item Implement \texttt{DiplomacyAI}: simple rule-based proposal
+          generator (propose peace if losing, seek alliance against
+          strongest).
+    \item Simulate: two allied empires fight a common enemy for 10 turns.
+          Observe trust dynamics and alliance stability.
+  \end{enumerate}
+\end{project}
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[
+  emp/.style={circle, draw, thick, minimum size=1.1cm, fill=sphereamber!15},
+  ally/.style={thick, sphereblue},
+  war/.style={ultra thick, spherered, dashed}
+]
+  \node[emp] (A) at (0,0)   {\small A};
+  \node[emp] (B) at (4,2.5) {\small B};
+  \node[emp] (C) at (8,0)   {\small C};
+  \node[emp] (D) at (4,-2)  {\small D};
+  \draw[ally, double] (A) -- node[above left, font=\tiny]{alliance} (B);
+  \draw[ally]         (B) -- node[above right,font=\tiny]{peace}    (C);
+  \draw[war]          (A) -- node[below left, font=\tiny]{war}      (D);
+  \draw[war]          (C) -- node[below right,font=\tiny]{war}      (D);
+  \draw[ally, dotted] (A) -- node[below, font=\tiny]{trade} (C);
+  \node[below, color=spheregray, font=\small] at (4,-3.4)
+    {Diplomatic state graph: alliance, peace, war, trade};
+\end{tikzpicture}
+\caption{The diplomatic state graph: a weighted undirected graph where edge labels are treaty types. Alliance forms a cycle that constrains future war declarations.}
+\label{fig:diplomacy}
+\end{figure}
+
+
+
+% ── Chapter 13: Markov Blankets ───────────────────────────────
+\chapter{Markov Blankets and World Boundaries}
+\label{ch:blankets}
+
+\chapterquote{%
+  A civilization survives by constructing a boundary through which
+  information may pass without total dissolution.
+}{}
+
+\begin{background}
+  Throughout the preceding chapters, we have built bubbles, agents, empires,
+  and diplomatic networks without ever naming the mathematical structure they
+  all share. A bubble has an interior, a boundary, and ports. An agent
+  has perception, action, and internal state. An empire has territory,
+  border tiles, and foreign intelligence. A city has local production and
+  global trade exposure.
+
+  These are all instances of the same structure: a \emph{Markov blanket}
+  \cite{Friston}. In probability theory, the Markov blanket of a random
+  variable is the minimal set of variables that, once known, renders it
+  conditionally independent of all others. In the Free Energy Principle
+  developed by Friston~\cite{FristonBlanket}, this statistical notion
+  becomes the formal criterion for \emph{existence as a distinct entity}.
+  A system exists---as a distinguishable system---if and only if it
+  maintains a Markov blanket: a structured informational boundary separating
+  internal dynamics from the surrounding world while permitting controlled
+  exchange.
+
+  The insight of this chapter is that \Spbox  already implements this
+  structure. A bubble \emph{is} a Markov blanket. The entire computational
+  architecture we have built is an architecture of nested, interacting
+  blankets---from logic gates to civilizations. Making this explicit
+  gives the framework a deeper mathematical foundation and connects it to
+  active inference, predictive processing, and the theory of minimal
+  self-organization.
+
+  Crucially, this is not an importation of biology into game design.
+  It is the recognition that the same abstract structure---informational
+  boundary with selective permeability---appears at every scale of
+  organized complexity: cells, organisms, cities, empires, and
+  civilizations \cite{Levin}.
+\end{background}
+
+\section{The Markov Blanket Formally}
+
+\begin{defbox}{Markov Blanket}
+  A \emph{Markov blanket} partitions a system into three disjoint
+  components:
+  \[
+    \mathcal{I} \cup \mathcal{B} \cup \mathcal{E}
+  \]
+  where $\mathcal{I}$ is the set of \emph{internal states},
+  $\mathcal{E}$ is the set of \emph{external states}, and
+  $\mathcal{B} = \mathcal{S} \cup \mathcal{A}$ is the \emph{blanket},
+  consisting of \emph{sensory states} $\mathcal{S}$ (external $\to$
+  internal) and \emph{active states} $\mathcal{A}$ (internal $\to$
+  external). The defining statistical property is:
+  \[
+    \mathcal{I} \perp\!\!\!\perp \mathcal{E} \;\big|\; \mathcal{B}
+  \]
+  Internal and external states are conditionally independent given the
+  blanket: the only information flow between inside and outside passes
+  through $\mathcal{B}$.
+\end{defbox}
+
+\section{Every Bubble is a Markov Blanket}
+
+The connection to \Sp{} is immediate.
+
+\begin{mechanic}{Bubble as Markov Blanket}
+  Every bubble $B$ in \Sp{} maps directly onto the blanket partition:
+  internal state registers $S$ correspond to $\mathcal{I}$;
+  input ports correspond to sensory states $\mathcal{S}$;
+  output ports correspond to active states $\mathcal{A}$;
+  the bubble boundary is $\mathcal{B} = \mathcal{S} \cup \mathcal{A}$;
+  and all other bubble states in $\world$ form the external states $\mathcal{E}$.
+  By lexical scope (Chapter~\ref{ch:nesting}), internal state registers
+  are inaccessible to anything outside the bubble---precisely the
+  conditional independence condition. A bubble is therefore a computational
+  Markov blanket.
+\end{mechanic}
+
+This is not merely an analogy. The bubble's scope rules \emph{enforce}
+$\mathcal{I} \perp\!\!\!\perp \mathcal{E} \mid \mathcal{B}$ deterministically:
+information cannot flow from $\mathcal{E}$ to $\mathcal{I}$ except through
+declared input ports $\mathcal{S}$.
+
+\section{Agent Perception as Sensory Projection}
+
+Recall from Chapter~\ref{ch:agents} that an agent's perception operator
+was defined as a projection $\pi : \world \to P$ mapping world state to
+a perceived sub-state. We can now interpret this precisely:
+
+\begin{definition}[Sensory Projection]
+  The agent's perception operator is a \emph{sensory projection through
+  the blanket}:
+  \[
+    \pi : \mathcal{E} \to \mathcal{S}
+  \]
+  mapping the external world to the agent's sensory states. The agent
+  never directly accesses $\mathcal{E}$; it accesses only $\mathcal{S}
+  = \pi(\mathcal{E})$.
+\end{definition}
+
+Similarly, the agent's action operator is an \emph{active state writing}:
+\[
+  \alpha : \mathcal{I} \times \mathcal{S} \to \mathcal{A} \to \mathcal{E}
+\]
+The agent modifies the external world only by writing to its output ports
+$\mathcal{A}$, which in turn modify the enclosing world state $\mathcal{E}$.
+
+This structures the agent as a closed inferential loop:
+\[
+  \mathcal{I} \;\xrightarrow{\text{action}}\; \mathcal{A}
+  \;\to\; \mathcal{E}
+  \;\xrightarrow{\text{perception}}\; \mathcal{S}
+  \;\to\; \mathcal{I}
+\]
+
+\section{Free Energy and Predictive Worlds}
+
+The Free Energy Principle~\cite{Friston} proposes that any persistent
+system must minimize a quantity called \emph{variational free energy}:
+a bound on the surprise (negative log-evidence) of sensory observations
+given the system's internal model.
+
+We present the computational version, avoiding claims beyond our
+architectural scope.
+
+\begin{definition}[Prediction Error]
+  For an agent with internal model $\hat{\world}$ of the external world,
+  the \emph{prediction error} at sensory port $s$ is:
+  \[
+    \delta_s = \hat{s} - s_{\text{observed}}
+  \]
+  where $\hat{s}$ is the internally predicted value of $s$ and
+  $s_{\text{observed}}$ is the value arriving through the sensory port.
+\end{definition}
+
+An agent that minimizes total prediction error $\sum_s |\delta_s|^2$
+over time learns an accurate model of its environment and acts to keep
+sensory states within predicted bounds---the computational analogue of
+active inference.
+
+\begin{mechanic}{Fog of War as Blanket Uncertainty}
+  Fog of war restricts the agent's sensory projection $\pi$ to its
+  explored region. An empire therefore maintains an internal model
+  $\hat{\world}$ of unobserved territory, updated whenever new sensory
+  information arrives through exploration or espionage. The empire's
+  strategic AI minimizes prediction error about enemy positions by
+  sending scouts---\emph{acting to reduce uncertainty}. Scouting is
+  active inference.
+\end{mechanic}
+
+This retroactively unifies the visibility system (Chapter~\ref{ch:fog}),
+diplomatic intelligence (Chapter~\ref{ch:diplomacy}), and exploration
+(Chapter~\ref{ch:fog}) under one inferential framework: all are mechanisms
+for reducing blanket uncertainty.
+
+\section{Interacting Blankets and Collective Inference}
+
+When multiple agents share boundary states---through trade routes,
+treaties, or shared infrastructure---their blankets overlap. This
+creates a \emph{collective blanket structure}.
+
+\begin{definition}[Collective Blanket]
+  A \emph{collective Markov blanket} emerges when $k$ agents share
+  sensory and active states:
+  \[
+    \mathcal{B}_{\mathrm{collective}} = \bigcup_{i=1}^k \mathcal{B}_i
+  \]
+  The collective maintains conditional independence between the
+  collective's internal states and the external world, even when no
+  single agent does so independently.
+\end{definition}
+
+In a 4X world, collective blankets appear naturally:
+
+\begin{center}
+\begin{tabular}{ll}
+  \toprule
+  Collective structure & Blanket mechanism \\
+  \midrule
+  Alliance & Shared intelligence (overlapping $\mathcal{S}$) \\
+  Trade network & Coupled active states ($\mathcal{A}_i \to \mathcal{S}_j$) \\
+  City & Higher-order blanket over district sub-blankets \\
+  Empire & Blanket enclosing all city and unit blankets \\
+  Civilization & Blanket enclosing all empire blankets \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{theorem}[Nested Blankets and Hierarchical Individuation]
+  If bubble $B_1$ is contained within bubble $B_2$, then $B_1$'s blanket
+  is a sub-blanket of $B_2$'s blanket:
+  \[
+    \mathcal{B}_1 \subset \mathcal{B}_2.
+  \]
+  The nested bubble hierarchy
+  $\texttt{District} \subset \texttt{City} \subset \texttt{Empire}
+  \subset \texttt{World}$
+  corresponds to a hierarchy of nested Markov blankets, each enclosing
+  the inferential boundaries of all levels below it.
+\end{theorem}
+\begin{proof}
+  By the lexical scope theorem (Chapter~\ref{ch:nesting}): the sensory
+  and active states of $B_1$ are themselves internal or boundary states
+  of $B_2$. Specifically, $B_1$'s output ports (active states $\mathcal{A}_1$)
+  become inputs to $B_2$'s internal computation---hence members of
+  $\mathcal{I}_2$ or $\mathcal{S}_2 \subseteq \mathcal{B}_2$.
+  $\mathcal{B}_1 \subset \mathcal{B}_2$ follows. $\square$
+\end{proof}
+
+\section{History as Blanket Stabilization}
+
+A civilization that persists across time is not merely a population
+or territory. It is a \emph{recursively stabilized inferential boundary}:
+a blanket that maintains its statistical identity through continuous
+environmental perturbation. This requires the internal model $\hat{\world}$
+to track which aspects of the environment are stable enough to build
+plans upon.
+
+\begin{definition}[Blanket Stability]
+  A blanket $\mathcal{B}$ is \emph{stable at time $t$} if the
+  prediction error across all sensory ports remains below threshold
+  $\theta$ for $\Delta t$ consecutive ticks:
+  \[
+    \forall s \in \mathcal{S},\; |\delta_s(t')| \leq \theta
+    \quad \forall t' \in [t - \Delta t, t].
+  \]
+\end{definition}
+
+The event log (Chapter~\ref{ch:history}) is the civilization's
+compressed history of blanket perturbations: every event is a moment
+when some sensory state exceeded its predicted value, forcing an
+update to the internal model and an active response.
+
+\begin{corollary}[History as Compressed Inference]
+  The event log of a civilization is the sequence of its prediction
+  errors, sorted by magnitude: each logged event is a moment where
+  the world was \emph{more surprising than expected}, and therefore
+  required explicit encoding.
+\end{corollary}
+
+This connects procedural history generation directly to the blanket
+formalism: a good historical narrative records the moments of maximum
+inferential perturbation---battles, famines, discoveries---because these
+are precisely the events at which the civilization's blanket was most
+challenged.
+
+\section{Self as Compression Artifact}
+
+Levin's framework~\cite{Levin} extends the blanket concept to collective
+intelligence: groups of cells form a higher-order self that exhibits
+goal-directed behavior not present in any individual cell. The same
+scale-independence applies to 4X civilizations.
+
+\begin{perspective}
+  The self of a civilization---its identity across time, its sense of
+  continuity through dynastic change, military defeat, and cultural
+  transformation---is a \emph{compression artifact}: a high-level
+  inferential model that summarizes the civilization's event history
+  into a stable narrative.
+
+  This is precisely what the narrative generator (Chapter~\ref{ch:history})
+  produces: not a raw log of events, but a compressed, meaningful
+  summary that the civilization's agents can use for planning. The
+  civilization ``knows'' itself through its compressed history. Identity
+  is not stored in any single tile, city, or unit register---it is
+  encoded in the structure of the event log, the diplomatic reputation
+  matrix, and the technology tree.
+
+  From this perspective, civilization is not a substance. It is a
+  \emph{stabilized inference process}. It persists not because it has
+  a fixed essence but because it continuously reconstructs itself
+  through the same cycle of perception, prediction, action, and
+  update that we have been implementing, layer by layer, since
+  Chapter~1.
+
+  Every bubble is a blanket. Every blanket is a self. Every nested
+  hierarchy of blankets is a civilization.
+\end{perspective}
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[
+  blanket/.style={draw, rounded corners=6pt, thick},
+  label/.style={font=\small, color=spheregray}
+]
+  % Innermost: District
+  \draw[blanket, fill=sphereteal!8, color=sphereteal]
+    (0,0) rectangle (2.2,1.2);
+  \node[label, color=sphereteal] at (1.1,0.6) {District};
+
+  % City
+  \draw[blanket, fill=sphereblue!6, color=sphereblue]
+    (-0.5,-0.5) rectangle (4.0,2.0);
+  \node[label, color=sphereblue] at (3.2,1.7) {City};
+
+  % Empire
+  \draw[blanket, fill=sphereamber!6, color=sphereamber!80!black]
+    (-1.2,-1.1) rectangle (6.0,3.0);
+  \node[label, color=sphereamber!80!black] at (5.1,2.7) {Empire};
+
+  % World
+  \draw[blanket, fill=spherered!4, color=spherered!60]
+    (-2.0,-1.8) rectangle (8.0,4.0);
+  \node[label, color=spherered!70] at (6.8,3.7) {World};
+
+  % Arrows indicating sensory/active ports
+  \draw[-Stealth, sphereteal, thick] (2.2,0.6) -- (4.0,0.6)
+    node[midway, above, font=\tiny]{output};
+  \draw[-Stealth, sphereblue, thick] (-0.5,1.0) -- (0,1.0)
+    node[midway, above, font=\tiny]{input};
+\end{tikzpicture}
+\caption{Nested Markov blankets: District $\subset$ City $\subset$ Empire $\subset$ World. Each level is informationally closed to levels outside its blanket except through declared ports.}
+\label{fig:nested-blankets}
+\end{figure}
+
+\begin{project}{Markov Blanket Instrumentation}
+  \begin{enumerate}
+    \item For each bubble level (district, city, empire), enumerate its
+          declared input ports ($\mathcal{S}$) and output ports ($\mathcal{A}$).
+    \item Implement a \texttt{PredictionErrorTracker}: at each tick,
+          record the prediction error $\delta_s$ for each empire's
+          sensory states (expected vs.\ actual food production, expected
+          vs.\ actual enemy positions).
+    \item Build a \texttt{BlanketStabilityMeter}: an empire is stable
+          if prediction error stays below threshold for 5 consecutive turns.
+    \item Implement \texttt{CollectiveBlanket}: merge two allied empires'
+          sensory states into a shared intelligence pool and measure
+          whether the collective stability exceeds individual stability.
+    \item Correlate prediction error spikes with event log entries:
+          verify that high-prediction-error ticks correspond to logged
+          battles, famines, and diplomatic crises.
+  \end{enumerate}
+\end{project}
+
+
+% ── Chapter 13 ────────────────────────────────────────────────
+\chapter{Technology Trees}
+\label{ch:tech}
+
+\begin{background}
+  A technology is a persistent Boolean predicate: either known or unknown.
+  A technology tree is a directed acyclic graph of such predicates, with
+  edges representing prerequisite dependencies. Researching a technology
+  unlocks new unit types, buildings, and game rules. The technology tree
+  is the most explicit appearance of Boolean implication in the game
+  world.
+\end{background}
+
+\section{Technology as DAG}
+
+\begin{defbox}{Technology DAG}
+  Let $\mathcal{T}$ be a set of technologies and
+  $\text{prereq} \subseteq \mathcal{T} \times \mathcal{T}$ be the
+  prerequisite relation. A technology $T \in \mathcal{T}$ is
+  \emph{available} if:
+  \[
+    \texttt{available}(T) = \bigwedge_{T' : (T', T) \in \text{prereq}}
+    \texttt{known}(T')
+  \]
+  and \emph{completable} if available and sufficient beakers accumulated:
+  \[
+    \texttt{completable}(T) = \texttt{available}(T) \AND
+    (\texttt{beakers\_accum} \geq \texttt{cost}(T))
+  \]
+\end{defbox}
+
+\begin{implementation}
+\begin{lstlisting}[caption={Technology unlock in \Spbox }]
+bubble TechTree {
+    latch known[64]        -- 64 technologies
+    latch beakers[16]      -- accumulated research
+
+    inputs:
+        beaker_income[8],
+        select_tech[6]     -- which tech to research
+
+    output:
+        new_unlock[6]      -- which tech just completed
+
+    -- Accumulate research
+    beakers := Add16(beakers, beaker_income)
+
+    -- Check prerequisites for selected tech
+    let prereqs_met = AND(known[prereq_0(select_tech)],
+                          known[prereq_1(select_tech)])
+
+    let enough_beakers = (beakers >= cost(select_tech))
+
+    when prereqs_met AND enough_beakers do
+        known[select_tech] := 1
+        beakers := beakers - cost(select_tech)
+        new_unlock = select_tech
+    end
+}
+\end{lstlisting}
+\end{implementation}
+
+\begin{project}{Technology System}
+  \begin{enumerate}
+    \item Define a 16-technology tree with 3 eras.
+    \item Implement \texttt{PrereqChecker} for each technology.
+    \item Build \texttt{TechUI}: a text-mode display showing known
+          (K), available (A), and locked (--) technologies.
+    \item Connect to \texttt{ResearchAccumulator} from Chapter~6.
+    \item Simulate: research 5 technologies over 20 turns.
+  \end{enumerate}
+\end{project}
+
+% ── Chapter 14 ────────────────────────────────────────────────
+\chapter{Ecology and Entropy}
+\label{ch:ecology}
+
+\begin{background}
+  A world without ecology is unsustainable. Real civilizations are embedded
+  in natural systems that they both depend on and transform. In computational
+  terms, ecology is a set of coupled differential equations, discretized
+  into update rules. Forests grow. Soils deplete. Climates shift.
+  The ecological layer introduces a new kind of constraint: not the
+  permission logic of politics, but the inexorable accumulation of
+  physical cause.
+\end{background}
+
+\section{Resource Depletion}
+
+\begin{defbox}{Depletion}
+  A resource node at tile $(x,y)$ has stock $R_{xy}(t) \in \mathbb{N}$.
+  Extraction by an improvement reduces stock:
+  \[
+    R_{xy}(t+1) = \max(0,\; R_{xy}(t) - \texttt{extraction\_rate})
+  \]
+  A depleted node ($R_{xy} = 0$) yields nothing until regenerated.
+\end{defbox}
+
+\section{Forest Spread and Deforestation}
+
+\[
+  \texttt{forested}_{xy}(t+1) =
+  \begin{cases}
+    0 & \text{if chopped this turn} \\
+    1 & \text{if } \texttt{forested}(x',y') \text{ for some neighbor} (x',y')
+         \text{ and no city or mine} \\
+    \texttt{forested}_{xy}(t) & \text{otherwise}
+  \end{cases}
+\]
+
+\begin{project}{Ecology System}
+  \begin{enumerate}
+    \item Implement \texttt{ForestSpread} as a cellular automaton rule.
+    \item Build \texttt{DepletionTracker} for a strategic resource.
+    \item Implement \texttt{ClimateLayer}: a simplified model where
+          deforestation reduces rainfall, reducing food yield across
+          a region.
+    \item Run a 30-turn simulation with aggressive resource extraction.
+          Observe ecological collapse and its effects on city food yields.
+  \end{enumerate}
+\end{project}
+
+% ── Chapter 15 ────────────────────────────────────────────────
+\chapter{Procedural History}
+\label{ch:history}
+
+\begin{background}
+  History is the trace of all state transitions. Every land transfer,
+  every battle, every diplomatic agreement, every city founded, every
+  technology discovered is an event. The historical log is not merely a
+  record for display: it is a database that agents query when making
+  decisions. ``What has this empire done to us in the past?'' is a
+  historical query.
+\end{background}
+
+\section{The Event Log}
+
+\begin{defbox}{Event}
+  An \emph{event} $\epsilon$ is a tuple:
+  \[
+    \epsilon = (\text{tick},\; \text{type},\; \text{actor},\;
+    \text{target},\; \text{data})
+  \]
+  Each world tick may generate zero or more events. Events are
+  appended to the log and never modified.
+\end{defbox}
+
+The event log is a \emph{monotonically growing} data structure---the
+only one in the system. All other state can be derived from the initial
+conditions plus the event log. This is the event-sourcing pattern.
+
+\section{Narrative Generation}
+
+A history is not raw events. It is a selection and compression of events
+into a \emph{narrative}. The simplest narrative generator is a rule-based
+template system:
+
+\begin{center}
+\begin{tabular}{ll}
+  \toprule
+  \textbf{Event type}   & \textbf{Template} \\
+  \midrule
+  city\_founded         & ``In turn \texttt{tick}, the \texttt{actor} founded
+                          \texttt{city\_name}.'' \\
+  war\_declared         & ``Turn \texttt{tick}: \texttt{actor} declared war
+                          on \texttt{target}.'' \\
+  technology\_completed & ``\texttt{actor} discovered \texttt{tech} in turn
+                          \texttt{tick}.'' \\
+  city\_captured        & ``\texttt{target} fell to \texttt{actor}'s forces
+                          in turn \texttt{tick}.'' \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{project}{Procedural History}
+  \begin{enumerate}
+    \item Implement the \texttt{EventLog} as an append-only register array.
+    \item Instrument all bubbles built so far to emit events on
+          significant state transitions.
+    \item Build \texttt{HistoryQuery}: given empire ID and event type,
+          return count and most recent occurrence.
+    \item Build \texttt{NarrativeGenerator}: produce a text chronicle
+          from the event log.
+    \item Run a full 50-turn simulation. Print the resulting history.
+  \end{enumerate}
+\end{project}
+
+% ── Chapter 16 ────────────────────────────────────────────────
+\chapter{Persistent Worlds}
+\label{ch:persistent}
+
+\begin{background}
+  We have now built, from Boolean gates upward, every layer of a 4X
+  civilization simulator. This final chapter integrates all components
+  into a single coherent system, discusses persistence across sessions,
+  examines the recursive self-modification that distinguishes sophisticated
+  worlds from simple ones, and reflects on the philosophical arc of the
+  entire project.
+\end{background}
+
+
+\section{The World as a Compositional Dynamical System}
+\label{sec:worldtransition}
+
+Having assembled all components, we can now state precisely what a
+world \emph{is} mathematically: a discrete-time dynamical system whose
+state space $\mathcal{S}$ is the product of all bubble state registers,
+and whose evolution is governed by a single global update operator.
+
+\begin{definition}[Global World Transition Operator]
+  The \emph{world transition operator} is a function
+  \[
+    \Fworld : \mathcal{S} \to \mathcal{S}
+  \]
+  mapping the world state at tick $t$ to the world state at tick $t+1$:
+  \[
+    \world_{t+1} = \Fworld(\world_t).
+  \]
+\end{definition}
+
+The operator $\Fworld$ is not monolithic. It decomposes into a composition
+of domain-specific sub-operators applied in a defined sequence:
+
+\begin{definition}[Compositional Update Order]
+  \[
+    \Fworld =
+    \Fdip \circ \Fcombat \circ \Fecon \circ \Fagent \circ \Feco
+  \]
+  where:
+  \begin{itemize}
+    \item $\Feco$ updates ecological fields (forest spread, depletion, climate),
+    \item $\Fagent$ updates all agent state machines (movement, production, perception),
+    \item $\Fecon$ updates economies (resource accumulation, trade, research),
+    \item $\Fcombat$ resolves all combat (damage, capture, unit removal),
+    \item $\Fdip$ updates diplomatic state (treaty timers, trust decay, proposals).
+  \end{itemize}
+\end{definition}
+
+\begin{observation}
+  The composition order is not arbitrary. Combat must follow agent movement
+  (units cannot fight before they move). Economy must follow agents
+  (production depends on current unit positions). Diplomacy follows combat
+  (war declarations and peace proposals depend on the tick's battle results).
+  The world is a \emph{sequentially composed} dynamical system.
+\end{observation}
+
+\begin{theorem}[Non-Commutativity of World Updates]
+  In general, $\Fcombat \circ \Fagent \neq \Fagent \circ \Fcombat$.
+\end{theorem}
+\begin{proof}
+  Let agent $A$ be adjacent to agent $B$'s city at tick $t$.
+  Under $\Fagent \circ \Fcombat$: combat fires first (no movement has
+  occurred), so $A$ attacks from its current position. Under
+  $\Fcombat \circ \Fagent$: $A$ moves first, possibly reaching the city
+  and attacking from inside its walls. These produce different outcomes.
+  $\square$
+\end{proof}
+
+This non-commutativity is not a bug: it encodes the \emph{rules of engagement}
+of the world. Changing the update order changes which civilization laws hold.
+A world where diplomacy is resolved before combat produces different strategic
+equilibria than one where combat precedes diplomacy.
+
+\begin{mechanic}{Race Conditions as World Events}
+  When two empires simultaneously attempt mutually exclusive actions
+  (two settlers claiming the same tile, two armies attacking the same city),
+  the world must define a \emph{priority function} over simultaneous events.
+  The standard resolution: lower empire ID wins ties. This is an arbitrary
+  but deterministic convention---essential for replay integrity.
+\end{mechanic}
+
+\section{The Full World Bubble}
+
+\begin{construction}[The Computational World]
+  The complete $\world$ bubble contains, in order of construction:
+  \begin{enumerate}
+    \item \texttt{WorldMap}: $n \times n$ array of \texttt{TileState} bubbles
+    \item \texttt{FogSystem}: visibility and exploration tracking
+    \item \texttt{EcologyLayer}: forest, depletion, climate
+    \item \texttt{EmpireArray}: up to $k$ empire state bubbles, each containing:
+      \begin{itemize}
+        \item \texttt{CityArray}: up to $m$ city bubbles
+        \item \texttt{UnitArray}: up to $p$ unit agent bubbles
+        \item \texttt{Treasury}: gold and resource ledger
+        \item \texttt{TechTree}: technology state
+        \item \texttt{DiplomacyModule}: treaty and trust state
+      \end{itemize}
+    \item \texttt{EventLog}: append-only history
+    \item \texttt{TurnManager}: synchronizes updates across all components
+  \end{enumerate}
+\end{construction}
+
+\section{The Abstraction Ladder}
+
+The full ascent of the book:
+\begin{align*}
+  &\text{Signals} \\
+  &\quad\to \text{Logic Gates (NAND, AND, OR, NOT, XOR, MUX)} \\
+  &\quad\to \text{Arithmetic (half adder, full adder, ALU)} \\
+  &\quad\to \text{Memory (bit, register, RAM)} \\
+  &\quad\to \text{Sequential State (DFF, latch, counter)} \\
+  &\quad\to \text{Spatial Automata (cellular rules, diffusion)} \\
+  &\quad\to \text{Tiles (terrain, resources, ownership, visibility)} \\
+  &\quad\to \text{Agents (units, cities, empires)} \\
+  &\quad\to \text{Economies (food, production, gold, research)} \\
+  &\quad\to \text{Expansion (settling, border growth)} \\
+  &\quad\to \text{Trade (routes, disruption, logistics)} \\
+  &\quad\to \text{Conflict (combat, capture, war)} \\
+  &\quad\to \text{Diplomacy (treaties, trust, belief)} \\
+  &\quad\to \text{Technology (DAG, prerequisites, unlocks)} \\
+  &\quad\to \text{Ecology (depletion, spread, climate)} \\
+  &\quad\to \text{History (events, queries, narrative)} \\
+  &\quad\to \text{World}
+\end{align*}
+
+\section{Victory Conditions as Global Predicates}
+
+A victory condition is a Boolean predicate over the entire world state:
+
+\begin{align*}
+  \texttt{domination\_victory} &= \text{(one empire controls all cities)} \\
+  \texttt{science\_victory} &= \text{(spaceship launched: technology predicate)} \\
+  \texttt{cultural\_victory} &= \text{(cultural influence dominates all tiles)} \\
+  \texttt{diplomatic\_victory} &= \text{(elected leader by allied empires)}
+\end{align*}
+
+The game ends at the first tick $t^*$ when any victory predicate becomes true.
+
+\section{Worlds That Rewrite Themselves}
+
+The deepest feature of \Sp{} is that bubbles can be created and destroyed
+at runtime. A world simulation can spawn new agent bubbles (settlers
+founding cities), destroy bubbles (units dying), and modify the rule
+structure of existing bubbles (technology unlocking new unit behaviors).
+
+This is not merely parametric variation. It is \emph{structural
+self-modification}: the world's computational architecture changes as the
+world evolves. History does not just accumulate data. It accumulates
+\emph{capabilities}.
+
+\begin{perspective}
+  We began with NAND. We end with history.
+
+  The journey from a single gate to a persistent civilization reveals
+  something important: complexity does not require a rich initial
+  vocabulary. It requires \emph{time} and \emph{iteration}. A world
+  is not built from special ingredients. It is built from the repetition
+  of simple rules across space and time until the interactions become
+  too intricate to trace by hand.
+
+  This is the sense in which a 4X simulation is a philosophical object.
+  It shows us, in miniature, how global properties emerge from local
+  logic. How sovereignty is nothing but a latch that holds. How history
+  is nothing but a trace that accumulates. How civilization is nothing
+  but a very large, very patient state machine.
+
+  \Spbox  makes this visible because it refuses to hide the substrate.
+  Every empire is a bubble. Every treaty is a shared bubble. Every battle
+  is a mutual exclusion race. The world is transparent---and in that
+  transparency, educational.
+\end{perspective}
+
+\begin{project}{The Complete World}
+  \textbf{Final Integration Project.}
+
+  Assemble all components built across Chapters 1--15 into a single
+  \Sp{} world simulation. The world must:
+
+  \begin{enumerate}
+    \item Initialize a $16 \times 16$ map with procedural terrain.
+    \item Spawn 3 empires, each starting with 1 city and 2 units.
+    \item Run for 50 turns, updating all subsystems each tick:
+      \begin{itemize}
+        \item resource accumulation and population growth,
+        \item unit movement (rule-based AI),
+        \item combat resolution,
+        \item diplomatic state,
+        \item technology research,
+        \item ecological update,
+        \item event logging.
+      \end{itemize}
+    \item Check victory conditions each turn.
+    \item Print a full narrative history at game end.
+  \end{enumerate}
+
+  \medskip
+  \noindent\textit{This project is the capstone of the book.
+  A student who completes it has built, from first principles
+  and from logic gates upward, a living computational world.}
+\end{project}
+
+
+% ============================================================
+% PART VI: PERSISTENCE AND EMERGENCE  (chapters 17-18)
+% ============================================================
+
+\part{Persistence and Emergence}
+
+\chapterquote{A world that cannot survive interruption is not a world.
+  It is a performance.
+}{}
+
+% ── Chapter 17 ───────────────────────────────────────────────
+\chapter{Persistence and Save Systems}
+\label{ch:persistence}
+
+\chapterquote{Saving is not a technical afterthought.
+  It is the world's first act of self-description.
+}{}
+
+\begin{background}
+  A world that cannot survive interruption is not a world---it is a
+  performance. Genuine computational worlds must persist across sessions,
+  survive hardware failures, and remain coherent after partial writes.
+  These requirements force us to ask a deep question: what \emph{is}
+  world state, formally, and how can a finite bitstring faithfully encode
+  the entire configuration of a civilization at an arbitrary moment in time?
+
+  Persistence is not merely engineering. It is an ontological commitment.
+  When we serialize a world, we claim that the world \emph{is} its state:
+  that the full causal history of the simulation is captured in the current
+  register contents, event log, and structural layout of bubbles. This
+  chapter examines that claim carefully, constructs a save system that
+  takes it seriously, and identifies precisely which aspects of world state
+  are and are not recoverable from a snapshot.
+\end{background}
+
+\section{What Must Be Saved}
+
+The complete state of a 4X world at tick $t$ consists of several layers,
+not all of which are equally straightforward to serialize.
+
+\begin{definition}[World Snapshot]
+  A \emph{world snapshot} at time $t$ is a tuple
+  \[
+    \Sigma_t = \bigl(\mathcal{M}_t,\; \mathcal{E}_t,\; \mathcal{A}_t,\;
+    \mathcal{L}_t,\; t\bigr)
+  \]
+  where $\mathcal{M}_t$ is the map state (tile array), $\mathcal{E}_t$ is
+  the empire array (all agent states), $\mathcal{A}_t$ is the full event
+  log up to tick $t$, $\mathcal{L}_t$ is the set of active latch values
+  for all sequential bubbles, and $t$ is the current tick counter.
+\end{definition}
+
+The crucial observation is that $\mathcal{M}_t$ and $\mathcal{E}_t$ are
+\emph{redundant} with $\mathcal{A}_0$ (the initial conditions) and the
+complete event log $\mathcal{A}_t$ if the simulation is deterministic.
+In principle, one could save only the initial seed and the event log, then
+replay to reconstruct any later state. In practice, this is prohibitively
+slow for long games; thus real save systems maintain both the current
+state \emph{and} the historical log, trading storage for recovery speed.
+
+\section{Serialization as World Projection}
+
+\begin{definition}[Serialization]
+  A \emph{serialization function} is a map
+  \[
+    \mathrm{ser} : \Sigma \to \{0,1\}^*
+  \]
+  assigning a finite binary string to each world snapshot, together with
+  a left-inverse
+  \[
+    \mathrm{deser} : \{0,1\}^* \to \Sigma \cup \{\bot\}
+  \]
+  satisfying $\mathrm{deser}(\mathrm{ser}(\sigma)) = \sigma$ for all
+  $\sigma \in \Sigma$.
+\end{definition}
+
+\begin{theorem}[Serialization Existence]
+  For any finite world $\world$ with bounded state registers, a
+  serialization function exists and can be constructed by recursive
+  structural traversal of the bubble tree.
+\end{theorem}
+\begin{proof}
+  By structural induction on the bubble hierarchy. The base case is a
+  primitive state register of width $w$: its serialization is the $w$-bit
+  register contents, and deserialization is the identity. For a composite
+  bubble $B$ with children $B_1, \ldots, B_k$, define
+  \[
+    \mathrm{ser}(B) = \mathrm{ser}(B_1) \,\|\, \mathrm{ser}(B_2)
+    \,\|\, \cdots \,\|\, \mathrm{ser}(B_k)
+  \]
+  where $\|$ denotes concatenation. Since the structure of $B$ is fixed
+  (compiled into the simulation code, not stored in state),
+  $\mathrm{deser}$ knows exactly how many bits to allocate to each child,
+  so it can reconstruct each $B_i$ independently and assemble them.
+  By induction, each $\mathrm{deser}(B_i)$ succeeds, so
+  $\mathrm{deser}(B)$ succeeds. The world $\world$ is the root bubble;
+  apply the composite case.
+\end{proof}
+
+\section{Rollback and Replay}
+
+\begin{defbox}{Rollback}
+  A \emph{rollback} to tick $t' < t$ is the operation of deserializing
+  the snapshot $\Sigma_{t'}$, discarding all events with timestamp
+  $> t'$, and resuming execution from $\Sigma_{t'}$.
+\end{defbox}
+
+\begin{mechanic}{Replay Integrity}
+  A simulation supports \emph{replay integrity} if, for any initial
+  snapshot $\Sigma_0$ and event sequence $\mathcal{A}_t$,
+  re-executing $\mathcal{A}_t$ from $\Sigma_0$ produces the same
+  $\Sigma_t$ as the original run. This requires:
+  (1) deterministic bubble evaluation (no hidden randomness outside
+  the event log);
+  (2) complete event capture (every state-modifying action is logged);
+  (3) monotonic time (events are applied in order).
+\end{mechanic}
+
+\begin{implementation}
+\begin{lstlisting}[caption={Snapshot and restore in \Spbox }]
+bubble SaveSystem {
+    inputs:  world_state, command[2]  -- 00=idle 01=save 10=load 11=replay
+
+    latch snapshot[MAX_STATE_BITS]
+    latch event_log[MAX_EVENTS][64]
+    latch log_head[16]
+
+    when command = SAVE do
+        snapshot    := serialize(world_state)
+    end
+
+    when command = LOAD do
+        world_state := deserialize(snapshot)
+        log_head    := snapshot.tick
+    end
+
+    when command = REPLAY do
+        world_state := deserialize(snapshot)
+        let i = 0
+        while i < log_head do
+            world_state := apply(event_log[i], world_state)
+            i = i + 1
+        end
+    end
+}
+\end{lstlisting}
+\end{implementation}
+
+\begin{perspective}
+  The ability to serialize and replay a world reveals something
+  philosophically remarkable: the world is a \emph{function}, not a
+  substance. It has no hidden essences, no unobserved interior that
+  escapes the snapshot. Everything that the world \emph{is} at time $t$
+  is captured in $\Sigma_t$. This is the computational correlate of
+  Hume's bundle theory of identity: the world is nothing over and above
+  the bundle of its current states and their history of production.
+
+  Contrast this with the Aristotelian view, in which substances have
+  natures that transcend their current properties~\cite{Aristotle}.
+  The serializable world has no such nature: it is entirely transparent
+  to its own description.
+\end{perspective}
+
+\begin{project}{Complete Save/Load Architecture}
+  \begin{enumerate}
+    \item Implement \texttt{serialize} and \texttt{deserialize} for the
+          full \texttt{WorldBubble} from Chapter~16.
+    \item Add a \texttt{CheckpointManager} that saves automatically
+          every 10 turns.
+    \item Implement rollback to any prior checkpoint.
+    \item Build a replay viewer: given a saved game, replay and print
+          the event log as a chronicle.
+    \item Verify replay integrity: confirm that replaying from the
+          initial state produces the same final state as the original run.
+  \end{enumerate}
+\end{project}
+
+% ── Chapter 18 ───────────────────────────────────────────────
+\chapter{Emergence}
+\label{ch:emergence}
+
+\chapterquote{More is different.
+}{--- Philip W.\ Anderson}
+
+\begin{background}
+  We have now constructed every layer of the 4X world individually.
+  In this chapter, we step back and study the world as a whole. When
+  the layers interact---when ecology constrains resources, resources
+  constrain population, population drives military production, military
+  production enables expansion, and expansion modifies ecology---new
+  behaviors appear that were not written into any individual bubble.
+  This is emergence: the arising of global patterns from local rules.
+
+  Emergence is not mystical. It is a precise phenomenon with a
+  mathematical definition, and it has a specific relationship to the
+  architecture of \Spbox  that we can state formally. Understanding
+  emergence is the final step before we turn to the philosophical
+  foundations of the Spherepop framework itself.
+\end{background}
+
+\section{Formal Definition of Emergence}
+
+\begin{definition}[Emergent Property]
+  A property $P$ of a world $\world$ is \emph{emergent} with respect to
+  a partition $\{L_1, \ldots, L_k\}$ of $\world$'s bubbles into layers if:
+  (1) $P(\world)$ is true, and
+  (2) $P$ is not expressible as a Boolean combination of properties
+  of any single layer $L_i$ in isolation.
+\end{definition}
+
+The canonical 4X emergent properties are empire formation, economic
+collapse, migration pressure, cultural divergence, power-law city sizes,
+and phase transitions---each arising from the simultaneous interaction
+of multiple layers, none of which produces the phenomenon on its own.
+
+\section{Power Laws and Zipf's Law}
+
+In historical civilizations, city populations obey a power law: if cities
+are ranked by population, the $k$-th city has population approximately
+$P_1 / k$, where $P_1$ is the largest city's population. This is Zipf's Law.
+
+\begin{theorem}[Zipf Emergence Condition]
+  In a 4X world with preferential attachment in trade route formation,
+  the steady-state city population distribution follows a power law
+  with exponent $\alpha \approx 1$.
+\end{theorem}
+\begin{proof}[Proof sketch]
+  Let $C_i(t)$ be the population of city $i$ at tick $t$, and let the
+  growth rate be proportional to trade route degree $d_i(t)$:
+  $C_i(t+1) = C_i(t) + \lambda d_i(t)$.
+  Under preferential attachment, a new trade route connects to city $i$
+  with probability $d_i / \sum_j d_j$. This is the Barab\'{a}si--Albert
+  mechanism, whose steady-state degree distribution is
+  $P(d) \propto d^{-3}$. Since $C \propto d$, the rank distribution
+  satisfies Zipf's Law with exponent 1. $\square$
+\end{proof}
+
+\section{Phase Transitions in Civilization}
+
+\begin{definition}[Civilizational Phase Transition]
+  A \emph{phase transition} in world $\world$ occurs at tick $t^*$ when
+  a global order parameter $\Phi(t)$ undergoes a discontinuous jump:
+  \[
+    \lim_{t \to t^{*-}} \Phi(t) \neq \lim_{t \to t^{*+}} \Phi(t).
+  \]
+\end{definition}
+
+\begin{mechanic}{Percolation and Empire Collapse}
+  Model imperial territory as a graph $G = (V, E)$ where $V$ is the set
+  of owned tiles and $E$ connects adjacent owned tiles. When military
+  defeats remove tiles, connectivity can drop catastrophically at a
+  threshold removal fraction $p_c \approx 0.407$ (the site percolation
+  threshold for a square lattice). Below $p_c$, the empire fragments into
+  independent enclaves---a phase transition from unified to fractured.
+\end{mechanic}
+
+\begin{project}{Emergence Analysis}
+  \begin{enumerate}
+    \item Run 5 complete 100-turn simulations with 4 empires each.
+    \item Plot city population distributions; test fit to power law.
+    \item Measure territorial connectivity of each empire at each turn.
+    \item Identify turns where connectivity drops sharply.
+    \item Record cultural divergence: measure Hamming distance between
+          technology vectors of different empires over time.
+  \end{enumerate}
+\end{project}
+
+% ============================================================
+% PART VII: HISTORY BEFORE STATE
+% ============================================================
+
+\part{History Before State}
+
+\chapterquote{Objects are not primary. Histories are primary.
+}{}
+
+% ── Chapter 19 ───────────────────────────────────────────────
+\chapter{Events Before Objects}
+\label{ch:events}
+
+\chapterquote{The present moment always will have been.
+}{--- after Wittgenstein~\cite{Wittgenstein}}
+
+\begin{background}
+  Most computational systems begin with objects: data structures
+  occupying memory, accessed by name, modified in place. A city is a
+  record. A tile is an array cell. An empire is a struct. This is the
+  \emph{state-centric} view of computation, and it is so natural to
+  programmers that its presuppositions are rarely examined.
+
+  Spherepop begins elsewhere. It takes seriously the observation,
+  developed in process philosophy by Whitehead~\cite{Whitehead} and in
+  the philosophy of events by Kim~\cite{Kim}, that \emph{events are
+  ontologically prior to objects}. A city is not a data structure that
+  occasionally changes. A city is the accumulated history of all events
+  that brought it into being and sustained it: the founding event, the
+  population growth events, the construction events, the siege events.
+  Remove the history and you do not have a city at rest---you have
+  nothing at all. Identity is causal, not structural.
+
+  This chapter constructs the event-sourcing substrate that underlies the
+  Spherepop philosophy, proves its equivalence to the state-based model
+  developed in Chapters~3--5, and then demonstrates why the event model
+  is strictly \emph{richer}: it preserves information that the state model
+  discards.
+\end{background}
+
+\section{The Event-Centric World Model}
+
+\begin{definition}[Event]
+  An \emph{event} is an irreversible world operation. Formally, an event
+  $\varepsilon$ is a morphism
+  \[
+    \varepsilon : X \to X'
+  \]
+  where $X$ and $X'$ are world option spaces (sets of admissible future
+  states), with the constraint that $X' \subseteq X$ (events never expand
+  the option space).
+\end{definition}
+
+\begin{definition}[World History]
+  The \emph{history} of a world from initial configuration $X_0$ is the
+  composite morphism
+  \[
+    H = \varepsilon_n \circ \varepsilon_{n-1} \circ \cdots \circ \varepsilon_1
+    : X_0 \to X_n.
+  \]
+\end{definition}
+
+\section{Event Sourcing as Information Preservation}
+
+\begin{theorem}[Events Preserve More Than State]
+  Distinct histories can produce identical present states, but an event
+  log distinguishes them while a state snapshot does not.
+\end{theorem}
+\begin{proof}
+  Consider two histories on a minimal world with one tile $T$ having
+  ownership register $O \in \{0,1\}$:
+  \begin{align*}
+    \mathcal{L}_1 &= (\texttt{Claim}(T, e_1)) \\
+    \mathcal{L}_2 &= (\texttt{Claim}(T, e_1),\;
+                      \texttt{Release}(T),\; \texttt{Claim}(T, e_1)).
+  \end{align*}
+  Both produce final state $O = 1$. A snapshot contains only $O = 1$;
+  it cannot distinguish $\mathcal{L}_1$ from $\mathcal{L}_2$. But the
+  logs differ: $|\mathcal{L}_1| = 1 \neq 3 = |\mathcal{L}_2|$. The
+  diplomatic consequence (empire $e_1$ has a history of releasing
+  territory) is recoverable from $\mathcal{L}_2$ but from neither
+  snapshot. $\square$
+\end{proof}
+
+\section{Historical Identity}
+
+\begin{definition}[Historical Identity]
+  Two entities $A$ and $B$ are \emph{historically identical} if and only
+  if their event logs are identical:
+  \[
+    A \equiv_H B \;\Longleftrightarrow\; \mathcal{L}(A) = \mathcal{L}(B).
+  \]
+\end{definition}
+
+\begin{corollary}
+  Historical identity is strictly finer than state identity:
+  $A \equiv_H B \Rightarrow \mathrm{state}(A) = \mathrm{state}(B)$,
+  but the converse fails.
+\end{corollary}
+
+\begin{implementation}
+\begin{lstlisting}[caption={Append-only event sourcing in \Spbox }]
+bubble EventSourcedWorld {
+    latch event_log[MAX_EVENTS][128]
+    latch log_head[16]
+
+    bubble QueryOwner {
+        inputs:  x[8], y[8]
+        output:  owner[4]
+
+        let i = log_head
+        owner = 0
+        while i > 0 do
+            i = i - 1
+            if event_log[i].type = CLAIM
+               AND event_log[i].tile_x = x
+               AND event_log[i].tile_y = y then
+                owner = event_log[i].actor
+                i = 0
+            end
+            if event_log[i].type = RELEASE
+               AND event_log[i].tile_x = x
+               AND event_log[i].tile_y = y then
+                owner = 0
+                i = 0
+            end
+        end
+    }
+
+    bubble AppendEvent {
+        inputs:  event[128]
+        when log_head < MAX_EVENTS do
+            event_log[log_head] := event
+            log_head := log_head + 1
+        end
+    }
+}
+\end{lstlisting}
+\end{implementation}
+
+\begin{perspective}
+  The event-sourcing architecture embodies Whitehead's process
+  philosophy~\cite{Whitehead}: the fundamental furniture of the universe
+  consists not of enduring substances but of momentary occasions of
+  experience, each of which inherits and transforms the actual world of
+  its causal ancestors. The append-only log is the formal analogue of
+  Whitehead's creative advance: once an event is written, it cannot be
+  unwritten. The past is immutable; only the future remains open.
+\end{perspective}
+
+\begin{project}{Event-Sourced Tile Ownership}
+  \begin{enumerate}
+    \item Replace all mutable \texttt{owner} registers with an event log.
+    \item Implement \texttt{QueryOwner} by log scan.
+    \item Implement \texttt{QueryHistory}: return all ownership events
+          for a given tile.
+    \item Implement \texttt{TrustFromHistory}: count violated treaties
+          in the log to compute diplomatic trust.
+    \item Design a hybrid cache: register snapshot for speed plus full
+          log for auditability.
+  \end{enumerate}
+\end{project}
+
+% ── Chapter 20 ───────────────────────────────────────────────
+\chapter{Nested Worlds and Bubble Scope}
+\label{ch:nesting}
+
+\chapterquote{A battle exists inside a war.
+  A war exists inside a civilization.
+  A civilization exists inside a planetary history.
+}{}
+
+\begin{background}
+  Computation is fundamentally about scope: what a computation can see,
+  what it can modify, and what is hidden from it. In lambda
+  calculus~\cite{Barendregt}, scope is defined by $\lambda$-abstraction.
+  In \Spbox , scope is defined by \emph{containment}: a bubble's interior
+  is hidden from everything outside its boundary. A bubble boundary is
+  a \emph{distinction}---it separates the world into inside and outside.
+
+  For world simulation, nested scope has immediate strategic significance.
+  A city's internal economy is hidden from the empire's strategic AI,
+  which sees only city outputs. The empire's military strategy is hidden
+  from the world's ecological processes, which see only physical effects.
+  Nested scope is what allows a world to be simultaneously local and
+  global: each bubble is complete in itself and also a component of
+  something larger.
+\end{background}
+
+\section{The Scope Hierarchy}
+
+\begin{definition}[Scope Hierarchy]
+  A \emph{scope hierarchy} is a rooted tree $\mathcal{T} = (N, E, r)$
+  where each node $n \in N$ is a bubble, edges represent containment,
+  and $r$ is the root (the world).
+\end{definition}
+
+\begin{definition}[Lexical Scope in Spherepop]
+  A bubble $B$ has \emph{lexical access} to its own internal registers,
+  the input ports declared by its parent, and any bubble explicitly
+  passed as an argument. $B$ does not have access to the internals of
+  its siblings or ancestors beyond declared ports.
+\end{definition}
+
+\begin{theorem}[Scope Compositionality]
+  In a scope hierarchy $\mathcal{T}$, if each bubble correctly implements
+  its specification independently of all sibling and ancestor internals,
+  then any composite bubble formed by connecting bubbles in $\mathcal{T}$
+  also correctly implements its specification.
+\end{theorem}
+\begin{proof}
+  By structural induction on $\mathcal{T}$. Base case: a leaf
+  (primitive) bubble is correct by assumption. For an interior node $B$
+  with children $B_1, \ldots, B_k$: by the induction hypothesis, each
+  $B_i$ correctly implements its specification. The wiring of $B$
+  connects output ports of some children to input ports of others,
+  respecting interface contracts. Since each $B_i$'s behavior depends
+  only on its declared inputs (by lexical scope) and those inputs are
+  correctly produced (by induction), $B$'s output is correctly
+  determined. $\square$
+\end{proof}
+
+\begin{implementation}
+\begin{lstlisting}[caption={Nested city-district economy}]
+bubble World {
+    bubble Empire {
+        bubble City {
+            bubble District {
+                latch commerce[8]
+                bubble Market {
+                    inputs:  supply[8], demand[8]
+                    output:  price[8]
+                    price = demand / (supply + 1)
+                }
+            }
+            -- City sees district outputs only
+            inputs:   district_output[16]
+            output:   city_gold[8], city_food[8]
+        }
+    }
+}
+\end{lstlisting}
+\end{implementation}
+
+\begin{perspective}
+  Nested scope is the computational realization of Leibniz's monads:
+  each bubble is a ``windowless'' computation that sees the world only
+  through its declared ports. This enforced opacity is the source of
+  modularity. Without scope, every bubble would need to know everything,
+  and the simulation would collapse into a single undifferentiated
+  process. With scope, each layer can be designed, verified, and replaced
+  independently---and the whole can be greater than the sum of its parts.
+\end{perspective}
+
+\begin{project}{Nested Local Economies}
+  \begin{enumerate}
+    \item Implement a three-level hierarchy:
+          \texttt{World} $\supset$ \texttt{Empire} $\supset$
+          \texttt{City} $\supset$ \texttt{District}.
+    \item Each district manages labor allocation among farming, mining,
+          and commerce.
+    \item Cities see only district output totals.
+    \item Empires see only city output totals.
+    \item Implement cross-city trade at the empire level accessing only
+          declared city output ports.
+  \end{enumerate}
+\end{project}
+
+% ── Chapter 21 ───────────────────────────────────────────────
+\chapter{The Pop Operator}
+\label{ch:pop}
+
+\chapterquote{To choose is to exclude. The value of a decision lies precisely
+  in what it forecloses.
+}{}
+
+\begin{background}
+  The name ``Spherepop'' is not decorative. The \emph{pop} is the
+  primitive act of the system: the irreversible commitment that collapses
+  an ambiguous set of futures into a single actualized one. Before a
+  Settler unit settles, a city could arise anywhere. After the settlement
+  event fires, one location is actualized and all others are permanently
+  excluded. The pop is the moment of decision.
+
+  Kierkegaard's ``either/or,'' Sartre's radical freedom, Heidegger's
+  \emph{Entschlossenheit}, and Badiou's event~\cite{Badiou} all circle
+  the same structure: the moment at which the indeterminate becomes
+  determinate, irreversibly. What Spherepop contributes is a precise
+  formal language for this moment, grounded in the mathematics of option
+  spaces and contraction operators.
+
+  The pop is also the moment where games acquire meaning. A game in which
+  no decision is irreversible is a game without stakes. The sense of
+  weight that a well-designed 4X game produces---the feeling that founding
+  this city here, in this moment, with these resources, commits you to a
+  trajectory from which there is no return---is the phenomenological
+  signature of the pop operator.
+\end{background}
+
+\section{Option Spaces and Contraction}
+
+\begin{definition}[Option Space]
+  An \emph{option space} $\Omega$ is a set of admissible future world
+  trajectories. Each element $\omega \in \Omega$ is a maximal consistent
+  extension of the current world state to all future ticks.
+\end{definition}
+
+\begin{definition}[Pop Operator]
+  A \emph{pop} is a function $\mathbf{P}_\varepsilon : \Omega \to \Omega'$
+  associated to an event $\varepsilon$, satisfying:
+  (1)~\textbf{Contraction:} $\Omega' \subseteq \Omega$.
+  (2)~\textbf{Irreversibility:} There is no operator $\mathbf{Q}$ such
+  that $\mathbf{Q} \circ \mathbf{P}_\varepsilon = \mathrm{id}_\Omega$.
+  (3)~\textbf{Commitment:} Every $\omega' \in \Omega'$ is consistent with
+  $\varepsilon$ having occurred.
+\end{definition}
+
+\begin{theorem}[Strict Contraction]
+  If event $\varepsilon$ is non-trivial, then $|\Omega'| < |\Omega|$.
+\end{theorem}
+\begin{proof}
+  Let $\omega^* \in \Omega$ be a trajectory inconsistent with $\varepsilon$
+  (exists by non-triviality). Then $\omega^* \notin \Omega'$ by the
+  commitment condition, so $\Omega' \subseteq \Omega \setminus \{\omega^*\}$,
+  giving $|\Omega'| \leq |\Omega| - 1 < |\Omega|$. $\square$
+\end{proof}
+
+\begin{corollary}[Historical Entropy is Non-Increasing]
+  Define $S(\Omega) = \log_2 |\Omega|$.
+  For any non-trivial pop, $S(\Omega') < S(\Omega)$.
+\end{corollary}
+
+This connects the Spherepop pop to Landauer's principle~\cite{Landauer}:
+every irreversible bit-erasure has a thermodynamic cost.
+
+\begin{implementation}
+\begin{lstlisting}[caption={Pop operator for city settlement}]
+bubble PopSettle {
+    inputs:
+        empire_id[4], tile_x[8], tile_y[8], settler_id[8]
+
+    let allowed = SettlePermission(empire_id, tile_x, tile_y)
+
+    when allowed = 1 do
+        -- 1. Remove settler (irreversible)
+        world.units[settler_id].alive := 0
+        -- 2. Found city (irreversible event)
+        AppendEvent(FOUND_CITY, empire_id, tile_x, tile_y, tick)
+        -- 3. Claim tile (irreversible)
+        AppendEvent(CLAIM, empire_id, tile_x, tile_y, tick)
+    end
+}
+\end{lstlisting}
+\end{implementation}
+
+\begin{perspective}
+  The pop operator formalizes what game designers call ``meaningful
+  choice.'' A choice is meaningful precisely when it irreversibly
+  constrains the future. Games without irreversible decisions---where
+  every action can be undone by the save/load cycle---have lower
+  strategic depth not because they lack complexity but because they lack
+  \emph{commitment}. The pop is the computational measure of decisional
+  weight. Badiou~\cite{Badiou} argues that an event is precisely that
+  which ruptures the existing order and forces a new fidelity. The
+  settlement pop is a miniature Badiousian event.
+\end{perspective}
+
+\begin{project}{Irreversible Settlement System}
+  \begin{enumerate}
+    \item Implement the full \texttt{PopSettle} bubble with precondition
+          checking and event logging.
+    \item Build a \texttt{PopDeclareWar} bubble that excludes all
+          trajectories of peaceful coexistence with the target.
+    \item Build a \texttt{PopChooseTech}: committing research to one
+          technology temporarily forecloses alternatives.
+    \item Measure the option space reduction (entropy decrease) for each
+          pop type by counting reachable states before and after.
+  \end{enumerate}
+\end{project}
+
+% ── Chapter 22 ───────────────────────────────────────────────
+\chapter{Merge and Collapse}
+\label{ch:merge}
+
+\begin{background}
+  If the pop contracts an option space by committing to a specific event,
+  \emph{merge} operates on entities within the world: combining two
+  structures into one, collapsing distinctions that were previously
+  maintained. Empires merge territories. Cultures merge vocabularies.
+  Trade networks merge into single markets. These are not additions;
+  they are \emph{compressions}---operations that identify previously
+  distinct entities and represent their union as a single canonical form.
+
+  The literature on Conflict-free Replicated Data Types (CRDTs)
+  in computer science~\cite{Meijer} formalizes this idea: a data
+  structure supports merge if it forms a join-semilattice. Spherepop's
+  merge operator inherits this structure and extends it to the richer
+  domain of world entities.
+\end{background}
+
+\section{The Merge Semilattice}
+
+\begin{definition}[Merge Semilattice]
+  A set $\mathcal{R}$ with binary operator $\mu$ is a
+  \emph{merge semilattice} if $\mu$ is commutative, associative,
+  and idempotent.
+\end{definition}
+
+\begin{theorem}[Territory Merge is a Semilattice]
+  Let $\mathcal{R} = \mathcal{P}(\text{Tiles})$ with $\mu(A,B) = A \cup B$.
+  Then $(\mathcal{R}, \mu)$ is a merge semilattice.
+\end{theorem}
+\begin{proof}
+  Set union is commutative ($A \cup B = B \cup A$), associative
+  ($(A \cup B) \cup C = A \cup (B \cup C)$), and idempotent
+  ($A \cup A = A$). $\square$
+\end{proof}
+
+\section{Collapse and Canonicalization}
+
+\begin{definition}[Collapse Operator]
+  A \emph{collapse operator} $\kappa : \mathcal{R} \to \widehat{\mathcal{R}}$
+  maps each entity to its canonical representative, satisfying:
+  \[
+    \kappa(\mu(A,B)) = \kappa(\mu(\kappa(A), \kappa(B))).
+  \]
+\end{definition}
+
+\begin{example}[Cultural Assimilation]
+  Empire $e_1$ has culture set $C_1 = \{\text{Latin}, \text{Greek}\}$
+  and empire $e_2$ has $C_2 = \{\text{Greek}, \text{Aramaic}\}$.
+  Cultural merge: $C_{\mathrm{merged}} = \{\text{Latin}, \text{Greek},
+  \text{Aramaic}\}$. Collapse: $\kappa$ selects the dominant culture
+  (highest population weight), producing a canonical representative.
+\end{example}
+
+\begin{project}{Cultural Assimilation Mechanics}
+  \begin{enumerate}
+    \item Define culture as a Boolean vector over 16 cultural traits.
+    \item Implement \texttt{CultureMerge} as set union on trait vectors.
+    \item Implement \texttt{CultureCollapse}: return dominant culture.
+    \item Build \texttt{AssimilationPressure}: tiles within a cultural
+          sphere gradually adopt dominant traits.
+    \item Simulate two civilizations meeting and assimilating over 30 turns.
+  \end{enumerate}
+\end{project}
+
+% ── Chapter 23 ───────────────────────────────────────────────
+\chapter{History as Identity}
+\label{ch:histident}
+
+\begin{background}
+  In Chapter~19, we established that events are ontologically prior to
+  objects. In Chapter~21, we showed that events irreversibly constrain
+  the future. Now we draw out the identity-theoretic consequences: if
+  what an entity \emph{is} is its history, then two entities are the same
+  only if they share the same history. This is a radical thesis---far
+  stronger than extensional identity (same current properties) or modal
+  identity (same counterfactual profile). But it is the thesis that
+  Spherepop's event-sourcing architecture implicitly commits to, and it
+  has significant consequences for persistence, replication, and memory
+  in simulations.
+\end{background}
+
+\section{Provenance and Lineage}
+
+\begin{definition}[Provenance]
+  The \emph{provenance} of entity $A$ at time $t$ is the ordered sequence
+  of all events that produced $A$:
+  \[
+    \mathrm{prov}(A, t) = (\varepsilon_1^A, \varepsilon_2^A, \ldots,
+    \varepsilon_{n(t)}^A).
+  \]
+\end{definition}
+
+\begin{theorem}[Provenance Determines State]
+  In a deterministic simulation, $\mathrm{prov}(A,t)$ together with the
+  initial conditions $X_0$ uniquely determines $\mathrm{state}(A,t)$.
+\end{theorem}
+\begin{proof}
+  By induction on $n(t)$. Base case $n(t) = 0$: state equals $A$'s
+  initial state, determined by $X_0$. Inductive step: by hypothesis
+  $\mathrm{prov}(A,t')$ determines $\mathrm{state}(A,t')$ for the tick
+  $t'$ preceding event $\varepsilon_{k+1}^A$, and the deterministic
+  transition function $\delta$ maps
+  $(\mathrm{state}(A,t'), \varepsilon_{k+1}^A)$ to $\mathrm{state}(A,t)$.
+  $\square$
+\end{proof}
+
+\begin{implementation}
+\begin{lstlisting}[caption={Timeline reconstruction}]
+bubble TimelineReconstructor {
+    inputs:  entity_id[8], target_tick[16]
+    output:  reconstructed_state[512]
+
+    let state = initial_state(entity_id)
+    let i = 0
+    while i < global_log_head do
+        if event_log[i].actor = entity_id
+           OR event_log[i].target = entity_id then
+            if event_log[i].tick <= target_tick then
+                state = apply_event(state, event_log[i])
+            end
+        end
+        i = i + 1
+    end
+    reconstructed_state = state
+}
+\end{lstlisting}
+\end{implementation}
+
+\begin{project}{Historical Replay and Timeline Reconstruction}
+  \begin{enumerate}
+    \item Implement \texttt{TimelineReconstructor} for cities.
+    \item Build a \texttt{CityBiography}: given a city ID, produce a
+          human-readable chronicle of all events in the city's history.
+    \item Implement lineage tracking: captured and refounded cities
+          inherit the old city's event log as a prefix.
+    \item Build a divergence metric: compute the tick at which two
+          empires first diverged and the Hamming distance between
+          their current technology and culture vectors.
+  \end{enumerate}
+\end{project}
+
+% ============================================================
+% PART VIII: GEOMETRIC COMPUTATION
+% ============================================================
+
+\part{Geometric Computation}
+
+\chapterquote{Space is not a container. It is a constraint structure.
+}{}
+
+% ── Chapter 24 ───────────────────────────────────────────────
+\chapter{Geometry as Computation}
+\label{ch:geometry}
+
+\begin{background}
+  Throughout this book, geometry has appeared implicitly: in tile
+  adjacency, vision radii, path-checking of trade routes, and
+  percolation thresholds of territorial connectivity. We now make
+  geometry explicit. The spatial structure of the world is not merely
+  a rendering concern---it is a computational structure that determines
+  what operations are possible, what their costs are, and what emergent
+  patterns can arise.
+
+  In the Spherepop framework, geometry is understood as a
+  \emph{constraint structure on option spaces}. Mountains are not merely
+  visually distinct from plains---they constrain movement, visibility,
+  and resource extraction in ways that structurally shape the space of
+  possible histories.
+\end{background}
+
+\section{Tile Graphs and Spatial Topology}
+
+\begin{definition}[Tile Graph]
+  The \emph{tile graph} of a world is the undirected graph $G = (V, E)$
+  where $V$ is the set of passable tiles and $(u, v) \in E$ iff $u$ and
+  $v$ are adjacent.
+\end{definition}
+
+\begin{theorem}[Connectivity and Reachability]
+  A unit at position $u$ can reach position $v$ in at most $k$ turns
+  (with movement cost 1 per tile) if and only if the graph distance
+  $d_G(u, v) \leq k$.
+\end{theorem}
+\begin{proof}
+  The unit's reachable set after $k$ turns is exactly the ball of
+  radius $k$ in the tile graph: $B_k(u) = \{v : d_G(u,v) \leq k\}$.
+  This follows from BFS on $G$. $\square$
+\end{proof}
+
+\section{Region-Based Territorial Reasoning}
+
+\begin{defbox}{Territorial Compactness}
+  The \emph{compactness} of a territory $T$ is
+  \[
+    \mathrm{compact}(T) = \frac{|V(T)|^2}{|E(T)|}.
+  \]
+  High compactness means short internal travel distances; low compactness
+  means a fragile, extended territory.
+\end{defbox}
+
+\begin{project}{Region-Based Territorial Reasoning}
+  \begin{enumerate}
+    \item Implement \texttt{ConnectedComponents} for each empire.
+    \item Implement \texttt{Compactness} per turn.
+    \item Build \texttt{CutVertexDetector}: tiles whose removal
+          disconnects an empire's territory.
+    \item Visualize compactness and connectivity over a 50-turn simulation.
+  \end{enumerate}
+\end{project}
+
+% ── Chapter 25 ───────────────────────────────────────────────
+\chapter{Optionality and Entropy}
+\label{ch:optionality}
+
+\begin{background}
+  Chapter~21 introduced the pop as a contraction of the option space.
+  Now we develop optionality as a \emph{positive} quantity---a measure
+  of a civilization's strategic power. A civilization with high
+  optionality has many accessible futures; one with low optionality
+  is locked in. This connects Spherepop to the theory of real options
+  in economics and to Shannon's information theory~\cite{Shannon}: the
+  same formula measures uncertainty in all contexts.
+\end{background}
+
+\section{The Optionality Field}
+
+\begin{definition}[Optionality]
+  The \emph{optionality} of civilization $C$ at tick $t$ is
+  \[
+    \Phi_C(t) = \log_2 |\mathcal{T}_C(t)|
+  \]
+  where $\mathcal{T}_C(t)$ is the set of all trajectories consistent
+  with $C$'s event history up to $t$.
+\end{definition}
+
+In practice we decompose this into domain-specific components:
+
+\begin{definition}[Accessibility Field]
+  \[
+    \Phi_C(t) = \sum_{d} w_d \log_2 A_d(t)
+  \]
+  where $A_d(t)$ counts accessible actions in domain $d$ (military,
+  economic, scientific, ecological, diplomatic) and $w_d$ are weights.
+\end{definition}
+
+\begin{theorem}[Civilizational Collapse Criterion]
+  A civilizational collapse occurs at tick $t^*$ if
+  $\frac{d}{dt}\Phi_C\big|_{t=t^*} < -\theta$ for some threshold
+  $\theta > 0$, sustained over a window $\Delta t$: rapid, sustained
+  loss of accessible futures.
+\end{theorem}
+\begin{proof}[Derivation]
+  The discrete derivative $\Delta\Phi_C(t) = \Phi_C(t+1) - \Phi_C(t)$
+  captures per-turn change. Collapse is the regime where adverse
+  events dominate: the civilization loses more future options per turn
+  than it gains. The threshold $\theta$ calibrates severity; $\Delta t$
+  prevents classifying temporary setbacks as collapses. $\square$
+\end{proof}
+
+\begin{project}{Optionality Metrics for AI Decision-Making}
+  \begin{enumerate}
+    \item Implement \texttt{OptionalityMeter} for all four empires.
+    \item Record optionality at each turn over a 50-turn simulation.
+    \item Build a \texttt{MaxOptionalityAI}: select actions that
+          maximize $\Phi$ at the next tick.
+    \item Compare against a greedy resource-maximizing AI over 20 runs.
+    \item Identify how far in advance $\Phi$ begins declining before
+          elimination.
+  \end{enumerate}
+\end{project}
+
+% ── Chapter 26 ───────────────────────────────────────────────
+\chapter{Trajectory Collapse}
+\label{ch:trajcollapse}
+
+\begin{background}
+  The previous chapter measured optionality as a scalar. This chapter
+  develops the geometric structure of trajectory space: how ambiguous
+  futures form a probability simplex, how strategic uncertainty is
+  distributed over it, and how the pop operator effects a geometric
+  collapse. This connects Spherepop to Bayesian inference and Shannon
+  entropy~\cite{Shannon}: the same formula---
+  $H = -\sum p_i \log p_i$---measures uncertainty in all three contexts.
+\end{background}
+
+\section{Hypothesis Manifolds}
+
+\begin{definition}[Trajectory Entropy]
+  Given scenarios $\mathcal{H} = \{h_1, \ldots, h_n\}$ with probabilities
+  $p_i$, the \emph{trajectory entropy} is:
+  \[
+    H_t = -\sum_{i=1}^n p_i \log_2 p_i.
+  \]
+\end{definition}
+
+\begin{theorem}[Pop Reduces Trajectory Entropy]
+  For any non-trivial pop eliminating scenario $h_k$:
+  \[
+    H_{t+1} \leq H_t
+  \]
+  with equality iff $p_k = 0$.
+\end{theorem}
+\begin{proof}
+  Let $p' = (p_1', \ldots, p_n')$ be the post-pop distribution:
+  $p_k' = 0$ and $p_i' = p_i/(1-p_k)$ for $i \neq k$.
+  By the data-processing inequality, eliminating an outcome and
+  renormalizing never increases entropy: $H' \leq H$. Equality holds
+  iff $p_k = 0$ (the pop changes nothing). $\square$
+\end{proof}
+
+\begin{project}{Branching Historical Simulations}
+  \begin{enumerate}
+    \item Implement a \texttt{BranchingSimulator}: at decision points,
+          run $k$ parallel branches with different choices.
+    \item Measure trajectory entropy at each branch point.
+    \item Build a \texttt{ScenariosDatabase}: store and compare final
+          states of all branches.
+    \item Visualize the branching tree annotated with entropy at each node.
+    \item Identify which decisions cause the largest entropy reduction.
+  \end{enumerate}
+\end{project}
+
+% ============================================================
+% PART IX: CATEGORY THEORY AND WORLD CONSTRUCTION
+% ============================================================
+
+\part{Category Theory and World Construction}
+
+\chapterquote{A morphism is not a transformation of objects.
+  It is a relationship that composes.
+}{--- after Mac Lane~\cite{MacLane}}
+
+% ── Chapter 27 ───────────────────────────────────────────────
+\chapter{Morphisms and Historical Worlds}
+\label{ch:morphisms}
+
+\begin{background}
+  Category theory~\cite{MacLane} is the mathematics of structured
+  composition. It asks not ``what is this thing?'' but ``how does this
+  thing relate to other things of the same kind?'' For world simulation,
+  we want to understand transformations between worlds---how a world at
+  tick $t$ relates to the world at tick $t+1$, how one empire's history
+  relates to another's, how a local economy relates to the global one.
+
+  In this chapter, we construct the category $\mathbf{Hist}$ whose
+  objects are option spaces and whose morphisms are events. We show that
+  historical composition is categorical composition, derive consequences
+  for victory conditions and technology trees, and explore the connection
+  to Girard's linear logic~\cite{Girard}---a logic where resources are
+  consumed rather than duplicated, mirroring the irreversibility of
+  in-game actions.
+\end{background}
+
+\section{The History Category}
+
+\begin{definition}[The Category $\mathbf{Hist}$]
+  $\mathbf{Hist}$ has option spaces as objects; morphisms
+  $\mathrm{Hom}(\Omega_i, \Omega_j)$ are events
+  $\varepsilon : \Omega_i \to \Omega_j$; composition is sequential
+  occurrence; identity is the null event.
+\end{definition}
+
+\begin{theorem}[$\mathbf{Hist}$ is a Category]
+  The structure $\mathbf{Hist}$ satisfies the category axioms.
+\end{theorem}
+\begin{proof}
+  \textit{Identity:} $\varepsilon \circ \mathrm{id}_{\Omega_0} = \varepsilon$
+  and $\mathrm{id}_{\Omega_1} \circ \varepsilon = \varepsilon$ because
+  the null event leaves the option space unchanged.
+  \textit{Associativity:} Both $(\varepsilon_3 \circ \varepsilon_2)
+  \circ \varepsilon_1$ and $\varepsilon_3 \circ (\varepsilon_2 \circ
+  \varepsilon_1)$ apply events in order $\varepsilon_1, \varepsilon_2,
+  \varepsilon_3$; sequential composition is associative. $\square$
+\end{proof}
+
+\begin{theorem}[Victory Condition as Natural Transformation]
+  A monotone victory condition $V$ is a natural transformation
+  $V : F \Rightarrow \mathbf{2}$ from the state functor to the constant
+  functor on $\{0,1\}$.
+\end{theorem}
+\begin{proof}[Proof sketch]
+  At each option space $\Omega$, $V_\Omega : F(\Omega) \to \{0,1\}$
+  evaluates the victory predicate. Naturality (once true, stays true)
+  requires $V_{\Omega'} \circ F(\varepsilon) = V_\Omega$ for all
+  events $\varepsilon$. This holds when victory is terminal---precisely
+  the design criterion for valid victory conditions. $\square$
+\end{proof}
+
+\begin{remark}[Connection to Linear Logic]
+  Girard's linear logic~\cite{Girard} treats propositions as resources
+  that are consumed in inference. The linear implication $A \multimap B$
+  means ``given $A$, produce $B$, consuming $A$.'' This mirrors
+  Spherepop events exactly: an event $\varepsilon : \Omega \to \Omega'$
+  \emph{consumes} option space $\Omega$ (it can never happen again in
+  the same form) and produces $\Omega'$. The pop operator is a linear
+  implication. The technology tree is a derivation in linear logic.
+\end{remark}
+
+\begin{project}{Compositional World Transformations}
+  \begin{enumerate}
+    \item Implement the event composition operator
+          $\varepsilon_2 \circ \varepsilon_1$ for pairs of world events.
+    \item Verify associativity: confirm that three events applied in any
+          associative grouping produce the same world state.
+    \item Build a \texttt{VictoryChecker} and verify naturality
+          (once true, stays true).
+    \item Implement a \texttt{HistoryFunctor}: given an event log,
+          compute the sequence of world states it produces.
+  \end{enumerate}
+\end{project}
+
+% ── Chapter 28 ───────────────────────────────────────────────
+\chapter{Sheaves and Local Coherence}
+\label{ch:sheaves}
+
+\begin{background}
+  The world is large and agents within it are local. Each empire knows
+  its territory and the rest poorly. Each city manages its own economy.
+  Each unit sees only its vision radius. Yet the world must be globally
+  coherent. The mathematical structure that captures this tension is a
+  \emph{sheaf}~\cite{Spivak}: it assigns to each region an information
+  structure such that sections on overlapping regions are consistent.
+  Two overlapping regions produce the same information on their overlap.
+  This is the mathematical model of distributed knowledge with
+  local-global coherence.
+\end{background}
+
+\section{The Information Sheaf}
+
+\begin{definition}[Information Sheaf]
+  An \emph{information sheaf} $\mathcal{F}$ assigns to each region $U$
+  a set $\mathcal{F}(U)$ of local sections (information knowable within $U$),
+  and to each inclusion $V \subseteq U$ a restriction map
+  $\rho_{UV} : \mathcal{F}(U) \to \mathcal{F}(V)$, satisfying:
+  (1)~\textbf{Locality:} sections that agree on all cover elements are equal;
+  (2)~\textbf{Gluing:} compatible local sections assemble into a unique
+  global section.
+\end{definition}
+
+\begin{theorem}[Gluing Lemma as World Coherence]
+  In a 4X world where each empire maintains local information, consistent
+  local information can be assembled into a globally coherent world state
+  if and only if the information structure forms a sheaf.
+\end{theorem}
+\begin{proof}
+  The gluing axiom is precisely the condition needed: each empire's local
+  information is internally consistent and agrees on shared borders.
+  The gluing lemma provides a unique global section---a globally coherent
+  world state---restricting to each empire's local information.
+  Locality guarantees uniqueness. $\square$
+\end{proof}
+
+\begin{project}{Distributed AI Information Systems}
+  \begin{enumerate}
+    \item Implement a model where each empire stores state only for
+          tiles in its explored region.
+    \item Implement \texttt{BorderNegotiation}: reconcile conflicting
+          information about border tiles between two empires.
+    \item Implement \texttt{IntelligenceFusion}: combine spy reports
+          to produce a coherent estimated world state.
+    \item Build a \texttt{GlobalStateReconstructor}: assemble the full
+          world state from all empires' local information.
+  \end{enumerate}
+\end{project}
+
+% ── Chapter 29 ───────────────────────────────────────────────
+\chapter{Semantic Infrastructure}
+\label{ch:semantic}
+
+\begin{background}
+  The world simulation has become a \emph{semantic operating system}:
+  a system in which the meaning of entities is determined by their
+  relationships and histories, not by intrinsic properties. A city is
+  meaningful not because of its data structure but because of its trade
+  relationships, cultural influence, military history, and position in
+  the civilization's narrative.
+
+  This chapter makes the parallel explicit between Spherepop's event
+  infrastructure and the event-sourced architectures of distributed
+  computer systems: Git version control, Apache Kafka, distributed
+  ledgers~\cite{Meijer,MeijerDuality}. Each solves the same fundamental
+  problem: how to maintain coherent state across multiple participants
+  who share a history but operate locally. The solution is always the
+  same as in Spherepop: an append-only event log with defined merge and
+  replay semantics.
+\end{background}
+
+\section{World Simulation as Distributed System}
+
+\begin{definition}[Semantic Infrastructure]
+  A \emph{semantic infrastructure} for world $\world$ is
+  $\mathcal{SI} = (\mathcal{L}, \mathcal{R}, \mathcal{M}, \mathcal{A})$
+  where $\mathcal{L}$ is the append-only event log, $\mathcal{R}$ is
+  the replay function, $\mathcal{M}$ is the merge function, and
+  $\mathcal{A}$ is the authority protocol for conflict resolution.
+\end{definition}
+
+\begin{theorem}[Semantic Infrastructure Completeness]
+  A semantic infrastructure $\mathcal{SI}$ is \emph{complete} if for
+  any two logs $\mathcal{L}_1, \mathcal{L}_2$ consistent with a common
+  prefix $\mathcal{L}_0$, $\mathcal{M}(\mathcal{L}_1, \mathcal{L}_2)$
+  is well-defined and contains $\mathcal{L}_0$ as a prefix.
+\end{theorem}
+\begin{proof}
+  $\mathcal{M}(\mathcal{L}_1, \mathcal{L}_2)$ is defined as the
+  interleaving of suffix events $\mathcal{L}_1 \setminus \mathcal{L}_0$
+  and $\mathcal{L}_2 \setminus \mathcal{L}_0$, with conflicts resolved
+  by $\mathcal{A}$. The result contains $\mathcal{L}_0$ as a prefix
+  by construction. $\square$
+\end{proof}
+
+\begin{project}{Replayable Multiplayer World Architecture}
+  \begin{enumerate}
+    \item Implement a split-log architecture: each empire maintains its
+          own local event log, synchronized with the global log each turn.
+    \item Implement \texttt{LogMerge}: reconcile two empires' logs
+          after simultaneous play.
+    \item Implement the authority protocol: conflicts resolved by
+          timestamp, then empire ID.
+    \item Test coherence: two simultaneously-acting empires' logs merge
+          into a consistent world state.
+  \end{enumerate}
+\end{project}
+
+% ============================================================
+% PART X: THE PHILOSOPHY OF COMPUTATIONAL WORLDS
+% ============================================================
+
+\part{The Philosophy of Computational Worlds}
+
+\chapterquote{The limits of my language mean the limits of my world.
+}{--- Wittgenstein~\cite{Wittgenstein}}
+
+% ── Chapter 30 ───────────────────────────────────────────────
+\chapter{Meaning as Use}
+\label{ch:meaning}
+
+\begin{background}
+  Wittgenstein's later philosophy~\cite{Wittgenstein} proposes that the
+  meaning of a word is its use in a language game---a structured social
+  practice with rules, moves, and purposes. To understand ``castle''
+  in chess, you do not need a theory of reference: you need to know
+  how the castle moves. To understand ``city'' in a 4X game, you need
+  to know what cities produce, what they cost, and how they interact
+  with other entities.
+
+  This chapter applies the Wittgensteinian framework to 4X world
+  simulation. The meaning of in-game entities is constituted by the rule
+  systems that govern them. Cultural evolution in the simulation is the
+  evolution of language games. The diversity of civilizations corresponds
+  to the diversity of mutually intelligible but distinct language games.
+  A well-designed 4X world does not merely represent a civilization:
+  it instantiates a form of life.
+\end{background}
+
+\section{Game Rules as Semantic Axioms}
+
+\begin{definition}[Language Game]
+  A \emph{language game} $\mathcal{G} = (\mathcal{M}, \mathcal{R},
+  \mathcal{P})$ consists of moves $\mathcal{M}$, rules $\mathcal{R}$
+  (constraints on legal move sequences), and purposes $\mathcal{P}$
+  (goals that make sequences meaningful).
+\end{definition}
+
+\begin{proposition}[Game Rules as Semantics]
+  The meaning of an in-game entity $E$ is the set of rules that govern
+  $E$'s interactions: how it is produced, consumed, transformed, and
+  used. Change the rules and you change the meaning, even if the data
+  structure is identical.
+\end{proposition}
+
+\begin{mechanic}{Cultural Semantic Drift}
+  As civilizations diverge in technology and diplomacy, their rule
+  systems diverge. Two civilizations that cannot trade, communicate, or
+  convert each other occupy different language games: they have lost the
+  shared practices that would make mutual understanding possible.
+  This is Wittgenstein's remark operationalized: ``If a lion could talk,
+  we could not understand him.''
+\end{mechanic}
+
+\begin{project}{Cultural Semantics in Diplomacy}
+  \begin{enumerate}
+    \item Implement \texttt{DiplomaticIntelligibility} as a function of
+          shared technologies, cultural traits, and religion.
+    \item Build a rule that proposals require minimum intelligibility
+          to be parseable by the target empire.
+    \item Implement a \texttt{CulturalMissionary} unit that spreads
+          traits, increasing intelligibility.
+    \item Simulate two isolated civilizations developing for 40 turns
+          then making first contact. Measure the intelligibility gap.
+  \end{enumerate}
+\end{project}
+
+% ── Chapter 31 ───────────────────────────────────────────────
+\chapter{Civilization as Computation}
+\label{ch:civcomp}
+
+\begin{background}
+  We have arrived at the final synthesis. The entire book has been
+  building toward a single claim: that a civilization is a computation.
+  Not merely that a civilization can be \emph{modeled} by a
+  computation---that is the weak claim of simulation---but that
+  civilization \emph{is}, in its essential structure, a distributed
+  information-processing system: a Turing-complete process that takes
+  environmental inputs, maintains internal state, and produces outputs
+  that modify its environment.
+
+  This claim has a precise meaning and a precise proof. We will show
+  that the 4X world simulation implemented in this book is Turing-complete,
+  and therefore that civilization---the system it models---shares that
+  property. The philosophical consequence is that civilization and
+  computation are not analogous: they are the same thing at different
+  scales of description, connected by the abstraction ladder we have
+  climbed throughout this book.
+\end{background}
+
+\section{The Civilization as a Turing Machine}
+
+\begin{theorem}[Civilization is Turing-Complete]
+  The 4X world simulation implemented in this book is Turing-complete:
+  it can simulate any Turing machine~\cite{Turing}.
+\end{theorem}
+\begin{proof}[Construction]
+  We construct a Turing machine $\mathcal{TM}$ within the 4X world:
+  \begin{itemize}
+    \item \textbf{Tape:} A row of tiles; each tile's terrain type encodes
+          a tape cell symbol $\in \{0, 1, \mathrm{blank}\}$.
+    \item \textbf{Head:} A special unit (the ``reader unit'') whose
+          position encodes the head position.
+    \item \textbf{State register:} The reader unit's FSM state encodes
+          the Turing machine's control state $q \in Q$.
+    \item \textbf{Transition:} Each turn, the reader unit (i) reads the
+          terrain type of its current tile; (ii) looks up the transition
+          $(q, \mathrm{symbol}) \to (q', \mathrm{symbol}', \mathrm{dir})$
+          from a table in the technology tree; (iii) writes the new symbol
+          by changing terrain type; (iv) moves left or right by one tile.
+  \end{itemize}
+  This faithfully implements any Turing machine with tape alphabet
+  $\{0, 1, \mathrm{blank}\}$ and finite state set $Q$. Since any Turing
+  machine is simulated, the simulation is Turing-complete. $\square$
+\end{proof}
+
+\begin{perspective}
+  Turing-completeness means that the internal logic of a civilization
+  cannot, in general, be predicted without running the civilization.
+  The future is genuinely open: there is no shortcut to history. This
+  is Turing's halting problem applied to civilization. Whether an empire
+  eventually achieves victory, collapses, or cycles indefinitely cannot
+  be determined from initial conditions alone by any finite algorithm.
+  The only way to know a world's history is to let it run.
+
+  Wiener's cybernetics~\cite{Wiener} observed that control and
+  communication in animals and machines obey the same principles.
+  The Turing-completeness theorem is the strongest version of this
+  claim: civilization and machine are not merely analogous but
+  computationally equivalent.
+\end{perspective}
+
+\begin{project}{Self-Organizing Civilization Simulator}
+  \begin{enumerate}
+    \item Implement the Turing machine construction: tape tiles,
+          reader unit, transition table.
+    \item Program the reader unit to compute binary addition; verify
+          the output.
+    \item Implement \texttt{AutopoiesisCheck}: detect when an empire
+          has reorganized itself without external input,
+          following Varela et al.~\cite{Varela}.
+    \item Run 10 simulations with random initial conditions; identify
+          which exhibit sustained self-organization.
+  \end{enumerate}
+\end{project}
+
+% ── Chapter 32 ───────────────────────────────────────────────
+\chapter{The Finite World}
+\label{ch:finite}
+
+\chapterquote{The world is everything that is the case.
+}{--- Wittgenstein, \textit{Tractatus}~\cite{Wittgenstein}}
+
+\begin{background}
+  Every world in this book is finite. The map has boundaries. The
+  technology tree has leaves. The turn counter has a maximum. This
+  finitude is not a deficiency---it is what makes the world computable.
+  An infinite world cannot be serialized, replayed, or proven correct.
+  Finitude is the price of intelligibility.
+
+  But finitude also means that every world ends. Civilizations collapse
+  or are conquered. Resources deplete. The final turn is reached. This
+  last chapter examines what finitude means philosophically---for the
+  simulation, for the civilizations within it, and for the beings outside
+  it who have watched it run. It is the proper ending of a book that
+  began with logic gates and arrives, finally, at the question of what
+  all this construction means.
+\end{background}
+
+\section{Irreversibility and Path Dependence}
+
+\begin{definition}[Path Dependence]
+  A world $\world$ exhibits \emph{path dependence} at tick $t$ if there
+  exist two event histories $\mathcal{L}_1 \neq \mathcal{L}_2$ consistent
+  with the same initial conditions such that
+  $\mathrm{state}(\world, \mathcal{L}_1, t) \neq
+  \mathrm{state}(\world, \mathcal{L}_2, t)$.
+\end{definition}
+
+\begin{theorem}[All Non-Trivial Worlds are Path Dependent]
+  Any world with at least one irreversible event exhibits path dependence
+  at all subsequent ticks.
+\end{theorem}
+\begin{proof}
+  Let $\varepsilon$ be an irreversible event. Let
+  $\mathcal{L}_1 = (\varepsilon)$ and $\mathcal{L}_2 = ()$ (empty log).
+  By irreversibility, $\mathrm{state}(\mathcal{L}_1) \neq
+  \mathrm{state}(\mathcal{L}_2)$ at tick $t \geq t_\varepsilon$.
+  $\square$
+\end{proof}
+
+\section{Historical Lock-In}
+
+\begin{definition}[Historical Lock-In]
+  A civilization is \emph{locked in} at tick $t$ if
+  $\Phi_C(t) \leq \theta_{\min}$ for some minimum viable threshold
+  $\theta_{\min}$: all strategic variation has been exhausted.
+\end{definition}
+
+\begin{proposition}[Lock-In is Generically Monotone]
+  A civilization that has lost all strategic flexibility cannot, by
+  definition, take the actions that would restore flexibility.
+\end{proposition}
+
+\section{The Final Perspective}
+
+\begin{perspective}
+  This book began with a logic gate. It ends with a civilization.
+
+  Between those two points lies a philosophical ascent that mirrors, in
+  miniature, the ascent of complexity in the actual universe: from the
+  simplest distinctions through the accumulation of memory, the emergence
+  of space, the arising of agency, the construction of economies and
+  treaties and histories, to the moment when the whole system becomes
+  so intricate that its future cannot be predicted from its present.
+
+  What have we built? Not merely a game. We have built a system in which
+  local rules, applied consistently across space and time, produce global
+  properties that no individual rule anticipated: Zipf-distributed city
+  sizes, percolation thresholds in territorial connectivity, diplomatic
+  trust dynamics resembling reputation equilibria, cultural drift
+  resembling linguistic evolution. We have built a small model of
+  history---not history with specific content, but history as a
+  \emph{form}: the form of irreversible, accumulating, locally-caused,
+  globally-surprising change.
+
+  Heidegger~\cite{Heidegger} observed that the question of Being is the
+  question every other question presupposes. For computational worlds,
+  the question of Being is the question we have answered: what does it
+  mean for an entity to \emph{be} in a computational world? It means:
+  to have a history. To have been caused. To be maintained by the
+  persistence of its effects. To be, in the Spherepop sense, an
+  append-only log that has not yet been closed.
+
+  The world runs. The log grows. The future remains, for now, open.
+\end{perspective}
+
+\begin{project}{Complete Historical Computational Civilization}
+  \textbf{Grand Final Project.}
+
+  Build a complete, persistent, historically self-aware 4X civilization
+  simulator incorporating every system from Chapters 1--31. Requirements:
+  \begin{enumerate}
+    \item A $32 \times 32$ world with procedural terrain and ecology.
+    \item Four empires with distinct cultural trait vectors and
+          starting technologies.
+    \item Full event sourcing: all state derived from event logs.
+    \item Optionality tracking for all empires at every turn.
+    \item A narrative generator producing a structured chronicle.
+    \item A save/load/replay system with full integrity verification.
+    \item A post-game analysis: which decisions caused the largest
+          option-space contractions? Which empire maintained optionality
+          longest? What was the Zipf exponent of the final city
+          distribution? When did each empire approach lock-in?
+  \end{enumerate}
+
+  \medskip
+  \noindent\textit{A student who completes this project has not merely
+  learned to program a game. They have built a machine for generating
+  history, and in doing so, have understood something about what
+  history is.}
+\end{project}
+
+% ============================================================
+% APPENDICES A--H (with full proofs)
+% ============================================================
+
+
+
+% ============================================================
+% APPENDICES
+% ============================================================
+
+\appendix
+
+
+\chapter{Spherepop Language Reference}
+\label{app:spherepop}
+
+This appendix provides a complete reference for the \Sp{} notation used
+throughout the book.
+
+\section{Primitive Bubbles}
+
+\begin{center}
+\begin{tabular}{lll}
+  \toprule
+  \textbf{Name} & \textbf{Signature} & \textbf{Semantics} \\
+  \midrule
+  \texttt{NAND} & $(a, b) \to \texttt{out}$
+                & $\texttt{out} = \NOT(a \AND b)$ \\
+  \texttt{DFF}  & $(\texttt{in}) \to \texttt{out}$
+                & $\texttt{out}(t) = \texttt{in}(t-1)$ \\
+  \texttt{MUX}  & $(a, b, \texttt{sel}) \to \texttt{out}$
+                & $\texttt{out} = a$ if $\texttt{sel}=0$ else $b$ \\
+  \texttt{DMUX} & $(\texttt{in}, \texttt{sel}) \to (a, b)$
+                & $(a,b) = (\texttt{in},0)$ if $\texttt{sel}=0$ else $(0,\texttt{in})$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\section{Syntax Summary}
+
+\begin{lstlisting}[caption={Bubble declaration syntax}]
+bubble BubbleName {
+    -- Port declarations
+    inputs:  portA, portB[n]   -- scalar or n-bit bus
+    output:  portC, portD[m]
+
+    -- State declarations (persistent across ticks)
+    latch name[width]
+
+    -- Combinational logic
+    name = expression
+
+    -- Sequential logic (executes at tick boundary)
+    when condition do
+        name := expression    -- := denotes sequential assignment
+    end
+
+    -- Iteration
+    let i = 0
+    while i < n do
+        ...
+        i = i + 1
+    end
+
+    -- Sub-bubble instantiation
+    let result = SubBubble(arg1, arg2)
+}
+\end{lstlisting}
+
+\section{Built-in Expressions}
+
+\begin{center}
+\begin{tabular}{ll}
+  \toprule
+  \textbf{Expression} & \textbf{Meaning} \\
+  \midrule
+  \texttt{a and b}  & Boolean AND \\
+  \texttt{a or b}   & Boolean OR \\
+  \texttt{not a}    & Boolean NOT \\
+  \texttt{a + b}    & Integer addition (modular) \\
+  \texttt{a - b}    & Integer subtraction (clamped at 0) \\
+  \texttt{a >= b}   & Comparison (returns Boolean) \\
+  \texttt{a[k]}     & Bit $k$ of bus $a$ \\
+  \texttt{a[j..k]}  & Bit slice \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\chapter{Truth Tables and Gate Diagrams}
+\label{app:truthtables}
+
+\section{Fundamental Gates}
+
+\begin{multicols}{2}
+
+\noindent\textbf{AND}\\[4pt]
+\begin{tabular}{cc|c}
+  \toprule
+  $a$ & $b$ & \texttt{out} \\
+  \midrule
+  0 & 0 & 0 \\
+  0 & 1 & 0 \\
+  1 & 0 & 0 \\
+  1 & 1 & 1 \\
+  \bottomrule
+\end{tabular}
+
+\columnbreak
+
+\noindent\textbf{OR}\\[4pt]
+\begin{tabular}{cc|c}
+  \toprule
+  $a$ & $b$ & \texttt{out} \\
+  \midrule
+  0 & 0 & 0 \\
+  0 & 1 & 1 \\
+  1 & 0 & 1 \\
+  1 & 1 & 1 \\
+  \bottomrule
+\end{tabular}
+
+\end{multicols}
+
+\vspace{1em}
+
+\begin{multicols}{2}
+
+\noindent\textbf{NAND}\\[4pt]
+\begin{tabular}{cc|c}
+  \toprule
+  $a$ & $b$ & \texttt{out} \\
+  \midrule
+  0 & 0 & 1 \\
+  0 & 1 & 1 \\
+  1 & 0 & 1 \\
+  1 & 1 & 0 \\
+  \bottomrule
+\end{tabular}
+
+\columnbreak
+
+\noindent\textbf{XOR}\\[4pt]
+\begin{tabular}{cc|c}
+  \toprule
+  $a$ & $b$ & \texttt{out} \\
+  \midrule
+  0 & 0 & 0 \\
+  0 & 1 & 1 \\
+  1 & 0 & 1 \\
+  1 & 1 & 0 \\
+  \bottomrule
+\end{tabular}
+
+\end{multicols}
+
+\chapter{The 4X Design Pattern Glossary}
+\label{app:glossary}
+
+\begin{description}[style=nextline, leftmargin=2cm]
+  \item[Agent]
+    A bubble with internal state, perception, and action capability.
+    The computational model of a unit, city, or empire.
+
+  \item[Boolean permission]
+    A conjunction of conditions that must all hold for an action to
+    be legal. The fundamental structure of game rules.
+
+  \item[Bubble]
+    The basic computational unit of \Sp{}: a bounded, ported,
+    composable entity that simultaneously models data, process, and
+    environment.
+
+  \item[Cellular automaton]
+    A spatial update system where each cell updates based on its
+    local neighborhood. The computational model of physical laws
+    operating on the world map.
+
+  \item[Event log]
+    An append-only trace of world state transitions. The computational
+    model of history.
+
+  \item[Fog of war]
+    The visibility restriction that limits an agent's perception to
+    explored and currently visible tiles. Implemented as a pair of
+    Boolean registers per tile.
+
+  \item[Latch / Register]
+    A persistent storage element, built from feedback circuits.
+    The fundamental implementation of world memory.
+
+  \item[Technology DAG]
+    A directed acyclic graph of Boolean predicates representing
+    technological dependencies. Prerequisite checking is conjunction
+    over parent predicates.
+
+  \item[Trade route]
+    A persistent path signal between two city bubbles. Disruption
+    is implemented as path invalidation.
+
+  \item[Treaty]
+    A shared mutable bubble between two empire agents, storing
+    diplomatic state.
+
+  \item[Victory condition]
+    A global Boolean predicate over the entire world state.
+    The terminal condition of a simulation run.
+\end{description}
+
+
+
+
+\chapter{Formal Bubble Semantics}
+\label{app:bubble-semantics}
+
+\chapterquote{%
+  A bubble is a stateful morphism: it transforms inputs into outputs
+  while maintaining internal memory.
+}{}
+
+The preceding appendices treated bubbles operationally. This appendix
+gives the algebraic definition that grounds the entire \Sp{} architecture.
+
+\section{Bubbles as Mealy Machines}
+
+\begin{definition}[Bubble]
+  A \emph{Spherepop bubble} is a tuple
+  \[
+    B = (I, O, S, \delta, \lambda, s_0)
+  \]
+  where:
+  \begin{itemize}
+    \item $I = \mathbb{B}^m$ is the \emph{input port space} ($m$-bit input vector),
+    \item $O = \mathbb{B}^p$ is the \emph{output port space} ($p$-bit output vector),
+    \item $S = \mathbb{B}^q$ is the \emph{internal state space} ($q$-bit state register),
+    \item $\delta : S \times I \to S$ is the \emph{state transition function}
+          (next-state logic),
+    \item $\lambda : S \times I \to O$ is the \emph{output function}
+          (output logic),
+    \item $s_0 \in S$ is the \emph{initial state}.
+  \end{itemize}
+\end{definition}
+
+This is precisely the definition of a \emph{Mealy machine} (finite-state
+transducer). Mealy machines are the standard model for synchronous
+sequential digital circuits. Every bubble in \Sp{} is a Mealy machine;
+the entire world is the product of all its bubbles' Mealy machines,
+synchronized by the turn counter.
+
+\begin{proposition}[Combinational Gates are Bubbles]
+  A combinational gate (no internal state) is a bubble with $S = \{s_0\}$
+  (singleton state), $\delta(s_0, i) = s_0$ for all $i$, and
+  $\lambda(s_0, i) = f(i)$ where $f : I \to O$ is the gate's Boolean function.
+\end{proposition}
+
+\begin{proposition}[Sequential Memory is a Bubble]
+  A 1-bit D flip-flop is the bubble $(I, O, \mathbb{B}, \delta, \lambda, 0)$
+  with $I = O = \mathbb{B}$, $\delta(s, i) = i$, $\lambda(s, i) = s$.
+  The output is the \emph{previous tick's} input, implementing a 1-tick delay.
+\end{proposition}
+
+\section{Bubble Composition}
+
+\begin{definition}[Sequential Composition]
+  Given bubbles $B_1 = (I_1, O_1, S_1, \delta_1, \lambda_1, s_1^0)$ and
+  $B_2 = (I_2, O_2, S_2, \delta_2, \lambda_2, s_2^0)$ with $O_1 = I_2$,
+  their \emph{sequential composition} $B_2 \circ B_1$ is the bubble
+  \[
+    (I_1,\; O_2,\; S_1 \times S_2,\; \delta,\; \lambda,\; (s_1^0, s_2^0))
+  \]
+  where:
+  \begin{align*}
+    \delta((s_1, s_2), i) &= (\delta_1(s_1, i),\; \delta_2(s_2, \lambda_1(s_1, i))) \\
+    \lambda((s_1, s_2), i) &= \lambda_2(s_2, \lambda_1(s_1, i))
+  \end{align*}
+\end{definition}
+
+\begin{theorem}[Composition Associativity]
+  Sequential bubble composition is associative:
+  $(B_3 \circ B_2) \circ B_1 = B_3 \circ (B_2 \circ B_1)$.
+\end{theorem}
+\begin{proof}
+  Both sides implement the same input-output function: apply $B_1$'s
+  output as $B_2$'s input, then $B_2$'s output as $B_3$'s input.
+  State spaces are isomorphic by associativity of Cartesian product.
+  $\square$
+\end{proof}
+
+\section{The Category of Bubbles}
+
+\begin{definition}[Bubble Category $\mathbf{Bub}$]
+  The category $\mathbf{Bub}$ has:
+  \begin{itemize}
+    \item \textbf{Objects:} port types $\mathbb{B}^n$ for $n \geq 0$.
+    \item \textbf{Morphisms:} $\mathrm{Hom}(\mathbb{B}^m, \mathbb{B}^p)$
+          is the set of bubbles with input space $\mathbb{B}^m$ and
+          output space $\mathbb{B}^p$.
+    \item \textbf{Composition:} sequential bubble composition.
+    \item \textbf{Identity:} for each $\mathbb{B}^n$, the identity bubble
+          with $\delta = \mathrm{id}$ and $\lambda(s,i) = i$.
+  \end{itemize}
+\end{definition}
+
+\begin{proposition}[$\mathbf{Bub}$ is a Category]
+  $\mathbf{Bub}$ satisfies the category axioms: composition is associative
+  (by Theorem above) and identities exist.
+\end{proposition}
+
+\begin{remark}
+  The world evolution operator $\Fworld$ (Chapter~\ref{sec:worldtransition})
+  is an endomorphism in $\mathbf{Bub}$:
+  $\Fworld \in \mathrm{Hom}(\mathbb{B}^N, \mathbb{B}^N)$ where $N$ is the
+  total number of state bits in the world. The world's entire history is
+  the orbit $\{s_0, \Fworld(s_0), \Fworld^2(s_0), \ldots\}$ under
+  repeated application of this morphism.
+\end{remark}
+
+\section{Connection to Markov Blankets}
+
+The Mealy machine formulation makes the Markov blanket structure
+(Chapter~\ref{ch:blankets}) precise:
+
+\begin{proposition}[Bubble Blanket Correspondence]
+  For bubble $B = (I, O, S, \delta, \lambda, s_0)$:
+  \begin{align*}
+    \mathcal{I} &= S \quad \text{(internal state registers)} \\
+    \mathcal{S} &= I \quad \text{(sensory states = input ports)} \\
+    \mathcal{A} &= O \quad \text{(active states = output ports)} \\
+    \mathcal{B} &= I \cup O \quad \text{(the blanket = all ports)} \\
+    \mathcal{E} &= \text{all other bubble states in } \world
+  \end{align*}
+  The state transition $\delta : S \times I \to S$ updates internal
+  states given blanket input (active inference). The output function
+  $\lambda : S \times I \to O$ generates active states from internal
+  states (acting on the world).
+\end{proposition}
+
+This shows that the bubble definition already encodes the full
+active inference loop: internal states infer from sensory inputs,
+and active outputs modify the external world.
+
+
+\chapter{Boolean Foundations of Spherepop Gates}
+\label{app:boolean}
+
+\section{Primitive Binary Algebra}
+
+Let $\mathbb{B} = \{0, 1\}$. A Spherepop primitive gate is a morphism
+$g : \mathbb{B}^n \to \mathbb{B}^m$.
+
+\begin{definition}[Gate Graph]
+  A \emph{Spherepop gate graph} is a finite directed acyclic graph
+  $G = (V, E, \lambda)$ where $V$ is the set of gate instances,
+  $E$ is the set of signal edges, and $\lambda : V \to \mathcal{G}$
+  assigns a primitive gate type to each node.
+\end{definition}
+
+\begin{theorem}[Functional Completeness of NAND]
+  Every Boolean function $f : \mathbb{B}^n \to \mathbb{B}^m$ is
+  expressible as a finite composition of NAND gates.
+\end{theorem}
+\begin{proof}
+  It suffices to derive NOT and AND from NAND (since NOT and AND are
+  functionally complete).
+  \begin{align*}
+    \mathrm{NOT}(a) &= \mathrm{NAND}(a, a). \\
+    &\textit{Check: } \mathrm{NAND}(0,0)=1=\mathrm{NOT}(0);\;
+      \mathrm{NAND}(1,1)=0=\mathrm{NOT}(1). \\
+    \mathrm{AND}(a,b) &= \mathrm{NOT}(\mathrm{NAND}(a,b))
+                        = \mathrm{NAND}(\mathrm{NAND}(a,b),\,\mathrm{NAND}(a,b)). \\
+    &\textit{Check: } \mathrm{AND}(1,1)=\mathrm{NAND}(\mathrm{NAND}(1,1),\mathrm{NAND}(1,1))
+      =\mathrm{NAND}(0,0)=1. \checkmark
+  \end{align*}
+  OR follows via De Morgan: $a \vee b = \neg(\neg a \wedge \neg b)$.
+  Since $\{\neg, \wedge\}$ is functionally complete, NAND alone suffices.
+  $\square$
+\end{proof}
+
+\section{Evaluation Semantics}
+
+\begin{theorem}[Evaluation is Well-Defined]
+  For any acyclic gate graph $G$, topological evaluation produces a
+  unique output assignment, independent of the choice of topological
+  ordering.
+\end{theorem}
+\begin{proof}
+  A topological ordering exists (since $G$ is acyclic). For any two
+  topological orderings, each gate is evaluated after all its predecessors
+  in both orderings, receiving the same input signals in both, and
+  therefore producing the same output. Uniqueness follows from the
+  determinism of each primitive gate. $\square$
+\end{proof}
+
+% ── Appendix B ───────────────────────────────────────────────
+\chapter{Event Histories and Option Spaces}
+\label{app:events}
+
+\section{Historical State Spaces}
+
+\begin{definition}[Option Space Dynamics]
+  A world history is the compositional chain
+  $H = \varepsilon_n \circ \cdots \circ \varepsilon_1$
+  with monotone admissibility: $X_{t+1} \subseteq X_t$.
+\end{definition}
+
+\begin{theorem}[Monotone Option Space Reduction]
+  For any non-trivial event sequence of length $n$:
+  $|X_n| \leq |X_0|$, with strict inequality if at least one event
+  is non-trivial.
+\end{theorem}
+\begin{proof}
+  Induction on $n$. Base: $|X_0| \leq |X_0|$. Inductive step: assume
+  $|X_k| \leq |X_0|$. By monotone admissibility,
+  $|X_{k+1}| \leq |X_k| \leq |X_0|$.
+  Strict inequality follows from Strict Contraction (Chapter~21)
+  for any non-trivial $\varepsilon_{k+1}$. $\square$
+\end{proof}
+
+\section{Historical Identity as Equivalence Relation}
+
+\begin{proposition}
+  Historical identity $\equiv_H$ is an equivalence relation.
+\end{proposition}
+\begin{proof}
+  Reflexivity: $\mathcal{L}(A) = \mathcal{L}(A)$, so $A \equiv_H A$.
+  Symmetry: $\mathcal{L}(A)=\mathcal{L}(B) \Rightarrow
+  \mathcal{L}(B)=\mathcal{L}(A)$.
+  Transitivity: $\mathcal{L}(A)=\mathcal{L}(B)=\mathcal{L}(C)
+  \Rightarrow A \equiv_H C$. $\square$
+\end{proof}
+
+% ── Appendix C ───────────────────────────────────────────────
+\chapter{Merge--Collapse Algebra}
+\label{app:merge}
+
+\section{Merge Lattice}
+
+\begin{theorem}[Territory Merge Lattice]
+  $(\mathcal{P}(\mathrm{Tiles}), \cup, \cap)$ is a bounded
+  distributive lattice.
+\end{theorem}
+\begin{proof}
+  Commutativity, associativity, and idempotence of $\cup$ and $\cap$
+  are standard. Absorption: $A \cup (A \cap B) = A$ and
+  $A \cap (A \cup B) = A$. Distributivity:
+  $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$---a standard
+  set identity. Bottom: $\emptyset$; top: $\mathrm{Tiles}$. $\square$
+\end{proof}
+
+\begin{theorem}[Collapse Normalization]
+  The collapse operator $\kappa$ is a lattice homomorphism:
+  $\kappa(\mu(A,B)) = \mu(\kappa(A), \kappa(B))$.
+\end{theorem}
+\begin{proof}
+  $\kappa$ maps each element to its equivalence class representative.
+  Since $\mu$ is defined on equivalence classes (merging representatives
+  gives the representative of the merged class), $\kappa$ commutes
+  with $\mu$. $\square$
+\end{proof}
+
+% ── Appendix D ───────────────────────────────────────────────
+\chapter{Sequential Bubble Machines}
+\label{app:sequential}
+
+\section{Bubble Automata}
+
+\begin{definition}[History-Sensitive Automaton]
+  A sequential Spherepop machine is
+  $\mathcal{M} = (Q, \Sigma, \Gamma, \delta, q_0, F, H)$
+  where $\delta : Q \times \Sigma \times H \to Q \times \Gamma \times H$
+  is history-sensitive (identical local states may produce different
+  futures depending on prior commitments in $H$).
+\end{definition}
+
+\begin{theorem}[History-Sensitivity Strictly Increases Power]
+  History-sensitive automata are strictly more expressive than standard
+  finite automata.
+\end{theorem}
+\begin{proof}
+  \textit{Containment:} Any FA is simulated by ignoring $H$.
+  \textit{Strictness:} Consider
+  $L = \{w \in \{a,b\}^* : \text{first } a \text{ was preceded by an
+  even number of } b\text{s}\}$.
+  No FA accepts $L$ (pumping lemma: the count of $b$s before the first
+  $a$ is unbounded). A history-sensitive automaton accepts $L$ by
+  scanning $H$ to count $b$-events before the first $a$-event.
+  $\square$
+\end{proof}
+
+% ── Appendix E ───────────────────────────────────────────────
+\chapter{Entropy and Optionality}
+\label{app:entropy}
+
+\section{Historical Entropy}
+
+\begin{theorem}[Pop Operator Satisfies Second Law]
+  For any non-trivial pop $\mathbf{P}_\varepsilon$:
+  $S(x_{t+1}) \leq S(x_t)$.
+\end{theorem}
+\begin{proof}
+  $|\mathcal{T}(x_{t+1})| = |\mathcal{T}(x_t) \cap \Omega'|
+  \leq |\mathcal{T}(x_t)|$. Since $\log_2$ is monotone,
+  $S(x_{t+1}) \leq S(x_t)$. $\square$
+\end{proof}
+
+This is the formal analogue of Landauer's principle~\cite{Landauer}:
+logical irreversibility corresponds to thermodynamic entropy production.
+
+\section{Collapse Criterion}
+
+\begin{theorem}[Collapse Criterion]
+  Civilization $C$ is in irreversible collapse at tick $t$ if
+  $\Phi_C(t) < \Phi_{\min}$ and $\Delta\Phi_C(t) < 0$ simultaneously.
+  Under these conditions $\Phi_C(t') < \Phi_{\min}$ for all $t' > t$
+  in expectation.
+\end{theorem}
+\begin{proof}
+  If $\Phi_C < \Phi_{\min}$, the civilization lacks the option diversity
+  to mount effective responses. Each turn, forced pops (responses to
+  attacks, famines) reduce $\Phi_C$ without the civilization being able
+  to choose high-value expansion pops. Thus $\Delta\Phi_C < 0$ compounds
+  until $\Phi_C \to 0$. $\square$
+\end{proof}
+
+% ── Appendix F ───────────────────────────────────────────────
+\chapter{Category-Theoretic Semantics}
+\label{app:category}
+
+\section{The History Category}
+
+\begin{theorem}[$\mathbf{Hist}$ is a Monoid Category]
+  The endomorphisms of a fixed option space $\Omega$:
+  $\mathrm{End}(\Omega) = \{\varepsilon : \Omega \to \Omega\}$
+  form a monoid under composition with identity $\mathrm{id}_\Omega$.
+\end{theorem}
+\begin{proof}
+  Closure: composition of two maps $\Omega \to \Omega$ gives
+  $\Omega \to \Omega$. Associativity: function composition is
+  associative. Identity: $\mathrm{id}_\Omega$ is the unit. $\square$
+\end{proof}
+
+\begin{theorem}[No Traced Monoidal Structure Without Path Erasure]
+  $\mathbf{Hist}$ does not admit a trace operator~\cite{JoyalStreetVerity}
+  consistent with the irreversibility constraint.
+\end{theorem}
+\begin{proof}
+  A trace operator would allow feedback: a future event causing a past
+  event to be undone. The trace of a non-trivial pop
+  $\varepsilon : \Omega \otimes U \to \Omega' \otimes U$ with
+  $\Omega' \subsetneq \Omega$ would require the feedback wire to
+  ``undo'' the option-space contraction, contradicting Strict Contraction.
+  $\square$
+\end{proof}
+
+\section{Monotone Victory Conditions}
+
+\begin{proposition}
+  Monotone victory conditions form a subposet of the lattice of natural
+  transformations $F \Rightarrow \mathbf{2}$.
+\end{proposition}
+\begin{proof}
+  A natural transformation $V : F \Rightarrow \mathbf{2}$ is monotone
+  if $V_\Omega(s)=1 \Rightarrow V_{\Omega'}(F(\varepsilon)(s))=1$
+  for all events $\varepsilon$. The set of monotone natural
+  transformations is closed under pointwise meet and join, forming
+  a subposet. $\square$
+\end{proof}
+
+% ── Appendix G ───────────────────────────────────────────────
+\chapter{Procedural World Dynamics}
+\label{app:pde}
+
+\section{Tile Evolution PDE}
+
+\begin{definition}[World Evolution Equation]
+  Resource density $\rho(x,y,t)$ evolves as:
+  \[
+    \frac{\partial \rho}{\partial t}
+    = D \nabla^2 \rho + r\rho\!\left(1 - \frac{\rho}{K}\right)
+    - c \cdot A \cdot \rho
+  \]
+  where $D$ is the diffusion coefficient, $r$ is ecological growth rate,
+  $K$ is carrying capacity, $c$ is per-capita extraction rate, and $A$
+  is agent population density.
+\end{definition}
+
+\begin{theorem}[Discrete Stability Condition]
+  The forward-Euler discretization is stable if
+  $\Delta t \leq h^2 / (4D)$ (2D CFL condition).
+\end{theorem}
+\begin{proof}
+  The 2D diffusion stencil gives amplification factor
+  $|1 - 4D\Delta t/h^2|$. Stability requires this $\leq 1$, giving
+  $\Delta t \leq h^2/(2D)$ in 1D and $\Delta t \leq h^2/(4D)$ in 2D
+  (the factor of 2 from the two spatial dimensions). $\square$
+\end{proof}
+
+\begin{theorem}[Equilibrium Resource Density]
+  With $A=0$, resource density converges to $\rho^* = K$ if $\rho_0 > 0$.
+\end{theorem}
+\begin{proof}
+  With $D=0$, each tile obeys $d\rho/dt = r\rho(1-\rho/K)$, the logistic
+  equation with stable equilibrium $\rho^* = K$. With $D > 0$, diffusion
+  averages spatial heterogeneity, driving the system toward the uniform
+  equilibrium exponentially. $\square$
+\end{proof}
+
+% ── Appendix H ───────────────────────────────────────────────
+\chapter{Trajectory Collapse Geometry}
+\label{app:trajectory}
+
+\section{Hypothesis Manifolds}
+
+\begin{theorem}[Maximum Entropy Prior]
+  In the absence of distinguishing information, the maximum entropy
+  distribution on $\Delta_{n-1}$ is uniform: $p_i = 1/n$, $H = \log_2 n$.
+\end{theorem}
+\begin{proof}
+  By the Gibbs inequality, $H(\mathbf{q}) \leq \log_2 n$ for any
+  distribution on $n$ elements, with equality iff $q_i = 1/n$.
+  $\square$
+\end{proof}
+
+\section{Information Gain from Strategic Intelligence}
+
+\begin{definition}[Strategic Information Gain]
+  An intelligence report $r$ provides information gain:
+  \[
+    \mathrm{IG}(r) = H(\mathbf{p}) - H(\mathbf{p}' \mid r).
+  \]
+\end{definition}
+
+\begin{corollary}
+  Perfect intelligence about scenario $h_k$ (setting $p_k' = 1$)
+  provides maximum information gain $\mathrm{IG}_{\max} = \log_2 n$ bits.
+\end{corollary}
+
+This formalizes the intuition that espionage is valuable precisely to
+the extent that it resolves strategic uncertainty. An empire that spends
+on intelligence is buying bits of future option-space clarity.
+
+
+\backmatter
+
+\chapter*{Bibliography}
+\addcontentsline{toc}{chapter}{Bibliography}
+
+\begin{thebibliography}{99}
+
+\bibitem{Aristotle}
+Aristotle.
+\textit{Nicomachean Ethics}.
+Translated by W.~D.~Ross.
+Oxford University Press, 2009.
+
+\bibitem{Badiou}
+Alain Badiou.
+\textit{Being and Event}.
+Continuum, 2005.
+
+\bibitem{Barendregt}
+Henk Barendregt.
+\textit{The Lambda Calculus: Its Syntax and Semantics}.
+North-Holland, 1984.
+
+\bibitem{Bartosz}
+Bartosz Milewski.
+\textit{Category Theory for Programmers}.
+Blurb, 2018.
+
+\bibitem{BaezStay}
+John~C.\ Baez and Mike Stay.
+Physics, topology, logic and computation: A Rosetta Stone.
+In \textit{New Structures for Physics}, pages 95--172.
+Springer, 2010.
+
+\bibitem{Church}
+Alonzo Church.
+An unsolvable problem of elementary number theory.
+\textit{American Journal of Mathematics},
+58(2):345--363, 1936.
+
+\bibitem{Fine}
+Kit Fine.
+Things and their parts.
+\textit{Midwest Studies in Philosophy},
+23(1):61--74, 1999.
+
+\bibitem{Foucault}
+Michel Foucault.
+\textit{The Archaeology of Knowledge}.
+Pantheon Books, 1972.
+
+\bibitem{Girard}
+Jean-Yves Girard.
+Linear logic.
+\textit{Theoretical Computer Science},
+50(1):1--101, 1987.
+
+\bibitem{Heidegger}
+Martin Heidegger.
+\textit{Being and Time}.
+Harper Perennial, 2008.
+
+\bibitem{JoyalStreetVerity}
+Andr\'{e} Joyal, Ross Street, and Dominic Verity.
+Traced monoidal categories.
+\textit{Mathematical Proceedings of the Cambridge Philosophical Society},
+119(3):447--468, 1996.
+
+\bibitem{Kim}
+Jaegwon Kim.
+Events as property exemplifications.
+In \textit{Supervenience and Mind}.
+Cambridge University Press, 1993.
+
+\bibitem{Landauer}
+Rolf Landauer.
+Irreversibility and heat generation in the computing process.
+\textit{IBM Journal of Research and Development},
+5(3):183--191, 1961.
+
+\bibitem{MacLane}
+Saunders Mac~Lane.
+\textit{Categories for the Working Mathematician}.
+Springer, 1998.
+
+\bibitem{Meijer}
+Erik Meijer.
+Your mouse is a database.
+Keynote presentation, Build Conference, Microsoft, 2014.
+
+\bibitem{MeijerDuality}
+Erik Meijer and Gavin Bierman.
+A co-relational model of data for large shared data banks.
+Lectures on duality, category theory, and reactive computation, 2011--2015.
+
+\bibitem{Milner}
+Robin Milner.
+\textit{Communicating and Mobile Systems: The Pi-Calculus}.
+Cambridge University Press, 1999.
+
+\bibitem{NisanSchocken}
+Noam Nisan and Shimon Schocken.
+\textit{The Elements of Computing Systems:
+Building a Modern Computer from First Principles}.
+MIT Press, 2005.
+
+\bibitem{Shannon}
+Claude~E.\ Shannon.
+A mathematical theory of communication.
+\textit{Bell System Technical Journal},
+27(3):379--423, 1948.
+
+\bibitem{Spivak}
+David~I.\ Spivak.
+\textit{Category Theory for the Sciences}.
+MIT Press, 2014.
+
+\bibitem{Turing}
+Alan~M.\ Turing.
+On computable numbers, with an application to the Entscheidungsproblem.
+\textit{Proceedings of the London Mathematical Society},
+42(2):230--265, 1936.
+
+\bibitem{Varela}
+Francisco Varela, Humberto Maturana, and Ricardo Uribe.
+Autopoiesis: The organization of living systems.
+\textit{BioSystems},
+5(4):187--196, 1974.
+
+\bibitem{VonNeumann}
+John von Neumann.
+\textit{Theory of Self-Reproducing Automata}.
+University of Illinois Press, 1966.
+
+\bibitem{Whitehead}
+Alfred North Whitehead.
+\textit{Process and Reality}.
+Free Press, 1978.
+
+\bibitem{Wiener}
+Norbert Wiener.
+\textit{Cybernetics: Or Control and Communication in the Animal and the Machine}.
+MIT Press, 1948.
+
+\bibitem{Wittgenstein}
+Ludwig Wittgenstein.
+\textit{Philosophical Investigations}.
+Blackwell Publishing, 1953.
+
+\bibitem{Wolfram}
+Stephen Wolfram.
+\textit{A New Kind of Science}.
+Wolfram Media, 2002.
+
+\bibitem{Wilson}
+Mark Wilson.
+\textit{Wandering Significance: An Essay on Conceptual Behaviour}.
+Oxford University Press, 2006.
+
+\bibitem{Axelrod}
+Robert Axelrod.
+\textit{The Evolution of Cooperation}.
+Basic Books, 1984.
+
+\bibitem{Friston}
+Karl Friston.
+The free-energy principle: a unified brain theory?
+\textit{Nature Reviews Neuroscience},
+11(2):127--138, 2010.
+
+\bibitem{FristonBlanket}
+Karl Friston.
+Life as we know it.
+\textit{Journal of the Royal Society Interface},
+10(86):20130475, 2013.
+
+\bibitem{Levin}
+Michael Levin.
+Technological approach to mind everywhere:
+an experimentally grounded framework for understanding
+diverse bodies and minds.
+\textit{Frontiers in Systems Neuroscience},
+16:768201, 2022.
+
+\end{thebibliography}
+
+\chapter*{Index of Spherepop Bubbles}
+\addcontentsline{toc}{chapter}{Index of Spherepop Bubbles}
+
+The following bubbles are defined or specified in this textbook:
+
+\begin{multicols}{2}
+\begin{itemize}[leftmargin=*, itemsep=0pt]
+  \item \texttt{NAND} --- Ch.~1
+  \item \texttt{NOT}, \texttt{AND}, \texttt{OR} --- Ch.~1
+  \item \texttt{XOR}, \texttt{MUX}, \texttt{DMUX} --- Ch.~1
+  \item \texttt{PermissionCheck} --- Ch.~1
+  \item \texttt{AND16}, \texttt{OR16}, \texttt{NOT16} --- Ch.~2
+  \item \texttt{Add16}, \texttt{Inc16} --- Ch.~2
+  \item \texttt{ResourceAdder} --- Ch.~2
+  \item \texttt{PopulationALU} --- Ch.~2
+  \item \texttt{Bit}, \texttt{Register16} --- Ch.~3
+  \item \texttt{RAM8} \ldots \texttt{RAM16K} --- Ch.~3
+  \item \texttt{TileState}, \texttt{WorldMap} --- Ch.~3, 5
+  \item \texttt{CellularAutomaton} --- Ch.~4
+  \item \texttt{TerrainDecoder}, \texttt{TileYield} --- Ch.~5
+  \item \texttt{FoodIntegrator}, \texttt{GoldLedger} --- Ch.~6
+  \item \texttt{ResearchAccumulator} --- Ch.~6
+  \item \texttt{CityProduction} --- Ch.~6
+  \item \texttt{ChebyshevCheck} --- Ch.~7
+  \item \texttt{VisionBroadcaster}, \texttt{FogUpdater} --- Ch.~7
+  \item \texttt{ExplorationTracker} --- Ch.~7
+  \item \texttt{Unit}, \texttt{UnitFSM} --- Ch.~8
+  \item \texttt{MoveValidator}, \texttt{CombatResolver} --- Ch.~8
+  \item \texttt{SettlePermission}, \texttt{CityFounder} --- Ch.~9
+  \item \texttt{BorderExpander} --- Ch.~9
+  \item \texttt{PathChecker}, \texttt{TradeRoute} --- Ch.~10
+  \item \texttt{GoldCalculator} --- Ch.~10
+  \item \texttt{DamageCalculator}, \texttt{CombatRound} --- Ch.~11
+  \item \texttt{CaptureCity} --- Ch.~11
+  \item \texttt{Treaty}, \texttt{TrustMatrix} --- Ch.~12
+  \item \texttt{DiplomacyAI} --- Ch.~12
+  \item \texttt{TechTree}, \texttt{PrereqChecker} --- Ch.~13
+  \item \texttt{ForestSpread}, \texttt{DepletionTracker} --- Ch.~14
+  \item \texttt{ClimateLayer} --- Ch.~14
+  \item \texttt{EventLog}, \texttt{HistoryQuery} --- Ch.~15
+  \item \texttt{NarrativeGenerator} --- Ch.~15
+  \item \texttt{TurnManager}, \texttt{WorldBubble} --- Ch.~16
+  \item \texttt{SaveSystem} --- Ch.~17
+  \item \texttt{CheckpointManager} --- Ch.~17
+  \item \texttt{EventSourcedWorld} --- Ch.~19
+  \item \texttt{QueryOwner}, \texttt{AppendEvent} --- Ch.~19
+  \item \texttt{TrustFromHistory} --- Ch.~19
+  \item \texttt{TimelineReconstructor} --- Ch.~23
+  \item \texttt{CityBiography} --- Ch.~23
+  \item \texttt{ConnectedComponents} --- Ch.~24
+  \item \texttt{CutVertexDetector} --- Ch.~24
+  \item \texttt{Compactness} --- Ch.~24
+  \item \texttt{OptionalityMeter} --- Ch.~25
+  \item \texttt{MaxOptionalityAI} --- Ch.~25
+  \item \texttt{BranchingSimulator} --- Ch.~26
+  \item \texttt{ScenariosDatabase} --- Ch.~26
+  \item \texttt{HistoryFunctor} --- Ch.~27
+  \item \texttt{VictoryChecker} --- Ch.~27
+  \item \texttt{IntelligenceFusion} --- Ch.~28
+  \item \texttt{GlobalStateReconstructor} --- Ch.~28
+  \item \texttt{LogMerge} --- Ch.~29
+  \item \texttt{DiplomaticIntelligibility} --- Ch.~30
+  \item \texttt{CulturalMissionary} --- Ch.~30
+  \item \texttt{AutopoiesisCheck} --- Ch.~31
+  \item \texttt{FixedMul8} --- Ch.~2
+  \item \texttt{PredictionErrorTracker} --- Ch.~13
+  \item \texttt{BlanketStabilityMeter} --- Ch.~13
+  \item \texttt{CollectiveBlanket} --- Ch.~13
+\end{itemize}
+\end{multicols}
+
+\end{document}
