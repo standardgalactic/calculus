@@ -1,0 +1,907 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{palatino}
+\usepackage[protrusion=true,expansion=false]{microtype}
+\usepackage[margin=1.3in]{geometry}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage[numbers]{natbib}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=black
+}
+
+\titleformat{\section}{\normalfont\large\scshape}{\thesection.}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\itshape}{\thesubsection.}{1em}{}
+
+\setstretch{1.15}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{remark}{Remark}[section]
+
+\title{\textsc{Preference Fields on Semantic Manifolds}\\
+\large Directional Constraints, Spectral Admissibility,\\
+and Random Geometric Graph Structure}
+\author{Flyxion}
+\date{June 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We develop a geometric theory of preference-guided navigation over corpora
+represented as high-dimensional random geometric graphs. A user's evolving
+preference is modeled as a time-dependent unit vector $\Phi_t$ in a semantic
+embedding space $\mathcal{E} = \mathbb{R}^d$, inducing a scalar preference
+field $f_t(v) = \langle \Phi_t, v \rangle$ over the corpus manifold
+$\mathcal{M} \subset S^{d-1}$. The admissible neighborhood $A_t(\theta) =
+\{i : f_t(v_i) \ge \theta\}$ forms the primary object of study: the set of
+corpus items accessible to the current preference state. We establish that
+this neighborhood has the structure of a subgraph of a spherical random
+geometric graph, with clique probabilities governed by the triangle-penalty
+corrections of Hunter, Milojević, and Sudakov. We identify the anisotropic
+centroid bias of pretrained embeddings as an inadmissible subspace whose
+removal via spectral filtering sharpens the discriminative geometry of the
+preference field. The central result is a dimensionless order parameter
+$\Lambda_t(\theta) = n_\theta^3 p_\theta^3 / d$ governing a phase
+transition: below the critical threshold the admissible neighborhood is
+statistically indistinguishable from an Erd\H{o}s--R\'enyi random graph and
+geometric structure is undetectable; above it, the spherical geometry is
+present and the preference field resolves genuine semantic clusters. This
+order parameter unifies the field dynamics, spectral admissibility, and
+graph-theoretic clique structure into a single geometric framework applicable
+to literature exploration, memory retrieval, recommendation, and semantic
+search.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Introduction}
+% ─────────────────────────────────────────────────────────────────────────────
+
+Many information systems can be understood as the problem of navigating a
+high-dimensional semantic manifold under evolving constraints. Classical
+approaches emphasize retrieval, ranking, and optimization against a fixed
+query. The present work examines a structurally different setting: navigation
+driven by a \textit{preference field} that evolves in response to the
+navigator's encounters with the manifold itself. The query is not given in
+advance; it is constructed through interaction, and the geometry of the space
+shapes both what is accessible and what the evolving field can discriminate.
+
+This setting arises whenever users explore a corpus whose internal structure
+is represented by embeddings in a high-dimensional metric space. When
+preference is encoded as a direction $\Phi_t$ in that space, evaluating
+items by $\langle \Phi_t, v_i \rangle$ is not a retrieval operation but a
+\textit{field evaluation}: a measurement of how well each point in the corpus
+aligns with the current constraint. The natural questions then become
+geometric. How does the field evolve? What is the structure of the region it
+selects? How does the ambient geometry of the embedding space govern the
+possible shapes of coherent preference neighborhoods? When does the geometry
+become detectable and meaningful?
+
+We address these questions by developing three interlocking theoretical
+structures. The first is a formal framework for preference fields as
+directional constraints over manifolds, including a precise account of how
+ratings update the field and how the field induces a family of admissible
+neighborhoods (Section~\ref{sec:fields}). The second is a random geometric
+graph characterization of the high-alignment sub-corpus, drawing on recent
+results in Ramsey theory to bound the coherent cluster size and identify the
+triangle density as a diagnostic of geometric regime (Sections~\ref{sec:rgg}
+and~\ref{sec:threshold}). The third is a spectral admissibility analysis of
+the embedding geometry itself, connecting the anisotropy of pretrained
+embeddings to a natural notion of inadmissible subspace and characterizing
+spectral filtering as admissibility enforcement (Section~\ref{sec:spectral}).
+
+The paper is organized to be progressively more abstract. Early sections
+establish concrete objects; later sections develop the connections between
+them. We assume throughout that $\mathcal{E} = \mathbb{R}^d$ with $d$ large
+(specifically $d = 512$ in the CLIP ViT-B/32 setting, but most results hold
+for general $d$) and that items are represented as unit vectors $v_i \in
+S^{d-1}$. Section~\ref{sec:discussion} places the framework in the context of
+related field theories; no familiarity with those frameworks is required for
+the main results.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Preference Fields as Directional Constraints}
+\label{sec:fields}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Semantic Embedding and the Corpus Manifold}
+
+Let $\mathcal{E} = \mathbb{R}^d$ be a semantic embedding space equipped with
+the standard inner product. A \textit{corpus} $\mathcal{C} = \{c_1, \ldots,
+c_N\}$ is a finite collection of items, each associated with a unit vector
+$v_i \in S^{d-1}$ via an embedding map $\phi : \mathcal{C} \to S^{d-1}$.
+
+\begin{definition}[Corpus manifold]
+The \emph{corpus manifold} $\mathcal{M} \subset S^{d-1}$ is the image
+$\phi(\mathcal{C})$. We write $\bar{v} = \frac{1}{N}\sum_{i=1}^N v_i$ for the
+corpus centroid (not necessarily of unit norm) and
+$\sigma^2 = \frac{1}{N}\sum_{i=1}^N \norm{v_i - \bar{v}}^2$ for the
+corpus dispersion.
+\end{definition}
+
+The embedding space for pretrained vision-language models (CLIP) and language
+models approximates a semantic manifold: inner products $\langle v_i, v_j
+\rangle$ correlate with human-perceived similarity between items $c_i$ and
+$c_j$~\cite{radford2021clip}. This grounding is what makes the preference
+field semantically meaningful; without it the framework reduces to arbitrary
+geometry.
+
+\subsection{The Preference Field}
+
+\begin{definition}[Preference field]
+A \emph{preference field} at time $t$ is a unit vector $\Phi_t \in S^{d-1}$.
+It induces a scalar alignment function
+\begin{equation}
+  f_t : S^{d-1} \to [-1, 1], \qquad f_t(v) = \langle \Phi_t, v \rangle,
+\end{equation}
+and its restriction to the corpus manifold
+\begin{equation}
+  f_t\!\restriction_{\mathcal{M}} : \mathcal{M} \to [-1, 1], \qquad
+  f_t(v_i) = \langle \Phi_t, v_i \rangle
+\end{equation}
+is the \emph{discrete preference field} over $\mathcal{C}$.
+\end{definition}
+
+The discrete preference field is not a ranking: it is the trace of a continuous
+linear functional on $S^{d-1}$ evaluated at the corpus sample points. This
+distinction matters. A ranking selects a permutation of $\mathcal{C}$ with no
+structure beyond order. The preference field selects a \textit{direction} in
+$\mathcal{E}$, and that direction generalizes continuously to any item whose
+embedding can be computed, whether or not it appears in $\mathcal{C}$.
+
+\subsection{Field Dynamics Under Preference Accumulation}
+
+Let $\mathcal{R}_t = \{(i, r_i)\}$ be the set of rated items at time $t$,
+where $r_i \in \mathbb{R}$ is a scalar rating with $\mathrm{sgn}(r_i)$
+indicating positive or negative preference. Define the weighted sum
+\begin{equation}
+  \tilde{\Phi}_t = \sum_{(i, r_i) \in \mathcal{R}_t} w(r_i)\, v_i,
+  \qquad w(r) = \mathrm{sgn}(r) \cdot (1 + \kappa |r|),
+\end{equation}
+for a sensitivity parameter $\kappa > 0$. When $\tilde{\Phi}_t \neq 0$, the
+updated preference field is
+\begin{equation}
+  \label{eq:field-update}
+  \Phi_t = \frac{\tilde{\Phi}_t}{\norm{\tilde{\Phi}_t}}.
+\end{equation}
+
+\begin{proposition}[Monotone convergence under consistent preference]
+\label{prop:convergence}
+Suppose all ratings in $\mathcal{R}_t$ are positive ($r_i > 0$ for all $i$)
+and the rated items lie within a geodesic ball $B_\rho(\Phi^*) \subset
+S^{d-1}$ of radius $\rho < \pi/2$ around some direction $\Phi^* \in
+S^{d-1}$. Then $\langle \Phi_t, \Phi^* \rangle \ge \cos\rho > 0$ and
+$\langle \Phi_t, \Phi^* \rangle$ is non-decreasing as new positively-rated
+items are added from $B_\rho(\Phi^*)$.
+\end{proposition}
+
+\begin{proof}
+The normalized sum of vectors within a geodesic ball of radius $\rho <
+\pi/2$ has positive inner product with any vector in the ball. Adding a
+new vector $v_j \in B_\rho(\Phi^*)$ to $\tilde{\Phi}_t$ moves the sum
+further into the half-space $\{v : \langle v, \Phi^* \rangle > 0\}$,
+since $\langle v_j, \Phi^* \rangle > \cos\rho > 0$. Normalization
+preserves the sign and the bound follows from the convexity of geodesic
+balls on $S^{d-1}$.
+\end{proof}
+
+\subsection{Admissible Neighborhoods}
+
+\begin{definition}[Admissible neighborhood]
+For threshold $\theta \in [-1, 1]$, the \emph{admissible neighborhood} of
+the field $\Phi_t$ at level $\theta$ is
+\begin{equation}
+  A_t(\theta) = \{i \in \mathcal{C} : f_t(v_i) \ge \theta\}.
+\end{equation}
+The \emph{inadmissible set} at level $\theta$ is $\mathcal{C} \setminus
+A_t(\theta)$.
+\end{definition}
+
+As $\theta$ increases, $A_t(\theta)$ shrinks: only items tightly aligned
+with the current field direction remain admissible. The trajectory of
+$A_t(\theta)$ as $t$ increases characterizes how navigation concentrates the
+preference field. In an embedding space with good semantic structure,
+$A_t(\theta)$ for large $\theta$ should correspond to a semantically coherent
+neighborhood of $\phi^{-1}(\Phi_t)$---the ``concept nearest to the current
+field direction.''
+
+\begin{remark}
+In practice, $\theta$ is not set explicitly but is induced by a softmax
+sampling distribution with temperature $T > 0$:
+\begin{equation}
+  \mathcal{P}_t(i) \propto \exp\!\left(\frac{s_t(i)}{T}\right),
+\end{equation}
+where $s_t(i) = \alpha f_t(v_i) + \text{(auxiliary terms)}$ and $\alpha >
+0$ bounds the alignment contribution. Items in $A_t(\theta)$ receive
+disproportionate sampling probability, inducing a soft version of the
+hard thresholding above.
+\end{remark}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Random Geometric Graph Structure of the Corpus}
+\label{sec:rgg}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{The Spherical RGG Model}
+
+We now establish the formal relationship between the preference field
+threshold structure and spherical random geometric graphs. The \textit{Gaussian
+random geometric graph} $G(n, d, p)$ of Hunter, Milojević, and
+Sudakov~\cite{hunter2026gaussian} samples $n$ vectors $x_1, \ldots, x_n
+\overset{\text{iid}}{\sim} \mathcal{N}(0, \frac{1}{d}I_d)$ and connects
+$x_i, x_j$ if $\langle x_i, x_j \rangle \ge c_p / \sqrt{d}$, where
+$c_p$ is chosen so that each edge has marginal probability $p$. This is the
+Gaussian analogue of the spherical RGG; in high dimension, Gaussian vectors
+concentrate on a sphere of radius $\approx 1$, making the two models
+asymptotically close.
+
+\begin{definition}[Threshold graph of the preference field]
+For threshold $\theta$, the \emph{threshold graph} $G_t(\theta)$ has
+vertex set $A_t(\theta)$ and connects $i, j \in A_t(\theta)$ if
+$\langle v_i, v_j \rangle \ge \theta'$ for some proximity threshold
+$\theta'$ induced by $\theta$ and the corpus geometry.
+\end{definition}
+
+\begin{proposition}[RGG identification]
+\label{prop:rgg}
+If the corpus embeddings $\{v_i\}$ are drawn from a distribution on
+$S^{d-1}$ whose conditional distribution given $\langle v_i, \Phi_t
+\rangle \ge \theta$ is approximately uniform on the spherical cap
+$\{v \in S^{d-1} : \langle v, \Phi_t \rangle \ge \theta\}$, then
+$G_t(\theta)$ is approximately distributed as a spherical RGG on
+$|A_t(\theta)|$ vertices with edge probability determined by the
+angular diameter of the cap.
+\end{proposition}
+
+The ``approximately uniform'' condition holds to a first approximation for
+corpora generated by diffusion models conditioned on a fixed prompt, since
+the prompt induces a Gaussian-like perturbation around the prompt direction
+in CLIP space rather than a hard angular cutoff. The approximation improves
+as $d$ grows relative to the angular radius of the cap.
+
+\subsection{Triangle Penalty and Clique Suppression}
+
+The key geometric fact distinguishing an RGG from $G_{n,p}$ is the
+\textit{triangle penalty}: edges in the RGG are not independent because
+shared proximity to the preference direction correlates pairs of items.
+Hunter, Milojević, and Sudakov quantify this precisely for the Gaussian
+model.
+
+Let $a = e^{-c_p^2/2}/\sqrt{2\pi}$ where $c_p$ is the inner-product
+threshold parameter. Define the per-triangle correction factors
+\begin{equation}
+  \delta_r = 1 - \frac{a^3 p^3}{\sqrt{d}}, \qquad
+  \delta_b = 1 + \frac{a^3(1-p)^3}{\sqrt{d}}.
+\end{equation}
+
+\begin{theorem}[Clique probability bounds, Hunter--Milojević--Sudakov~\cite{hunter2026gaussian}]
+\label{thm:hms}
+Let $G \sim G(n, d, p)$ with $d \ge D^2 \ell^2$ where $D$ is sufficiently
+large. Then:
+\begin{align}
+  P_{\mathrm{red},\ell} &\le p^{\binom{\ell}{2}}
+    \exp\!\left(-\frac{a^3 p^3}{\sqrt{d}}\binom{\ell}{3}\right)
+    \!\left(1 + O\!\left(\tfrac{1}{D}\right)\right), \label{eq:pred} \\
+  P_{\mathrm{blue},\ell} &\le (1-p)^{\binom{\ell}{2}}
+    \exp\!\left(\frac{a^3(1-p)^3}{\sqrt{d}}\binom{\ell}{3}\right)
+    \!\left(1 + O\!\left(\tfrac{1}{D}\right)\right). \label{eq:pblue}
+\end{align}
+\end{theorem}
+
+The interpretation in our setting is the following. Color an item $i \in
+\mathcal{C}$ ``blue'' if $f_t(v_i) \ge \theta$ (it lies in the admissible
+neighborhood) and ``red'' if $f_t(v_i) < \theta$. Blue items are those close
+to $\Phi_t$; red items are those far from it. Then:
+
+\begin{itemize}
+  \item \textit{Blue cliques} (fully admissible clusters) form with slightly
+    higher probability than $G_{n,p}$ predicts ($\delta_b > 1$): proximity
+    to the field direction is self-reinforcing, and items aligned with
+    $\Phi_t$ tend to be mutually aligned.
+  \item \textit{Red cliques} (fully inadmissible clusters) form with
+    exponentially lower probability than $G_{n,p}$ predicts: items forced
+    far from $\Phi_t$ are correspondingly close to each other, making large
+    mutually-distant (inadmissible) sets geometrically unlikely.
+\end{itemize}
+
+The exponential suppression in~\eqref{eq:pred} grows as
+$\binom{\ell}{3}$---one triangle per triple in the clique---reflecting the
+cumulative geometric cost of each triangular constraint. This is the
+mathematical expression of the intuition that ``inadmissible regions do not
+support large coherent clusters.''
+
+\subsection{Clique Number of the Admissible Neighborhood}
+
+\begin{definition}[Field clique number]
+The \emph{field clique number} $\omega_t(\theta)$ is the size of the
+largest clique in the threshold graph $G_t(\theta)$: the maximum $k$ such
+that $k$ items in $A_t(\theta)$ are mutually within inner-product distance
+$\theta'$ of each other.
+\end{definition}
+
+\begin{corollary}[Clique bound under geometric constraint]
+\label{cor:clique}
+Under the RGG identification of Proposition~\ref{prop:rgg}, with
+$n_\theta = |A_t(\theta)|$ and edge probability $p_\theta$:
+\begin{equation}
+  \mathbb{E}[\omega_t(\theta)] \lesssim
+  2\log_{1/(1-p_\theta)} n_\theta
+  \cdot \left(1 + O\!\left(\frac{1}{\sqrt{d}}\right)\right).
+\end{equation}
+The correction factor is negative ($\delta_b^{\binom{k}{3}} > 1$ amplifies
+rather than suppresses blue cliques), but grows slowly compared to the
+independent $G_{n,p}$ upper bound.
+\end{corollary}
+
+The corollary establishes that the field clique number is bounded
+independently of session length or rating history---it depends only on
+the corpus size $n_\theta$ and the edge probability $p_\theta$ at the given
+alignment threshold. No amount of additional interaction can cause the
+admissible neighborhood to contain a coherent cluster larger than what the
+ambient spherical geometry permits. This is a structural, not empirical,
+constraint on preference field convergence.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Spectral Admissibility of Embedding Geometry}
+\label{sec:spectral}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Anisotropy as Inadmissibility}
+
+Pretrained embedding models produce representations that are
+\textit{anisotropic}: the image of the embedding map $\phi : \mathcal{C} \to
+S^{d-1}$ is not uniformly distributed over the sphere but concentrates in a
+narrow cone~\cite{ethayarajh2019anisotropy}. The centroid of this cone,
+\begin{equation}
+  \bar{v} = \frac{1}{N}\sum_{i=1}^N v_i,
+\end{equation}
+is non-zero and can be large in norm relative to the dispersion $\sigma$.
+When $\norm{\bar{v}}$ is large, every item has non-negligible inner product
+with $\bar{v}$, regardless of semantic content.
+
+This creates a systematic distortion of the preference field. In the
+weak-field regime (early in navigation, when $\Phi_t$ has not yet separated
+from $\bar{v}$), the alignment $f_t(v_i) = \langle \Phi_t, v_i \rangle
+\approx \langle \bar{v}, v_i \rangle$ for most items $i$, making
+$f_t\!\restriction_\mathcal{M}$ approximately constant and semantically
+uninformative. The field cannot discriminate until $\Phi_t$ has moved
+sufficiently far from $\bar{v}$ to produce meaningful variance.
+
+\begin{definition}[Admissible and inadmissible subspaces]
+Let $W_U$ be the unembedding matrix of a language or vision-language model,
+with singular value decomposition $W_U = U \Sigma V^\top$. The
+\emph{edge-spectrum subspace} is
+\begin{equation}
+  \mathcal{V}_{\mathrm{edge}} = \mathrm{span}\{V_{[k]} : k \in
+  \mathcal{K}_{\mathrm{edge}}\},
+\end{equation}
+where $\mathcal{K}_{\mathrm{edge}}$ indexes the singular dimensions with
+either the largest or smallest singular values---the boundary of the
+spectrum. The \emph{bulk subspace} is its complement:
+$\mathcal{V}_{\mathrm{bulk}} = \mathcal{V}_{\mathrm{edge}}^\perp$.
+
+A vector $v \in \mathbb{R}^d$ is \emph{spectrally admissible} if
+$\norm{\Pi_{\mathrm{edge}} v} / \norm{v} < \varepsilon$ for some threshold
+$\varepsilon > 0$, where $\Pi_{\mathrm{edge}}$ is the orthogonal projector
+onto $\mathcal{V}_{\mathrm{edge}}$.
+\end{definition}
+
+Wu et al.~\cite{wu2026embedfilter} establish, via Logit Spectroscopy, that
+$\mathcal{V}_{\mathrm{edge}}$ is precisely the subspace responsible for
+writing high-frequency, semantically uninformative tokens into the embedding
+space. The corpus centroid $\bar{v}$ lies predominantly in
+$\mathcal{V}_{\mathrm{edge}}$; removing the edge-spectrum projection
+eliminates the centroid bias and redistributes embeddings more isotropically
+over $S^{d-1}$.
+
+\subsection{EmbedFilter as Admissibility Enforcement}
+
+\begin{definition}[EmbedFilter transformation~\cite{wu2026embedfilter}]
+The \emph{Bulk Spectrum Transformation} with filtering ratio $\tau$ is the
+linear map
+\begin{equation}
+  \Phi_\tau : \mathbb{R}^d \to \mathbb{R}^k, \qquad
+  \Phi_\tau(v) = V[l_\tau : r_\tau]^\top v,
+\end{equation}
+where $k = r_\tau - l_\tau \approx d/\tau$, and $l_\tau, r_\tau$ bound the
+retained bulk indices. The \emph{filtered embedding} is
+$\tilde{v} = \Phi_\tau(v)$.
+\end{definition}
+
+\begin{proposition}[EmbedFilter as inadmissibility removal]
+\label{prop:embedfilter}
+The EmbedFilter transformation satisfies:
+\begin{enumerate}
+  \item[(i)] \emph{Projection identity.} $\Phi_\tau = (I -
+    \Pi_{\mathrm{edge}}) + \Pi_{\mathrm{bulk}}$, up to
+    re-indexing. In particular, $\tilde{v} = (I -
+    \Pi_{\mathrm{edge}})v$ up to rotation within the bulk.
+  \item[(ii)] \emph{Distance preservation.} For any $v, w \in \mathbb{R}^d$,
+    $\norm{\Phi_\tau(v) - \Phi_\tau(w)}_2 = \norm{v - w}_2$ within the
+    bulk subspace.
+  \item[(iii)] \emph{Centroid elimination.} If $\bar{v} \in
+    \mathcal{V}_{\mathrm{edge}}$ then $\Phi_\tau(\bar{v}) = 0$.
+  \item[(iv)] \emph{Admissibility enforcement.} Every $\tilde{v}_i =
+    \Phi_\tau(v_i)$ is spectrally admissible with respect to the original
+    edge-spectrum projector.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) follows from the orthogonality of the singular vectors of $V$.
+(ii) follows from the fact that $V[l_\tau : r_\tau]$ consists of columns of an
+orthogonal matrix, hence is an isometry on its domain. (iii) holds when the
+centroid is exactly in the edge subspace; in practice this is approximate,
+and the quality of centroid elimination depends on how concentrated $\bar{v}$
+is in $\mathcal{V}_{\mathrm{edge}}$. (iv) is immediate from (i): after
+projection, the edge-spectrum component of $\tilde{v}_i$ is zero.
+\end{proof}
+
+\subsection{Effect on Preference Field Discriminability}
+
+After applying EmbedFilter, the filtered preference field
+\begin{equation}
+  \tilde{f}_t(v_i) = \langle \tilde{\Phi}_t, \tilde{v}_i \rangle
+\end{equation}
+operates in the bulk subspace $\mathcal{V}_{\mathrm{bulk}}$. Because the
+centroid bias has been removed, the variance
+\begin{equation}
+  \mathrm{Var}_i[\tilde{f}_t(v_i)] = \frac{1}{N}\sum_{i=1}^N
+  \tilde{f}_t(v_i)^2 - \left(\frac{1}{N}\sum_{i=1}^N \tilde{f}_t(v_i)\right)^2
+\end{equation}
+is strictly larger than $\mathrm{Var}_i[f_t(v_i)]$ whenever $\Phi_t$ has
+a non-negligible edge-spectrum component---that is, whenever the
+unfiltered field is being partially driven by the centroid attractor. This
+variance increase directly improves the discriminative resolution of the
+preference field, allowing meaningful alignment differences to emerge earlier
+in the navigation trajectory.
+
+Empirically, Wu et al.\ report up to 14\% improvement in MTEB downstream
+task performance across Qwen, Llama, and Mistral backbones at $\tau = 2$
+(halving the embedding dimension), confirming that the bulk subspace carries
+the semantically relevant structure~\cite{wu2026embedfilter}.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{The Indistinguishability Threshold and Regime Transitions}
+\label{sec:threshold}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{The Signed Triangle Count as a Geometric Statistic}
+
+The central statistic for distinguishing an RGG from $G_{n,p}$ is the
+\textit{signed triangle count}. For a graph $H$ on $n$ vertices with
+edge-probability $p$ and adjacency matrix $A$, define
+\begin{equation}
+  T(H) = \sum_{\{i,j,k\} \subset [n]}
+  (A_{ij} - p)(A_{jk} - p)(A_{ik} - p).
+\end{equation}
+
+\begin{proposition}[Signed triangle count discriminates RGG from $G_{n,p}$]
+\label{prop:triangle}
+For $G \sim G_{n,p}$ (independent edges): $\mathbb{E}[T(G)] = 0$.
+For $G \sim$ spherical RGG with the same marginal edge probability:
+\begin{equation}
+  \mathbb{E}[T(G)] \approx \frac{n^3 p^3}{\sqrt{d}}.
+\end{equation}
+In both models $\mathrm{Var}[T(G)] \approx n^3 p^3$.
+\end{proposition}
+
+The signal-to-noise ratio for distinguishing the two distributions is
+therefore $n^3 p^3 / \sqrt{d} \,/\, \sqrt{n^3 p^3} = \sqrt{n^3 p^3 / d}$.
+The geometric signal is detectable when this ratio exceeds a constant, i.e.\
+when $d < n^3 p^3$.
+
+\subsection{The Regime Indicator}
+
+\begin{definition}[Preference field regime indicator]
+At state $t$, for threshold $\theta$, let $n_\theta = |A_t(\theta)|$ and
+let $p_\theta$ be the effective edge probability in $G_t(\theta)$. The
+\emph{regime indicator} is
+\begin{equation}
+  \label{eq:lambda}
+  \Lambda_t(\theta) = \frac{n_\theta^3\, p_\theta^3}{d}.
+\end{equation}
+\end{definition}
+
+$\Lambda_t$ is the natural order parameter of the theory. Every other
+quantity---alignment variance, clique number, triangle density, spectral
+discriminability---is monotone in $\Lambda_t$. When $\Lambda_t$ crosses its
+critical value the system undergoes a phase transition from a regime in which
+the corpus geometry is hidden to one in which it is geometrically structured
+and navigable. In this respect $\Lambda_t$ plays the same role in preference
+field theory that the Reynolds number plays in fluid mechanics, the inverse
+temperature $\beta$ plays in statistical mechanics, and the basic reproduction
+number $R_0$ plays in epidemiology: it is the single dimensionless parameter
+that separates qualitatively distinct phases of the system's behavior.
+
+\begin{proposition}[Field detectability criterion]
+\label{prop:detectability}
+Let $G_t(\theta)$ be the threshold graph induced by the preference field at
+threshold $\theta$. Geometric information about the underlying corpus manifold
+is recoverable from $G_t(\theta)$ if and only if $\Lambda_t(\theta)$ exceeds
+a constant-order threshold. More precisely:
+\begin{itemize}
+  \item As $\Lambda_t \to 0$: the distribution of $G_t(\theta)$ converges
+    in total variation to $G_{n_\theta, p_\theta}$; no statistical test can
+    distinguish the threshold graph from an Erd\H{o}s--R\'enyi random graph;
+    the preference field carries no recoverable geometric information.
+  \item As $\Lambda_t \to \infty$: the signed triangle count
+    $T(G_t(\theta))$ diverges from its $G_{n,p}$ expectation of zero by
+    $\Theta(\sqrt{n_\theta^3 p_\theta^3 / d}) \cdot \sqrt{n_\theta^3
+    p_\theta^3}$ standard deviations; geometric clustering is detectable
+    with power approaching one; the preference field is resolving genuine
+    semantic structure.
+  \item At $\Lambda_t \asymp 1$: the signed triangle count achieves
+    signal-to-noise ratio $\Theta(1)$; this is the critical threshold
+    separating detectable from undetectable geometry.
+\end{itemize}
+\end{proposition}
+
+\begin{proof}[Sketch]
+The total variation convergence for $\Lambda_t \to 0$ follows from the
+HMS indistinguishability theorem~\cite{hunter2026gaussian}: when $d >
+n^3 p^3$ the total variation distance between the spherical RGG and
+$G_{n,p}$ goes to zero. The detectability for $\Lambda_t \to \infty$
+follows from Proposition~\ref{prop:triangle}: the signal-to-noise ratio
+of the signed triangle count is $\sqrt{n_\theta^3 p_\theta^3 / d} =
+\sqrt{\Lambda_t}$, which diverges. The critical threshold follows from
+setting signal equal to noise.
+\end{proof}
+
+\begin{theorem}[Phase transition in preference field geometry]
+\label{thm:transition}
+Let $\mathcal{C}$ be a corpus with embeddings approximately distributed as a
+spherical RGG in dimension $d$. Then:
+\begin{itemize}
+  \item If $\Lambda_t(\theta) \ll 1$: the sub-corpus $A_t(\theta)$ is
+    statistically indistinguishable from $G_{n_\theta, p_\theta}$; the
+    preference field cannot resolve geometric structure; the admissible
+    neighborhood is a uniformly random subset of size $n_\theta$.
+  \item If $\Lambda_t(\theta) \gg 1$: the geometry of $S^{d-1}$ is
+    detectable in $A_t(\theta)$; triangles close at a rate exceeding
+    $G_{n,p}$ prediction; the admissible neighborhood has genuine
+    cluster structure that the preference field is resolving.
+\end{itemize}
+The transition between regimes occurs at $\Lambda_t(\theta) \asymp 1$,
+i.e.\ $n_\theta \asymp (d/p_\theta^3)^{1/3}$.
+\end{theorem}
+
+\begin{proof}[Sketch]
+The indistinguishability claim for $\Lambda_t \ll 1$ follows from
+Milojević, Hunter, and Sudakov's theorem that the total variation distance
+between a spherical RGG and $G_{n,p}$ converges to zero when $d > n^3 p^3$
+(see~\cite{hunter2026gaussian} and the companion
+indistinguishability paper). The detectability claim for $\Lambda_t \gg 1$
+follows from Proposition~\ref{prop:triangle}: the signed triangle count
+provides a statistically powerful test whenever $\sqrt{n^3 p^3 / d} \gg 1$.
+\end{proof}
+
+\subsection{Implications for Navigation}
+
+The regime indicator $\Lambda_t(\theta)$ gives a principled diagnostic of
+preference field quality. When $\Lambda_t \ll 1$, the field is not resolving
+genuine semantic structure: the admissible neighborhood looks random, and
+additional preference signals cannot improve geometric discrimination until
+$n_\theta$ grows. When $\Lambda_t \gg 1$, the field is operating in the
+geometric regime: the coherent cluster identified by $A_t(\theta)$ is a real
+semantic neighborhood, and further preference refinement can sharpen its
+boundaries.
+
+This has a practical consequence: the transition $\Lambda_t(\theta) \asymp
+1$ marks a natural threshold for switching from exploratory navigation
+(increasing $n_\theta$ to find a geometric regime) to refinement
+(decreasing $\theta$ to identify the tightest coherent sub-cluster). The
+mathematics does not prescribe exploration strategy, but it identifies
+where in the parameter space exploration is necessary and where refinement
+becomes productive.
+
+% ─────────────────────────────────────────────────────────────────────────────
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Discussion}
+\label{sec:discussion}
+% ─────────────────────────────────────────────────────────────────────────────
+
+The central contribution of the preceding sections is that preference-guided
+navigation naturally generates a geometric field theory. The preference
+vector $\Phi_t$ is not merely a weighted sum of ratings; it is a direction
+in $S^{d-1}$ whose induced scalar field has measurable geometric properties.
+The admissible neighborhood is not merely a ranking threshold; it is a
+subgraph of a random geometric graph whose clique structure and triangle
+density encode the semantic organization of the corpus. And spectral
+admissibility is not merely an engineering post-processing step; it is the
+removal of an inadmissible subspace that systematically distorts the
+field's discriminative geometry.
+
+The order parameter $\Lambda_t$ unifies these observations. It is a
+single dimensionless quantity computed from the admissible neighborhood
+size, the effective edge probability, and the embedding dimension. Every
+other observable quantity in the theory is monotone in $\Lambda_t$, and
+the phase transition at $\Lambda_t \asymp 1$ separates qualitatively
+distinct navigation regimes.
+
+\subsection{Connections to Constraint-Based Field Frameworks}
+
+The mathematical structures developed here bear structural similarity to
+several frameworks that study the geometry of accessibility and constraint
+in different settings. We record these briefly without claiming formal
+equivalence.
+
+The preference field $f_t(v) = \langle \Phi_t, v \rangle$ plays the same
+mathematical role as the scalar admissibility field in RSVP-based
+formulations~\cite{rsvp2024}: a time-dependent scalar that organizes which
+regions of a state space are accessible and shapes the competitive landscape
+of local configurations. The spectral admissibility operation $(I -
+\Pi_\mathrm{edge})$ acts as a directional entropy-reduction operator
+analogous to RSVP's admissibility projection, removing high-entropy
+directions that carry no differential semantic information. The present
+work neither assumes RSVP nor claims equivalence; the correspondence is at
+the level of mathematical role.
+
+The nested sequence of admissible neighborhoods $A_t(\theta_1) \supseteq
+A_{t'}(\theta_2) \supseteq \cdots$ as the field sharpens resembles the
+recursive, constraint-preserving tiling structure of TARTAN, in which each
+refinement step inherits and tightens the structure of the previous level.
+Whether the preference field sequence can be expressed as a TARTAN tiling
+in a precise categorical sense is an open question.
+
+Preference trajectories $\Phi_1, \ldots, \Phi_T$ induce ordered chains of
+admissible projections. Items that persist in $A_t(\theta)$ across many
+time steps maintain relevance through continued compatibility with the
+evolving field, rather than through static storage---a structure that
+resembles Chain of Memory models of persistence~\cite{chainofmemory2024}.
+Whether this resemblance can be formalized as a dynamical equivalence or
+requires a categorical treatment is also open.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Future Directions}
+\label{sec:future}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Adaptive Spectral Admissibility}
+
+The EmbedFilter transformation uses a static admissibility criterion: the
+edge-spectrum subspace is identified once from the global unembedding matrix
+SVD. A more principled formulation allows the criterion to adapt to the
+current field state. Define a parameterized family of admissibility
+projectors $\Pi_\theta : \mathbb{R}^d \to \mathbb{R}^k$ and update $\theta$
+to maximize the discriminative variance of the filtered field over the rated
+set:
+\begin{equation}
+  \theta_t^* = \argmax_{\theta}\;
+  \mathrm{Var}_{i \sim \mathcal{R}_t}\!\left[
+  \langle \Pi_\theta(\Phi_t),\, \Pi_\theta(v_i) \rangle \right].
+\end{equation}
+This is online principal component analysis under the preference-weighted
+distribution over $\mathcal{R}_t$, initialized at the static EmbedFilter
+solution. The effective embedding space specializes to the semantic cluster
+the field currently inhabits, discarding spectral dimensions that are
+globally informative but locally irrelevant to the current $\Phi_t$.
+
+\subsection{Continuous Field Theory: From Projector to Connection}
+
+The present framework is fundamentally corpus-relative: the admissibility
+projector acts on a finite set of vectors and all objectives are defined
+through empirical variance over rated examples. Moving to a continuous
+field theory requires the projector to become a geometric object.
+
+The natural formulation replaces the fixed projector $\Pi : \mathbb{R}^d
+\to \mathbb{R}^k$ with a smoothly varying family
+\begin{equation}
+  \Pi_v : T_v\mathcal{M} \to A_v,
+\end{equation}
+where $A_v \subset T_v\mathcal{M}$ is the admissible tangent subspace at
+$v \in \mathcal{M}$. The admissible directions form a distribution $A
+\subset T\mathcal{M}$. The preference field is no longer a single vector
+$\Phi_t \in S^{d-1}$ but a section
+\begin{equation}
+  \Phi : \mathcal{M} \to T\mathcal{M}
+\end{equation}
+whose evolution is constrained to remain inside $A$. The adaptive projector
+becomes a \textit{connection} on $A$, specifying how admissible directions
+transport as one moves through semantic space:
+\begin{equation}
+  \frac{D\Pi}{dt} = F(\mathcal{R}_t, \Phi_t),
+\end{equation}
+where $F$ encodes the local curvature of $\mathcal{M}$.
+
+The fundamental question at this level is whether the distribution $A$ is
+\textit{integrable}. By the Frobenius theorem, integrability is equivalent
+to the existence of admissible leaves $\mathcal{L} \subset \mathcal{M}$
+such that navigation remains within a semantic foliation. An integrable
+admissibility distribution implies that semantic concepts correspond to
+closed leaves and navigation is path-independent within a leaf. A
+non-integrable distribution implies path dependence: the accessible region
+depends on the trajectory, not merely the current position. This distinction
+separates structurally different classes of semantic corpora: a
+highly-organized scientific corpus may possess nearly integrable
+admissibility leaves; a heterogeneous internet-scale corpus almost certainly
+does not.
+
+\subsection{The Continuous Regime Indicator}
+
+The discrete order parameter $\Lambda_t = n_\theta^3 p_\theta^3 / d$ is
+derived from graph statistics over a finite neighborhood. In the continuous
+limit we expect it to become a local geometric quantity:
+\begin{equation}
+  \Lambda(x) = \frac{\rho(x)^3\, p(x)^3}{\kappa(x)},
+\end{equation}
+where $\rho(x)$ is the local semantic density at $x \in \mathcal{M}$,
+$p(x)$ is the local alignment probability, and $\kappa(x)$ is an effective
+curvature scale replacing the ambient dimension $d$. The discrete dimension
+$d$ measures global indistinguishability; the curvature $\kappa(x)$ measures
+local geometric obstruction. The phase transition then becomes not ``enough
+vertices versus too many dimensions'' but ``enough local density to overcome
+curvature-induced indistinguishability.'' This is a genuine field-theoretic
+statement: the transition point is a local property of the manifold, not a
+global property of the embedding space.
+
+\subsection{Sheaf-Theoretic Admissibility and Global Sections}
+
+In the continuous formulation, each open neighborhood $U \subset
+\mathcal{M}$ possesses its own admissible subspace $A(U) \subset T_U
+\mathcal{M}$. These local assignments define a \textit{presheaf of
+admissible directions}. The central question becomes whether local
+admissibility assignments are consistent: whether sections defined on
+overlapping neighborhoods $U_\alpha \cap U_\beta$ agree on the overlap,
+and whether local sections can be extended to global ones.
+
+If the admissibility presheaf satisfies the sheaf gluing axioms, then a
+global semantic concept exists whenever its local restrictions are
+consistent. If it does not---if there are obstructions to gluing---then
+the concept is only locally definable and cannot be extended across the
+full manifold. The obstruction to gluing is captured by the sheaf
+cohomology group $H^1(\mathcal{M}, \mathcal{A})$, where $\mathcal{A}$ is
+the sheaf of admissible sections.
+
+Viewed this way, the adaptive admissibility projector is the discrete
+precursor of a sheaf-gluing operator. Its discrete version selects
+admissible dimensions; its continuous version determines whether local
+semantic sections extend into global ones. Concepts whose admissibility
+sections glue globally correspond to $H^1 = 0$; concepts with non-trivial
+obstruction class correspond to $H^1 \neq 0$ and exist only locally. This
+is the natural home of the framework: a geometric theory in which
+admissibility is a distribution on a manifold, the projector is a
+connection on that distribution, and semantic concepts correspond to
+globally gluable sections.
+
+\subsection{Ramsey-Theoretic Stopping Criteria}
+
+Corollary~\ref{cor:clique} gives a Ramsey-theoretic bound on the field
+clique number $\omega_t(\theta)$. Once $\omega_t$ stabilizes, the field
+has extracted the maximum coherent cluster available at the current
+threshold: further preference refinement within the same $\theta$ cannot
+produce a larger coherent neighborhood. The Frobenius integrability
+condition provides a deeper interpretation: $\omega_t$ stabilization
+signals that the field has reached the boundary of the current admissible
+leaf. Continued navigation requires either expanding $\theta$ (moving to
+a coarser leaf) or generating new corpus points by interpolation in
+$\mathcal{E}$ (probing the leaf's interior by synthesis rather than
+selection).
+
+\subsection{Formal Functorial Unification}
+
+The structural correspondences of Section~\ref{sec:discussion} suggest a
+formal program. Define the \textit{preference field category} $\mathbf{PF}$
+whose objects are corpus manifolds equipped with preference fields and whose
+morphisms are field-preserving maps. The natural question is whether there
+exist functors
+\begin{equation}
+  F_{\mathrm{RSVP}} : \mathbf{PF} \to \mathbf{RSVP}, \quad
+  F_{\mathrm{TARTAN}} : \mathbf{PF} \to \mathbf{TARTAN}, \quad
+  F_{\mathrm{CoM}} : \mathbf{PF} \to \mathbf{CoM},
+\end{equation}
+where $\mathbf{RSVP}$, $\mathbf{TARTAN}$, $\mathbf{CoM}$ are the
+categories of the respective frameworks. If such functors exist and are
+faithful, the frameworks are provably instances of a single underlying
+mathematical structure rather than analogous constructions developed
+independently. This program requires careful categorical development of
+each target framework and constitutes a natural long-range goal.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Mathematical Summary}
+\label{sec:summary}
+% ─────────────────────────────────────────────────────────────────────────────
+
+For reference, we collect the central definitions and results.
+
+\paragraph{Preference field.} $\Phi_t \in S^{d-1}$; updated by
+$\Phi_t = \tilde\Phi_t / \|\tilde\Phi_t\|$ where $\tilde\Phi_t = \sum_{(i,r_i) \in
+\mathcal{R}_t} w(r_i) v_i$; induces $f_t(v) = \langle \Phi_t, v \rangle$.
+
+\paragraph{Admissible neighborhood.} $A_t(\theta) = \{i : f_t(v_i) \ge \theta\}$;
+converges under consistent preference (Proposition~\ref{prop:convergence}).
+
+\paragraph{Triangle corrections.} $\delta_r = 1 - a^3 p^3 / \sqrt{d}$,
+$\delta_b = 1 + a^3(1-p)^3/\sqrt{d}$; clique probabilities in the threshold
+graph are governed by Theorem~\ref{thm:hms}.
+
+\paragraph{Spectral admissibility.} $(I - \Pi_{\mathrm{edge}})$ removes the
+centroid-biased subspace; EmbedFilter enforces admissibility
+(Proposition~\ref{prop:embedfilter}); variance of $\tilde f_t$ over the corpus
+increases after filtering.
+
+\paragraph{Regime indicator.} $\Lambda_t(\theta) = n_\theta^3 p_\theta^3 / d$;
+$\Lambda_t \ll 1$ is the geometric regime transition
+(Theorem~\ref{thm:transition}).
+
+\paragraph{Field clique bound.} $\mathbb{E}[\omega_t(\theta)] \lesssim
+2 \log_{1/(1-p_\theta)} n_\theta$ with $O(1/\sqrt{d})$ correction
+(Corollary~\ref{cor:clique}).
+
+\bigskip
+\noindent\rule{\textwidth}{0.4pt}
+
+\begin{thebibliography}{99}
+
+\bibitem{radford2021clip}
+Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh,
+Sandhini Agarwal, et~al.
+\newblock Learning transferable visual models from natural language supervision.
+\newblock In \textit{Proceedings of ICML}, 2021.
+
+\bibitem{hunter2026gaussian}
+Zach Hunter, Aleksa Milojević, and Benny Sudakov.
+\newblock Gaussian random graphs and Ramsey numbers.
+\newblock arXiv:2512.17718 [math.CO], 2026.
+
+\bibitem{wu2026embedfilter}
+Songhao Wu, Zhongxin Chen, Yuxuan Liu, Heng Cui, Cong Li, and Rui Yan.
+\newblock Your unembedding matrix is secretly a feature lens for text
+  embeddings.
+\newblock arXiv:2606.07502 [cs.CL], 2026.
+
+\bibitem{ethayarajh2019anisotropy}
+Kawin Ethayarajh.
+\newblock How contextual are contextualized word representations?
+\newblock In \textit{Proceedings of EMNLP-IJCNLP}, 2019.
+
+\bibitem{rsvp2024}
+Flyxion.
+\newblock \textit{RSVP: Scalar-Vector-Entropic Field Cosmology}.
+\newblock Monograph, 2024.
+
+\bibitem{chainofmemory2024}
+Flyxion.
+\newblock \textit{Chain of Memory: Selective Persistence and Iterative
+  Refinement}.
+\newblock Essay, 2024.
+
+\bibitem{pearl1988}
+Judea Pearl.
+\newblock \textit{Probabilistic Reasoning in Intelligent Systems}.
+\newblock Morgan Kaufmann, 1988.
+
+\bibitem{penrose2003}
+Mathew Penrose.
+\newblock \textit{Random Geometric Graphs}.
+\newblock Oxford University Press, 2003.
+
+\end{thebibliography}
+
+\end{document}

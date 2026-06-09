@@ -1,0 +1,1568 @@
+\documentclass[12pt,oneside]{book}
+
+% -------------------------------------------------------
+% Packages
+% -------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{
+  paperwidth=6in,
+  paperheight=9in,
+  top=1in,
+  bottom=1in,
+  inner=0.85in,
+  outer=0.85in,
+  headheight=14pt
+}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{epigraph}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage{hyperref}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=black,
+  pdftitle={Persistent Anomalies and the Geometry of Ontology Revision},
+  pdfauthor={Flyxion}
+}
+
+% -------------------------------------------------------
+% Theorem environments
+% -------------------------------------------------------
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{principle}[theorem]{Principle}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{notation}[theorem]{Notation}
+
+% -------------------------------------------------------
+% Derivation box environment
+% -------------------------------------------------------
+\newmdenv[
+  linecolor=black,
+  linewidth=0.5pt,
+  topline=true,
+  bottomline=true,
+  leftline=false,
+  rightline=false,
+  innertopmargin=9pt,
+  innerbottommargin=9pt,
+  innerleftmargin=0pt,
+  innerrightmargin=0pt,
+  skipabove=14pt,
+  skipbelow=14pt,
+  frametitle={\normalfont\small\bfseries},
+  frametitleaboveskip=4pt,
+]{derivbox}
+
+% -------------------------------------------------------
+% Typography
+% -------------------------------------------------------
+\setstretch{1.15}
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0pt}
+\setlength{\epigraphwidth}{0.75\textwidth}
+
+\titleformat{\chapter}[display]
+  {\normalfont\large\bfseries\centering}
+  {\MakeUppercase{\chaptertitlename}\ \thechapter}
+  {12pt}
+  {\Large}
+
+\titleformat{\section}
+  {\normalfont\normalsize\bfseries}
+  {\thesection}
+  {1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\normalsize\itshape}
+  {\thesubsection}
+  {1em}{}
+
+% -------------------------------------------------------
+% Header/footer
+% -------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\small\thepage}
+\fancyhead[LO]{\small\nouppercase{\rightmark}}
+\fancyhead[RE]{\small\nouppercase{\leftmark}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% -------------------------------------------------------
+% Operators and macros
+% -------------------------------------------------------
+\DeclareMathOperator{\Hol}{Hol}
+\DeclareMathOperator{\Pers}{Pers}
+\DeclareMathOperator{\Obs}{Obs}
+\newcommand{\R}{\mathcal{R}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\ob}{\mathcal{O}}
+\newcommand{\cat}[1]{\mathbf{#1}}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\1}{\mathbf{1}}
+
+% -------------------------------------------------------
+\begin{document}
+% -------------------------------------------------------
+
+% -------------------------------------------------------
+% Title page
+% -------------------------------------------------------
+\begin{titlepage}
+\centering
+\vspace*{2cm}
+{\Large\bfseries Persistent Anomalies and the Geometry\\[6pt] of Ontology Revision\par}
+\vspace{1cm}
+{\large Repair, Admissibility, and Non-Abelian Tears\par}
+\vspace{2cm}
+{\normalsize Flyxion\par}
+\vspace{1cm}
+{\normalsize 2026\par}
+\vfill
+{\small\itshape An independent research monograph\par}
+\end{titlepage}
+
+% -------------------------------------------------------
+% Front matter
+% -------------------------------------------------------
+\frontmatter
+\tableofcontents
+
+% -------------------------------------------------------
+% Preface
+% -------------------------------------------------------
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+This monograph began with a simple observation about Mercury.
+
+In the nineteenth century, astronomers knew that the perihelion of Mercury's orbit precessed at a rate that Newtonian mechanics could not fully account for. The discrepancy was small---a matter of forty-three arcseconds per century---and yet it survived every repair that Newtonian astronomy could offer. New planetary bodies were hypothesized and searched for. Atmospheric drag was measured and found insufficient. The oblate shape of the Sun was estimated and incorporated. None of it worked. The anomaly persisted~\cite{will2014,einstein1916}.
+
+The standard narrative presents this as a story about a wrong theory waiting to be replaced~\cite{kuhn1962,lakatos1978}. But that framing obscures the more important point: the anomaly was not valuable because it was large. It was valuable because it was \emph{stubborn}. Its persistence under an expanding sequence of repair operations was itself information---information not about Mercury's orbit, but about the geometric structure of the space in which the theory was trying to represent that orbit.
+
+This observation motivates the central thesis of the present work.
+
+\medskip
+\noindent\textbf{Central Thesis.} \emph{Persistent anomalies are evidence of missing representational structure, not merely inaccurate parameters.}
+\medskip
+
+Everything that follows is a development and mathematization of this idea. We introduce a general theory of repair algebras, define a hierarchy of discrepancy types, develop a Persistence--Obstruction Schema connecting repair-invariant anomalies to obstructions in the representational geometry, and propose a framework for ontology-expanding learning in which persistent anomalies function as generators of representational growth rather than targets of error minimization.
+
+Throughout, we maintain the distinction between two modes of failure: the failure of a model to fit observed data, and the failure of a model's representational architecture to contain any trajectory that could fit observed data. The first mode is addressed by learning. The second mode requires ontology revision. The monograph is, at its core, a mathematical account of how to distinguish them---and of why the distinction so often goes undetected.
+
+Several conceptual innovations introduced in the course of the argument deserve special mention at the outset. Persistence is shown to be relational: a property not of an anomaly alone but of the pair $(\eps, \R)$ where $\R$ is the repair algebra available to the observer. Memory is shown to be not merely useful but constitutively necessary for the computation of persistence: without a remembered repair trajectory, no anomaly can ever be recognized as persistent, and the entire hierarchy of ontology revision collapses. The geometry of repair space itself---the landscape of available transformations acting on the model manifold---is identified as the ultimate object of study.
+
+The resulting picture synthesizes themes from philosophy of science, information geometry, algebraic topology, and adaptive systems~\cite{kuhn1962,amari2016,hatcher2002,friston2010}. The RSVP framework of relational scalar-vector-potential cosmology appears in Part~VII as one application domain among several, alongside modern machine learning and scientific epistemology.
+
+\vspace{1em}
+\noindent\textit{Flyxion, Canada, 2026}
+
+% -------------------------------------------------------
+\mainmatter
+% -------------------------------------------------------
+
+% ===============================================================
+\part{Repair Theory}
+% ===============================================================
+
+\chapter{Models, Observations, and Residuals}
+
+\epigraph{The most important question in science is not: what is the answer? It is: what kind of question is this?}{\textit{attributed to various sources}}
+
+\section{Basic Setup}
+
+We begin with the most abstract possible setting for the relationship between a model and its observations.
+
+\begin{definition}[Model]
+A \emph{model} is a triple $(\M, \Sigma, \pi)$ where $\M$ is a state space, $\Sigma$ is a space of observable outputs, and $\pi : \M \to \Sigma$ is a prediction map.
+\end{definition}
+
+A model generates predictions. Observations are elements of $\Sigma$ that are not necessarily in the image of $\pi$. The discrepancy between predictions and observations is what we call a residual.
+
+\begin{definition}[Residual]
+Given a prediction $\hat{x} = \pi(m)$ for some $m \in \M$ and an observation $x_{\mathrm{obs}} \in \Sigma$, the \emph{residual} is
+\[
+\eps = x_{\mathrm{obs}} - \hat{x}
+\]
+when $\Sigma$ is a normed space, or more generally a section of an appropriate bundle over $\Sigma$ measuring the discrepancy between prediction and observation.
+\end{definition}
+
+We deliberately leave the notion of ``discrepancy'' flexible at this stage. In later chapters it will acquire geometric and topological content. For now it suffices to have some measure of how far the prediction misses the observation.
+
+\section{The Scalar View of Learning}
+
+Classical learning theory reduces the quality of a model to a single number at each point in observation space~\cite{vapnik1998,cover2006,shalev2014}. A model with small expected loss is considered adequate.
+
+\begin{definition}[Loss-Minimizing Learner]
+A \emph{loss-minimizing learner} selects
+\[
+m^* = \arg\min_{m \in \M} \mathbb{E}\bigl[L(\pi(m), x_{\mathrm{obs}})\bigr]
+\]
+for some fixed loss function $L : \Sigma \times \Sigma \to \mathbb{R}_{\geq 0}$.
+\end{definition}
+
+This scalar view is not wrong. For a vast range of practical problems it produces excellent models. The critique developed in this monograph is that it succeeds in a way that systematically conceals its own limits. The loss function cannot ask whether the representational architecture is adequate~\cite{wimsatt2007,simon1969}; it can only ask how well the current architecture performs. We will argue throughout this monograph that the reduction of model quality to a scalar at each observation is not merely a computational convenience but an ontological commitment---one that systematically suppresses certain categories of information about model quality.
+
+\section{Trajectories and Trajectory Manifolds}
+
+Many interesting observations arise not as isolated points but as trajectories: sequences or paths through observation space indexed by time or some other parameter.
+
+\begin{definition}[Trajectory Manifolds]
+Let $\gamma_p, \gamma_o : [0,T] \to \Sigma$ denote the predicted and observed trajectories respectively. As initial conditions vary, these sweep out submanifolds $M_{\mathrm{pred}}$ and $M_{\mathrm{obs}}$ of the trajectory space $\Gamma(\Sigma)$. We call these the \emph{predicted} and \emph{observed trajectory manifolds}.
+\end{definition}
+
+The relationship between $M_{\mathrm{pred}}$ and $M_{\mathrm{obs}}$---metric, geometric, topological, and categorical---is the central object of study in this monograph. A pointwise residual $\norm{\gamma_o(t) - \gamma_p(t)}$ discards most of the interesting information carried by this pair. The tools developed below allow us to recover it.
+
+% -------------------------------------------------------
+\begin{derivbox}[frametitle={Derivation 1: Residuals and Repair Sequences}]
+Let $M$ be a model, $o_t$ an observation, and $\hat{o}_t = M(h_t)$ the prediction generated from history $h_t$. The ordinary residual is
+\[
+\eps_t = o_t - \hat{o}_t.
+\]
+A repair operation is a map $R_i : \mathcal{E} \to \mathcal{E}$ acting on residual space $\mathcal{E}$. A sequence of repairs produces
+\[
+\eps_t^{(n)} = R_n R_{n-1} \cdots R_1(\eps_t).
+\]
+The anomaly is \emph{transient} if $\lim_{n\to\infty}|\eps_t^{(n)}| = 0$, and \emph{persistent} if $\liminf_{n\to\infty}|\eps_t^{(n)}| > 0$. Persistence is therefore not simply error magnitude. It is the failure of error to vanish under admissible repair.
+\end{derivbox}
+% -------------------------------------------------------
+
+
+\chapter{The Algebra of Repair}
+
+\section{Repair Operations and the Relational Character of Persistence}
+
+\begin{definition}[Repair Operation]
+A \emph{repair operation} is a map $R : \mathcal{E} \to \mathcal{E}$ on the space of residuals satisfying $\norm{R(\eps)} \leq \norm{\eps}$ for all $\eps$, with $R(\eps) = 0$ whenever $\eps$ is attributable to a specific class of modifiable parameters within the model.
+\end{definition}
+
+Repair operations model the actions available to a learning system: adjusting parameters, changing coordinate systems, adding mechanisms, revising priors. Different repair operations correspond to different levels of intervention in the model.
+
+\begin{example}
+For a physical model with measurement uncertainty $\sigma$, a Level-0 repair operation might subtract estimated bias:
+\[
+R_0(\eps) = \eps - \hat{\mu}
+\]
+where $\hat{\mu}$ is the estimated systematic error. This repair is admissible whenever the model has a free parameter corresponding to measurement offset.
+\end{example}
+
+\begin{definition}[Repair Algebra]
+A \emph{repair algebra} $\R = \{R_i\}_{i \in I}$ is a collection of repair operations closed under composition. The algebra is \emph{admissible} for a model $\M$ if every $R_i \in \R$ corresponds to a modification available within $\M$'s representational architecture.
+\end{definition}
+
+The admissibility condition is crucial. A repair algebra for Newtonian celestial mechanics includes operations like adjusting masses, adding new gravitational bodies, and refining orbital parameters. It does not include changing the background geometry from flat to pseudo-Riemannian space---that operation lies outside the algebra. The notion that scientific progress proceeds through structured modification rather than wholesale replacement has deep precedents in research programme methodology~\cite{lakatos1978}.
+
+This observation leads immediately to the relational character of persistence. The same anomaly can be transient relative to one repair algebra and persistent relative to another. A modern neural network can absorb anomalies that would immediately force promotion in a simpler model. A Newtonian astronomer and an Einsteinian physicist have access to different repair algebras, and the same residual presents very differently to each.
+
+% -------------------------------------------------------
+\begin{derivbox}[frametitle={Derivation 2: Persistence Relative to a Repair Algebra}]
+Let $\R$ be the repair algebra generated by admissible operations $R_i$. Define the \emph{persistence} of an anomaly as
+\[
+P(\eps, \R) = \inf_{R \in \langle \R \rangle} \norm{R(\eps)}.
+\]
+If $P(\eps, \R) = 0$, the anomaly is repairable within the current ontology. If $P(\eps, \R) > 0$, the anomaly contains structure not removable by the available repair algebra. This makes persistence relational: the same anomaly may be transient for one observer and persistent for another, depending on what repairs are available.
+\end{derivbox}
+% -------------------------------------------------------
+
+\section{The Persistence Invariant and Fixed Points}
+
+\begin{definition}[Repair Closure and Persistence Invariant]
+Define the \emph{repair closure operator}
+\[
+\mathcal{C}_{\R}(\eps) = \lim_{n\to\infty} R_n \cdots R_1(\eps),
+\]
+where the limit is taken over optimal repair sequences. The \emph{persistence invariant} is
+\[
+\Pers_{\R}(\eps_0) = \norm{\mathcal{C}_{\R}(\eps_0)}.
+\]
+An anomaly is \emph{transient} if $\Pers_{\R}(\eps_0) = 0$ and \emph{persistent} if $\Pers_{\R}(\eps_0) > 0$.
+\end{definition}
+
+The central claim of this monograph is that persistence carries more information than magnitude. A residual of magnitude $10^{-3}$ that is persistent is more informative about representational limits than a residual of magnitude $10^3$ that is transient.
+
+When the persistence invariant is non-zero, the limit $\eps^* = \mathcal{C}_{\R}(\eps_0)$ satisfies a fixed-point condition.
+
+\begin{proposition}[Persistence Fixed Point]
+\label{prop:fixedpoint}
+Let $\R$ be a contractive repair algebra on a complete residual space $\mathcal{E}$. Then every persistent anomaly contains a non-zero fixed-point component $\eps^*$ satisfying
+\[
+R(\eps^*) = \eps^* \quad \text{for all admissible } R \in \R.
+\]
+\end{proposition}
+
+\begin{proof}
+By contractivity, the sequence $R_n \cdots R_1(\eps_0)$ converges in $\mathcal{E}$ by the Banach fixed-point theorem. If the limit $\eps^*$ is non-zero, then applying any $R \in \R$ to $\eps^*$ produces a further contraction. Since $\eps^*$ is already the infimum of the repair sequence, $\norm{R(\eps^*)} \geq \norm{\eps^*}$. Combined with $\norm{R(\eps^*)} \leq \norm{\eps^*}$, we obtain $R(\eps^*) = \eps^*$.
+\end{proof}
+
+This gives a precise interpretation: \emph{persistent anomalies are fixed points of repair}. They are the components of a residual that the repair dynamics cannot move, the irreducible remainder after all available repair has been exhausted.
+
+\section{The Repair Hierarchy}
+
+Real learning systems do not apply all repair operations simultaneously. They apply them in order of cost, preference, or availability. This gives rise to a natural hierarchy.
+
+\begin{definition}[Repair Hierarchy]
+A \emph{repair hierarchy} is a sequence of repair algebras
+\[
+\R_0 \subset \R_1 \subset \R_2 \subset \cdots \subset \R_K
+\]
+where each $\R_k$ is a strict extension of $\R_{k-1}$ with higher operational cost.
+\end{definition}
+
+Level-0 repairs are cheapest: spelling corrections, parameter nudges, calibration adjustments. Level-1 repairs are more expensive: coordinate changes, mechanism additions. Higher levels involve more fundamental alterations to the model's architecture.
+
+\begin{definition}[Promotion]
+An anomaly $\eps$ is \emph{promoted} from level $k$ to level $k+1$ when
+\[
+\Pers_{\R_k}(\eps) > 0 \quad \text{but the system attempts } R \in \R_{k+1}.
+\]
+Promotion occurs when every cheaper repair has been exhausted.
+\end{definition}
+
+The promotion process gives a procedural definition of a tear: an anomaly that has survived every repair at every level below some threshold is a candidate for a structural, rather than parametric, diagnosis.
+
+\section{Repair Triage}
+
+\begin{definition}[Repair Triage]
+\emph{Repair triage} is the process by which a learning system:
+\begin{enumerate}[label=(\roman*)]
+\item presents an anomaly to the lowest available repair level,
+\item promotes it if the repair fails,
+\item continues promotion until either the anomaly is absorbed or the highest available level is reached,
+\item flags anomalies that survive all levels as candidates for ontology revision.
+\end{enumerate}
+\end{definition}
+
+Under this view, learning is not primarily error reduction. It is the continuous operation of a triage process that sorts anomalies by their structural depth. Most anomalies are resolved at low levels. The valuable ones are those that climb.
+
+
+\chapter{Repair as Experiment}
+
+\section{The Epistemic Status of Failed Repairs}
+
+Each repair attempt is an experiment: a test of the hypothesis that the anomaly is attributable to a specific class of correctable features~\cite{popper1959,hanson1958}. When a repair fails---when the anomaly survives---the experiment has a negative result. As repair attempts accumulate, the surviving anomaly is progressively purified. Each failed repair eliminates one more explanation that does not work. What remains after exhaustive application of a repair algebra is, in a precise sense, the irreducible content of the anomaly.
+
+\begin{proposition}[Purification by Repair]
+Let $\eps_0$ be an anomaly and let $\R = \{R_1, \ldots, R_n\}$ be a finite repair algebra. Then $\Pers_{\R}(\eps_0)$ represents the component of $\eps_0$ that is orthogonal to every repair direction in $\R$.
+\end{proposition}
+
+\begin{proof}[Sketch]
+Each $R_i$ defines a subspace of the residual space in which it can reduce anomalies. The image of the full repair sequence is the projection onto the orthogonal complement of the span of these subspaces. The persistence invariant is the norm of this projection.
+\end{proof}
+
+The repair sequence is therefore not merely a sequence of attempts. It is a measurement process. The outcome of the measurement is the persistence invariant. A sequence that converges to zero reports: this anomaly was local. A sequence that plateaus reports: this anomaly has revealed a boundary.
+
+\section{The Memory Requirement}
+
+A critical but easily overlooked requirement for repair triage is memory. A system without memory of its own repair history cannot recognize that an anomaly is old. It treats each repair attempt as fresh, potentially repeating the same repair indefinitely while the anomaly remains persistent. The survival record does not exist, and therefore promotion cannot occur.
+
+\begin{theorem}[No Persistence Without Memory]
+\label{thm:memory}
+Let $L$ be a memoryless learner seeing only the current residual $\eps_t$. Then there exists no function $f(\eps_t)$ capable of computing $P(\eps, \R)$. Persistence necessarily depends on a trajectory $(\eps_0, \eps_1, \ldots, \eps_n)$. Memory is therefore a necessary condition for persistence detection.
+\end{theorem}
+
+\begin{proof}
+Suppose for contradiction that $P(\eps, \R) = f(\eps_t)$ for some function $f$. Consider two repair histories: (A) anomaly $\eps$ encountered for the first time, with no prior repairs applied; and (B) anomaly $\eps$ encountered after $n$ failed repairs in diverse repair classes. In both cases $\eps_t = \eps$, so $f(\eps_t)$ takes the same value. But $P(\eps, \R)$ in case (B) is strictly greater: in (B) we know $n$ repair classes have been exhausted, establishing a lower bound on persistence absent in (A). Therefore $f(\eps_t)$ cannot compute $P(\eps, \R)$ from $\eps_t$ alone.
+\end{proof}
+
+This demotes memory from a supporting concept to a foundational one. Earlier frameworks might have said: memory stores the history of learning. The repair-triage framework implies something stronger. This view aligns with broader perspectives that treat memory as constitutive of adaptive intelligence rather than passive storage~\cite{holland1992,friston2010}.
+
+% -------------------------------------------------------
+\begin{derivbox}[frametitle={Derivation 6: Memory as the Condition for Persistence}]
+Persistence cannot be computed from a single residual. It requires a remembered repair trajectory:
+\[
+\eps \to R_1(\eps) \to R_2 R_1(\eps) \to \cdots \to R_n \cdots R_1(\eps).
+\]
+A memoryless learner sees only $\eps_t$. A memory-bearing learner sees the sequence $\{\eps^{(0)}, \eps^{(1)}, \ldots, \eps^{(n)}\}$. Memory is therefore not merely storage. It is the structure that makes persistence measurable. The dependency chain follows:
+\[
+\text{Memory} \;\Rightarrow\; \text{Persistence} \;\Rightarrow\; \text{Promotion} \;\Rightarrow\; \text{Ontology Revision} \;\Rightarrow\; \text{Learning.}
+\]
+Most theories treat memory as a component of learning. The repair-triage framework suggests that learning itself may be a consequence of maintaining persistent repair histories long enough for anomalies to climb the hierarchy.
+\end{derivbox}
+% -------------------------------------------------------
+
+\section{The Admissibility Log}
+
+The operational implementation of repair triage requires a structured record. We call this the \emph{Admissibility Log}: a data structure that stores not merely whether a repair failed, but the full repair path.
+
+\begin{definition}[Admissibility Log]
+An \emph{Admissibility Log} for an anomaly $\eps_0$ is a record
+\[
+(\eps_0,\, R_1,\, \eps_1,\, R_2,\, \eps_2,\, \ldots,\, R_n,\, \eps_n)
+\]
+storing the sequence of repairs attempted and residuals produced. The Log enables computation of the persistence trajectory and supports detection of path-dependence in the repair sequence.
+\end{definition}
+
+\begin{definition}[Admissibility Pressure]
+Define the \emph{admissibility pressure} accumulated after $n$ repairs as
+\[
+A_n = \sum_{i=1}^{n} w_i \cdot \mathbf{1}(R_i \text{ failed}),
+\]
+where $w_i$ weights repairs by level: $w_i = k$ for a level-$k$ repair. Large $A_n$ indicates repeated failed repairs across multiple levels.
+\end{definition}
+
+\begin{proposition}[Promotion Threshold]
+\label{prop:threshold}
+If admissibility pressure exceeds a critical value $A_n > A_c$, then every rational repair policy promotes the anomaly to a higher repair level, since the expected cost of further low-level repair exceeds the expected benefit of persistence reduction.
+\end{proposition}
+
+\begin{proof}[Sketch]
+The expected utility of continuing level-$k$ repair after $n$ failures is $B_k \cdot \Pr(\text{success}) - C_k$, where $B_k$ is the benefit of reducing persistence at level $k$ and $C_k$ is the cost per attempt. After $n$ failures, Bayesian updating drives $\Pr(\text{success}) \to 0$. For $A_c$ corresponding to the point at which this expectation becomes negative, rational policy promotes.
+\end{proof}
+
+The Admissibility Log supports four diagnostic signals: the current residual size $|\eps_n|$; the residual slope $d|\eps_n|/dn$ measuring how quickly repairs are becoming less effective; the repair diversity, counting how many distinct repair classes have been attempted; and the loop inconsistency, measuring whether different repair paths from the same starting point converge to equivalent endpoints.
+
+\section{Repair Triage as the Primary Operation of Learning}
+
+We may now offer a recharacterization of learning that will be developed throughout the rest of this monograph. Under the repair-triage view, learning is not primarily error reduction. It is the continuous operation of a triage process that sorts anomalies by their structural depth. Most anomalies are resolved at low levels. The valuable ones are those that climb.
+
+% ===============================================================
+\part{Persistence Theory}
+% ===============================================================
+
+\chapter{Why Some Anomalies Survive}
+
+\section{The Information Content of Persistence}
+
+The question we must now address is not merely empirical---not simply ``some anomalies happen to be persistent''---but explanatory: \emph{why} do some anomalies survive every repair? What structure in the world, or in the relationship between the world and the model, causes them to be immune to repair?
+
+We propose the following answer, which the remainder of Part~II and all of Part~III will develop rigorously.
+
+An anomaly is persistent because it encodes information about the \emph{shape of the boundary} of the model's representational space. It is not pointing at a fact about the object being modeled. It is pointing at a fact about the coordinate system being used to model it. The repair algebra cannot remove it because no operation in the algebra addresses coordinates---only contents.
+
+\section{Parameter Error versus Structural Error}
+
+\begin{definition}[Parameter and Structural Error]
+A residual $\eps$ is a \emph{parameter error} if $x_{\mathrm{obs}} \in \pi(\M)$---the observation lies in the model's image and the model simply has wrong parameter values. It is a \emph{structural error} if $x_{\mathrm{obs}} \notin \pi(\M)$: no parameter adjustment can remove it.
+\end{definition}
+
+The distinction parallels that between parameter estimation and model misspecification in statistical learning theory~\cite{vapnik1998,mackay2003}.
+
+\begin{proposition}[Persistence Detects Structural Errors]
+\label{prop:structural}
+Let $\R_{\mathrm{param}}$ be the repair algebra of all parameter adjustments within $\M$. If $\Pers_{\R_{\mathrm{param}}}(\eps) > 0$, then $\eps$ is a structural error.
+\end{proposition}
+
+\begin{proof}
+If $\eps$ is a parameter error, there exists $m' \in \M$ with $\pi(m') = x_{\mathrm{obs}}$, so the adjustment $R: m \mapsto m'$ satisfies $R(\eps) = 0$. Contrapositive gives the result.
+\end{proof}
+
+A parameter error is always transient: the repair operation of adjusting parameters can reduce it to zero. A structural error may be persistent even under infinitely many parameter adjustments, because parameter adjustment does not expand the image of $\pi$. The Persistence Principle, in its most basic form, asserts that persistence is a diagnostic for structural error.
+
+\section{The Spectral Decomposition of Persistence}
+
+The persistence invariant $P(\eps, \R)$ treats persistence as a scalar. But repairs act differently on different modes of an anomaly, and the richer structure of this action is itself informative. The decomposition of anomalies into repair-sensitive and repair-invariant modes is inspired by spectral methods throughout information geometry and dynamical systems~\cite{amari2016,gromov1999}.
+
+\begin{definition}[Persistence Spectrum]
+Let $\R$ act on residual space $\mathcal{E}$. Decompose $\eps = \sum_i \eps_i$ into modes that diagonalize the action of $\R$, with \emph{persistence eigenvalues} $\lambda_i$ defined by
+\[
+R(\eps_i) = \lambda_i \eps_i.
+\]
+The \emph{persistence spectrum} of $\eps$ is the multiset $\{\lambda_i\}$.
+\end{definition}
+
+Three regimes follow. Modes with $\lambda_i < 1$ decay under repair: these are the correctable components of the anomaly. Modes with $\lambda_i = 1$ are invariant: repairs act on them trivially, and they persist regardless of how many repair steps are taken. Modes with $\lambda_i > 1$ are amplified by repair---the anomaly in these modes becomes more visible as repairs accumulate.
+
+The amplified case is particularly striking. It describes anomalies that repair makes sharper rather than smaller. The historical career of Mercury's perihelion may have this character: as Newtonian mechanics became more precise and other perturbations were calculated more accurately, the residual of forty-three arcseconds became more undeniable rather than fading into observational noise.
+
+The persistence invariant is then the norm of the invariant subspace:
+\[
+\Pers_{\R}(\eps) = \left\|\sum_{\lambda_i = 1} \eps_i\right\|.
+\]
+
+\section{Repair Curvature and Repair Entropy}
+
+\begin{definition}[Repair Curvature and Repair Entropy]
+Let $p_n = \norm{\eps^{(n)}}$. The \emph{repair curvature} is
+\[
+\kappa_R = \frac{d^2 p_n}{dn^2}.
+\]
+Positive $\kappa_R$ means repairs are becoming less effective: the rate of improvement is decelerating, indicating that the anomaly is approaching its persistent component. Let $S_R(n)$ be the cumulative complexity added by $n$ repair steps. The \emph{repair efficiency} is
+\[
+E_R = \frac{-\Delta p_n}{\Delta S_R}.
+\]
+A healthy repair sequence has high $E_R$. A convergence-trap sequence has $E_R \to 0$ as $S_R$ grows without bound.
+\end{definition}
+
+Positive repair curvature is a pre-failure signal: it allows a learner to detect the approach to a representational boundary before the residual fully plateaus, providing earlier warning than persistence monitoring alone.
+
+\section{Local and Global Persistence; Fragility}
+
+\begin{definition}[Local and Global Persistence]
+An anomaly has \emph{local persistence} if it survives every local repair---every modification to a bounded region of the model's parameter space---but disappears under a global coordinate transformation. It has \emph{global persistence} if it survives global transformations as well.
+\end{definition}
+
+Mercury's precession is a case of global persistence: it survived not only local parameter adjustments but every global transformation available within Newtonian mechanics. Distinguishing local from global persistence helps identify the scope of the required repair.
+
+\begin{definition}[Fragility]
+The \emph{fragility} of an anomaly $\eps$ is
+\[
+F(\eps) = \mathbb{E}_\delta\bigl[\norm{\eps - \delta(\eps)}\bigr]
+\]
+where $\delta$ ranges over small perturbations of the observation. A genuine structural anomaly should be simultaneously highly persistent and low-fragility: it should be robust to small changes in the observation while resisting repair.
+\end{definition}
+
+Fragility provides a filter against false positives in persistence detection. The joint criterion $P(\eps, \R) > 0$ and $F(\eps)$ small distinguishes genuine structural anomalies from coincidental persistence. A noisy residual may appear persistent under a specific repair sequence while being highly fragile; a genuine tear is stable under both the repair sequence and perturbation of the observation.
+
+
+\chapter{The Anatomy of Stubbornness}
+
+\section{Historical Cases}
+
+Before proceeding to the mathematical framework, we examine three historical cases in which small persistent anomalies ultimately required ontology revision. These cases will serve as recurring touchstones throughout the monograph.
+
+\subsection{The Perihelion of Mercury}
+
+Mercury's perihelion precesses at approximately 574 arcseconds per century. Of this, Newtonian mechanics can account for about 531 arcseconds due to perturbations from other planets. The residual of 43 arcseconds per century survived every repair available within classical mechanics~\cite{will2014}. The anomaly's persistence spectrum contained invariant modes that no Newtonian repair could address, because the invariant subspace lay outside the image of the Newtonian repair algebra. As documented in detail in Part~VII, this anomaly climbed every level of the Newtonian repair hierarchy before requiring the replacement of Euclidean spacetime with pseudo-Riemannian geometry.
+
+\subsection{The Michelson--Morley Experiment}
+
+The 1887 Michelson--Morley experiment~\cite{michelson1887} found no detectable variation in the speed of light depending on the Earth's orientation relative to the hypothetical luminiferous ether. The expected signal was small but well within the experiment's sensitivity. The null result was anomalous: classical mechanics predicted a positive result. Decades of repair attempts---modified ether drag hypotheses, Lorentz--FitzGerald contraction, revised ether models---failed to absorb the anomaly while preserving the broader classical framework. The anomaly's $\lambda = 1$ modes corresponded to the invariance of $c$, accommodable only by replacing the Galilean transformation group with the Lorentz group.
+
+\subsection{Blackbody Radiation and the Ultraviolet Catastrophe}
+
+Classical thermodynamics and electromagnetic theory, combined via the equipartition theorem, predicted that a blackbody should radiate infinite energy at high frequencies. The observed spectrum was dramatically different at short wavelengths~\cite{planck1901}. Despite extensive attempts to modify the classical derivation, no repair within the classical framework reproduced the observed Planck distribution. The repair entropy of classical attempts was large and growing before Planck introduced energy quantization. This new element---the quantum of action---had no analogue in the classical repair algebra. The repair sequence was branching, not converging, before the ontology revision occurred.
+
+\section{Common Structure}
+
+These three cases share a common structure that motivates the theoretical framework developed in subsequent chapters.
+
+In each case:
+\begin{enumerate}[label=(\roman*)]
+\item The anomaly was \emph{numerically small} relative to the total predictive success of the prevailing theory.
+\item The anomaly was \emph{persistent}: it survived an extended sequence of increasingly sophisticated repair attempts within the existing representational framework.
+\item \emph{Repair curvature} was positive throughout the failure period, signaling the approach to a boundary before the residual fully plateaued.
+\item The eventual resolution required \emph{ontology revision}: the introduction of representational structures absent from the original framework.
+\item In retrospect, the anomaly was not \emph{about} the phenomenon being modeled (Mercury's orbit, light propagation, thermal radiation). It was \emph{about the geometry of the theory being used to model it}.
+\end{enumerate}
+
+This common structure is what the Persistence--Obstruction Schema in Part~III will formalize.
+
+% ===============================================================
+\part{Topological and Categorical Obstructions}
+% ===============================================================
+
+\chapter{A Hierarchy of Discrepancy}
+
+\section{Two Orthogonal Axes}
+
+The space of possible anomalies is structured along two orthogonal axes. The first axis concerns \emph{where} the discrepancy lives---its type in a mathematical sense. The second axis concerns \emph{how it behaves under repair}---its persistence character. Together they form a matrix that is considerably richer than any single hierarchy.
+
+\subsection{Axis I: Type of Discrepancy}
+
+\paragraph{Level 0: Numerical.}
+The discrepancy is a scalar or vector in a normed space:
+\[
+\delta_0 = \norm{x_{\mathrm{obs}} - x_{\mathrm{pred}}}.
+\]
+
+\paragraph{Level 1: Geometric.}
+The discrepancy involves distances between manifolds, Hausdorff metrics, or Riemannian curvature differences:
+\[
+\delta_1 = d_{\mathrm{geom}}(M_{\mathrm{obs}}, M_{\mathrm{pred}}).
+\]
+
+\paragraph{Level 2: Topological.}
+The discrepancy is captured by an obstruction class in a cohomology theory:
+\[
+\delta_2 = [\tau] \in H^k(M;\, G)
+\]
+for some coefficient group $G$. The use of homotopy and cohomology as indicators of structural distinction follows standard treatments in algebraic topology~\cite{hatcher2002,bott1982}.
+
+\paragraph{Level 3: Categorical.}
+The discrepancy is the failure of a diagram of morphisms to commute:
+\[
+f \circ g \neq h \circ k
+\]
+even though the model requires $f \circ g = h \circ k$. This is a failure at the level of representational architecture itself. Such failures are naturally expressed within category-theoretic frameworks~\cite{maclane1971,awodey2010,riehl2016}.
+
+\subsection{Axis II: Persistence Character}
+
+\paragraph{Transient.} The anomaly vanishes under admissible repair.
+
+\paragraph{Stable.} The anomaly is reduced but not eliminated; it remains at the same discrepancy type.
+
+\paragraph{Persistent.} The anomaly survives arbitrarily long repair sequences.
+
+\paragraph{Invariant.} The anomaly is invariant under the full admissible repair algebra and represents a genuine structural feature.
+
+\section{The Discrepancy Matrix}
+
+These two axes organize the space of anomalies as follows.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lllll}
+\toprule
+ & \textbf{Transient} & \textbf{Stable} & \textbf{Persistent} & \textbf{Invariant} \\
+\midrule
+\textbf{Numerical}   & Calibration error  & Systematic bias  & Structural mismatch        & Missing parameter  \\
+\textbf{Geometric}   & Coord.\ choice     & Fit residual     & Manifold incompatibility   & Wrong geometry     \\
+\textbf{Topological} & Local obstruction  & Boundary effect  & Genuine tear               & Ontological gap    \\
+\textbf{Categorical} & Model bug          & Symmetry break   & Diagram failure            & Ontology boundary  \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The cells in the rightmost column represent anomalies where no admissible repair can help. They are the candidates for ontology revision. The cells in the bottom-right corner represent the most structurally deep: categorical invariants that survive all repair and signal that the category of models being considered is itself the wrong one.
+
+\section{Why Types Matter}
+
+The type of a discrepancy determines what kind of intervention is appropriate. Applying a numerical repair to a topological discrepancy does not merely fail---it consumes resources while providing false evidence that the anomaly is being addressed.
+
+This is the Ptolemaic failure mode. The repair type was systematically mismatched to the discrepancy type. Epicycles are numerical and geometric repairs. The heliocentric structure of the solar system is a categorical revision. No accumulation of epicycles could address a categorical discrepancy, because the operations involved do not interact with the relevant level.
+
+The discrepancy matrix therefore has diagnostic value. When a repair sequence converges without reaching zero, determining which type of discrepancy has been reached allows the system to identify the appropriate level of intervention.
+
+
+\chapter{Non-Abelian Tears}
+
+\section{Abelian and Non-Abelian Structure}
+
+The terminology ``non-abelian tear'' requires explanation. In algebra, a structure is \emph{abelian} if its operations commute: $a + b = b + a$, or more generally $xy = yx$. A non-abelian structure is one in which the order of operations matters.
+
+The canonical example is rotation in three dimensions. Rotating a rigid body by ninety degrees around the $x$-axis followed by ninety degrees around the $y$-axis produces a different orientation than performing these operations in the reverse order. The group of rotations $\mathrm{SO}(3)$ is non-abelian.
+
+The relevance to anomalies is the following. If two trajectory histories can be continuously identified---if one can be smoothly deformed into the other while preserving all relevant structure---then the order in which their constituent operations are composed does not affect the final result. The identification is abelian in this sense. If the histories \emph{cannot} be continuously identified while preserving their compositional structure, then order matters, and the discrepancy is non-abelian.
+
+\begin{definition}[Non-Abelian Tear]
+\label{def:tear}
+Let $M_{\mathrm{pred}}$ and $M_{\mathrm{obs}}$ be trajectory manifolds over a common base space $B$. A \emph{non-abelian tear} is an obstruction to the existence of a homotopy equivalence
+\[
+\phi : M_{\mathrm{pred}} \xrightarrow{\;\simeq\;} M_{\mathrm{obs}}
+\]
+compatible with the compositional structure of the trajectory algebras. In favorable geometric settings, it is represented by a non-trivial class
+\[
+[\tau] \in H^1(M;\, \pi_1(\mathrm{Diff}(M)))
+\]
+or, in the categorical setting, a failure of a natural isomorphism between functors representing the two trajectory histories.
+\end{definition}
+
+\begin{remark}
+The term ``non-abelian'' here refers to the non-commutativity of the path algebra, not to a specific group. A tear can be non-abelian even when the underlying manifold is simply connected, provided the obstruction involves composition of trajectories in an essential way.
+\end{remark}
+
+\section{Small Metric Distance, Large Topological Distance}
+
+The crucial property of non-abelian tears is that they can correspond to arbitrarily small metric distances. Two manifolds can be metrically close---every point in one is near some point in the other---yet topologically distinct in ways that no smooth deformation can remove. The obstruction-theoretic viewpoint follows classical constructions in algebraic topology and sheaf theory~\cite{spanier1966,kashiwara2006}.
+
+The simplest example is the M\"{o}bius band and the annulus. They are locally similar and homotopy equivalent to a circle, but they are not homeomorphic as surfaces: one is non-orientable and the other is orientable. A model working in annulus-coordinates cannot represent trajectories that wind non-trivially around the M\"{o}bius band, regardless of how finely it samples the metric distance between them.
+
+This is the mathematical content of the earlier observation that ``the learner sees small error; the topology sees different universe.'' The metric distance measures how close the two descriptions are as collections of points. The topological invariants measure whether they belong to the same homotopy class. These are genuinely orthogonal quantities.
+
+\section{Holonomy as a Diagnostic}
+
+The most computationally tractable probe of topological discrepancy is holonomy. Parallel transport around a closed loop in a curved space does not return a vector to its original orientation. The accumulated rotation is the holonomy of the loop, and it measures the curvature enclosed. The geometric interpretation of path-dependence through holonomy is standard in differential geometry and gauge theory~\cite{nakahara2003,gallier2020}.
+
+\begin{definition}[Trajectory Holonomy Discrepancy]
+Let $\ell$ be a closed loop in trajectory space, and let $P_{\mathrm{pred}}(\ell)$ and $P_{\mathrm{obs}}(\ell)$ denote parallel transport around $\ell$ under the predicted and observed connections respectively. The \emph{holonomy discrepancy} is
+\[
+\Hol(\ell) = P_{\mathrm{obs}}(\ell) \circ P_{\mathrm{pred}}(\ell)^{-1}.
+\]
+\end{definition}
+
+If $\Hol(\ell) = \mathrm{id}$ for every loop $\ell$, the two connections are locally equivalent. If $\Hol(\ell) \neq \mathrm{id}$ for some $\ell$, the discrepancy has topological content that no local adjustment can remove.
+
+\begin{proposition}[Holonomy Detects Tears]
+\label{prop:holonomy-tears}
+If $\Hol(\ell) \neq \mathrm{id}$ for some loop $\ell$, then $M_{\mathrm{pred}} \not\simeq M_{\mathrm{obs}}$ in the homotopy category of manifolds with connection.
+\end{proposition}
+
+The significance of this result is practical: holonomy can in principle be estimated from trajectory data without computing full cohomology. A learner can probe the holonomy of loops in its trajectory space to detect the presence of structural discrepancies before they become visible as large metric errors.
+
+% -------------------------------------------------------
+\begin{derivbox}[frametitle={Derivation 5: Non-Abelian Tears as Holonomy}]
+Let $\gamma_1, \gamma_2$ be two histories connecting the same apparent endpoints in state space. In an abelian regime, the transport operators satisfy $T_{\gamma_1} = T_{\gamma_2}$, so order does not matter. In a non-abelian regime,
+\[
+H(\gamma_1, \gamma_2) = T_{\gamma_1} T_{\gamma_2}^{-1} \neq I.
+\]
+The residual transformation $H(\gamma_1, \gamma_2)$ is the holonomy of the tear. If $H = I$, the discrepancy is locally repairable. If $H \neq I$, the two histories cannot be identified without adding structure. The commutator test for practical detection: compare $R_a R_b(\eps)$ versus $R_b R_a(\eps)$. If $[R_a, R_b](\eps) \neq 0$ across diverse repair families, the anomaly has path-dependence---the operational signature of a non-abelian tear. Persistent error says ``something is hard to fix.'' Persistent non-commutation says ``the representation is missing structure.'' The Admissibility Log stores the full repair path precisely to enable this test.
+\end{derivbox}
+% -------------------------------------------------------
+
+\section{Saliency as Accumulated Curvature}
+
+\begin{definition}[Holonomy Saliency]
+The \emph{saliency} of a region $U$ in state space is proportional to the maximum holonomy discrepancy accumulated by loops passing through $U$:
+\[
+\mathrm{Sal}(U) \propto \sup_{\ell \ni U} \norm{\Hol(\ell)}.
+\]
+\end{definition}
+
+Under this definition, saliency is not the magnitude of local prediction error. It is the accumulated curvature of the discrepancy between predicted and observed trajectory bundles. A region can have zero local error and high saliency if the discrepancy has curvature that concentrates around it. This is precisely the regime in which conventional anomaly detection fails: a learner that monitors $\norm{x_{\mathrm{obs}} - x_{\mathrm{pred}}}$ pointwise will assign zero saliency to a region with zero local error, even if that region lies at the center of a non-trivial holonomy loop.
+
+
+\chapter{The Persistence--Obstruction Schema}
+
+\section{Statement}
+
+We now state the central result of this monograph. It establishes the bridge between repair-theoretic persistence and topological obstruction: not merely that they are related, but that persistence \emph{is} obstruction, in a precise cohomological sense. The result is stated as a principle and schema rather than a theorem, because its precise form depends on the geometric setting and the conclusion holds in full generality only under assumptions that must be verified case by case~\cite{hatcher2002,spanier1966}.
+
+\begin{principle}[Persistence--Obstruction Schema]
+\label{principle:main}
+Let $\M$ be a model with admissible repair algebra $\R$, and let $\eps_0$ be an anomaly with $\Pers_{\R}(\eps_0) > 0$. Then there is an obstruction to continuously extending the repair sequence to zero, represented---in favorable geometric settings, particularly when $\M$ carries a manifold structure and $\R$ acts by diffeomorphisms---by a non-trivial cohomological class
+\[
+[\tau(\eps_0)] \neq 0
+\]
+in an appropriate cohomology theory associated with $\M$, on which every admissible repair acts trivially.
+\end{principle}
+
+\begin{proof}[Constructive argument for the manifold case]
+Let $\{R_n\}$ be an arbitrary admissible repair sequence and let $\eps_n = R_n \cdots R_1(\eps_0)$. By hypothesis, $\inf_n \norm{\eps_n} > 0$ for every such sequence. Consequently there exists an open set $U \subset \mathcal{E}$ containing $0$ such that no repair path enters $U$. The complement $\mathcal{E} \setminus U$ is closed and contains all repair paths. The residual $\eps_0$ lies in a connected component $C$ of $\mathcal{E} \setminus U$ that admits no path to $0$, defining a non-trivial element in $H^0(\mathcal{E} \setminus U; \mathbb{Z})$.
+
+For the cohomological refinement: the repair algebra $\R$ acts on $\mathcal{E}$ by a family of maps, defining a sheaf $\mathcal{S}_{\R}$ over the space of model parameters. Persistence of $\eps_0$ means the stalk of this sheaf at $0$ does not contain the section defined by $[\eps_0]$. The obstruction to extending this section to $0$ is a class in $H^1(\M;\, \mathcal{S}_{\R})$. This class is non-trivial by assumption, and every admissible repair acts on it by a coboundary, hence trivially in cohomology.
+\end{proof}
+
+\begin{remark}
+The precise cohomology theory varies by context. For trajectory manifolds, the relevant class is typically in $H^1(M;\, \pi_1(\mathrm{Aut}(M)))$. For categorical models, it is a natural transformation obstruction in $\mathrm{Ext}^1(\cat{C}, \cat{D})$. For learning systems, it corresponds to representational non-identifiability. In all cases, the schema licenses the inference: persistent anomaly implies structural obstruction.
+\end{remark}
+
+% -------------------------------------------------------
+\begin{derivbox}[frametitle={Derivation 7: The Persistence--Obstruction Principle}]
+Let $\eps$ be an anomaly and $\R$ an admissible repair algebra. If $P(\eps, \R) > 0$, then there exists an obstruction class $[\tau(\eps)] \neq 0$ in the representational geometry associated with the model. Informally:
+\[
+\text{persistent anomaly} \;\Rightarrow\; \text{non-trivial obstruction} \;\Rightarrow\; \text{missing structure.}
+\]
+The repair sequence is an experiment. If its limit is zero, the anomaly was local. If its limit is non-zero, the anomaly has revealed a boundary of the model's admissibility manifold. The obstruction class $[\tau(\eps)]$ characterizes the shape of that boundary.
+\end{derivbox}
+% -------------------------------------------------------
+
+\section{The Convergence Gap}
+
+The mathematical heart of the Ptolemaic Principle is a single observation about convergence in two different spaces.
+
+% -------------------------------------------------------
+\begin{derivbox}[frametitle={Derivation: The Convergence Gap}]
+Let $\eps_n \to 0$ while $[\tau_n] = [\tau_0] \neq 0$. Then
+\[
+\lim_{n\to\infty} \norm{\eps_n} = 0 \quad \text{does not imply} \quad \lim_{n\to\infty}[\tau_n] = 0.
+\]
+Convergence in residual space is strictly weaker than convergence in representational space. A repair sequence can drive the numerical manifestation of an anomaly to zero while leaving its cohomological class intact. The tear has not been dissolved. It has been hidden.
+\end{derivbox}
+% -------------------------------------------------------
+
+\section{The Repair Landscape}
+
+\begin{definition}[Repair Graph and Repair Landscape]
+Define the \emph{repair graph} $G_{\R} = (V, E)$ where vertices are model states and edges are admissible repairs. The \emph{repair distance} between states $x$ and $y$ is the shortest path length $d_{\R}(x, y)$ in this graph. The \emph{repair landscape} of $\M$ is the metric space $(\M, d_{\R})$.
+\end{definition}
+
+% -------------------------------------------------------
+\begin{derivbox}[frametitle={Derivation 8: The Repair Landscape}]
+The repair graph $G_{\R}$ makes ontology boundaries visible as disconnected components. When $d_{\R}(x, y) = \infty$---when no finite sequence of admissible repairs connects $x$ to $y$---the two states belong to different connected components of repair space. Ontology revision is the operation of crossing a disconnected boundary: acquiring a repair operation that connects previously unreachable components. The repair landscape therefore encodes both the capacity and the limits of the current representational architecture in a single geometric object.
+\end{derivbox}
+% -------------------------------------------------------
+
+Two models may produce identical residuals and identical persistence invariants yet have dramatically different repair landscapes. One may have many short repair paths to the correct ontology; another may require crossing enormous barriers. The landscape determines not just whether ontology revision is possible but how difficult it is to reach.
+
+\section{The Persistence Principle}
+
+\begin{principle}[Persistence Principle]
+\label{principle:persistence}
+Let $\M$ be a model and $\R$ its admissible repair algebra. An anomaly satisfying $\Pers_{\R}(\eps) > 0$ encodes information about the representational structure of $\M$ rather than information about the state being represented:
+\[
+\Pers_{\R}(\eps) > 0 \;\Longrightarrow\; \text{structural obstruction in } (\M, \R).
+\]
+\end{principle}
+
+In words: a persistent anomaly is not a fact about the world. It is a fact about the geometry of the model used to represent the world.
+
+% ===============================================================
+\part{Admissibility and Ontology Boundaries}
+% ===============================================================
+
+\chapter{Admissibility Manifolds}
+
+\section{Admissibility as Continuation}
+
+A model does not merely assign probabilities or predictions to states. It defines a region through which trajectories can be coherently extended. This region is the admissible domain of the model.
+
+\begin{definition}[Admissibility Manifold]
+The \emph{admissibility manifold} $\mathcal{A}(\M)$ of a model $\M$ is the maximal subspace of $\Sigma$ through which the model's prediction map $\pi$ admits a continuous extension under the dynamics generated by $\M$.
+\end{definition}
+
+Admissibility is a property of continuation rather than probability. A state may have very low probability under a model's distribution and still be admissible---the model can track it, explain it, continue the trajectory through it. Conversely, a state may appear likely under some measure but be inadmissible if the model cannot generate a coherent trajectory passing through it.
+
+\begin{example}
+In classical Newtonian mechanics, the admissibility manifold is essentially all of phase space: any initial condition generates a unique forward trajectory. But within the context of a specific model of the solar system---with fixed masses and known planets---the admissible region is the set of initial conditions compatible with observed planetary constraints. Mercury's observed trajectory is admissible in this restricted sense: Newtonian mechanics can track it. What is inadmissible is the specific precession rate, which the model cannot reproduce regardless of parameter choice.
+\end{example}
+
+\section{The Boundary of Admissibility}
+
+The boundary of $\mathcal{A}(\M)$ is the set of states at which the model's coordinate chart begins to fail. Near the boundary, trajectories become increasingly difficult to extend: the model requires more and more representational resources to track what is happening, without successfully doing so.
+
+\begin{definition}[Ontology Boundary]
+The \emph{ontology boundary} of a model $\M$ is the locus of states at which no admissible repair path can restore trajectory continuity.
+\end{definition}
+
+The ontology boundary is where non-abelian tears live. A trajectory approaching the ontology boundary accumulates holonomy: the discrepancy between predicted and observed parallel transport grows without any admissible repair being able to stop it.
+
+\section{RSVP Connections}
+
+The RSVP framework of relational scalar-vector-potential fields provides a natural language for admissibility dynamics. In RSVP, the state of a system is described by a triple $(\Phi, \mathbf{v}, S)$ where:
+\begin{itemize}[noitemsep]
+\item $\Phi$ is a scalar concentration field measuring the density of representational attention,
+\item $\mathbf{v}$ is a velocity field governing the flow of representational resources,
+\item $S$ is an entropy field measuring representational expenditure.
+\end{itemize}
+
+A trajectory is admissible within the RSVP framework when the flow generated by $\mathbf{v}$ can stably transport $\Phi$ through the region in question without uncontrolled growth of $S$. A persistent anomaly in RSVP terms appears as a region where $S$ grows without bound under iterated application of the admissible repair dynamics. The scalar field $\Phi$ concentrates on the anomaly---more and more representational attention is devoted to it---but the velocity field cannot generate a flow that dissolves the anomaly. This is the RSVP signature of an ontology boundary: the model is applying maximum representational resources and still failing.
+
+The connection to the Persistence--Obstruction Schema is direct. The growth of $S$ without stabilization corresponds to the non-vanishing of the obstruction class $[\tau]$. The admissibility boundary is the locus in state space where $[\tau] \neq 0$.
+
+
+\chapter{Ontology Revision}
+
+\section{When the Coordinate Chart is Exhausted}
+
+\begin{definition}[Ontology Revision]
+\emph{Ontology revision} occurs when a learner reaches the ontology boundary of its current model $\M$ and acquires a new model $\M'$ such that:
+\begin{enumerate}[label=(\roman*)]
+\item $\mathcal{A}(\M) \subsetneq \mathcal{A}(\M')$,
+\item $x_{\mathrm{obs}} \in \mathcal{A}(\M')$,
+\item the repair algebra $\R'$ of $\M'$ contains operations not in $\R$.
+\end{enumerate}
+\end{definition}
+
+Ontology revision is not parameter updating. It is admissibility expansion: the new model can coherently represent trajectories that the old model could not.
+
+\section{Representational Inertia and the Rarity of Revision}
+
+Earlier framings of the framework might implicitly suggest that promotion is automatic: if an anomaly persists, it eventually triggers ontology revision. It does not. Promotion is expensive.
+
+Replacing a typo costs almost nothing. Replacing a paragraph costs something. Replacing a theory may consume decades. Replacing an ontology may consume generations. The hierarchy has a built-in conservatism that is not a flaw. Without it, every anomaly would trigger catastrophic restructuring. The challenge is maintaining the correct balance between containment and promotion.
+
+\begin{definition}[Representational Inertia]
+The \emph{representational inertia} $I_\M$ of a model is the accumulated investment in its current coordinate system: established results, trained practitioners, dependent theories, institutional infrastructure.
+\end{definition}
+
+% -------------------------------------------------------
+\begin{derivbox}[frametitle={Derivation 3: Promotion Through the Repair Hierarchy}]
+Let $C_k$ be the containment capacity of level $k$, $D_k$ the commitment cost of promoting to level $k+1$, $B_{k+1}$ the expected benefit of persistence reduction at level $k+1$, and $I_\M$ the representational inertia. Promotion occurs when expected utility $U_{k+1} > U_k$, giving a promotion rule:
+\[
+\Pr(\eps : k \to k+1) = \sigma\!\left(\alpha P_k(\eps) - \beta C_k - \gamma D_k - \mu I_\M\right),
+\]
+where $\sigma$ is a logistic function. Promotion is likely when persistence is high, containment capacity is low, commitment cost is tolerable, and inertia is small. When $I_\M$ is large, anomalies may be recognized and even promoted internally while ontology revision remains blocked at the institutional or paradigmatic level.
+\end{derivbox}
+% -------------------------------------------------------
+
+The promotion equation explains several historical patterns. Mercury's anomaly was recognized by Le Verrier in 1859. The ontology revision occurred in 1915. Fifty-six years elapsed because $I_\M$ for Newtonian mechanics was enormous: every calculation in solar system astronomy depended on it, every observatory was equipped to apply it, every physicist had been trained in it. The anomaly was persistent and recognized. The inertia was too large for immediate revision.
+
+\section{The Dissolving Tear}
+
+A remarkable feature of ontology revision is that the persistent anomaly often vanishes entirely in the new framework---not by being ``explained away'' but by becoming a non-surprising trajectory.
+
+\begin{definition}[Tear Dissolution]
+A non-abelian tear $[\tau] \in H^1(\M; \mathcal{S}_{\R})$ is \emph{dissolved} by an ontology revision to $\M'$ if $[\tau]$ maps to zero under the inclusion-induced map $H^1(\M; \mathcal{S}_{\R}) \to H^1(\M'; \mathcal{S}_{\R'})$.
+\end{definition}
+
+Tear dissolution is what happened with Mercury. General relativity did not predict Mercury's precession after the fact by adding a correction term. In pseudo-Riemannian spacetime, the geodesic equation naturally produces the observed precession rate. The trajectory that was anomalous in Newtonian coordinates is the \emph{expected} trajectory in Riemannian coordinates. The tear dissolved because the new coordinate system had room for it.
+
+\section{Ontological Saliency and Representational Divergence}
+
+\begin{definition}[Ontological Saliency]
+The \emph{ontological saliency} of an observation $x$ is
+\[
+\mathrm{Sal}_{\mathrm{onto}}(x) = d_{\mathrm{top}}\bigl(\mathcal{A}(\M_{\mathrm{world}}),\, \mathcal{A}(\M_{\mathrm{obs}})\bigr)
+\]
+where $\mathcal{A}(\M_{\mathrm{world}})$ is the admissibility manifold of the actual world and $\mathcal{A}(\M_{\mathrm{obs}})$ is the admissibility manifold of the observer's model.
+\end{definition}
+
+High ontological saliency means the observer's admissibility manifold and the world's admissibility manifold are diverging. Saliency, properly understood, is not surprise. It is evidence of impending coordinate failure.
+
+% -------------------------------------------------------
+\begin{derivbox}[frametitle={Derivation: Representational Divergence}]
+Define the representational divergence at time $t$ as
+\[
+D_t = d\!\left(\mathcal{A}(\M_{\mathrm{obs}}),\, \mathcal{A}(\M_{\mathrm{world}})\right).
+\]
+Then $dD_t/dt$ measures the rate of ontology drift---the speed at which the observer's admissibility manifold is diverging from the world's. The persistence of an anomaly accumulates as
+\[
+P(\eps, \R) \approx \int_0^T \frac{dD_t}{dt}\, dt,
+\]
+giving the following interpretation: persistent anomalies are accumulated evidence that the observer's admissibility manifold and the world's are diverging. The repair sequence is an experiment that measures this divergence. The Admissibility Log is the instrument. The obstruction class is the result.
+\end{derivbox}
+% -------------------------------------------------------
+
+% ===============================================================
+\part{Learning and Representation}
+% ===============================================================
+
+\chapter{Against Error Minimization}
+
+\section{The Standard Account and Its Concealed Limits}
+
+The standard account of machine learning holds that a model improves by minimizing a loss function. Gradient descent, Bayesian updating, and reinforcement learning all share this structure. They differ in how they represent uncertainty and how they update parameters, but they agree that the goal is to reduce the discrepancy between predictions and observations as measured by some fixed criterion.
+
+This account is not wrong. For a vast range of practical problems, error minimization produces excellent models~\cite{goodfellow2016,shalev2014}. The critique developed here is not that error minimization fails, but that it succeeds in a way that systematically conceals its own limits. Modern optimization procedures are remarkably effective at reducing residuals while remaining largely agnostic to representational adequacy~\cite{wimsatt2007,simon1969}.
+
+\section{What Error Minimization Cannot See}
+
+A loss function $L: \Sigma \times \Sigma \to \mathbb{R}_{\geq 0}$ assigns a scalar to every prediction-observation pair. The optimization process moves through parameter space and asks at each step: which direction reduces the scalar? This formulation cannot, in principle, ask whether the scalar is the right thing to minimize. It cannot ask whether the discrepancy being measured is at Level 0 or Level 2 in the discrepancy hierarchy. It cannot track whether a residual has survived a sequence of repair operations or whether it appeared for the first time this epoch. It has no notion of the repair history of an anomaly.
+
+Formally: a standard learning system equipped only with a loss function and a gradient oracle cannot compute $\Pers_{\R}(\eps)$ for any non-trivial $\R$. It can compute instantaneous loss, but not the history of survival under repair. Related concerns appear in causal representation learning and model robustness research~\cite{pearl2009,verma2018}.
+
+\section{Gradient Descent as Level-0 Repair}
+
+Every step of gradient descent is a Level-0 repair: a small numerical adjustment to parameters to reduce instantaneous loss. A single gradient step is not even a full repair operation in the sense defined in Part~I; it is a fraction of one.
+
+The consequence is that gradient-based learning cannot promote anomalies up the repair hierarchy. It applies Level-0 repairs indefinitely. An anomaly that is persistent at Level 0 but would reveal itself as a Level-2 topological discrepancy under proper repair triage is instead averaged over, diluted, or overfitted away. The topology remains invisible.
+
+This is one explanation for the persistent difficulty of distribution shift in deep learning. A model trained on a distribution $P$ develops a rich parameterization of $P$. When deployed on a shifted distribution $Q$, the anomalies often have topological content: $M_Q \not\simeq M_P$ as manifolds. But the training process has no mechanism for detecting this. It applies Level-0 repairs to what are Level-2 discrepancies. The model sees small average loss and interprets the situation as normal.
+
+
+\chapter{Persistence-Driven Learning}
+
+\section{Tracking the Repair History}
+
+A persistence-driven learner differs from a standard learner in one fundamental respect: it tracks the history of its repair attempts and uses survival records to assign priorities. The proposal is broadly compatible with information-theoretic and free-energy perspectives on adaptive systems~\cite{friston2010,amari2016}.
+
+\begin{definition}[Persistence Monitor]
+A \emph{persistence monitor} is an auxiliary system that:
+\begin{enumerate}[label=(\roman*)]
+\item records the repair level $k_t$ applied at time $t$,
+\item records the residual $\eps_t$ after each repair,
+\item computes an empirical persistence estimate by tracking survival across diverse repair classes,
+\item flags anomalies whose estimated persistence exceeds a threshold $\theta$.
+\end{enumerate}
+\end{definition}
+
+The persistence monitor adds no parameters to the model and changes no gradients. It operates as a diagnostic layer on top of the standard learning process, providing information that the standard process cannot see.
+
+\section{Persistence-Weighted Attention}
+
+In a learning system with attention mechanisms, the persistence monitor can directly influence the allocation of computational resources.
+
+\begin{definition}[Persistence-Weighted Attention]
+Attention is \emph{persistence-weighted} if
+\[
+A(x) \propto f\!\bigl(\hat{P}(x)\bigr)
+\]
+where $f$ is a monotone increasing function. The most important observations are those with highest estimated persistence, not highest instantaneous error.
+\end{definition}
+
+Persistence-weighted attention reallocates resources toward observations where repair has repeatedly failed---toward the places where the model's coordinate chart is most likely to be failing. It is a systematic implementation of repair triage.
+
+\section{Detecting Representational Boundaries During Training}
+
+A practical implication of persistence-driven learning is the possibility of detecting representational boundaries during training, before deployment-time failures reveal them.
+
+During training, a persistence monitor tracks the survival history of anomalies across epochs. Anomalies that persist across many training epochs despite parameter updates are candidates for Level-2 or higher discrepancies. A spike in the estimated persistence distribution---sudden appearance of many highly persistent small anomalies---indicates that the model is approaching the boundary of its representational capacity.
+
+This is analogous to the physical signal preceding a topological phase transition: long-range correlations appear before the order parameter changes. Monitoring $\hat{P}(\eps)$ during training, in addition to standard loss $L(\theta)$, provides early warning of representational boundaries that loss monitoring cannot detect.
+
+
+\chapter{Ontology-Expanding Learning}
+
+\section{Learning as Representational Growth}
+
+\begin{definition}[Ontology-Expanding Learner]
+An \emph{ontology-expanding learner} is a learning system equipped with:
+\begin{enumerate}[label=(\roman*)]
+\item a base model $\M$ with admissible repair algebra $\R$,
+\item a persistence monitor tracking $\hat{P}(\eps)$ for all active anomalies,
+\item an expansion trigger: a condition under which the learner initiates search for $\M' \supset \M$,
+\item an expansion mechanism: a procedure for constructing extensions of the model architecture.
+\end{enumerate}
+\end{definition}
+
+The expansion trigger fires when $\hat{P}(\eps) > \theta$ for some anomaly $\eps$ and some threshold $\theta$, indicating that the anomaly has survived enough repairs to be a candidate for structural diagnosis.
+
+\section{Persistent Anomalies as Generators}
+
+In the algebraic sense, persistent anomalies are generators of representational growth. Each persistent anomaly constrains the form that any adequate extension must take. The new model $\M'$ must:
+\begin{enumerate}[label=(\roman*)]
+\item contain the admissibility manifold of $\M$,
+\item include the observation $x_{\mathrm{obs}}$ in $\mathcal{A}(\M')$,
+\item dissolve the obstruction class $[\tau(\eps)]$.
+\end{enumerate}
+
+These constraints narrow the search for $\M'$ considerably. The anomaly is not just a problem to be solved; it is a specification of what the solution must achieve.
+
+\section{The Geometry of Repair Space}
+
+The framework developed in this monograph has been progressively clarifying what its ultimate object of study is. We began with anomalies. We moved to repair sequences. We arrived at persistence. But the deepest object is neither the anomaly nor the repair: it is the \emph{geometry of repair space itself}.
+
+\begin{definition}[Repair Landscape]
+The \emph{repair landscape} of a model $\M$ is the pair $(\M, \R)$ viewed as a geometric object: the model manifold $\M$ equipped with the action of the repair algebra $\R$ as a transformation group.
+\end{definition}
+
+Two models may produce identical residuals and identical persistence invariants yet have dramatically different repair landscapes. One may have many short repair paths to the correct ontology; another may require crossing enormous barriers. The repair landscape determines not just whether ontology revision is possible but how difficult it is to reach.
+
+This reframes the entire enterprise. The monograph begins looking less like a theory of anomalies and more like a theory of navigation through representational spaces. Admissibility manifolds, reachability, CLIO projections, RSVP dynamics, and trajectory memory are all fundamentally concerned with the same question: given a current representation, what paths of transformation remain available? The anomaly is simply the thing that reveals where those paths begin to run out.
+
+\section{CLIO Projection Failures as Ontology Revision}
+
+In the CLIO framework of constraint-limited information ontology, projection failures occur when the operator $\mathcal{P}$ mapping from the full state space to the observed subspace loses essential structure. A CLIO projection failure is precisely an ontology boundary: the projective compression has discarded information that is needed to continue the trajectory.
+
+When a CLIO projection produces persistent anomalies in the projected description, those anomalies are evidence that the projection has discarded structure relevant to the dynamics. The ontology-expanding response is to enlarge the projection to restore the missing degrees of freedom. In RSVP terms: a CLIO projection failure is a region where the entropy $S$ of the projected description grows faster than the velocity field $\mathbf{v}$ can compensate. The projected description is becoming increasingly inadequate, and the failure is detectable as a non-abelian tear between the full and projected trajectory manifolds.
+
+% ===============================================================
+\part{Suppressed Tears}
+% ===============================================================
+
+\chapter{How Tears Get Hidden}
+
+\section{The Dual of the Persistence Principle}
+
+The Persistence Principle tells us when structure is missing. But a dual and equally important phenomenon exists: structural anomalies that should be persistent are sometimes absorbed by repair operations that should not be able to absorb them. The tear is present but hidden.
+
+\begin{definition}[Tear Suppression]
+A tear $[\tau] \neq 0$ is \emph{suppressed} if the repair sequence drives $\norm{\eps_n} \to 0$ without dissolving the obstruction class. The model appears to fit the observations while containing an unresolved structural discrepancy.
+\end{definition}
+
+Suppressed tears are the most dangerous failure mode for learning systems. The scalar loss looks good. The topology is wrong.
+
+\section{Three Mechanisms of Suppression}
+
+\subsection{Expressive Algebra Containment}
+
+When a repair algebra at level $k$ is sufficiently expressive, it can contain anomalies that properly belong at level $k+1$. The repair reduces the metric manifestation of the anomaly to zero while leaving its topological invariant untouched.
+
+This is the epicycle mechanism. Each epicycle is a perfectly valid Level-1 geometric repair. The problem is that the underlying discrepancy was categorical: the heliocentric structure of the solar system requires a different category of model, not a better fit within the geocentric category. But the epicycle system is expressive enough that the metric discrepancy can always be reduced to within observational tolerance. The tear is contained at Level 1 and never promoted.
+
+\subsection{Commitment Asymmetry}
+
+Higher-level repairs are more costly and partially irreversible. A rational agent with finite resources will require stronger evidence before attempting a higher-level repair. This creates a systematic bias: the evidence threshold for ontology revision is very high, meaning that even anomalies that have survived many lower-level repairs may not be promoted if the evidence for promotion is below the commitment threshold. Each individual repair attempt is rational; the aggregate sequence is collectively irrational because it prevents the accumulation of evidence that would justify a costlier intervention.
+
+\subsection{Promotion Blindness}
+
+As established in Part~I, promotion requires memory. A system that cannot track the repair history of an anomaly cannot recognize that it has survived multiple repair levels. Each repair attempt is treated as a fresh encounter with the anomaly. The anomaly never climbs the hierarchy because the hierarchy is never traversed. This is the most fundamental form of suppression, because it operates not by neutralizing the evidence for structural problems but by preventing the accumulation of that evidence in the first place.
+
+% -------------------------------------------------------
+\begin{derivbox}[frametitle={Derivation 4: Repair Containment and Overfitting}]
+A repair level $k$ \emph{contains} an anomaly if there exists some $R \in \R_k$ such that $\norm{R(\eps)} \approx 0$ even though the structural obstruction remains: $[\tau(\eps)] \neq 0$. This is the mathematical form of overfitting. The residual disappears; the tear remains. The model has repaired the measurement while preserving the representational failure. Containment probability is governed by the promotion equation: when $C_k$ is large, $\Pr(\eps: k \to k+1)$ collapses, and anomalies accumulate at Level 0 regardless of their structural depth.
+\end{derivbox}
+% -------------------------------------------------------
+
+
+\chapter{Epicycles and the Convergence Trap}
+
+\section{The Ptolemaic System as a Case Study}
+
+The Ptolemaic system of epicycles is often presented as an example of scientific stubbornness: a wrong theory defended past its useful life. But from the perspective of the repair framework, it is better understood as a systematic and locally rational process of tear suppression. The historical interpretation follows the distinction between anomaly absorption and paradigm change emphasized by Kuhn and Lakatos~\cite{kuhn1962,lakatos1978}.
+
+The core problem was that the model's representational architecture was genuinely inadequate: a geocentric coordinate system cannot represent the actual geometry of solar system dynamics without massive complexity. But each individual repair---each new epicycle, each adjusted equant---was locally effective. It reduced the metric discrepancy in the orbital predictions.
+
+\begin{definition}[Repair Cascade]
+A \emph{repair cascade} is a sequence of repair operations in which each repair generates a new anomaly that requires a further repair, producing an expanding tree of local corrections rather than a converging sequence of residuals.
+\end{definition}
+
+The Ptolemaic system underwent centuries of repair cascades. Each new observation triggered a new epicycle, which improved local fit but added complexity that generated new deviations at the boundaries of its validity. The repair sequence was not converging; it was branching. This is a diagnostic signature of a system containing a suppressed Level-2 or Level-3 tear. The repair entropy was exploding while the underlying obstruction class remained intact.
+
+\section{The Convergence Trap}
+
+\begin{definition}[Convergence Trap]
+A learning system is in a \emph{convergence trap} when its repair sequence drives the observable residual toward zero while a non-trivial obstruction class persists in the model's structure.
+\end{definition}
+
+A diagnostic criterion for the convergence trap: if the repair sequence requires steadily increasing complexity to maintain a converging residual---if the size of the repair operations must grow while the residual shrinks---the system is likely in a convergence trap. Ptolemaic astronomy required more epicycles each decade. Modern neural networks require more parameters each year for comparable performance gains on challenging benchmarks. Both patterns are consistent with convergence-trap dynamics. The suppression of structural information by excessive model flexibility resembles familiar concerns in statistical learning theory~\cite{vapnik1998,goodfellow2016}.
+
+
+\chapter{Overfitting and the Ptolemaic Principle}
+
+\section{Classical Overfitting and Its Topological Reinterpretation}
+
+Classical statistical learning theory presents overfitting as a variance problem: a model with too many parameters fits training data noise, producing poor generalization. The remedy is regularization. This account is correct as far as it goes, but it treats overfitting as a numerical phenomenon. We propose a complementary account: overfitting is a form of tear suppression.
+
+When a neural network has more parameters than the effective dimensionality of the data manifold, the excess parameters constitute additional degrees of freedom in the Level-0 repair algebra. The network can use these degrees of freedom to absorb any anomaly at Level 0---any pointwise discrepancy---by adjusting parameters to locally fit the observation. Topological and categorical discrepancies that should be promoted are instead absorbed at Level 0.
+
+\begin{conjecture}[Overfitting as Suppression]
+Let $\M_\theta$ be a parametric model family with parameter space $\Theta$. If the dimension of $\Theta$ exceeds the topological complexity of the data manifold, then for any observation with a non-trivial tear $[\tau] \neq 0$, there exists a sequence of parameter updates driving $\norm{\eps_n} \to 0$ without dissolving $[\tau]$.
+\end{conjecture}
+
+Overfit models may therefore be topologically ``wrong'' in ways that their training performance entirely conceals. The model has learned to suppress the tear rather than to represent the structure it signals.
+
+\section{Generalization as Topological Compatibility}
+
+This analysis suggests a reinterpretation of generalization. A model generalizes well not merely when it is statistically consistent with the data distribution. It generalizes well when its trajectory manifold $M_{\mathrm{pred}}$ is \emph{homotopy equivalent} to the world's trajectory manifold $M_{\mathrm{world}}$. Generalization failure occurs when $M_{\mathrm{pred}} \not\simeq M_{\mathrm{world}}$---when the topological structure of the model's predictions diverges from the topology of the world's dynamics.
+
+\begin{remark}
+This reinterpretation connects the present framework to the literature on topological data analysis and geometric deep learning, where the homotopy type of data manifolds is increasingly recognized as an important quantity for generalization. The present framework provides a theoretical basis for why topology matters: not as a mathematical curiosity, but as the level at which suppressed tears live.
+\end{remark}
+
+\section{The Ptolemaic Principle}
+
+\begin{conjecture}[Ptolemaic Principle]
+\label{conj:ptolemy}
+Let $\M$ be a model with repair algebra $\R$ of dimension $d$. If $d$ exceeds the topological complexity of the true trajectory manifold, then for any persistent anomaly $\eps$ with $\Pers_{\R}(\eps) > 0$, there exists an overfit extension $\M' \supset \M$ with repair algebra $\R'$ such that $\Pers_{\R'}(\eps) = 0$ but $[\tau(\eps)] \neq 0$ in $H^1(\M'; \mathcal{S}_{\R'})$.
+\end{conjecture}
+
+\begin{corollary}
+A system that monitors only metric residuals cannot distinguish genuine convergence (where $[\tau] = 0$) from convergence-trap suppression (where $[\tau] \neq 0$ but $\norm{\eps} \to 0$). A system additionally monitoring $[\tau]$---via holonomy estimates or topological data analysis---can.
+\end{corollary}
+
+The Ptolemaic Principle is the dual of the Persistence Principle. Persistence tells us when structure is missing. Suppression tells us why structure remains undiscovered. A sufficiently expressive repair algebra can always erase the metric evidence for a structural tear while leaving the tear itself intact.
+
+The implications are immediate. First, convergence of a repair sequence is \emph{not} evidence of ontological adequacy. Second, the history of epicycle-style science describes a failure mode in principle available to any learning system with a sufficiently flexible repair algebra---including modern deep learning systems. Third, the appropriate response to convergence is not celebration but diagnostic scrutiny: does the repair sequence converge by dissolving structural obstructions, or by absorbing them into increasingly complex local adjustments?
+
+% ===============================================================
+\part{Applications}
+% ===============================================================
+
+\chapter{Mercury and General Relativity}
+
+\section{The Anomaly}
+
+Mercury's perihelion precesses by 5600 arcseconds per century. Perturbations from other planets account for approximately 5557 arcseconds. The residual of 43 arcseconds per century was documented by Le Verrier in 1859~\cite{will2014}. For the next fifty-six years, this anomaly climbed every level of the Newtonian repair hierarchy.
+
+\subsection{Level-0 Repairs}
+Measurement improvements refined the precession value but did not change the residual's sign or order of magnitude. The anomaly was not an observational artifact. If anything, its precision increased as instrumentation improved---a signature of amplified modes in the persistence spectrum.
+
+\subsection{Level-1 Repairs}
+Parameter adjustments within Newtonian gravity---changing the mass of the Sun, adjusting the oblateness, modifying planetary perturbations---were studied extensively and found insufficient. Hall proposed in 1894 that modifying the inverse-square law to a slightly different power could account for the precession, but this modification broke agreement with other planetary observations.
+
+\subsection{Level-2 Repairs}
+Hypothetical new bodies were proposed: a planet interior to Mercury's orbit (Vulcan), distributed interplanetary matter, an unseen population of small bodies. Extensive searches found nothing. Each failed repair increased the admissibility pressure without reducing the anomaly's invariant modes.
+
+\subsection{The Ontology Revision}
+Einstein's field equations, applied to the two-body problem, yield a geodesic equation with an additional term producing a perihelion precession of~\cite{einstein1916}
+\[
+\Delta\phi = \frac{6\pi G M}{c^2 a (1-e^2)}
+\]
+per orbit. For Mercury, this gives precisely 43 arcseconds per century. The calculation requires no free parameters; it is a direct consequence of the background geometry.
+
+\section{What the Persistence Framework Adds}
+
+The standard narrative presents this as a story about a wrong theory eventually replaced by a right one. The persistence framework adds precision to two aspects.
+
+First, the anomaly was not evidence against Newtonian gravity in the scalar sense---the vast majority of Newtonian predictions remained accurate. The anomaly was evidence of a non-trivial obstruction class in the trajectory manifold: a region of state space where Newtonian coordinates were topologically inadequate.
+
+Second, the resolution did not \emph{fit} the anomaly. It \emph{dissolved} it. In pseudo-Riemannian spacetime, Mercury's trajectory is a geodesic. There is no residual, no correction term, no patch. The tear was dissolved by expanding the admissibility manifold to include curved geometries. This is ontology revision in the precise sense: the obstruction class maps to zero under inclusion into the Riemannian framework.
+
+
+\chapter{Scientific Revolutions as Ontology Revision}
+
+\section{A Persistence-Based Account of Scientific Change}
+
+Kuhn's account of scientific revolutions distinguishes normal science---puzzle-solving within a paradigm---from revolutionary science---replacement of the paradigm itself~\cite{kuhn1962}. Lakatos's research programmes provide a natural interpretation of repair hierarchies~\cite{lakatos1978}. The role of failed predictions in theory revision reflects Popper's falsificationist tradition~\cite{popper1959}. The persistence framework provides a mathematical account of what distinguishes the normal from the revolutionary.
+
+Normal science is Level-0 through Level-2 repair: parameter adjustment, coordinate refinement, mechanism addition. Revolutionary science is Level-3 and above: categorical revision, ontology expansion. The persistence monitor tells us when the transition is necessary: when anomalies have survived the full normal-science repair hierarchy. At that point, further investment in normal-science repair is governed by the Ptolemaic Principle---it will either continue to fail or succeed by suppression.
+
+\section{The Role of Anomaly Persistence in Discovery}
+
+The historical record suggests that the most important scientific anomalies share the following properties:
+
+\begin{enumerate}[label=(\roman*)]
+\item They are numerically small relative to the total predictive success of the prevailing theory.
+\item They are documented over long time periods, establishing empirical persistence.
+\item They survive an unusually wide variety of repair attempts within the existing framework.
+\item Their persistence spectrum contains invariant or amplified modes: as the prevailing theory becomes more precise, the anomaly becomes sharper, not smaller.
+\item Their eventual resolution requires a concept absent from the existing framework.
+\end{enumerate}
+
+The ultraviolet catastrophe is the clearest case. The deviation between classical prediction and observation was only severe at high frequencies; at low frequencies, classical theory worked well. The anomaly persisted through decades of repairs until Planck introduced energy quantization~\cite{planck1901}. The new concept (the quantum of action) had no analogue in classical physics. The tear required not a better classical theory but a different kind of theory.
+
+\section{Science as Collective Triage}
+
+From the persistence perspective, science is a collective repair triage process. The scientific community functions as a distributed repair hierarchy, with different communities and traditions performing repairs at different levels. A new observation enters at Level 0; it is checked against measurement theory first, then against existing models, then against the space of possible models, then against the conceptual framework.
+
+The community's collective persistence monitor is the literature: the record of failed repair attempts. An anomaly that has generated decades of failed repair papers is an anomaly with high documented persistence---a rich Admissibility Log maintained collectively. The community gradually recognizes that no available repair will work, and the conditions for paradigm change are established.
+
+The failure mode is also visible at the collective level: a community that lacks memory of its repair history will repeat past repair attempts without recognizing them as past. The literature performs the memory function, but only when it is consulted. A community that fails to search existing literature before attempting repairs is operating with reduced memory and therefore reduced capacity for persistence detection---the collective form of promotion blindness.
+
+
+\chapter{Biological Adaptation}
+
+\section{Evolution as Persistent Anomaly Processing}
+
+Biological evolution can be viewed through the persistence framework as follows. An organism is a model of its environment: its physiology predicts what the environment will provide and adjusts behavior accordingly. Environments change. Some changes are Level-0 perturbations: temperature fluctuations, prey abundance fluctuations, that can be absorbed by physiological and behavioral flexibility. Others are structural: the environment's topology has changed in ways that no existing behavioral or physiological repair can address.
+
+Genetic mutation and selection constitute a higher-level repair algebra. When phenotypic flexibility fails to absorb an environmental anomaly, the anomaly persists across generations. Selection pressure is a persistence signal: high mortality in response to environmental conditions that cannot be behaviorally avoided is the biological equivalent of a promoted anomaly. The repair hierarchy in biology extends from behavioral adjustment (Level 0) through physiological acclimation (Level 1) to genetic mutation (Level 2) and developmental program revision (Level 3).
+
+\section{Speciation as Ontology Revision}
+
+Speciation---the evolution of a new species---is a biological ontology revision. The new species carries a representational architecture (phenotype, developmental program, niche specification) that extends the admissibility manifold of the lineage to include environmental conditions that the ancestor could not inhabit.
+
+The persistence of anomalies---environmental pressures that killed individuals at high rates without behavioral remedy---is the generator of selection pressure that drives speciation. In the persistence framework, speciation is what happens when a biological lineage's repair hierarchy is exhausted and the only remaining response is admissibility expansion. The new species does not merely tolerate the previously anomalous environment; it inhabits it as a normal part of its admissibility manifold.
+
+\section{Developmental Regulation}
+
+At the cellular level, developmental regulation involves ongoing repair triage. A developing organism faces continuous small discrepancies between target morphology and current state. Most are resolved by Level-0 biochemical adjustments. Occasionally a discrepancy persists across cell cycles and regulatory checkpoints, which may trigger a Level-3 response: a change in the developmental program itself.
+
+Persistent developmental anomalies---homeotic transformations, regulatory failures---are often the most evolutionarily productive mutations. They involve changes not to individual gene products but to the regulatory architecture that governs development. They are, in the present framework, categorical changes to the biological model. This corresponds to the bottom-right cell of the discrepancy matrix: ontology boundary anomalies that signal that the category of developmental programs currently available to the lineage is inadequate to the environmental challenge.
+
+
+\chapter{Machine Learning and Representation}
+
+\section{Foundation Models and the Persistence Problem}
+
+Foundation models trained on large corpora demonstrate strong average performance across many tasks. Their training is a massive repair operation: gradient descent applied to the full dataset drives the training loss toward zero. The model's parameter space is large enough that the Ptolemaic Principle applies in its conjectured form: essentially any training-distribution anomaly can be absorbed at Level 0.
+
+The consequence is that foundation models are optimally prone to convergence-trap suppression. Their expressive repair algebras absorb evidence of structural discrepancies. Persistent anomalies---systematic failures that survive many training iterations---are present but invisible to standard monitoring.
+
+The out-of-distribution failure problem is a manifestation of this. When a foundation model is deployed on inputs outside its training distribution, the metric distance is small for many inputs, but the topological structure of the out-of-distribution manifold may be substantially different from the training manifold. The model's tear has been suppressed during training; it appears during deployment when the suppression mechanism (training distribution repair) is no longer available.
+
+\section{Representation Learning and Topological Fidelity}
+
+The goal of representation learning is to construct a latent space that preserves the structure of the data. From the persistence perspective, ``preserving structure'' means achieving homotopy equivalence between the data manifold and the representation manifold:
+\[
+M_{\mathrm{data}} \simeq M_{\mathrm{repr}}.
+\]
+A representation that achieves this has dissolved all tears. A representation that merely minimizes reconstruction error may have suppressed tears rather than dissolved them.
+
+This motivates a topological approach to representation learning: instead of monitoring reconstruction loss, monitor the homology of the representation manifold and compare it to the estimated homology of the data manifold. Discrepancies in homology indicate persistent tears. Topological data analysis provides tools for this; the persistence framework provides the theoretical justification for why it should be done.
+
+\section{A Research Agenda}
+
+The persistence framework suggests several concrete directions for machine learning research.
+
+\paragraph{Persistence monitoring during training.} Track the repair history of training anomalies across epochs. Anomalies that persist across many epochs are candidates for structural diagnosis. A persistence spike during training---sudden appearance of many highly persistent small anomalies---is an early warning of impending representation failure.
+
+\paragraph{Commutator-based diagnostics.} Systematically apply pairs of repair operations in both orders. Persistent $[R_a, R_b](\eps) \neq 0$ across diverse repair families indicates structural tears rather than slow convergence.
+
+\paragraph{Holonomy-based data augmentation.} Generate training examples by transporting existing examples around loops in data space. If the model's holonomy around these loops is non-trivial, the resulting examples probe the regions near non-abelian tears. Targeted augmentation in these regions may help dissolve rather than suppress structural discrepancies.
+
+\paragraph{Topology-regularized training.} Add a regularization term penalizing discrepancies between the homology of the model's prediction manifold and estimated data homology. This would directly discourage suppression in favor of dissolution.
+
+\paragraph{Repair-entropy monitoring.} Track the ratio $E_R = -\Delta p_n / \Delta S_R$. Declining repair efficiency is a leading indicator of convergence-trap dynamics.
+
+\paragraph{Ontology-expanding architectures.} Design architectures capable of adding new representational dimensions when persistence monitors indicate boundary proximity. Neural architecture search driven by persistence signals rather than validation loss.
+
+
+\chapter{RSVP, CLIO, and Admissibility Fields}
+
+\section{The RSVP Framework}
+
+The Relational Scalar-Vector-Potential (RSVP) framework describes physical and representational dynamics in terms of a triple $(\Phi, \mathbf{v}, S)$, where $\Phi$ is a scalar concentration field, $\mathbf{v}$ a velocity field, and $S$ an entropy field. The dynamics of this triple are governed by a system of coupled field equations that describe how representational attention flows, concentrates, and dissipates.
+
+The RSVP framework provides natural language for admissibility dynamics. The admissibility manifold $\mathcal{A}(\M)$ corresponds to the region of field configuration space where the RSVP dynamics generate stable trajectories of $\Phi$ under the flow of $\mathbf{v}$. A trajectory is admissible when the entropy field $S$ remains bounded along it.
+
+\section{Non-Abelian Tears in RSVP}
+
+In RSVP dynamics, a non-abelian tear appears as a region where:
+\begin{enumerate}[label=(\roman*)]
+\item The scalar field $\Phi$ concentrates: the model is devoting increasing attention to the region.
+\item The velocity field $\mathbf{v}$ fails to generate a stable flow: the transport of $\Phi$ is becoming incoherent.
+\item The entropy field $S$ grows without bound: the representational cost of tracking the trajectory is escalating.
+\end{enumerate}
+
+This triple signature---concentration without coherent flow and unbounded entropy growth---is the RSVP signature of an ontology boundary. The model is approaching the edge of its coordinate chart.
+
+The holonomy discrepancy of the RSVP connection around a loop $\ell$ measures the accumulated failure of the velocity field to maintain coherent transport. A region with high holonomy discrepancy is a region near a non-abelian tear, and corresponds directly to the non-vanishing of the obstruction class under the Persistence--Obstruction Schema.
+
+\section{CLIO Projection and Representational Compression}
+
+The CLIO framework governs the projection from full state space to observable subspaces. A CLIO projection is admissible when it preserves the relevant topological structure: when the projection map induces an equivalence on the homotopy classes of trajectories.
+
+A CLIO projection failure occurs when this condition breaks down: when the projected description cannot represent the loops in trajectory space that carry non-trivial holonomy. The projection has discarded the dimensions needed to represent the tear.
+
+In the persistence framework, a CLIO projection failure is a specific type of ontology revision problem: the model has projected itself into a subspace that is too small to contain the full repair algebra needed to address the anomaly. The response is to expand the projection---to include more dimensions in the CLIO output---until the relevant topological structure is preserved.
+
+\section{Lamphrodyne Relaxation and Tear Dissolution}
+
+The lamphrodyne relaxation process in RSVP describes the gradual equilibration of the entropy field following a perturbation. During relaxation, the velocity field reorganizes to restore coherent transport of the scalar concentration field.
+
+In the persistence framework, lamphrodyne relaxation is a Level-1 geometric repair: adjusting the flow structure to improve trajectory tracking. Successful relaxation corresponds to the anomaly being absorbed at Level 1. Failed relaxation---where the entropy field grows or oscillates rather than equilibrating---is the RSVP signature of a persistent anomaly that requires higher-level repair.
+
+The RSVP dynamics thus provide an implementable instantiation of the abstract repair hierarchy. The level of the repair hierarchy reached by an RSVP anomaly is indicated by the behavior of the relaxation process: whether it converges (Levels 0--1), oscillates (Level 2), or diverges (Level 3 and above).
+
+% ===============================================================
+\backmatter
+% ===============================================================
+
+\chapter*{Conclusion: What Anomalies Tell Us}
+\addcontentsline{toc}{chapter}{Conclusion}
+
+\epigraph{It is not the magnitude of the discrepancy but its stubbornness that matters.}{\textit{---the argument of this book}}
+
+We began with Mercury. We end with a general principle about the geometry of learning.
+
+The argument of this monograph has proceeded through several stages that are worth recapitulating in reverse order, because the reversal is illuminating.
+
+The deepest object of study is the geometry of repair space: the repair landscape $(\M, \R)$ that describes not just what a model predicts but what transformations are available to it and how difficult they are to perform. Most theories of learning are theories of the model. This framework is a theory of the model-and-its-transformations.
+
+The key quantity in the repair landscape is persistence: the survival of an anomaly under all available repairs, measured relative to the algebra $\R$ available to the observer. Persistence is not an intrinsic property of the anomaly. It is a relational property of the pair $(\eps, \R)$. The same phenomenon looks transient to a sufficiently expressive system and persistent to a simpler one. The same anomaly that climbs a Newtonian repair hierarchy is absorbed instantly by general relativistic machinery once that machinery is available.
+
+The mechanism by which persistence is computed is memory. Without a remembered repair trajectory, no anomaly can be recognized as persistent. The dependency chain runs backward from what is usually expected: memory enables persistence detection; persistence detection enables promotion; promotion enables ontology revision; ontology revision is the deepest form of learning. Memory is not a storage system for the outputs of learning. It is the computational infrastructure that makes the highest levels of learning possible at all.
+
+The dual failure mode---the Ptolemaic Principle---is equally important. A sufficiently expressive repair algebra can always suppress the metric evidence for a tear without dissolving it. Overfitting is tear suppression. Bureaucratic drift is tear suppression. Paradigm defense under experimental pressure is tear suppression. In each case, the anomaly has not disappeared. It has been contained at a level that cannot address it, consuming resources while preventing promotion.
+
+The history of science can be read as a long series of anomalies being sorted by their persistence. Most anomalies are transient, resolved at Level 0 or Level 1, and promptly forgotten. They were, in retrospect, uninteresting. A small number are persistent. They climb the repair hierarchy until no admissible repair remains. At that point they function not merely as unresolved residuals but as specifications: they tell us, by the structure of their persistence spectrum and their obstruction class, what the next theory must contain.
+
+\medskip
+\begin{center}
+\begin{minipage}{0.8\textwidth}
+\centering
+\textit{An abelian error can be corrected.}\\[4pt]
+\textit{A non-abelian tear requires the model to grow.}
+\end{minipage}
+\end{center}
+\medskip
+
+Saliency, properly understood, is not the magnitude of surprise. It is evidence that the current representation lacks the degrees of freedom necessary to explain what happened. The most valuable anomalies in science have rarely been the largest ones. They have been the smallest ones that refused to disappear---the ones whose persistence spectrum contained invariant or amplified modes, whose commutators remained non-zero under every available pair of repair operations, whose admissibility pressure climbed through decades of failed attempts.
+
+These are the places where the world was informing its models that they needed to become larger. The anomaly is the instrument by which a model discovers the shape of its own boundary. The repair sequence is the experiment. The Admissibility Log is the record. The geometry of repair space is the object. And the anomaly was being patient.
+
+\medskip
+\begin{center}
+$\ast \quad \ast \quad \ast$
+\end{center}
+\medskip
+
+\noindent\textbf{Persistence Principle} (Final Statement). Let $\M$ be a model and $\R$ its admissible repair algebra. An anomaly $\eps$ satisfying $\Pers_{\R}(\eps) > 0$ is not a fact about the world. It is a fact about the geometry of the model used to represent the world. Its persistence invariant measures the distance between the model's admissibility manifold and the world's, integrated over the repair trajectory.
+\[
+\text{Persistent anomaly} \;\Longrightarrow\; \text{missing structure.}
+\]
+The repair sequence is the experiment. The Admissibility Log is the record. The geometry of repair space is the object. And the anomaly is the instrument by which the model discovers the shape of its own boundary.
+
+% -------------------------------------------------------
+% Bibliography
+% -------------------------------------------------------
+\chapter*{Bibliography}
+\addcontentsline{toc}{chapter}{Bibliography}
+\begin{thebibliography}{99}
+
+\bibitem{amari2016}
+Amari, S.
+\textit{Information Geometry and Its Applications}.
+Springer, 2016.
+
+\bibitem{awodey2010}
+Awodey, S.
+\textit{Category Theory}.
+Oxford University Press, 2010.
+
+\bibitem{bishop1995}
+Bishop, C. M.
+\textit{Neural Networks for Pattern Recognition}.
+Oxford University Press, 1995.
+
+\bibitem{bott1982}
+Bott, R. and Tu, L.
+\textit{Differential Forms in Algebraic Topology}.
+Springer, 1982.
+
+\bibitem{cartwright1983}
+Cartwright, N.
+\textit{How the Laws of Physics Lie}.
+Oxford University Press, 1983.
+
+\bibitem{cover2006}
+Cover, T. M. and Thomas, J. A.
+\textit{Elements of Information Theory}.
+Wiley, 2006.
+
+\bibitem{delellis2017}
+De~Lellis, C.
+\textit{Rectifiable Sets, Densities and Tangent Measures}.
+European Mathematical Society, 2017.
+
+\bibitem{einstein1916}
+Einstein, A.
+The foundation of the general theory of relativity.
+\textit{Annalen der Physik}, 49:769--822, 1916.
+
+\bibitem{engelking1989}
+Engelking, R.
+\textit{General Topology}.
+Heldermann Verlag, 1989.
+
+\bibitem{feyerabend1975}
+Feyerabend, P.
+\textit{Against Method}.
+Verso, 1975.
+
+\bibitem{friston2010}
+Friston, K.
+The free-energy principle: a unified brain theory?
+\textit{Nature Reviews Neuroscience}, 11(2):127--138, 2010.
+
+\bibitem{gallier2020}
+Gallier, J. and Quaintance, J.
+\textit{Differential Geometry and Lie Groups}.
+Springer, 2020.
+
+\bibitem{giere1988}
+Giere, R.
+\textit{Explaining Science}.
+University of Chicago Press, 1988.
+
+\bibitem{goldblatt2006}
+Goldblatt, R.
+\textit{Topoi: The Categorical Analysis of Logic}.
+Dover, 2006.
+
+\bibitem{goodfellow2016}
+Goodfellow, I., Bengio, Y., and Courville, A.
+\textit{Deep Learning}.
+MIT Press, 2016.
+
+\bibitem{gromov1999}
+Gromov, M.
+\textit{Metric Structures for Riemannian and Non-Riemannian Spaces}.
+Birkh\"{a}user, 1999.
+
+\bibitem{hanson1958}
+Hanson, N. R.
+\textit{Patterns of Discovery}.
+Cambridge University Press, 1958.
+
+\bibitem{hartshorne1977}
+Hartshorne, R.
+\textit{Algebraic Geometry}.
+Springer, 1977.
+
+\bibitem{hatcher2002}
+Hatcher, A.
+\textit{Algebraic Topology}.
+Cambridge University Press, 2002.
+
+\bibitem{hochreiter1997}
+Hochreiter, S. and Schmidhuber, J.
+Long short-term memory.
+\textit{Neural Computation}, 9(8):1735--1780, 1997.
+
+\bibitem{holland1992}
+Holland, J. H.
+\textit{Adaptation in Natural and Artificial Systems}.
+MIT Press, 1992.
+
+\bibitem{jaynes2003}
+Jaynes, E. T.
+\textit{Probability Theory: The Logic of Science}.
+Cambridge University Press, 2003.
+
+\bibitem{kashiwara2006}
+Kashiwara, M. and Schapira, P.
+\textit{Categories and Sheaves}.
+Springer, 2006.
+
+\bibitem{kuhn1962}
+Kuhn, T. S.
+\textit{The Structure of Scientific Revolutions}.
+University of Chicago Press, 1962.
+
+\bibitem{lakatos1978}
+Lakatos, I.
+\textit{The Methodology of Scientific Research Programmes}.
+Cambridge University Press, 1978.
+
+\bibitem{leinster2014}
+Leinster, T.
+\textit{Basic Category Theory}.
+Cambridge University Press, 2014.
+
+\bibitem{maclane1971}
+Mac~Lane, S.
+\textit{Categories for the Working Mathematician}.
+Springer, 1971.
+
+\bibitem{mackay2003}
+MacKay, D.
+\textit{Information Theory, Inference and Learning Algorithms}.
+Cambridge University Press, 2003.
+
+\bibitem{michelson1887}
+Michelson, A. A. and Morley, E. W.
+On the relative motion of the Earth and the luminiferous ether.
+\textit{American Journal of Science}, 34:333--345, 1887.
+
+\bibitem{milnor1974}
+Milnor, J.
+\textit{Characteristic Classes}.
+Princeton University Press, 1974.
+
+\bibitem{nakahara2003}
+Nakahara, M.
+\textit{Geometry, Topology and Physics}, 2nd ed.
+Taylor \& Francis, 2003.
+
+\bibitem{pearl2009}
+Pearl, J.
+\textit{Causality}.
+Cambridge University Press, 2009.
+
+\bibitem{planck1901}
+Planck, M.
+On the law of distribution of energy in the normal spectrum.
+\textit{Annalen der Physik}, 4:553--563, 1901.
+
+\bibitem{polanyi1966}
+Polanyi, M.
+\textit{The Tacit Dimension}.
+University of Chicago Press, 1966.
+
+\bibitem{popper1959}
+Popper, K.
+\textit{The Logic of Scientific Discovery}.
+Routledge, 1959.
+
+\bibitem{quine1960}
+Quine, W. V. O.
+\textit{Word and Object}.
+MIT Press, 1960.
+
+\bibitem{riehl2016}
+Riehl, E.
+\textit{Category Theory in Context}.
+Dover, 2016.
+
+\bibitem{rudin2019}
+Rudin, C.
+Stop explaining black box machine learning models for high stakes decisions.
+\textit{Nature Machine Intelligence}, 1(5):206--215, 2019.
+
+\bibitem{shalev2014}
+Shalev-Shwartz, S. and Ben-David, S.
+\textit{Understanding Machine Learning}.
+Cambridge University Press, 2014.
+
+\bibitem{simon1969}
+Simon, H. A.
+\textit{The Sciences of the Artificial}.
+MIT Press, 1969.
+
+\bibitem{spanier1966}
+Spanier, E.
+\textit{Algebraic Topology}.
+McGraw-Hill, 1966.
+
+\bibitem{vapnik1998}
+Vapnik, V.
+\textit{Statistical Learning Theory}.
+Wiley, 1998.
+
+\bibitem{verma2018}
+Verma, V. and Pearl, J.
+A theory of causal representation learning.
+\textit{Proceedings of AAAI Workshops}, 2018.
+
+\bibitem{will2014}
+Will, C. M.
+\textit{Theory and Experiment in Gravitational Physics}.
+Cambridge University Press, 2014.
+
+\bibitem{wimsatt2007}
+Wimsatt, W.
+\textit{Re-Engineering Philosophy for Limited Beings}.
+Harvard University Press, 2007.
+
+\end{thebibliography}
+
+\end{document}

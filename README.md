@@ -1,5 +1,7 @@
 # Constraint Geometry
 
+[Possibility Space](https://github.com/standardgalactic/calculus/tree/main/baseline/README.md)
+
 [The Elements of Computational Worlds](https://standardgalactic.github.io/calculus/computational_worlds.pdf)
 
 * [Building Empires with Simple Logic Gates](https://standardgalactic.github.io/calculus/processing/) — *Audio Overview*

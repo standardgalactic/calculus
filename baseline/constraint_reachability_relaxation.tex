@@ -1,0 +1,677 @@
+% ============================================================
+%  Constraint, Reachability, and Relaxation — v3
+%  Flyxion, June 2026  |  pdfLaTeX + Palatino (mathpazo)
+% ============================================================
+
+\documentclass[12pt, a4paper, twoside]{book}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathpazo}
+\usepackage[scaled=0.95]{helvet}
+\usepackage{courier}
+\usepackage{microtype}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage[a4paper, top=30mm, bottom=32mm,
+            inner=30mm, outer=24mm, headsep=8mm]{geometry}
+\usepackage{setspace}
+\setstretch{1.18}
+\usepackage{parskip}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\parindent}{0pt}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\itshape\leftmark}
+\fancyhead[RO]{\small\itshape\rightmark}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\usepackage[dvipsnames,svgnames]{xcolor}
+\definecolor{RSVPblue}{RGB}{25,70,120}
+\definecolor{CLIOgold}{RGB}{140,100,20}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{RSVPblue}}
+  {\chaptertitlename\ \thechapter}{14pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-20pt}{28pt}
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{RSVPblue}}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{RSVPblue!70}}{\thesubsection}{1em}{}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{hypothesis}{Hypothesis}[chapter]
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[chapter]
+
+\usepackage{booktabs, tabularx, longtable, array}
+\renewcommand{\arraystretch}{1.3}
+\usepackage[font=small, labelfont=bf, margin=8pt]{caption}
+\usepackage[authoryear, round, sort&compress]{natbib}
+\bibliographystyle{plainnat}
+\usepackage[colorlinks=true, linkcolor=RSVPblue, citecolor=CLIOgold,
+            urlcolor=RSVPblue!80, pdfauthor={Flyxion},
+            pdftitle={Constraint, Reachability, and Relaxation}]{hyperref}
+\usepackage{epigraph}
+\setlength{\epigraphwidth}{0.72\textwidth}
+\renewcommand{\epigraphflush}{flushright}
+\usepackage{graphicx, enumitem}
+\setlist[itemize]{leftmargin=1.4em, itemsep=2pt, topsep=4pt}
+\setlist[enumerate]{leftmargin=1.4em, itemsep=2pt, topsep=4pt}
+
+\newcommand{\Adm}{\mathcal{A}}
+\newcommand{\Spc}{\mathcal{S}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\curv}{\kappa}
+\newcommand{\Relax}{\mathcal{R}}
+\newcommand{\slp}{P}
+\newcommand{\term}[1]{\textbf{#1}}
+\newcommand{\RSVP}{\textsf{RSVP}}
+\newcommand{\CLIO}{\textsf{CLIO}}
+\newcommand{\gene}[1]{\textit{#1}}
+
+% ════════════════════════════════════════════════════════════
+\begin{document}
+\frontmatter
+
+\begin{titlepage}
+\vspace*{50pt}
+{\raggedleft
+  {\fontsize{28}{34}\selectfont\bfseries\color{RSVPblue}
+    Constraint, Reachability,\\[4pt] and Relaxation}\\[18pt]
+  {\large\color{RSVPblue!60}\itshape
+    Across Biological, Cognitive, Industrial,\\
+    and Cosmological Systems}\\[40pt]
+  \rule{0.55\textwidth}{0.5pt}\\[20pt]
+  {\large A Theoretical Monograph}\\[10pt]
+  {\large Flyxion}\\[6pt]
+  {\normalsize June 2026}\\[60pt]
+}
+\vfill
+{\small\color{gray}
+  Working manuscript. All rights reserved.\\[3pt]
+  Incorporates analysis of six papers published in\\
+  \textit{Nature Neuroscience}, \textit{Nature Immunology},
+  \textit{Nature Methods}, \textit{Nature Sustainability},\\
+  \textit{Nature Astronomy}, and \textit{Scientific Reports},
+  June 2026.
+}
+\end{titlepage}
+
+\cleardoublepage\vspace*{100pt}
+\epigraph{The relevant question is never \emph{what is the system doing}\\
+  but always \emph{what can it still do}.}{\textit{Admissibility geometry, first principle}}
+\vspace{36pt}
+\epigraph{Sleep pressure is the integral of a deficit.\\
+  Off-period induction is the path that clears it.\\
+  Tonic suppression is the path that does not.}{\textit{After \citet{driessen2026}}}
+\vspace{36pt}
+\epigraph{The PIP joint is not more vulnerable because of what it is now.\\
+  It is more vulnerable because of what it was.}{\textit{After \citet{davidson2026}}}
+
+\cleardoublepage
+\tableofcontents
+
+% ── Preface ──────────────────────────────────────────────────
+\cleardoublepage
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+This monograph originated as a comparative reading of six papers published simultaneously in June 2026. The six span neuroscience \citep{driessen2026}, immunology \citep{davidson2026}, genomics \citep{spiro2026}, sustainability science \citep{tian2026}, cognitive science \citep{okitsu2026}, and astrophysics \citep{leung2026}. Their simultaneous appearance is coincidental; the structural observation that links them is not.
+
+Two results forced the central claim into a sharper form than it held at the outset. The halorhodopsin control in \citet{driessen2026} showed that matched firing-rate reduction does not produce admissibility relaxation unless the trajectory crosses a specific dynamical minimum. The cytokine-stimulation results in \citet{davidson2026} showed that the maintaining mechanism of the joint's admissibility structure can be inverted---becoming a gateway to pathology rather than a barrier against it. Together, these forced a distinction this monograph treats as central: relaxation, which is reversible and trajectory-dependent, versus collapse, which is irreversible and mechanism-dependent.
+
+\subsection*{On Bibliography Scope}
+
+The bibliography clusters into six empirical domains that directly correspond to the six papers: sleep homeostasis and local sleep \citep{tononi2014, tononi2020, vyazovskiy2009, vyazovskiy2011, huber2004, massimini2004, diering2017, devivo2017, alfonsa2023, miyamoto2016, funk2017}; fibroblast immunology and arthritis \citep{croft2019, zhang2019, buckley2019, donlin2018}; sequence-to-function genomics \citep{zhou2015, kelley2018, avsec2021, linder2025, huang2023, sasse2023, karollus2023, deboer2024}; battery recycling and circular economy \citep{harper2019, geissdoerfer2017, zhang2025, cheng2024, ciez2019}; reinforcement learning and habit formation \citep{suttonbarto2018, dayanballeine2002, keramati2011, dezfouli2014, momennejad2017, gershman2017, balleine2010}; and quasar accretion and reverberation mapping \citep{shakura1973, abramowicz1988, peterson1993, netzer2013, fausnaugh2016, cackett2020, mchardy2018, burke2021, fanetal2023}.
+
+The theoretical background cites the primary \RSVP\ and \CLIO\ framework papers rather than general dynamical systems literature, since the framework is novel rather than derived. The bibliography deliberately excludes entropic-gravity and free-energy references that appeared in earlier drafts, since neither thermodynamic spacetime \citep{jacobson1995} nor the free-energy principle \citep{friston2010} is developed substantively in the text. A citation that is not discussed is not a foundation.
+
+\mainmatter
+
+% ════════════════════════════════════════════════════════════
+\chapter{The Unifying Claim}
+\label{ch:intro}
+% ════════════════════════════════════════════════════════════
+
+\epigraph{Each system studied here is best described not by its current\\
+  configuration but by the structured field of transitions it can still make.}{}
+
+\section{Six Papers, One Structure}
+
+Six papers published in June 2026---spanning neuroscience \citep{driessen2026}, immunology \citep{davidson2026}, computational genomics \citep{spiro2026}, sustainability science \citep{tian2026}, cognitive science \citep{okitsu2026}, and astrophysics \citep{leung2026}---share a mathematical structure their respective literatures do not name. In each case, the operative quantity governing system function is not the current state but a \term{reachability structure}: a field of admissible transitions shaped by past trajectories, spatial distributions, and relaxation timescales.
+
+The claim is not analogical. Analogies say: \emph{this looks like that}. The claim here is structural: the same mathematical object---an admissibility field, a set-valued map over state space---appears as the functionally determinative quantity in each domain.
+
+\section{The Central Thesis}
+
+\begin{definition}[Admissibility Field --- Informal]
+\label{def:adm-informal}
+For a system with local state $s(x,t)$, the \term{admissibility field} $\Adm(x,t)$ is the set of transitions from $s(x,t)$ that the system can make while remaining consistent with its boundary conditions, history, and coupling to neighbouring regions.
+\end{definition}
+
+Function---synaptic restoration \citep{driessen2026}, joint homeostasis \citep{davidson2026}, regulatory gene expression \citep{spiro2026}, recycling viability \citep{tian2026}, behavioral efficiency \citep{okitsu2026}, quasar luminosity \citep{leung2026}---is determined by the geometry of $\Adm(x,t)$, not by $s(x,t)$ alone.
+
+The central thesis:
+\begin{quote}\itshape
+Constraint relaxation is a path-dependent operation on the admissibility field. The field must traverse specific regions of state space---threshold surfaces---for relaxation to occur. Furthermore, in systems where the admissibility field is actively maintained by a specific structural mechanism, perturbation of that mechanism can produce field collapse rather than mere relaxation.
+\end{quote}
+
+\section{Two Contributions from the Arthritis and RL Papers}
+
+The arthritis paper \citep{davidson2026} contributes two concepts absent from earlier analysis. First, it demonstrates that admissibility fields can be actively \emph{maintained} by specific cell populations, not merely shaped by passive history: the \gene{PI16}$^+$ fibroblast is the maintenance mechanism for the joint's admissibility structure. Second, it establishes that this maintenance is stoichiometric: the PIP joint's enrichment in \gene{PI16}$^+$ cells relative to the DIP joint is quantitative, with measurable consequences for inflammatory susceptibility. This extends and grounds the work of \citet{croft2019} and \citet{zhang2019}, who established that synovial fibroblast subsets drive distinct inflammatory outcomes, by tracing the stoichiometric bias back to embryonic origin.
+
+The RL paper \citep{okitsu2026} contributes the most mathematically explicit model of admissibility compression in any of the six papers. The plan-until-habit framework---a unification of goal-directed and habitual control that extends earlier work on the tension between model-based and model-free systems \citep{dayanballeine2002, keramati2011, dezfouli2014} and on successor representations as intermediate strategies \citep{momennejad2017, gershman2017}---is a formal, computable \CLIO\ projection.
+
+\section{Theoretical Framework: RSVP and CLIO}
+
+The \RSVP\ framework (Relativistic Scalar-Vector Plenum) models systems as coupled fields: a scalar potential $\Phi(x,t)$ encoding configurational tension; a lamphrodyne flow velocity $\vv(x,t)$ encoding directed constraint propagation; and a configurational entropy density $S(x,t)$ encoding local degrees of freedom. The \CLIO\ framework (Constraint-Local Inference and Observation) extends \RSVP\ to inference dynamics. Projection $\pi: \Adm \to \hat{\Adm}$ compresses the admissibility field; the residual $\Adm \setminus \hat{\Adm}$ is the information lost; inference is its partial reconstruction.
+
+\section{Organization}
+
+Chapter~\ref{ch:math} develops the mathematics of reachability fields formally. Chapter~\ref{ch:threshold} introduces the Threshold Hypothesis and the distinction between relaxation and collapse. Chapter~\ref{ch:cortical} is the primary neuroscience anchor. Chapter~\ref{ch:arthritis} is the primary immunology anchor. Chapter~\ref{ch:historical} develops residual geometry and historical encoding across all six papers. Chapter~\ref{ch:compression} bridges \CLIO\ and machine learning through the RL and genomics papers. Chapter~\ref{ch:scales} unifies relaxation across spatial and temporal scales, with the quasar paper as cosmological anchor. Chapter~\ref{ch:program} closes with a research program and twelve falsifiable predictions.
+
+% ════════════════════════════════════════════════════════════
+\chapter{The Mathematics of Reachability Fields}
+\label{ch:math}
+% ════════════════════════════════════════════════════════════
+
+\epigraph{A field is not a collection of values. It is a geometry.}{}
+
+\section{Formal Definition}
+
+Let $\Spc$ be a state space and $x \in \Omega$ a spatial index over domain $\Omega$. At each $(x,t)$, the system occupies local state $s(x,t) \in \Spc$.
+
+\begin{definition}[Admissibility Field]
+\label{def:adm-formal}
+An \term{admissibility field} is a set-valued map
+\begin{equation}
+  \Adm : \Omega \times \mathbb{R}_{\geq 0} \;\longrightarrow\; 2^{\Spc},
+\end{equation}
+where $\Adm(x,t) \subseteq \Spc$ is the set of states reachable from $s(x,t)$ by local transitions consistent with the system's constraints at $(x,t)$.
+\end{definition}
+
+\begin{proposition}
+$s(x,t) \in \Adm(x,t)$ for all $(x,t)$. The map $t \mapsto |\Adm(x,t)|$ need not be monotone: it narrows under constraint accumulation and expands under relaxation.
+\end{proposition}
+
+\section{Constraint Curvature and Bottlenecks}
+
+\begin{definition}[Constraint Curvature]
+\begin{equation}
+  \curv(x,t) = -\frac{\partial^2 \log |\Adm(x,t)|}{\partial t^2}.
+\end{equation}
+Positive curvature: accelerating narrowing. Negative curvature: accelerating expansion.
+\end{definition}
+
+Under the \RSVP\ identification $|\Adm(x,t)| \propto e^{S(x,t)}$, constraint curvature equals $-\partial^2 S/\partial t^2$.
+
+\begin{definition}[Bottleneck]
+A \term{bottleneck} at $(x,t)$ is a local minimum of $|\Adm(x,t)|$ through which the system's trajectory must pass to reach subsequent configurations.
+\end{definition}
+
+Bottlenecks appear empirically as: global cortical silence (50--400 ms) in the sleep system \citep{driessen2026}; the viable-recycling threshold in the battery system \citep{tian2026}; and the minimum planning depth $D \geq 2$ in the RL system \citep{okitsu2026}.
+
+\section{Threshold Surfaces and Bipartite Decomposition}
+
+\begin{definition}[Threshold Surface]
+A \term{threshold surface} $\Sigma \subset \Spc$ partitions state space such that trajectories crossing $\Sigma$ and returning produce expansion of the high-constraint admissibility component $\Adm_H$, while trajectories remaining on one side do not---regardless of proximity to $\Sigma$.
+\end{definition}
+
+\begin{definition}[Bipartite Admissibility Decomposition]
+\begin{equation}
+  \Adm(x,t) = \Adm_H(x,t) \cup \Adm_F(x,t),
+\end{equation}
+where $\Adm_H$ is the \term{high-constraint component} (narrow, slow-relaxing, threshold-mediated, history-sensitive) and $\Adm_F$ is the \term{free component} (wide, fast-relaxing, history-insensitive).
+\end{definition}
+
+The cortical data in \citet{driessen2026} establish this decomposition at 67\%/33\% (HR/non-HR unit pairs). The arthritis data in \citet{davidson2026} provide its mechanistic basis: $\Adm_H$ corresponds to the portion of the joint's admissibility field actively maintained by \gene{PI16}$^+$ fibroblasts.
+
+\section{Relaxation Operators and Field Collapse}
+
+\begin{definition}[Relaxation Operator]
+$\Relax_\tau[\Adm](x,t) \supseteq \Adm(x,t+\tau)$, with equality when no relaxation occurs.
+\end{definition}
+
+\begin{definition}[Admissibility Collapse]
+\label{def:collapse}
+\term{Admissibility collapse} at $(x,t)$ is the loss of the mechanism that actively maintains $\Adm_H$:
+\begin{equation}
+  \Adm_{\mathrm{collapse}}(x,t) \subsetneq \Adm(x,t),
+\end{equation}
+where the reduction is irreversible on the natural system timescale and is driven by the functional inversion of the maintaining structure rather than by constraint accumulation.
+\end{definition}
+
+Relaxation and collapse are qualitatively distinct. Relaxation expands $\Adm_H$ through threshold crossing and is reversible on the timescale of the accumulation process. Collapse reduces $\Adm_H$ through destruction of the maintaining mechanism---the \gene{PI16}$^+$ fibroblast transition from insulator to amplifier under cytokine stimulation \citep{davidson2026}---and is irreversible without external intervention.
+
+\section{Spatial Coupling}
+
+The admissibility field couples across space through the \RSVP\ flow:
+\begin{equation}
+  \frac{\partial \Adm(x,t)}{\partial t} = f[\Adm(x,t), s(x,t)] + \int_\Omega K(x,x')\,\vv(x',t)\,dx'.
+\end{equation}
+The coupling kernel $K(x,x')$ determines the spatial range of relaxation propagation. In mouse cortex, the contralateral probe shows no response to ipsilateral off-period induction, implying $K \approx 0$ at inter-hemispheric distances \citep{driessen2026}---consistent with local sleep being genuinely local \citep{vyazovskiy2011, huber2004}. In quasar accretion, $K$ propagates at the speed of light, yielding the wavelength-dependent lag $\tau \propto \lambda^{4/3}$ \citep{leung2026, cackett2020, fausnaugh2016}.
+
+% ════════════════════════════════════════════════════════════
+\chapter{The Threshold Hypothesis}
+\label{ch:threshold}
+% ════════════════════════════════════════════════════════════
+
+\epigraph{It is not enough to reduce activity.\\
+  The system must cross the silence.}{}
+
+\section{Motivation: The Halorhodopsin Experiment}
+
+The idea that slow-wave generation requires specific circuit conditions rather than mere firing reduction has been established through work on SOM$^+$ interneuron contributions to cortical bistability \citep{funk2017} and on chloride homeostasis as a mediator of local sleep pressure \citep{alfonsa2023}. The halorhodopsin control in \citet{driessen2026} makes this general principle experimentally decisive.
+
+Halorhodopsin mice received tonic inhibition reducing MUA firing by an amount statistically indistinguishable from the SOM$^+$ and ACR off-period induction protocols (Extended Data Fig.\ 8 of the source paper: one-way Welch's ANOVA, NS). No downstream effects followed: no SWA reduction, no STTC reduction, no GluA1 or pGluA1 reduction, no memory rescue. Within the same SOM$^+$ mice, off-period induction outperformed tonic inhibition in every animal tested.
+
+The operative variable is the bistable pattern: global population silence traversal (50--400 ms, $\geq$12/16 channels) and return.
+
+\section{Statement of the Threshold Hypothesis}
+
+\begin{hypothesis}[Threshold Hypothesis]
+\label{hyp:threshold}
+Many admissibility fields contain a threshold surface $\Sigma \subset \Spc$ such that:
+\begin{enumerate}
+  \item Relaxation of $\Adm_H$ requires the trajectory to cross $\Sigma$.
+  \item Trajectories remaining on one side of $\Sigma$ produce no expansion of $\Adm_H$.
+  \item Crossing $\Sigma$ is followed by a return trajectory; relaxation occurs during or after the return.
+\end{enumerate}
+\end{hypothesis}
+
+\begin{proposition}[Threshold Relaxation Condition]
+Let the crossing indicator $\chi(\gamma) = 1$ iff trajectory $\gamma$ crosses $\Sigma$, else $0$. Then:
+\begin{equation}
+  \Relax_\tau[\Adm_H](x,t) \supsetneq \Adm_H(x,t) \iff \chi(\gamma) = 1.
+\end{equation}
+The relationship between $\Adm_H$-expansion and proximity to $\Sigma$ is discontinuous.
+\end{proposition}
+
+\section{Relaxation vs.\ Collapse: A Formal Distinction}
+
+In the cortical system, the threshold-maintaining mechanism (SOM$^+$ interneuron networks; intracellular chloride regulation \citep{alfonsa2023, funk2017}) is intact and can perform threshold crossings on demand \citep{driessen2026}. In the inflamed joint \citep{davidson2026}, the \gene{PI16}$^+$ fibroblast population---which maintains the admissibility structure under homeostatic conditions through \gene{WNT}, \gene{BMP}, and \gene{FGF} signalling---inverts its function under TNF and IL-1$\beta$ stimulation. The maintaining mechanism is not bypassed; it becomes actively destabilizing.
+
+\begin{definition}[Threshold Maintainer]
+A \term{threshold maintainer} is a structural element whose presence ensures that $\Sigma$ exists and that the bipartite decomposition $\Adm = \Adm_H \cup \Adm_F$ is stable. Its functional inversion constitutes admissibility collapse.
+\end{definition}
+
+In the cortical system, SOM$^+$ interneurons are threshold maintainers \citep{funk2017}. In the joint system, \gene{PI16}$^+$ fibroblasts are threshold maintainers \citep{davidson2026}, extending the fibroblast-subset literature \citep{croft2019, zhang2019} to a mechanistic role in admissibility field maintenance.
+
+\section{Threshold Surfaces Across All Six Domains}
+
+\textbf{Cortical system.} $\Sigma$ = boundary of global population silence. Mechanism: SOM$^+$ interneuron recruitment \citep{funk2017}; intracellular chloride regulation \citep{alfonsa2023}. Demonstrated by halorhodopsin control \citep{driessen2026}.
+
+\textbf{Joint system.} $\Sigma$ = cytokine concentration at which \gene{PI16}$^+$ fibroblasts transition from WNT/BMP/FGF maintenance to chemotactic amplification. Mechanism: TNF and IL-1$\beta$ suppression of homeostatic gene cassette, upregulation of CCL2, CCL3, CCL5, IL6, IL1B \citep{davidson2026}.
+
+\textbf{Genomic admissibility.} $\Sigma$ = MAF threshold ($\approx$0.05) below which variants contribute negligibly to model predictions \citep{spiro2026}. The regulatory grammar encoded in reference sequence models such as Enformer \citep{avsec2021} and Borzoi \citep{linder2025} is not defined for variants below this frequency.
+
+\textbf{Accretion disk.} $\Sigma$ = thin-to-slim disk transition in Eddington-ratio space. Below: thin disk, $\lambda f_\lambda \propto \lambda^{-4/3}$ \citep{shakura1973}. Above: slim disk, $\lambda f_\lambda = \mathrm{const}$ \citep{abramowicz1988}. J0439+1634 at 60\% Eddington is below $\Sigma$ \citep{leung2026}.
+
+\textbf{Battery recycling.} $\Sigma$ = minimum interprovincial coordination level for viable formal recycling. Below: 39.3\% utilization. Above (neighbouring-province coordination): 65.68\% \citep{tian2026}.
+
+\textbf{RL agent.} $\Sigma$ = minimum forward planning depth $D \geq 2$. Below: PIT fails entirely. Above: PIT emerges robustly and persists for $D = 2, 3, 4$ \citep{okitsu2026}. This is the most structurally explicit threshold in any of the six papers: proven mathematically by the authors.
+
+% ════════════════════════════════════════════════════════════
+\chapter{The Cortical Anchor: Bistability and Local Phase Operations}
+\label{ch:cortical}
+% ════════════════════════════════════════════════════════════
+
+\epigraph{Sleep is not a global state that the brain enters.\\
+  It is a local phase operation that the brain performs.}{}
+
+\section{Background: The Local-Sleep Lineage}
+
+The local-sleep interpretation of cortical dynamics did not emerge suddenly. Evidence for spatially heterogeneous sleep pressure accumulated through learning-dependent slow-wave modulation \citep{huber2004}, the characterization of cortical firing homeostasis \citep{vyazovskiy2009}, the identification of local sleep intrusions during wakefulness \citep{vyazovskiy2011}, the synaptic homeostasis hypothesis \citep{tononi2014, tononi2020}, ultrastructural synaptic scaling across the wake/sleep cycle \citep{devivo2017}, molecular scaling mechanisms involving Homer1a \citep{diering2017}, chloride-mediated local sleep regulation \citep{alfonsa2023}, and the travelling-wave structure of cortical slow oscillations \citep{massimini2004}. The contribution of \citet{driessen2026} is to demonstrate that this local sleep pressure can be selectively discharged during wakefulness by inducing the characteristic bistable on/off pattern, without requiring global sleep onset.
+
+\section{Experimental Design}
+
+\citet{driessen2026} implanted adult mice ($>8$ weeks) with bilateral homotopic 16-channel silicon probes (50 $\mu$m spacing). Two transgenic strategies induced local on/off oscillations: SOM$^+$ mice ($n=10$, ChR2 in somatostatin interneurons, positive-going slow waves) and ACR mice ($n=8$, soma-targeted stGtACR1 in CaMKII$\alpha$ neurons, negative-going slow waves). A third line---halorhodopsin mice---provided the matched-firing-rate tonic inhibition control. The staged induction protocol (1 Hz/180 ms for 10 min; 2 Hz/140 ms for 10 min; 3 Hz/100 ms for 5 min; then 3 Hz/80 ms until sleep onset) was designed to mimic the natural decline in off-period duration across sleep-pressure states \citep{vyazovskiy2009}.
+
+\section{Results and RSVP Interpretation}
+
+\begin{longtable}{p{5cm}cccl}
+\toprule
+\textbf{Measure} & \textbf{SOM+} & \textbf{ACR} & \textbf{Halo} & \textbf{Interpretation}\\
+\midrule
+SWA reduction (1-h recovery) & $p{<}0.0005$ & $p{<}0.005$ & NS & $\Delta\slp(x) < 0$ \\
+STTC, HR unit pairs & $p{<}0.05$ & $p{<}0.05$ & NS & $\Adm_H$ expansion \\
+GluA1 and pGluA1 levels & $p{<}0.005$ & $p{<}0.0005$ & NS & Synaptic renormalization \\
+Memory rescue (FTR task) & Yes & --- & --- & $\Adm_H$ stabilization \\
+\bottomrule
+\caption{Downstream effects under matched firing-rate reduction. NS: $p > 0.05$. Halo: halorhodopsin tonic inhibition. HR: homeostatically regulated unit pairs. All significance values from Supplementary Table~1 of \citet{driessen2026}.}
+\label{tab:cortical}
+\end{longtable}
+
+The halorhodopsin result establishes Hypothesis~\ref{hyp:threshold} in the cortical domain: the trajectory pattern, not the magnitude of firing reduction, determines whether $\Adm_H$ expands. This is consistent with the physiology of bistability: somatostatin interneurons act as master regulators of cortical excitability \citep{funk2017}, and their activation produces synchronized transitions to and from the off-period state that mere amplitude reduction cannot replicate.
+
+The bipartite structure (67\% HR / 33\% non-HR unit pairs, consistent across mouse lines and probe identity) grounds the formal decomposition $\Adm = \Adm_H \cup \Adm_F$ with biological specificity. The fraction of HR pairs tracks whether a unit pair is homeostatically regulated---whether its synchrony reflects the waking-activity history. Only these pairs participate in $\Adm_H$ dynamics.
+
+\section{The RSVP Sleep Pressure Functional}
+
+Define sleep pressure at location $x$ over duration $T$:
+\begin{equation}
+  \slp(x,T) = \int_0^T \max\!\bigl[0,\; S^*(x) - S(x,t)\bigr]\,dt,
+\end{equation}
+where $S^*(x)$ is the homeostatic target entropy density. Under waking activity, $S(x,t)$ decreases (synaptic potentiation narrows $\Adm_H$ \citep{tononi2014}) and $\slp(x,T)$ accumulates. The SWA in the first hour of recovery sleep is the empirical observable for $\slp$ \citep{vyazovskiy2009, driessen2026}.
+
+An off-period oscillation traverses $\Sigma$ and produces $\Delta S > 0$, reducing $\slp$ by approximately $\Delta S \cdot (\tau_2 - \tau_1)$. The halorhodopsin constraint:
+\begin{equation}
+  \chi(\gamma_{\mathrm{tonic}}) = 0 \implies \Delta S_{\mathrm{tonic}} \approx 0,
+\end{equation}
+constraining the \RSVP\ potential landscape: $\Phi(x,t)$ must have a barrier structure such that the off-period minimum must be visited for relaxation to occur.
+
+\section{Memory Consolidation as CLIO Stabilization}
+
+Sleep's role in memory consolidation has been established through a series of studies \citep{miyamoto2016, huber2004}, with the current paper extending this to the key result that off-period induction---without global sleep---is sufficient for consolidation \citep{driessen2026}. In \CLIO\ terms: acquisition projects the texture discrimination onto a compressed representation in M2 and S1 \citep{miyamoto2016}. Without consolidation, $\Adm_H$ around the representation remains wide, permitting interfering traces. Off-period induction crosses $\Sigma$ and narrows $\Adm_H$ locally, stabilizing the projection against interference.
+
+% ════════════════════════════════════════════════════════════
+\chapter{The Joint System: Stoichiometry, Topology, and Collapse}
+\label{ch:arthritis}
+% ════════════════════════════════════════════════════════════
+
+\epigraph{The PIP joint is not more vulnerable because of what it is now.\\
+  It is more vulnerable because of what it was.}{}
+
+\section{Background: Fibroblast Heterogeneity and Inflammatory Disease}
+
+The recognition that synovial fibroblasts are not a homogeneous support population but comprise distinct functional subsets capable of driving either inflammation or tissue damage was established by \citet{croft2019}, who identified spatially distinct fibroblast lineages within the mouse joint, and by \citet{zhang2019}, who applied single-cell transcriptomics and mass cytometry to human rheumatoid arthritis tissue to define inflammatory fibroblast states. Subsequent work has emphasized that the tissue microenvironment---including mechanical forces, vascular proximity, and cytokine gradients---shapes fibroblast function at the local level \citep{buckley2019}. The contribution of \citet{davidson2026} is to trace the basis of these local differences back to their embryonic origins, demonstrating that site-specific inflammatory susceptibility is pre-patterned \emph{in utero}.
+
+\section{Architectural and Cellular Asymmetry}
+
+High-resolution synchrotron X-ray microtomography of human fetal joints at 14--15 post-conception weeks reveals fundamental differences between PIP and DIP anatomy established before birth \citep{davidson2026}:
+
+\begin{itemize}
+  \item The DIP synovium is a thin layer, prominent dorsally. The PIP possesses a substantially larger ``baggy'' synovial volume forming a palmar apron.
+  \item The PIP tendon architecture is dramatically more complex: the flexor digitorum superficialis (FDS) splits and inserts at the PIP joint, forming a structural tunnel through which the flexor digitorum profundus (FDP) traverses. Only the FDP inserts at the DIP.
+  \item Across early (8--9 pcw) and late (12--14 pcw) fetal development, joint spaces are predominantly (96.5\%) \gene{COL1A1}$^+$ early fibroblasts and \gene{COL2A1}$^+$ chondrocytes.
+  \item Critically, the PIP joint's larger palmar volume and interstitial spaces are enriched in \gene{PI16}$^+$ fibroblasts relative to the DIP joint---a stoichiometric asymmetry established embryonically.
+\end{itemize}
+
+Single-cell RNA sequencing identifies 16 distinct embryonic stromal clusters partitioning into three macro-regions: chondrocytes (\gene{COL9A2}$^+$), soft tissue fibroblasts (STFs, \gene{COL1A1}$^+$ \gene{ZFHX4}$^+$), and cartilage zone stromal cells (CZSCs, \gene{COL1A1}$^+$ \gene{CLU}$^+$). Cross-pair correlation modelling confirms that \gene{PI16}$^+$ cells (cluster F2) occupy two precise spatial niches: perivascular/adventitial positions associated with \gene{vWF}$^+$ blood vessels, and interstitial tissue interfaces along complex tendon-ligament borders.
+
+\section{The PI16$^+$ Cell as Admissibility Maintainer}
+
+Because tenosynovitis is a known early propagator of rheumatoid arthritis \citep{buckley2019}, the enrichment of \gene{PI16}$^+$ cells around the PIP joint's complex tendon matrix provides a structural explanation for site-specific inflammatory vulnerability. Under homeostatic conditions, \gene{PI16}$^+$ fibroblasts express a gene cassette maintaining structural integrity and vascular stabilization: \gene{IGF1}, \gene{FGF2}, \gene{FGF9}, \gene{WNT} pathway components, \gene{BMP} pathway components, and cell adhesion molecules \citep{davidson2026}. This cassette is the molecular implementation of the threshold-maintaining function described in Definition~3.3.
+
+When stimulated with TNF and IL-1$\beta$:
+\begin{itemize}
+  \item \textbf{Shared proinflammatory activation}: massive upregulation of CCL2, CCL3, CCL5, IL6, IL1B---responses shared with other fibroblast populations, consistent with \citet{zhang2019}.
+  \item \textbf{Unique chemotactic activation}: upregulation of active cellular migration and leukocyte chemotaxis cascades not observed in other fibroblasts.
+  \item \textbf{Homeostatic collapse}: dramatic downregulation of the entire WNT, BMP, and FGF signalling network and cell adhesion molecules.
+\end{itemize}
+
+The \gene{PI16}$^+$ cell inverts from structural insulator to active gateway---admissibility collapse in the sense of Definition~\ref{def:collapse}.
+
+\section{Convergent Lining Geometry}
+
+A conceptually important finding concerns the adult synovial lining layer (LL). \citet{davidson2026} demonstrate that the embryonic LL emerges convergently from two separate developmental lineages:
+\begin{enumerate}
+  \item \textbf{Interzone lineage}: GDF5$^+$ CZSCs adjacent to the articular surface differentiate into \gene{CRTAC1}$^+$ \gene{PRG4}$^+$ \gene{HBEGF}$^+$.
+  \item \textbf{Non-interzone lineage}: STFs from \gene{PI16}$^+$ (F2) and \gene{ALDH1A1}$^+$ (F1) progenitors migrate and polarize into \gene{TPPP3}$^+$ \gene{PRG4}$^+$ \gene{HBEGF}$^+$.
+\end{enumerate}
+Both converge on a shared \gene{SOX5}$^+$ \gene{HBEGF}$^+$ lining phenotype driven by localized hypoxia and EGFR signalling. Matching embryonic signatures against adult AMP2 datasets confirms deep transcriptomic homology: embryonic lining cells cluster with adult arthritic lining cells, while embryonic \gene{PI16}$^+$ and \gene{ALDH1A1}$^+$ subsets map onto adult CD34$^+$ and CXCL12$^+$ SFRP1$^+$ sublining fibroblasts \citep{davidson2026}.
+
+In admissibility terms, this is trajectory-independent residual geometry: two different developmental paths produce the same admissibility structure. The convergent lining phenotype is an attractor of the developmental dynamics under hypoxia and EGFR signalling, regardless of precursor lineage.
+
+\section{Formal Development: Stoichiometric Admissibility}
+
+Let $\rho(x)$ denote the local density of \gene{PI16}$^+$ fibroblasts at joint site $x$, and $c(x,t)$ the local cytokine concentration. Under homeostasis:
+\begin{equation}
+  \frac{d|\Adm_H(x,t)|}{dt} \;\approx\; 0 \quad \text{(actively maintained by }\gene{PI16}^+\text{ cassette)}.
+\end{equation}
+Under inflammatory perturbation, as $c(x,t) \to c_{\mathrm{threshold}}$, the homeostatic function inverts:
+\begin{equation}
+  \frac{d|\Adm_H(x,t)|}{dt} \;<\; 0, \quad \text{with rate} \propto \rho(x).
+\end{equation}
+The PIP joint, with higher $\rho$, collapses faster and more completely than the DIP joint under equal inflammatory challenge. This generates a quantitative prediction: collapse rate should be a monotone function of baseline \gene{PI16}$^+$ density across joint sites, holding cytokine stimulus constant.
+
+% ════════════════════════════════════════════════════════════
+\chapter{Historical Encoding and Residual Geometry}
+\label{ch:historical}
+% ════════════════════════════════════════════════════════════
+
+\epigraph{The past does not merely precede the present.\\
+  It is written into the geometry of what can happen next.}{}
+
+\section{Three Kinds of Memory}
+
+Three distinct mechanisms by which prior trajectories constrain current admissibility appear across the six papers:
+
+\begin{enumerate}
+  \item \term{Trajectory accumulation} (reversible, fast): recent activity narrows $\Adm_H$ through synaptic potentiation \citep{tononi2014}; threshold crossing restores it \citep{driessen2026}. Encoding timescale: hours. Reversal: hours.
+
+  \item \term{Developmental encoding} (irreversible, slow): embryonic morphogenetic trajectory encodes a residual geometry biasing adult admissibility \citep{davidson2026}. Encoding timescale: months. Reversal: never.
+
+  \item \term{Stoichiometric encoding} (irreversible without intervention): the density of threshold-maintaining cells varies by developmental history, setting the collapse vulnerability of adult tissue \citep{davidson2026}. Encoding timescale: months. Reversal: cell therapy only.
+\end{enumerate}
+
+\section{The Arthritis Paper: Residual Geometry at Two Levels}
+
+\citet{davidson2026} demonstrate historical encoding operating at both architectural and cellular levels simultaneously. At the architectural level, the palmar synovial apron, the FDS-FDP tendon tunnel, and the interstitial volumes of the PIP joint are established during embryogenesis and persist into adulthood as structural biases. At the cellular level, the higher baseline density of \gene{PI16}$^+$ fibroblasts at the PIP joint reflects the developmental allocation of perivascular and interstitial niches during morphogenesis.
+
+\begin{definition}[Residual Geometry]
+\label{def:residual}
+The \term{residual geometry} $\mathcal{G}_{\mathrm{res}}(x)$ is the constraint structure encoded by prior trajectories no longer actively occurring:
+\begin{equation}
+  \mathcal{G}_{\mathrm{res}}(x) = \Adm(x, t_{\mathrm{adult}}) - \Adm_{\mathrm{free}}(x, t_{\mathrm{adult}}),
+\end{equation}
+where $\Adm_{\mathrm{free}}$ is the admissibility that would exist without historical encoding.
+\end{definition}
+
+The matching of embryonic fibroblast signatures against adult AMP2 datasets \citep{davidson2026, zhang2019} is an empirical instance of residual geometry recovery: the developmental trajectory is reconstructed from its adult residual.
+
+\section{Non-Markovian Dynamics and the Yarncrawler Structure}
+
+Systems with residual geometry are not Markovian at the observable level. The current state $s(x, t_{\mathrm{adult}})$ does not determine $\Adm(x, t_{\mathrm{adult}})$; the developmental trajectory $\gamma_{\mathrm{dev}}$ is also required. This is the epistemological structure of the Yarncrawler framework: world-state reconstruction as constraint closure. Bayesian inference on such systems requires a prior over developmental trajectories, not merely over current states.
+
+This non-Markovian structure appears in the cortical system on shorter timescales: the recent waking trajectory encodes into $\Adm_H$ through synaptic potentiation, and the SWA in recovery sleep depends on the integrated history of recent waking activity \citep{vyazovskiy2009, tononi2014} rather than on the instantaneous state at sleep onset. The cortical and joint systems differ only in the timescale of encoding and the reversibility of the result.
+
+\section{Battery Recycling: Dynamic Residual Geometry}
+
+The spatial distribution of EOL batteries in 2030 is encoded by the diffusion trajectory of EV adoption from 2016 to 2030 \citep{tian2026}. The hotspot migration pattern (northeast $\to$ southwest 2020--2026; southeast $\to$ northwest 2026--2030) is the residual geometry of the adoption trajectory, projected onto the admissibility field of the recycling system. Future recycling infrastructure must be sited to anticipate this relocation rather than serve the current geography of battery retirement \citep{tian2026, cheng2024}.
+
+\begin{longtable}{p{4.5cm}p{3cm}p{3cm}}
+\toprule
+\textbf{System} & \textbf{Encoding timescale} & \textbf{Reversal timescale} \\
+\midrule
+Cortical (synaptic potentiation) & Hours & Hours (sleep) \\
+SAGE-net (training) & Days--weeks & N/A (model) \\
+Battery adoption diffusion & Years & Decades \\
+Joint (architectural) & Months (embryonic) & Never \\
+Joint (PI16$^+$ density) & Months (embryonic) & Never without cell therapy \\
+Quasar disk (corona-mediated) & Days (rest-frame) & Days--weeks \\
+\bottomrule
+\caption{Timescale hierarchy of historical encoding.}
+\end{longtable}
+
+% ════════════════════════════════════════════════════════════
+\chapter{Constraint Compression and Predictive Efficiency}
+\label{ch:compression}
+% ════════════════════════════════════════════════════════════
+
+\epigraph{To plan efficiently is to compress the admissibility field\\
+  without losing the transitions that matter.}{}
+
+\section{The CLIO Projection Cycle}
+
+A \CLIO\ projection $\pi: \Adm \to \hat{\Adm}$ compresses the admissibility field. The compression is efficient but lossy: the residual $\Adm \setminus \hat{\Adm}$ is the admissibility information sacrificed. Inference is its partial reconstruction from new observations.
+
+\section{Habit Formation as Admissibility Compression}
+
+The distinction between habitual and goal-directed control has a long history in computational neuroscience \citep{dayanballeine2002, keramati2011, dezfouli2014, balleine2010}. More recent work has emphasized successor representations and compressed future-state prediction as intermediate strategies between model-free and model-based learning \citep{momennejad2017, gershman2017}. The hybrid-architecture tradition treats the two systems as running in parallel with an explicit gating or weighting parameter. The contribution of \citet{okitsu2026} is to unify habit formation and Pavlovian-instrumental transfer within a single planning architecture.
+
+\subsection{Mathematical Structure of the Okitsu-Sakai Model}
+
+Let the environment state at time $t$ be a feature vector $s_t \in \mathbb{R}^n$ with $s_0 \equiv 1$ (intercept). Immediate reward:
+\begin{equation}
+  r_t = u_{a_t}^\top s_t,
+\end{equation}
+where $u_{a_t}$ is an action-dependent parameter vector implementing the classic Rescorla-Wagner reward representation \citep{rescorla1972}. One-step forward transition:
+\begin{equation}
+  \hat{s}_{t+1} = W_{a_t} s_t.
+\end{equation}
+Chaining over a planned sequence $\{a_{t+1},\ldots,a_{t+\tau-1}\}$:
+\begin{equation}
+  \hat{s}_{t+\tau} = \Bigl(\prod_{k=1}^{\tau-1} W_{a_{t+k}}\Bigr) W_{a_t} s_t.
+\end{equation}
+For lookahead depth $D$, the unified action-value is:
+\begin{equation}
+  Q(s_t, a_t) = \max_{a_{t+1:t+D-1}} \Biggl[\sum_{\tau=0}^{D-1} \gamma^\tau r_{t+\tau}^{\mathrm{MB}} + \gamma^D V(\hat{s}_{t+D})\Biggr],
+\end{equation}
+where $V(s) = v^\top s$ is updated by temporal-difference learning \citep{suttonbarto2018}:
+\begin{equation}
+  v \leftarrow v + \alpha_v\,\delta_t\, s_t, \qquad \delta_t = r_t + \gamma V(s_{t+1}) - V(s_t).
+\end{equation}
+
+\subsection{CLIO Interpretation}
+
+In \CLIO\ terms: the model-based rollout is explicit computation of $\Adm(s,t)$ for $t \in [0,D]$ (within the planning horizon). The model-free tail $v^\top s$ is the compression $\hat{\Adm}(s,t>D)$---a low-dimensional approximation to the long-range admissibility field, corresponding to the successor representation \citep{momennejad2017} at convergence. The habit is $\hat{\Adm}$; the Pavlovian response is the residual $\Adm \setminus \hat{\Adm}$: sensitivity to stimuli predicting states outside the habitual compression.
+
+\begin{proposition}
+The unification claim of \citet{okitsu2026}---habits and Pavlovian responses from a single computational substrate---is equivalent in \CLIO\ terms to the claim that $\hat{\Adm}$ and $\Adm \setminus \hat{\Adm}$ are projection and residual of a single underlying field, not outputs of separate systems.
+\end{proposition}
+
+\subsection{The Critical Depth Threshold}
+
+\citet{okitsu2026} prove that PIT fails entirely for $D < 2$. A minimum planning depth of $D = 2$ is required for the matrix multiplications to bridge the gap between the initial state-action pair and the terminal outcome nodes. This is the RL instance of Hypothesis~\ref{hyp:threshold}: a discrete condition ($D \geq 2$) separates zero-PIT from robust-PIT, with no smooth interpolation.
+
+\section{SAGE-net: Limits of Admissibility Compression in Genomics}
+
+The limitations observed by \citet{spiro2026} extend a broader pattern in sequence-to-function modelling. Earlier architectures such as DeepSEA \citep{zhou2015}, Basenji \citep{kelley2018}, Enformer \citep{avsec2021}, and more recent RNA-seq coverage models \citep{linder2025} all demonstrated impressive regulatory prediction while struggling to capture the full structure of personal transcriptomic variation \citep{huang2023, sasse2023, karollus2023}. The challenge of learning generalizable regulatory grammar---the constraint structure that transfers across genomic loci---has been framed explicitly as a roadmap for the field \citep{deboer2024}.
+
+The SAGE-net contrastive architecture decomposes gene expression into mean component ($\hat{\Adm}$, cross-locus regulatory grammar) and personal component ($\Adm \setminus \hat{\Adm}$, individual deviation). Personal genome training improves $\hat{\Adm}$ for seen genes but does not improve it for unseen genes \citep{spiro2026}: the compression learns locus-specific admissibility boundaries but not the global constraint geometry. DNA methylation partially generalizes at 100,000 training regions ($p = 4.96 \times 10^{-4}$), suggesting a globally smoother---lower curvature---epigenomic admissibility field \citep{spiro2026}.
+
+The seqlet distance analysis (p-SAGE-net mean 5,403 bp vs.\ r-SAGE-net 3,117 bp from TSS; $p = 2 \times 10^{-80}$, two-sample K-S test) shows that personal genome training extends the effective range of the spatial coupling kernel $K(x,x')$, capturing distal regulatory interactions \citep{karollus2023} that the reference-genome model misses. The failure to generalize across loci reflects locus-specificity of $K$: the distal coupling structure does not transfer.
+
+% ════════════════════════════════════════════════════════════
+\chapter{Relaxation Across Scales}
+\label{ch:scales}
+% ════════════════════════════════════════════════════════════
+
+\epigraph{The same propagation structure appears\\
+  at the scale of milliseconds and of millennia.}{}
+
+\section{Three Propagation Regimes}
+
+\textbf{Cortical (ms to hour).} Off-period induction produces local SWA reduction that does not propagate to the homotopic contralateral hemisphere: $K(x,x') \approx 0$ at inter-hemispheric distances in mouse cortex \citep{driessen2026}. This is consistent with local sleep being a genuine spatial phenomenon \citep{vyazovskiy2011, huber2004} rather than a global state modulation. Recovery to contralateral equivalence occurs within 3--5 hours.
+
+\textbf{Quasar (light-crossing, days to years).} The lamp-post model predicts corona perturbations propagate through the accretion disk at the speed of light, with lag $\tau(\lambda) \propto \lambda^{4/3}$ \citep{peterson1993, cackett2020, fausnaugh2016}. Reverberation mapping has established this relation in nearby AGNs \citep{mchardy2018, fausnaugh2016, cackett2020}; the characteristic variability timescale in astrophysical accretion disks has been characterized statistically in large samples \citep{burke2021}. \citet{leung2026} extend this to $z = 6.51$, constraining the W2--W1 lag to $<160$ days (observed frame), consistent with the thin-disk prediction of $\sim$20 days.
+
+\textbf{Battery network (year scale).} The hotspot migration propagates EV adoption patterns through the recycling system's admissibility field on year timescales \citep{tian2026}, consistent with the circular-economy dynamics literature \citep{geissdoerfer2017, ciez2019}.
+
+\section{The Thin-Disk Variable SED as Field Diagnostic}
+
+The broader population of high-redshift quasars at $z \approx 6$ accretes at substantially higher Eddington ratios than local AGNs, and understanding accretion disk structure at these redshifts is a key open problem in SMBH growth \citep{fanetal2023, netzer2013}. The variable SED of J0439+1634 follows $\lambda f_\lambda \propto \lambda^{-1.58 \pm 0.25}$, consistent with the thin-disk prediction of $-4/3$ \citep{shakura1973} and inconsistent with slim-disk expectations \citep{abramowicz1988}. At 60\% Eddington, the system is on the thin-disk side of the threshold $\Sigma$ in accretion parameter space---the admissibility field retains its narrow, well-constrained geometry.
+
+The X-ray variability amplitude ($8.2 \pm 3.7\times$) vastly exceeds the IR amplitude ($\sim$1.15$\times$ in W1), consistent with a more compact X-ray-emitting corona \citep{kelly2009}. In admissibility terms: amplitude $\propto |\Adm|^{-1}$. The corona's smaller admissibility volume makes it more sensitive to perturbations in $\Phi$---the same bipartite compactness effect that makes HR unit pairs ($\Adm_H$) more responsive than non-HR pairs ($\Adm_F$) in the cortical system \citep{driessen2026}.
+
+\section{The RSVP Cosmological Connection}
+
+The thin-disk reverberation relation $\tau \propto \lambda^{4/3}$ is a propagation-speed constraint. The RSVP reinterpretation of cosmological redshift as entropic field response predicts a slight steepening of this relation at high redshift: $\tau \propto \lambda^\alpha$ with $\alpha > 4/3$ at $z \gg 1$. The current result (J0439+1634 consistent with $\alpha = 4/3$ within uncertainties \citep{leung2026}) does not discriminate between standard and \RSVP\ interpretations. Population-level analysis with Rubin/Roman ($N > 100$ variable quasars at $z > 4$ \citep{fanetal2023, burke2021}) will provide the statistical power to test this.
+
+\input{ch_hci}
+
+% ════════════════════════════════════════════════════════════
+\chapter{A Research Program}
+\label{ch:program}
+% ════════════════════════════════════════════════════════════
+
+\epigraph{A theory that makes no predictions is not a theory but a vocabulary.}{}
+
+\section{Twelve Falsifiable Predictions}
+
+\subsection{Class I: Threshold and Relaxation in Neuroscience}
+
+\begin{enumerate}[label=\textbf{P\arabic*.}]
+  \item Graded tonic inhibition approaching but not reaching global silence will produce no SWA reduction, regardless of depth. \textit{Test}: halorhodopsin protocol at variable depths; measure SWA as a function of silence fraction.
+
+  \item Single brief crossings of $\Sigma$ embedded in tonic inhibition will produce discrete SWA reduction proportional to crossing count. \textit{Test}: isolated off periods embedded in the tonic protocol.
+
+  \item The $\Delta\slp$-versus-crossing-count relationship will be approximately linear, not saturating. \textit{Test}: vary crossing number while holding total firing reduction constant.
+\end{enumerate}
+
+\subsection{Class II: Collapse Dynamics in the Joint}
+
+\begin{enumerate}[label=\textbf{P\arabic*.}, start=4]
+  \item Admissibility collapse rate under TNF/IL-1$\beta$ will be a monotone function of baseline \gene{PI16}$^+$ cell density across joint sites, holding inflammatory stimulus constant. \textit{Test}: ex vivo stimulation of fetal joint tissue from PIP, DIP, and other joints; measure chemotaxis induction.
+
+  \item Interventions preserving \gene{PI16}$^+$ homeostatic function (WNT/BMP/FGF pathway stabilization) under inflammatory challenge will delay or prevent transition from relaxation to collapse. \textit{Test}: \gene{PI16}$^+$ protection assay under cytokine challenge with WNT/BMP agonists.
+
+  \item The convergent lining phenotype (\gene{SOX5}$^+$ \gene{HBEGF}$^+$) can be restored from either interzone or non-interzone precursors under matched hypoxia and EGFR signalling, restoring homeostatic admissibility regardless of precursor identity. \textit{Test}: directed differentiation of both precursor types under matched conditions.
+\end{enumerate}
+
+\subsection{Class III: Bipartite Admissibility in Genomics}
+
+\begin{enumerate}[label=\textbf{P\arabic*.}, start=7]
+  \item High-heritability genes will show sharper admissibility boundaries in sequence space (more abrupt ISM functional-effect profiles) than low-heritability genes \citep{spiro2026}. \textit{Test}: ISM saturation mutagenesis across the two gene sets.
+
+  \item The bipartite decomposition will be reproduced in DNA methylation: a minority of CpG sites will show sharp admissibility boundaries, consistent with partial generalization at high training set size \citep{spiro2026}.
+\end{enumerate}
+
+\subsection{Class IV: The Critical Depth Threshold in RL}
+
+\begin{enumerate}[label=\textbf{P\arabic*.}, start=9]
+  \item The $D \geq 2$ threshold for PIT will be a genuine discontinuity: $D = 1$ and $D = 2$ will differ categorically in PIT magnitude \citep{okitsu2026}. \textit{Test}: probabilistic depth sampling to interpolate between integer values.
+
+  \item The plan-until-habit framework will reproduce Pavlovian-instrumental competition (PIT reduction with extensive Pavlovian training; increase with extensive instrumental training \citep{okitsu2026}) across qualitatively different task architectures.
+\end{enumerate}
+
+\subsection{Class V: High-Redshift Reverberation Scaling}
+
+\begin{enumerate}[label=\textbf{P\arabic*.}, start=11]
+  \item Population-level measurement of the $\tau$-$\lambda$ slope $\alpha$ at $z > 4$ will show statistically significant deviation from $\alpha = 4/3$ \citep{shakura1973}, with direction discriminating \RSVP\ from standard predictions. \textit{Test}: Rubin/Roman era, $N > 100$ variable quasars at $z > 4$ \citep{fanetal2023}.
+
+  \item The variable SED spectral slope will be shallower (closer to slim-disk \citep{abramowicz1988}) at $z > 4$ than at $z < 2$ for matched Eddington ratios \citep{leung2026}. \textit{Test}: same Rubin/Roman sample.
+\end{enumerate}
+
+\section{The Open Mathematical Problem}
+
+The deepest open problem: \emph{under what conditions does an admissibility field contain a threshold surface, and when does perturbation of the threshold maintainer produce collapse rather than relaxation?}
+
+The empirical evidence suggests threshold surfaces arise when: (1) constraint accumulation is approximately irreversible on the accumulation timescale; (2) the system has a natural minimum-admissibility state; and (3) the relaxation mechanism requires visiting this minimum and returning \citep{tononi2014, driessen2026, funk2017}.
+
+Collapse arises when the threshold maintainer is subject to a perturbation that inverts its function \citep{davidson2026, croft2019}. A formal characterization of these conditions in terms of the \RSVP\ field equations---conditions on the potential landscape of $\Phi(x,t)$ that generate threshold surfaces and threshold maintainers---is the primary mathematical problem for the next stage of this research program.
+
+% ════════════════════════════════════════════════════════════
+\chapter{Conclusions}
+\label{ch:conclusions}
+% ════════════════════════════════════════════════════════════
+
+This monograph began with six papers and a structural observation. It ends with a theoretical framework, formal definitions, a central hypothesis, a distinction between relaxation and collapse, a research program, and twelve falsifiable predictions.
+
+The central results:
+
+\begin{enumerate}
+  \item The admissibility field $\Adm(x,t)$ is the appropriate formal object for constraint-governed systems across all four empirical domains examined here \citep{driessen2026, davidson2026, spiro2026, tian2026, okitsu2026, leung2026}.
+
+  \item Admissibility fields contain a bipartite structure: high-constraint $\Adm_H$ (threshold-mediated, slow-relaxing, history-sensitive) and free $\Adm_F$ (fast-relaxing, history-insensitive). The cortical data establish this at 67\%/33\% \citep{driessen2026}; the arthritis data provide its mechanistic basis---\gene{PI16}$^+$ fibroblasts as the cellular implementation of $\Adm_H$ maintenance \citep{davidson2026}.
+
+  \item The Threshold Hypothesis (Hypothesis~\ref{hyp:threshold}) establishes that relaxation of $\Adm_H$ requires threshold-surface traversal \citep{driessen2026}. The $D \geq 2$ condition in the RL paper provides the most mathematically explicit instance \citep{okitsu2026}. Threshold surfaces appear in all six domains.
+
+  \item Admissibility collapse (Definition~\ref{def:collapse}) is distinct from relaxation. Collapse occurs when the threshold-maintaining mechanism is functionally inverted. The \gene{PI16}$^+$ fibroblast system is the clearest instance: from structural insulator to immune gateway under cytokine stimulation \citep{davidson2026}, extending the fibroblast heterogeneity literature \citep{croft2019, zhang2019} to a mechanistic admissibility framework.
+
+  \item Historical encoding operates across a hierarchy of timescales from hours to developmental epochs, with reversal timescales ranging from hours to never \citep{tononi2014, driessen2026, davidson2026}. Convergent admissibility geometry---the same $\mathcal{G}_{\mathrm{res}}(x)$ produced by different developmental trajectories \citep{davidson2026}---demonstrates that admissibility structure can be trajectory-independent.
+
+  \item The thin-disk reverberation relation $\tau \propto \lambda^{4/3}$ \citep{shakura1973}, confirmed consistent with \RSVP\ field-propagation at $z = 6.51$ \citep{leung2026}, provides a future probe of \RSVP\ cosmological predictions at population scale \citep{fanetal2023, burke2021}.
+\end{enumerate}
+
+The framework is falsifiable on twelve counts across five experimental domains and four orders of magnitude in spatial scale. That is the appropriate scope for a claim that admissibility geometry is not a metaphor but a mathematical structure with empirical content from cortical circuits to the cosmic dawn.
+
+% ── References dropped from text but retained in bibliography
+% for completeness (not cited explicitly but part of the
+% literature that motivates the scope)
+
+
+\backmatter
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{references}
+
+\end{document}
