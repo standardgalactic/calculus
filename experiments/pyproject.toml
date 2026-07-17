@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rsvp-mips"
+version = "0.1.0"
+description = "Theory-neutral ABP engine and RSVP field-identification pipeline for MIPS."
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "numba>=0.59",
+    "h5py>=3.10",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+identification = ["pysindy", "scikit-learn"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
