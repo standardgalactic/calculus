@@ -1,0 +1,548 @@
+\chapter{Polar Coordinates}
+\label{ch:ch14-polar-coordinates}
+
+\section{A Different Way to Locate a Point}
+
+Throughout this book, points in the plane have been described using
+Cartesian coordinates. A point is located by measuring a horizontal
+displacement and a vertical displacement from the origin, producing an
+ordered pair
+
+\[
+(x,y).
+\]
+
+This system is natural whenever horizontal and vertical directions play a
+special role, and it has been used repeatedly since Chapter~2. Yet many
+geometric situations are concerned not with horizontal and vertical
+motion, but with distance and direction. A navigator determining the
+location of a ship may record a bearing and a range; a radar station may
+measure an angle and a distance; an astronomer may specify the direction
+and apparent separation of an object from a fixed observation point.
+
+Trigonometry has spent much of this book developing exactly these two
+quantities. Distances were introduced through the geometry of triangles
+and vectors, while angles became increasingly important through rotation,
+circular motion, and periodic functions. It is therefore natural to ask
+what happens if position is described directly in terms of distance and
+angle rather than horizontal and vertical displacement.
+
+The resulting coordinate system is called the \emph{polar coordinate
+system}. Instead of measuring how far a point lies along two perpendicular
+axes, it measures how far the point lies from the origin and in what
+direction it is found.
+
+\section{Polar Coordinates}
+
+In the polar coordinate system, the origin is called the \emph{pole}, and
+the positive $x$-axis serves as the \emph{polar axis}. A point is located
+by two numbers:
+
+\[
+(r,\theta),
+\]
+
+where $r$ is the distance from the pole and $\theta$ is the angle measured
+from the positive $x$-axis.
+
+\begin{definition}
+A point in \emph{polar coordinates} is represented by an ordered pair
+$(r,\theta)$, where $r$ is the distance from the origin and $\theta$ is
+the angle measured from the positive $x$-axis.
+\end{definition}
+
+The angle convention is exactly the one established earlier for the unit
+circle. Positive angles are measured counterclockwise and negative angles
+clockwise. No new notion of angle is being introduced; the polar
+coordinate system simply uses the rotational framework already developed
+throughout the book.
+
+For example, $(4,\pi/6)$ represents the point lying four units from the
+origin in the direction determined by an angle of $\pi/6$ radians.
+Likewise, $(2,3\pi/4)$ represents the point two units from the origin at
+an angle of $135^\circ$. The distance and direction are given directly
+rather than being inferred from rectangular coordinates.
+
+\section{Converting Polar Coordinates to Rectangular Coordinates}
+
+The relationship between polar and Cartesian coordinates follows directly
+from the trigonometry of the unit circle. Consider a point with polar
+coordinates $(r,\theta)$. Dropping a perpendicular from the point to the
+$x$-axis forms a right triangle whose hypotenuse has length $r$ and whose
+acute angle is $\theta$. From the definitions of sine and cosine,
+$\cos\theta = x/r$ and $\sin\theta = y/r$, and solving for $x$ and $y$
+gives the conversion formulas.
+
+\begin{theorem}
+If a point has polar coordinates $(r,\theta)$, then its rectangular
+coordinates are $x = r\cos\theta$ and $y = r\sin\theta$.
+\end{theorem}
+
+The formulas should appear familiar. They are exactly the coordinate
+equations of the unit circle, except that the radius is no longer fixed at
+one. Every point is obtained by taking the unit-circle coordinates
+associated with $\theta$ and scaling them by the distance $r$.
+
+\begin{example}
+Convert $\left(6,\dfrac{\pi}{3}\right)$ to rectangular coordinates. Using
+the conversion formulas,
+\[
+x = 6\cos\frac{\pi}{3} = 6\left(\frac12\right) = 3, \qquad
+y = 6\sin\frac{\pi}{3} = 6\left(\frac{\sqrt3}{2}\right) = 3\sqrt3.
+\]
+Therefore the rectangular coordinates are $(3, 3\sqrt3)$.
+\end{example}
+
+\section{Converting Rectangular Coordinates to Polar Coordinates}
+
+The conversion from polar coordinates to rectangular coordinates follows
+directly from the definitions of sine and cosine. The reverse conversion
+requires a little more care. Suppose a point is given in rectangular
+coordinates as $(x,y)$. The distance from the origin is immediately
+determined by the distance formula, since the point, the origin, and the
+coordinate axes form a right triangle: $r^2 = x^2+y^2$, so
+\[
+r = \sqrt{x^2+y^2}.
+\]
+This should look familiar. It is exactly the magnitude formula for
+vectors introduced in Chapter~2; the radial coordinate $r$ is simply the
+length of the position vector from the origin to the point.
+
+To determine the angle, observe that $\tan\theta = y/x$, provided
+$x\neq0$, which suggests $\theta = \arctan(y/x)$. This expression is not
+always correct. The difficulty arises because the tangent function does
+not uniquely determine a quadrant: the points $(1,1)$ and $(-1,-1)$ both
+satisfy $y/x = 1$, yet they lie in entirely different directions from the
+origin. The inverse tangent function introduced in Chapter~7 returns
+values only in its principal range, $-\pi/2 < \theta < \pi/2$, which
+covers Quadrants~I and IV but excludes Quadrants~II and III. The value
+returned by $\arctan(y/x)$ must therefore be interpreted in light of the
+point's actual location.
+
+\begin{theorem}
+If a point has rectangular coordinates $(x,y)$, then $r = \sqrt{x^2+y^2}$,
+and the angle $\theta$ is determined by $\tan\theta = y/x$ together with
+the requirement that $\theta$ lie in the correct quadrant.
+\end{theorem}
+
+The quadrant check is not a technical detail but an essential part of the
+conversion process; forgetting it often produces a direction that differs
+from the correct answer by $\pi$ radians.
+
+\begin{example}
+Convert the point $(-3,3)$ to polar coordinates. First, $r =
+\sqrt{(-3)^2+3^2} = \sqrt{18} = 3\sqrt2$. Next, $\tan\theta = 3/(-3) =
+-1$, and $\arctan(-1) = -\pi/4$. The point, however, lies in
+Quadrant~II, not Quadrant~IV, so the correct angle is $\theta = 3\pi/4$.
+Hence the polar coordinates are $\left(3\sqrt2, \dfrac{3\pi}{4}\right)$.
+\end{example}
+
+\section{Non-Uniqueness of Polar Coordinates}
+
+One of the most surprising features of polar coordinates is that they do
+not provide a unique representation of a point. In the rectangular
+system, a point corresponds to exactly one ordered pair: $(3,4)$ cannot
+also be represented by some different rectangular coordinate pair, and
+the relationship between points and coordinates is one-to-one. Polar
+coordinates behave differently. Consider the point $\left(2,
+\dfrac{\pi}{3}\right)$; if one full revolution is added to the angle, the
+direction does not change, so $\left(2,\dfrac{\pi}{3}\right) =
+\left(2,\dfrac{\pi}{3}+2\pi\right)$, and adding further revolutions
+produces infinitely many coordinate pairs representing the same point.
+
+\begin{theorem}
+For any integer $k$, $(r,\theta) = (r,\theta+2\pi k)$.
+\end{theorem}
+
+This result is a direct consequence of the periodicity of sine and
+cosine; the coordinate system inherits the same rotational symmetry
+already encountered in the study of coterminal angles in Chapter~4. An
+even more surprising phenomenon occurs when negative values of $r$ are
+allowed. The point $(r,\theta)$ lies exactly opposite the point
+$(r,\theta+\pi)$ on the same line through the origin, so changing the
+sign of the radius reverses that direction, bringing the point back to
+its original location, and consequently $(r,\theta) = (-r,\theta+\pi)$.
+
+\begin{example}
+The point $\left(3,\dfrac{\pi}{6}\right)$ can also be written as
+$\left(-3,\dfrac{7\pi}{6}\right)$; both descriptions represent the same
+point in the plane.
+\end{example}
+
+The non-uniqueness of polar coordinates is not a defect of the system; it
+is a consequence of describing position through distance and rotation.
+Rotations naturally repeat every full revolution, and the coordinate
+system reflects that periodicity directly.
+
+\begin{algorithmproc}{How to Convert Between Rectangular and Polar Coordinates}
+To convert from polar coordinates $(r,\theta)$ to rectangular
+coordinates, use $x = r\cos\theta$ and $y = r\sin\theta$. To convert from
+rectangular coordinates $(x,y)$ to polar coordinates, first compute $r =
+\sqrt{x^2+y^2}$, then compute $\tan\theta = y/x$ and determine the
+appropriate quadrant from the signs of $x$ and $y$, and finally choose an
+angle $\theta$ in that quadrant satisfying the tangent equation.
+\end{algorithmproc}
+
+\begin{example}
+Convert the point $(-4,-4)$ to polar coordinates. First, $r =
+\sqrt{(-4)^2+(-4)^2} = \sqrt{32} = 4\sqrt2$. Next, $\tan\theta =
+(-4)/(-4) = 1$, and $\arctan(1) = \pi/4$; the point, however, lies in
+Quadrant~III, whose corresponding angle is $\theta = 5\pi/4$. Therefore
+$(-4,-4) = \left(4\sqrt2, \dfrac{5\pi}{4}\right)$.
+\end{example}
+
+\begin{practicenow}
+Convert the point $(2,-2\sqrt3)$ to polar coordinates, choosing an angle
+in the correct quadrant.
+\end{practicenow}
+
+\section{Graphing in Polar Coordinates}
+
+Changing coordinates does more than alter notation; it changes which
+geometric objects appear simple. In Cartesian coordinates, a horizontal
+line is described by an equation as simple as $y=3$, precisely because
+the coordinate system itself is built from horizontal and vertical
+directions. Polar coordinates instead privilege distance and angle, so
+objects defined naturally by distance from the origin or by direction
+often acquire remarkably simple equations of their own.
+
+\subsection*{Circles}
+
+Consider the equation $r = a$, where $a$ is a positive constant. Every
+point satisfying this equation lies exactly $a$ units from the origin, so
+the set of all such points is a circle of radius $a$ centered at the
+origin. A circle that requires $x^2+y^2 = a^2$ in Cartesian coordinates
+becomes simply $r = a$ in polar coordinates, a dramatic simplification
+that is one of the principal reasons for introducing the system.
+
+\begin{example}
+Sketch $r=4$. Every point lies four units from the origin, so the graph
+is a circle of radius four centered at the pole.
+\end{example}
+
+\subsection*{Lines Through the Origin}
+
+Now consider $\theta = c$, where $c$ is a constant angle. Every point
+satisfying this equation lies in the same direction from the origin; the
+distance may vary, but the angle remains fixed, so the graph is a line
+through the origin making angle $c$ with the positive $x$-axis.
+
+\begin{example}
+The equation $\theta = \pi/4$ describes the line through the origin
+inclined at $45^\circ$.
+\end{example}
+
+Together, $r=a$ and $\theta=c$ illustrate a recurring theme of coordinate
+systems: some objects become simpler while others become more
+complicated, and the usefulness of a coordinate system depends on whether
+its notion of simplicity aligns with the geometry under investigation.
+
+\section{Periodic Functions as Curves}
+
+One of the most interesting consequences of polar coordinates appears
+when trigonometric functions are used to define the radius. In
+Chapter~6, sine and cosine were studied as periodic functions whose
+outputs changed as an angle varied. In polar coordinates, those outputs
+can be interpreted as distances from the origin, so as $\theta$ changes,
+the radius changes as well, producing a curve in the plane; the process
+transforms a periodic function into a geometric figure.
+
+Consider $r = a\cos(n\theta)$ or $r = a\sin(n\theta)$. These equations
+generate a family of curves known as \emph{rose curves}: the repeated
+oscillation of the sine or cosine function causes the graph to move
+alternately toward and away from the origin, producing a pattern of
+petals arranged around the pole, with the number of petals depending on
+$n$ and the constant $a$ controlling their size. The periodicity that
+once produced repeating waves along a horizontal axis now produces
+repeating geometric structures distributed around a circle.
+
+\begin{example}
+Consider $r = 4\cos(2\theta)$. As $\theta$ varies, the cosine function
+oscillates between $-1$ and $1$, so the radius varies between $-4$ and
+$4$. At $\theta = 0$, $r = 4$, so the graph begins four units to the
+right of the origin. At $\theta = \pi/4$, $r = 0$, so the curve passes
+through the pole. At $\theta = \pi/2$, $r = -4$; a negative radius places
+the point four units in the \emph{opposite} direction, creating a petal
+above the origin. As $\theta$ continues to increase, the same pattern
+repeats, and the result is a four-petaled rose centered at the pole.
+\end{example}
+
+The rose curve provides a striking example of how periodicity and
+geometry interact: a simple oscillation in the radius becomes a symmetric
+two-dimensional pattern, and the repetition formerly visible in the graph
+of a function over time is now visible as rotational symmetry in space.
+
+\subsection*{Cardioids}
+
+A second important family of polar curves is given by equations of the
+form $r = a(1+\cos\theta)$ or $r = a(1+\sin\theta)$, called
+\emph{cardioids}, from the Greek word for ``heart,'' because of their
+characteristic shape. Unlike a rose curve, a cardioid does not repeatedly
+pass through the origin; instead the radius grows and shrinks smoothly,
+touching the origin at a single cusp.
+
+\begin{example}
+Consider $r = 2(1+\cos\theta)$. At $\theta = 0$, the radius reaches its
+maximum value, $r = 4$; at $\theta = \pi$, $r = 0$, so the curve passes
+through the pole. As $\theta$ moves between these extremes, the radius
+varies continuously, producing the familiar cardioid shape.
+\end{example}
+
+Cardioids appear naturally in optics, acoustics, and signal processing;
+many microphone pickup patterns, for example, are approximately
+cardioid, capturing sound more strongly from one direction than another.
+
+\subsection*{Spirals}
+
+Not all polar curves are periodic. Consider $r = a\theta$: as the angle
+increases, the distance from the origin increases as well, so the point
+continually rotates while simultaneously moving outward, tracing a curve
+called an \emph{Archimedean spiral}.
+
+\begin{example}
+The equation $r = \theta$ describes a spiral beginning at the origin. At
+$\theta=0$, $r=0$; at $\theta=\pi$, $r=\pi$; at $\theta=2\pi$, $r=2\pi$.
+Each complete revolution increases the distance from the origin by the
+same amount, causing the curve to wind steadily outward.
+\end{example}
+
+Unlike circles, roses, and cardioids, spirals do not close upon
+themselves; they continue indefinitely, illustrating that polar
+coordinates can naturally describe both periodic and non-periodic
+geometric behavior.
+
+\begin{sidebar}{Writing Systems and Alternative Representations}
+In Arabic script, a single letter often appears in several different
+forms depending on its position within a word: an isolated form used on
+its own, and distinct initial, medial, and final forms used according to
+which neighboring letters it joins. The letter commonly transliterated
+\emph{`ayn}, for instance, has four such shapes, one for each of these
+positions, all of which are read as occurrences of the same underlying
+letter despite looking visibly different on the page. Polar coordinates
+exhibit a directly analogous phenomenon: the pairs $(r,\theta)$,
+$(r,\theta+2\pi)$, and $(-r,\theta+\pi)$ may all represent the same
+location, even though the coordinate pairs themselves are different. In
+both cases, the representation changes according to context while the
+underlying object it denotes remains the same; what looks like a
+difference in description is not necessarily a difference in the thing
+being described.
+\end{sidebar}
+
+\section{Applications}
+
+Polar coordinates are particularly useful whenever distance and direction
+are more natural than horizontal and vertical displacement. In
+navigation, positions are often specified by a bearing and a range: a
+lighthouse may be reported as lying ten kilometers away at a bearing of
+$40^\circ$ north of east, information already expressed in polar form
+and requiring no conversion. In physics, many systems possess rotational
+symmetry; the motion of a planet around a star, the orbit of a satellite,
+or the behavior of a particle moving under a central force are often
+easier to describe using distance from a center and angular position
+than by repeatedly tracking horizontal and vertical coordinates.
+Engineers frequently use polar plots to display directional information,
+since antenna radiation patterns, microphone sensitivity diagrams, and
+radar coverage maps are commonly expressed as functions of angle, making
+polar coordinates the natural framework for visualizing them. The
+usefulness of polar coordinates arises from the same principle that
+motivates every coordinate system: a good representation is one in which
+the important structure of a problem becomes simple.
+
+\section{Looking Ahead}
+
+Polar coordinates describe a point using two quantities, $(r,\theta)$:
+the first records magnitude, the second records direction. Throughout
+this chapter these quantities have been treated as separate numbers
+joined together into an ordered pair, yet many of the geometric
+operations studied earlier naturally involve both simultaneously.
+Rotations alter $\theta$ while preserving $r$; scaling changes $r$ while
+preserving $\theta$; the trigonometric functions repeatedly connect the
+two. This raises a natural question: must magnitude and direction remain
+separate, or can they be combined into a single mathematical object? The
+next chapter takes up exactly this question, unifying the scaling
+transformation of Chapter~1 and the rotation transformation of Chapter~8
+into a single operator whose two parameters are precisely the amplitude
+and angle already familiar from this chapter, before Chapter~16 shows
+that same combination reappearing as ordinary multiplication in an
+extended number system.
+
+\section{Exercises}
+
+\subsection*{Converting Coordinates}
+\begin{exercise}
+Convert each polar coordinate pair to rectangular coordinates: (a)
+$\left(4,\dfrac{\pi}{6}\right)$; (b) $\left(6,\dfrac{3\pi}{4}\right)$; (c)
+$(5,\pi)$.
+\end{exercise}
+
+\begin{exercise}
+Convert each rectangular coordinate pair to polar coordinates, giving an
+exact value of $\theta$ whenever possible: (a) $(3,3\sqrt3)$; (b)
+$(-4,4)$; (c) $(-5,0)$.
+\end{exercise}
+
+\begin{exercise}
+Convert $(2,-2\sqrt3)$ to polar coordinates.
+\end{exercise}
+
+\begin{exercise}
+Convert $(-3,-3)$ to polar coordinates.
+\end{exercise}
+
+\subsection*{Quadrants and Angle Determination}
+\begin{exercise}
+For each point, determine the quadrant in which the angle $\theta$ lies
+before computing the polar coordinates: (a) $(-2,5)$; (b) $(-7,-1)$; (c)
+$(4,-6)$.
+\end{exercise}
+
+\begin{exercise}
+Explain why the formula $\theta = \arctan(y/x)$ cannot by itself
+determine the correct polar angle.
+\end{exercise}
+
+\begin{exercise}
+Find two different points having the same value of $y/x$ but lying in
+different quadrants, and explain why they require different polar
+angles.
+\end{exercise}
+
+\subsection*{Equivalent Polar Representations}
+\begin{exercise}
+Find three different polar representations of $\left(3,\dfrac{\pi}{4}\right)$.
+\end{exercise}
+
+\begin{exercise}
+Show that $\left(5,\dfrac{\pi}{6}\right)$ and
+$\left(-5,\dfrac{7\pi}{6}\right)$ represent the same point.
+\end{exercise}
+
+\begin{exercise}
+Find a positive-radius representation and a negative-radius
+representation of the point $\left(2,\dfrac{2\pi}{3}\right)$.
+\end{exercise}
+
+\begin{exercise}
+Explain why every polar coordinate pair has infinitely many equivalent
+representations.
+\end{exercise}
+
+\subsection*{Graphing in Polar Coordinates}
+\begin{exercise}
+Describe the graph of each equation: (a) $r=3$; (b) $r=7$; (c)
+$\theta=\dfrac{\pi}{3}$.
+\end{exercise}
+
+\begin{exercise}
+Sketch the graphs of $r=2$, $r=5$, and $\theta = \dfrac{\pi}{4}$.
+\end{exercise}
+
+\begin{exercise}
+Explain why the equation $r=a$ always represents a circle centered at
+the origin.
+\end{exercise}
+
+\begin{exercise}
+Explain why the equation $\theta=c$ always represents a line through the
+origin.
+\end{exercise}
+
+\subsection*{Polar Curves}
+\begin{exercise}
+For each value of $\theta$, compute the corresponding value of $r$ for
+$r = 4\cos(2\theta)$ when $\theta = 0, \dfrac{\pi}{4}, \dfrac{\pi}{2},
+\dfrac{3\pi}{4}$.
+\end{exercise}
+
+\begin{exercise}
+Describe the effect of increasing the constant $a$ in the equation
+$r = a\cos(2\theta)$.
+\end{exercise}
+
+\begin{exercise}
+Sketch a rough graph of $r = 2(1+\cos\theta)$.
+\end{exercise}
+
+\begin{exercise}
+Compute several points on the spiral $r=\theta$ for $\theta = 0,
+\dfrac{\pi}{2}, \pi, \dfrac{3\pi}{2}, 2\pi$.
+\end{exercise}
+
+\begin{exercise}
+Explain why the spiral $r=\theta$ does not close upon itself, while a
+rose curve does.
+\end{exercise}
+
+\subsection*{Applications}
+\begin{exercise}
+A radar station detects an aircraft at distance $120$ km and bearing
+$35^\circ$ north of east. Express the aircraft's position in polar
+coordinates.
+\end{exercise}
+
+\begin{exercise}
+A ship is located at $\left(80,\dfrac{\pi}{6}\right)$ in polar
+coordinates relative to a lighthouse. Convert the position to
+rectangular coordinates.
+\end{exercise}
+
+\begin{exercise}
+Explain why polar coordinates are often preferable to rectangular
+coordinates when describing circular motion.
+\end{exercise}
+
+\begin{exercise}
+Research one application of polar plots in science or engineering, and
+write a short paragraph describing how polar coordinates are used.
+\end{exercise}
+
+\subsection*{Conceptual and Exploratory Problems}
+\begin{exercise}
+Compare the point $(3,4)$ in rectangular coordinates with the same
+point represented in polar coordinates. What information is emphasized
+by each description?
+\end{exercise}
+
+\begin{exercise}
+Describe the relationship between the conversion formulas $x=r\cos\theta$,
+$y=r\sin\theta$ and the unit-circle definitions of sine and cosine.
+\end{exercise}
+
+\begin{exercise}
+Why do circles centered at the origin become simpler in polar
+coordinates than in rectangular coordinates?
+\end{exercise}
+
+\begin{exercise}
+The graph of $r = a\cos(n\theta)$ is generated by a periodic function.
+Explain how periodicity in $\theta$ produces repeated geometric
+structure in the plane.
+\end{exercise}
+
+\begin{exercise}
+A point may have many different polar representations but only one
+rectangular representation. Explain why this difference occurs.
+\end{exercise}
+
+\subsection*{Challenge Problems}
+\begin{exercise}
+Show algebraically that $(r,\theta) = (-r,\theta+\pi)$, using the
+conversion formulas to prove the result.
+\end{exercise}
+
+\begin{exercise}
+Suppose $(r_1,\theta_1)$ and $(r_2,\theta_2)$ represent the same point
+and both radii are positive. Prove that $\theta_2 - \theta_1 = 2\pi k$
+for some integer $k$.
+\end{exercise}
+
+\begin{exercise}
+Find all polar representations of the point $(0,0)$, and explain why the
+origin is exceptional in the polar coordinate system.
+\end{exercise}
+
+\begin{exercise}
+Polar coordinates describe a point using distance and direction. Explain
+why this makes them a natural precursor to the amplitude-and-angle
+representation developed in the next chapter.
+\end{exercise}

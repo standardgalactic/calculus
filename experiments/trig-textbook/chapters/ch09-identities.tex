@@ -1,0 +1,293 @@
+\chapter{Fundamental Identities}
+\label{ch:ch09-identities}
+
+\section{A Small Toolkit from the Unit Circle}
+
+The previous chapter discovered that the sum and difference formulas are
+not arbitrary rules to be memorized, but consequences of a single
+geometric fact: rotations compose by adding angles. This raises a broader
+question worth pursuing before the book moves any further, namely which
+other relationships among the trigonometric functions are similarly forced
+by geometry rather than imposed by convention. The answer is that a
+surprising share of the identities used throughout trigonometry follow from
+only a few underlying ideas already established in this book: the equation
+of the unit circle, the reciprocal relationships among the six
+trigonometric functions, the quotient definition of tangent, the symmetry
+properties of sine and cosine proved in Chapter~6, and the angle-addition
+formulas derived in Chapter~8. The purpose of this chapter is to gather
+these relationships into a compact toolkit that will support everything
+that follows.
+
+\section{The Pythagorean Identity}
+
+The most important identity in the toolkit comes directly from the
+definition of the unit circle itself. Recall from Chapter~4 that every
+point on the unit circle satisfies $x^2+y^2=1$, while $x = \cos\theta$ and
+$y = \sin\theta$.
+
+\begin{theorem}[Pythagorean Identity]
+$\sin^2\theta + \cos^2\theta = 1$ for every angle $\theta$.
+\end{theorem}
+
+\begin{proof}
+Substituting $x=\cos\theta$ and $y=\sin\theta$ into $x^2+y^2=1$ gives
+$\cos^2\theta + \sin^2\theta = 1$, which is the same statement with its two
+terms reordered.
+\end{proof}
+
+It is worth pausing to notice what has, and has not, just been
+established. This is not really a new fact about trigonometry; it is
+simply the equation of the unit circle, restated in trigonometric notation.
+No new geometry has been introduced here, only a familiar piece of
+geometry seen through new symbols.
+
+\section{Derived Pythagorean Identities}
+
+The remaining two Pythagorean identities follow from the first by ordinary
+algebra rather than by any further appeal to geometry.
+
+\begin{theorem}
+$1 + \tan^2\theta = \sec^2\theta$ whenever $\cos\theta \neq 0$.
+\end{theorem}
+
+\begin{proof}
+Divide every term of $\sin^2\theta + \cos^2\theta = 1$ by $\cos^2\theta$:
+\[
+\frac{\sin^2\theta}{\cos^2\theta} + \frac{\cos^2\theta}{\cos^2\theta} =
+\frac{1}{\cos^2\theta}.
+\]
+Recognizing $\tan\theta = \sin\theta/\cos\theta$ and $\sec\theta =
+1/\cos\theta$ gives $\tan^2\theta + 1 = \sec^2\theta$.
+\end{proof}
+
+\begin{theorem}
+$1 + \cot^2\theta = \csc^2\theta$ whenever $\sin\theta \neq 0$.
+\end{theorem}
+
+\begin{proof}
+Divide every term of $\sin^2\theta + \cos^2\theta = 1$ by $\sin^2\theta$:
+\[
+1 + \frac{\cos^2\theta}{\sin^2\theta} = \frac{1}{\sin^2\theta}.
+\]
+Recognizing $\cot\theta = \cos\theta/\sin\theta$ and $\csc\theta =
+1/\sin\theta$ gives $1 + \cot^2\theta = \csc^2\theta$.
+\end{proof}
+
+Neither of these two identities is an independent fact requiring separate
+memorization; each is the original Pythagorean identity, divided through by
+a different square.
+
+\section{Reciprocal and Quotient Identities}
+
+Several further identities restate definitions already introduced earlier
+in the book, gathered here for reference alongside their more substantial
+neighbors. The reciprocal identities record that
+\[
+\csc\theta = \frac{1}{\sin\theta}, \qquad
+\sec\theta = \frac{1}{\cos\theta}, \qquad
+\cot\theta = \frac{1}{\tan\theta},
+\]
+and the quotient identities record that
+\[
+\tan\theta = \frac{\sin\theta}{\cos\theta}, \qquad
+\cot\theta = \frac{\cos\theta}{\sin\theta}.
+\]
+Each of these five equations is simply a definition from earlier chapters
+written in the form of an identity, and none requires its own proof.
+
+\section{Cofunction Identities}
+
+The difference formula of Chapter~8 immediately produces another useful
+family of identities.
+
+\begin{theorem}
+$\sin\left(\dfrac{\pi}{2} - \theta\right) = \cos\theta$.
+\end{theorem}
+
+\begin{proof}
+Apply the difference formula $\sin(A-B) = \sin A\cos B - \cos A\sin B$ with
+$A = \pi/2$ and $B = \theta$:
+\[
+\sin\left(\frac{\pi}{2}-\theta\right) = \sin\frac{\pi}{2}\cos\theta -
+\cos\frac{\pi}{2}\sin\theta.
+\]
+Since $\sin(\pi/2) = 1$ and $\cos(\pi/2) = 0$, this reduces to
+$\sin\left(\pi/2 - \theta\right) = \cos\theta$.
+\end{proof}
+
+The same substitution into the difference formula for cosine gives
+$\cos\left(\pi/2 - \theta\right) = \sin\theta$, and dividing the two
+results gives $\tan\left(\pi/2 - \theta\right) = \cot\theta$, with
+corresponding identities holding for secant and cosecant. These are called
+\emph{cofunction identities} because each function is transformed into its
+complementary partner, and unlike the informal complementary-angle
+observations sometimes made about right triangles, each one here follows
+directly from the rotation-composition machinery of Chapter~8.
+
+\section{Even and Odd Identities}
+
+Chapter~6 established the symmetry properties of sine, cosine, and, by
+extension, tangent; those results are now incorporated into the toolkit of
+this chapter rather than re-derived. Cosine is even, $\cos(-\theta) =
+\cos\theta$, while sine and tangent are odd, $\sin(-\theta) = -\sin\theta$
+and $\tan(-\theta) = -\tan\theta$. These identities are frequently useful
+when simplifying expressions that involve a negative angle, since they
+allow the negative sign to be moved outside the function entirely.
+
+\section{How to Prove a Trigonometric Identity}
+
+Unlike an ordinary equation, an identity is established not by solving for
+an unknown but by a chain of logically valid rewritings connecting one side
+to the other, and a systematic approach makes this process considerably
+easier to carry out reliably.
+
+\begin{algorithmproc}{How to Prove a Trigonometric Identity}
+Begin with whichever side of the proposed identity looks more complicated,
+and rewrite any tangent, cotangent, secant, or cosecant appearing in it in
+terms of sine and cosine whenever doing so seems useful. Apply the
+Pythagorean identities to replace expressions such as $1 - \cos^2\theta$
+with $\sin^2\theta$, or the reverse, whenever such a substitution
+simplifies the expression. Continue simplifying algebraically, working on
+one side of the proposed identity at a time rather than manipulating both
+sides simultaneously, and never cross-multiply across an equation that has
+not yet been established as true. Continue this process until the
+expression you started from matches the other side exactly.
+\end{algorithmproc}
+
+\begin{example}
+Prove that $\dfrac{1-\cos\theta}{\sin\theta} = \dfrac{\sin\theta}{1+\cos\theta}$.
+Beginning with the left-hand side and multiplying numerator and denominator
+by $1+\cos\theta$,
+\[
+\frac{1-\cos\theta}{\sin\theta} =
+\frac{(1-\cos\theta)(1+\cos\theta)}{\sin\theta(1+\cos\theta)} =
+\frac{1-\cos^2\theta}{\sin\theta(1+\cos\theta)}.
+\]
+By the Pythagorean identity, $1-\cos^2\theta = \sin^2\theta$, so
+\[
+\frac{1-\cos\theta}{\sin\theta} =
+\frac{\sin^2\theta}{\sin\theta(1+\cos\theta)} = \frac{\sin\theta}{1+\cos\theta},
+\]
+which matches the right-hand side.
+\end{example}
+
+\begin{practicenow}
+Prove that $\dfrac{\cos\theta}{1-\sin\theta} = \dfrac{1+\sin\theta}{\cos\theta}$,
+by multiplying numerator and denominator of the left-hand side by
+$1+\sin\theta$.
+\end{practicenow}
+
+\begin{sidebar}{Chinese Syllable Structure and Admissible Space}
+Standard Chinese phonology offers a sharper illustration of a constrained
+state space than a general appeal to phonotactics. A syllable can be
+described, to a first approximation, as a tuple of five independent slots:
+an initial consonant, a medial glide, a vowel nucleus, a final consonant or
+glide, and a lexical tone. If each of the five slots could take any of its
+individually possible values without restriction, the total number of
+syllables would be the product of the five slot sizes, $n_1 n_2 n_3 n_4
+n_5$. The actual inventory of syllables in the language is very much
+smaller than this product, because entire combinations of slot values are
+disallowed: certain initials never combine with certain medials, and
+several finals occur with only a restricted subset of nuclei. The
+language therefore occupies a genuinely smaller \emph{admissible space}
+carved out of the larger \emph{theoretical space} that the unconstrained
+product would predict, in exactly the sense introduced in Chapter~0's
+discrete state spaces. The Pythagorean identity of this chapter performs
+the same carving operation in a continuous setting: the theoretical space
+of all pairs $(x,y) \in \mathbb{R}^2$ is far larger than the admissible
+space of pairs that can actually occur as $(\cos\theta, \sin\theta)$,
+which is restricted to the unit circle by the single constraint $x^2 +
+y^2 = 1$. In both the syllable inventory and the trigonometric identity,
+the interesting mathematical object is not the raw product of independent
+possibilities but the much smaller admissible subset that a constraint
+actually permits.
+\end{sidebar}
+
+\section{Identity Versus Equation}
+
+A distinction is worth making explicit before proceeding further. An
+\emph{identity} is a statement true for every value of the variable for
+which both sides are defined; $\sin^2\theta + \cos^2\theta = 1$, for
+instance, holds for every angle $\theta$ without exception. An
+\emph{equation}, by contrast, is true only for specific values of the
+variable; $\sin\theta = 1/2$ holds only for certain angles, and finding
+those angles is a solving problem rather than a proving problem. Confusing
+these two tasks --- attempting to "solve" an identity, or attempting to
+"prove" an equation true for all $\theta$ when it plainly is not --- is one
+of the most common sources of difficulty for students first encountering
+this material, and the distinction will matter again directly when
+Chapter~11 turns to solving trigonometric equations.
+
+\section{Applications}
+
+Trigonometric identities appear throughout mathematics, science, and
+engineering: they simplify formulas in physics, support the analysis of
+oscillatory systems, underlie techniques in signal processing, facilitate
+coordinate transformations, and make possible the trigonometric
+substitution techniques used later in calculus. The value of an identity
+lies not merely in the fact that it is true, but in what that truth makes
+possible: it allows one expression to be replaced by another that may be
+easier to compute, simplify, or interpret, without changing the underlying
+quantity being described.
+
+\section{Looking Ahead}
+
+At this point the book has assembled a substantial identity toolkit:
+reciprocal identities, quotient identities, the three Pythagorean
+identities, the cofunction identities, the even and odd identities, and the
+sum and difference formulas of Chapter~8. Remarkably, this modest
+collection already suffices to generate most of the remaining identities
+encountered in elementary trigonometry. The next chapter shows how the
+double-angle, half-angle, and product-to-sum formulas all arise naturally
+from the tools developed here, so that what can appear, from a distance, to
+be an enormous and disconnected collection of formulas turns out to be
+different expressions of a comparatively small set of underlying
+principles.
+
+\section{Exercises}
+\begin{exercise}
+Starting from $\sin^2\theta + \cos^2\theta = 1$, derive $1 + \tan^2\theta =
+\sec^2\theta$.
+\end{exercise}
+
+\begin{exercise}
+Starting from $\sin^2\theta + \cos^2\theta = 1$, derive $1 + \cot^2\theta =
+\csc^2\theta$.
+\end{exercise}
+
+\begin{exercise}
+Prove that $\dfrac{\sin\theta}{\cos\theta} = \tan\theta$ using the quotient
+identity.
+\end{exercise}
+
+\begin{exercise}
+Prove that $\dfrac{1-\sin^2\theta}{\cos\theta} = \cos\theta$.
+\end{exercise}
+
+\begin{exercise}
+Prove that $\dfrac{\cos^2\theta}{1-\sin\theta} = 1+\sin\theta$.
+\end{exercise}
+
+\begin{exercise}
+Use the cofunction identities to evaluate $\sin\left(\dfrac{\pi}{2} -
+\dfrac{\pi}{6}\right)$.
+\end{exercise}
+
+\begin{exercise}
+Use the even and odd identities to simplify $\sin(-\theta) + \cos(-\theta)$.
+\end{exercise}
+
+\begin{exercise}
+Determine whether $\cos\theta = 0$ is an identity or an equation, and
+explain your reasoning.
+\end{exercise}
+
+\begin{exercise}
+Explain why $(\sin\theta, \cos\theta) = (2,3)$ can never occur for any
+angle $\theta$.
+\end{exercise}
+
+\begin{exercise}
+Why is $\sin^2\theta + \cos^2\theta = 1$ better understood as a geometric
+constraint than as an isolated algebraic formula?
+\end{exercise}

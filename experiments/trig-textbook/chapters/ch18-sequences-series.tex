@@ -1,0 +1,359 @@
+\chapter{Arithmetic and Geometric Sequences and Series}
+\label{ch:ch18-sequences-series}
+
+\section{From Change to Accumulation}
+
+\begin{historicalnote}{The Word ``Calculus''}
+The word \emph{calculus} is Latin for a small pebble or counting stone.
+Before written numerals were widespread, quantities were often tracked
+by correspondence rather than by symbols: a shepherd might drop one
+pebble into a pouch for each sheep passing through a gate, later
+reversing the process to confirm that every sheep had returned, with the
+pebbles serving as an external record of a quantity no numeral was
+needed to name. Arranging such pebbles into grooves or columns, as on a
+Roman counting board or a later abacus, let position carry meaning as
+well, an early form of the place-value systems that Chapter~0 discussed
+in connection with numeral systems more generally. The word survived
+this entire history essentially unchanged: by the time Newton and
+Leibniz developed systematic methods for computing rates of change and
+accumulated totals, ``calculus'' already meant, broadly, any organized
+method of calculation, which is why their new subject was named the
+differential and integral calculus rather than something entirely new.
+The sequences and series developed in this chapter, built from
+accumulating one term after another, are in a real sense the direct
+descendants of the shepherd's pebbles: both are methods for turning many
+small contributions into a single total.
+\end{historicalnote}
+
+Chapter~\ref{ch:ch17-calculus-connections} studied derivatives and the
+mathematics of infinitely small change: a derivative is obtained by
+examining what happens as a quantity approaches zero. This chapter
+introduces a different encounter with infinity. Instead of asking what
+happens as a change becomes smaller and smaller, it asks what happens as
+more and more terms are added together. These two ideas --- infinitely
+small change and infinitely many accumulated terms --- are among the
+central themes of calculus, and this chapter develops the second in a
+setting that requires only algebra and the geometric ideas already
+established throughout this book.
+
+\section{Sequences}
+
+\begin{definition}
+A \emph{sequence} is a function whose domain is the positive integers.
+Its terms are commonly denoted $a_1, a_2, a_3, \dots$, where $a_n$ is
+called the $n$th term.
+\end{definition}
+
+A sequence may be defined explicitly or recursively.
+
+\begin{example}
+The sequence $a_n = 2n+1$ has terms $3, 5, 7, 9, \dots$ and is defined
+explicitly.
+\end{example}
+
+\begin{example}
+The sequence defined by $a_1 = 1$, $a_{n+1} = a_n+2$ produces the same
+terms $1, 3, 5, 7, \dots$ but is defined recursively.
+\end{example}
+
+\section{Arithmetic Sequences and Series}
+
+An arithmetic sequence is formed by repeatedly adding a fixed quantity.
+
+\begin{definition}
+An \emph{arithmetic sequence} has a constant difference $d$ between
+consecutive terms: $a_{n+1} = a_n+d$, called the \emph{common
+difference}.
+\end{definition}
+
+\begin{theorem}
+The $n$th term of an arithmetic sequence is $a_n = a_1+(n-1)d$.
+\end{theorem}
+
+\begin{proof}
+Starting from $a_1$, each new term adds one additional copy of $d$; after
+$n-1$ such additions, $a_n = a_1+(n-1)d$.
+\end{proof}
+
+A sum of terms from an arithmetic sequence is called an arithmetic
+series.
+
+\begin{theorem}
+The sum of the first $n$ terms of an arithmetic sequence is $S_n =
+\dfrac{n}{2}(a_1+a_n)$.
+\end{theorem}
+
+\begin{proof}
+Write the sum forward and backward, $S_n = a_1+a_2+\cdots+a_n$ and $S_n =
+a_n+a_{n-1}+\cdots+a_1$. Adding corresponding terms gives $2S_n =
+n(a_1+a_n)$, and dividing by $2$ yields $S_n = \tfrac{n}{2}(a_1+a_n)$.
+\end{proof}
+
+\begin{example}
+Find the sum $1+3+5+\cdots+99$. Since $a_1=1$, $a_n=99$, and $n=50$,
+$S_{50} = \tfrac{50}{2}(1+99) = 2500$.
+\end{example}
+
+\section{Geometric Sequences}
+
+An arithmetic sequence grows by repeated addition; a geometric sequence
+grows by repeated multiplication.
+
+\begin{definition}
+A \emph{geometric sequence} has a constant ratio $r$ between consecutive
+terms: $a_{n+1} = ra_n$, called the \emph{common ratio}.
+\end{definition}
+
+\begin{theorem}
+The $n$th term of a geometric sequence is $a_n = a_1r^{n-1}$.
+\end{theorem}
+
+\begin{proof}
+Each successive term contributes one additional factor of $r$: $a_2 =
+a_1r$, $a_3 = a_1r^2$, $a_4 = a_1r^3$, and continuing this pattern gives
+$a_n = a_1r^{n-1}$.
+\end{proof}
+
+\begin{example}
+The sequence $2, 6, 18, 54, \dots$ has common ratio $r=3$, with explicit
+formula $a_n = 2\cdot3^{n-1}$.
+\end{example}
+
+\section{The Finite Geometric Series}
+
+The most important result of this chapter is the formula for a finite
+geometric sum.
+
+\begin{theorem}
+For $r \neq 1$, $a+ar+ar^2+\cdots+ar^{n-1} = \dfrac{a(1-r^n)}{1-r}$.
+\end{theorem}
+
+\begin{proof}
+Let $S_n = a+ar+ar^2+\cdots+ar^{n-1}$. Multiplying by $r$ gives $rS_n =
+ar+ar^2+\cdots+ar^n$. Subtracting, $S_n - rS_n = a - ar^n$, so $(1-r)S_n
+= a(1-r^n)$, and dividing by $1-r$ yields $S_n = \dfrac{a(1-r^n)}{1-r}$.
+\end{proof}
+
+\begin{example}
+Compute $1+2+4+8+16$. Here $a=1$, $r=2$, $n=5$, so $S_5 =
+\dfrac{1-2^5}{1-2} = 31$.
+\end{example}
+
+\section{Infinite Geometric Series}
+
+Finite geometric sums lead naturally to infinite series. Consider
+$1+\tfrac12+\tfrac14+\tfrac18+\cdots$; its partial sums are $1$,
+$\tfrac32$, $\tfrac74$, $\tfrac{15}{8}$, $\dots$, and these values appear
+to approach $2$.
+
+\begin{definition}
+A sequence \emph{converges} if its terms approach a fixed limit. An
+infinite series converges if its sequence of partial sums converges.
+\end{definition}
+
+\begin{theorem}
+If $|r|<1$, then $\displaystyle\sum_{k=0}^\infty ar^k = \dfrac{a}{1-r}$.
+\end{theorem}
+
+\begin{proof}
+The finite geometric formula gives $S_n = \dfrac{a(1-r^n)}{1-r}$. When
+$|r|<1$, $r^n \to 0$ as $n\to\infty$, so $\lim_{n\to\infty} S_n =
+\dfrac{a(1-0)}{1-r} = \dfrac{a}{1-r}$.
+\end{proof}
+
+\begin{example}
+Evaluate $1+\tfrac12+\tfrac14+\tfrac18+\cdots$. Here $a=1$ and $r=1/2$,
+so $\sum_{k=0}^\infty (1/2)^k = 1/(1-1/2) = 2$.
+\end{example}
+
+\begin{example}
+The series $1+2+4+8+\cdots$ does not converge, because its partial sums
+grow without bound; here $r=2$ fails the requirement $|r|<1$.
+\end{example}
+
+\section{The Complex Geometric Series}
+
+The same algebra works when the ratio is a complex number.
+
+\begin{theorem}
+For any complex number $z \neq 1$, $1+z+z^2+\cdots+z^{n-1} =
+\dfrac{1-z^n}{1-z}$.
+\end{theorem}
+
+\begin{proof}
+Let $S_n = 1+z+z^2+\cdots+z^{n-1}$. Multiplying by $z$ gives $zS_n =
+z+z^2+\cdots+z^n$. Subtracting, $S_n - zS_n = 1-z^n$, so $(1-z)S_n =
+1-z^n$ and $S_n = \dfrac{1-z^n}{1-z}$.
+\end{proof}
+
+This proof is identical to the real-valued case; only the interpretation
+changes. When $z = e^{i\theta}$, the successive terms $1, e^{i\theta},
+e^{i2\theta}, e^{i3\theta}, \dots$ are unit vectors rotated by equal
+angles, so the partial sums trace a polygonal path in the complex plane
+rather than moving along the real line.
+
+\begin{example}
+Let $z = e^{2\pi i/3}$. Then $1+z+z^2 = \dfrac{1-z^3}{1-z} = 0$, exactly
+the roots-of-unity result encountered in Chapter~\ref{ch:ch16-complex-euler}.
+\end{example}
+
+\begin{algorithmproc}{How to Identify and Sum an Arithmetic or Geometric Series}
+Determine whether consecutive terms differ by a constant amount or are
+multiplied by a constant ratio. Apply the arithmetic formulas when a
+common difference exists, and the geometric formulas when a common ratio
+exists. For an infinite geometric series, verify that $|r|<1$ before
+applying $a/(1-r)$; if $|r|\ge1$, the series diverges and has no finite
+sum.
+\end{algorithmproc}
+
+\begin{practicenow}
+Compute $3+6+12+24+48$. Then determine whether $3+6+12+24+\cdots$
+converges.
+\end{practicenow}
+
+\section{Connections to Earlier Chapters}
+
+Several ideas encountered earlier in this book are instances of
+geometric sequences. Repeated amplitwists satisfy $A^n = s^nR(n\theta)$
+from Chapter~15: the scaling factor $s^n$ forms a geometric sequence,
+while the angles $n\theta$ form an arithmetic sequence. Similarly,
+$(re^{i\theta})^n = r^ne^{in\theta}$ from Chapter~16 contains the same
+pair of patterns, with the magnitude evolving geometrically while the
+angle evolves arithmetically. The concepts introduced in this chapter
+therefore organize ideas that had already appeared, unnamed, in
+transformation geometry and complex numbers.
+
+\section{Applications}
+
+Geometric sequences and series appear throughout mathematics and
+science, in every setting where a quantity is repeatedly multiplied by a
+fixed factor: compound interest, population growth and decay,
+radioactive decay, recursive algorithms, and self-similar or fractal
+structures all generate a geometric sequence at their core.
+
+\begin{example}
+An account earning $5\%$ annual interest, compounded once per year, has
+balance $B_n = P(1.05)^n$ after $n$ years, where $P$ is the initial
+deposit: a geometric sequence with common ratio $r = 1.05$. If \$1000 is
+deposited and left untouched, the balance after $10$ years is $B_{10} =
+1000(1.05)^{10} \approx 1628.89$. The total interest earned across those
+ten years, summed year by year, is itself a partial sum of a related
+geometric series, since each year's interest payment is $5\%$ of a
+balance that has itself grown geometrically.
+\end{example}
+
+\section{Looking Ahead}
+
+A finite geometric sum of complex exponentials produces a finite
+superposition of rotating vectors. The central idea of Fourier analysis
+is to combine many such rotations, each with its own frequency and
+amplitude, to represent periodic phenomena.
+Chapter~\ref{ch:ch19-fourier-intuition} asks what happens when
+infinitely many such rotating components, rather than the single ratio
+$z$ studied here, are combined to model waves, signals, and functions.
+
+\section{Exercises}
+
+\subsection*{Arithmetic Sequences and Series}
+\begin{exercise}
+Find the tenth term of the arithmetic sequence $4, 7, 10, 13, \dots$.
+\end{exercise}
+
+\begin{exercise}
+Compute $5+9+13+\cdots+101$.
+\end{exercise}
+
+\begin{exercise}
+Derive the arithmetic series formula independently, without referring
+back to the proof given in the text.
+\end{exercise}
+
+\begin{exercise}
+A theater has $20$ seats in its first row, with each subsequent row
+having $2$ more seats than the row before it. Find the total number of
+seats in the first $15$ rows.
+\end{exercise}
+
+\subsection*{Geometric Sequences and Series}
+\begin{exercise}
+Find the eighth term of $3, 6, 12, 24, \dots$.
+\end{exercise}
+
+\begin{exercise}
+Evaluate $1+3+9+27+81$.
+\end{exercise}
+
+\begin{exercise}
+Evaluate $\displaystyle\sum_{k=0}^\infty \left(\frac13\right)^k$.
+\end{exercise}
+
+\begin{exercise}
+Determine whether $1-\tfrac12+\tfrac14-\tfrac18+\cdots$ converges, and
+find its sum if it does.
+\end{exercise}
+
+\begin{exercise}
+A ball is dropped from a height of $10$ meters, and after each bounce it
+rises to $60\%$ of its previous height. Find the total vertical distance
+the ball travels, accounting for infinitely many bounces.
+\end{exercise}
+
+\subsection*{Complex Geometric Series}
+\begin{exercise}
+Compute $1+i+i^2+i^3$.
+\end{exercise}
+
+\begin{exercise}
+Verify directly that $1+e^{2\pi i/3}+e^{4\pi i/3}=0$.
+\end{exercise}
+
+\begin{exercise}
+Use the geometric-series formula to derive the same result.
+\end{exercise}
+
+\begin{exercise}
+Compute $1+z+z^2+z^3$ for $z=e^{i\pi/2}$, and interpret the partial sums
+as vectors in the complex plane.
+\end{exercise}
+
+\subsection*{Mixed Problems}
+\begin{exercise}
+Determine whether the sequence $2, 5, 10, 17, 26, \dots$ is arithmetic,
+geometric, or neither, and justify your answer.
+\end{exercise}
+
+\begin{exercise}
+An initial deposit of \$2000 earns $4\%$ annual interest, compounded
+once per year. Find the balance after $8$ years.
+\end{exercise}
+
+\begin{exercise}
+Explain the difference between a sequence and a series, and give an
+example of each.
+\end{exercise}
+
+\subsection*{Challenge Problems}
+\begin{exercise}
+Show that the scaling factors in repeated amplitwists form a geometric
+sequence.
+\end{exercise}
+
+\begin{exercise}
+Show that the angles in repeated amplitwists form an arithmetic
+sequence.
+\end{exercise}
+
+\begin{exercise}
+Explain why $(re^{i\theta})^n = r^ne^{in\theta}$ contains both a
+geometric and an arithmetic progression simultaneously.
+\end{exercise}
+
+\begin{exercise}
+Explain why a finite sum of complex exponentials may be interpreted as a
+sum of rotating vectors.
+\end{exercise}
+
+\begin{exercise}
+Prove that an infinite geometric series with $|r|\ge1$ cannot converge,
+by examining what happens to the partial sums $S_n$ as $n\to\infty$.
+\end{exercise}

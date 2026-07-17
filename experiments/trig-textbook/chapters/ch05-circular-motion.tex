@@ -1,0 +1,229 @@
+\chapter{Circular Motion and Continuous Change}
+\label{ch:ch05-circular-motion}
+
+\section{When Angles Move}
+
+The previous chapter extended trigonometry beyond right triangles by
+defining sine and cosine on the unit circle: an angle determined a point on
+the circle, and the coordinates of that point supplied the values of the
+trigonometric functions. Everything studied there was nonetheless static ---
+an angle was specified, a point was identified, a value was computed --- and
+many of the phenomena that motivate trigonometry in the first place are not
+static at all. A wheel turns, a planet moves through its orbit, a gear
+rotates, and the hands of a clock sweep continuously through time; in each
+case the angle itself is changing, and it is more natural to treat it as a
+function of time, $\theta = \theta(t)$, than as a fixed quantity handed down
+in advance. The central question of this chapter is simple: what
+mathematics emerges once a point is allowed to move continuously around a
+circle? The answer will connect geometry, motion, and the trigonometric
+functions into a single framework.
+
+\section{Arc Length}
+
+Suppose a point travels along a circle of radius $r$, tracing a portion of
+the circumference called an \emph{arc}. The distance traveled along the
+circle is the \emph{arc length}, denoted $s$, and the relationship between
+$s$ and the central angle $\theta$ depends on the unit in which $\theta$ is
+measured. When radians are used, that relationship turns out to be
+remarkably simple.
+
+Recall from Chapter~4 that one radian is defined as the angle subtending an
+arc whose length equals the radius, so that $\theta = s/r$ is not a theorem
+but the very definition of radian measure. Solving for $s$ gives $s =
+r\theta$ immediately, and the simplicity of this relationship is exactly
+why radians, rather than degrees, play the central structural role in the
+mathematics that follows: degrees are convenient for measurement, but
+radians are convenient for structure.
+
+\begin{theorem}
+For a circle of radius $r$, the arc length subtended by a central angle
+$\theta$, measured in radians, is $s = r\theta$.
+\end{theorem}
+
+\begin{proof}
+By the definition of radian measure, $\theta = s/r$. Multiplying both sides
+by $r$ gives $s = r\theta$.
+\end{proof}
+
+\section{Sector Area}
+
+A \emph{sector} is the portion of a circle enclosed by two radii and the arc
+connecting them, and its area should evidently increase as either the
+radius or the angle increases. The formula is obtained by comparing a
+sector to the full circle: a complete revolution sweeps out $2\pi$ radians
+and encloses area $\pi r^2$, so a sector of angle $\theta$ should occupy the
+same fraction of the full area that $\theta$ occupies of $2\pi$,
+\[
+\frac{A}{\pi r^2} = \frac{\theta}{2\pi}.
+\]
+
+\begin{theorem}
+The area of a sector with radius $r$ and central angle $\theta$, measured in
+radians, is $A = \dfrac12 r^2 \theta$.
+\end{theorem}
+
+\begin{proof}
+Multiplying both sides of $A/(\pi r^2) = \theta/(2\pi)$ by $\pi r^2$ gives
+$A = (\theta/2\pi)\pi r^2$, which simplifies to $A = \tfrac12 r^2\theta$.
+\end{proof}
+
+\begin{example}
+A sprinkler rotates through an angle of $2\pi/3$ radians and sprays water
+to a distance of $6$ meters. Find the arc length swept by the edge of the
+spray and the area watered. Using $s = r\theta$,
+\[
+s = 6\left(\frac{2\pi}{3}\right) = 4\pi \text{ meters,}
+\]
+and using $A = \tfrac12 r^2\theta$,
+\[
+A = \frac12 (6^2)\left(\frac{2\pi}{3}\right) = 12\pi \text{ square meters.}
+\]
+\end{example}
+
+\section{Angular Velocity}
+
+Introducing time allows the rate at which an angle changes to be measured
+directly.
+
+\begin{definition}
+The \emph{angular velocity} of a rotating object, denoted $\omega$, is the
+rate at which its angle changes. For uniform rotation, $\omega = \theta/t$.
+\end{definition}
+
+Angular velocity is commonly expressed in radians per second, radians per
+minute, or revolutions per minute, and it measures how rapidly an angle
+changes regardless of the size of the object doing the rotating: a small
+gear and a large gear turning at the same angular velocity complete the
+same fraction of a revolution in the same time, even though a point on the
+larger gear travels much farther.
+
+\section{Linear Velocity}
+
+That last observation motivates a second, related quantity. A point on the
+rim of a bicycle wheel travels farther than a point near the hub even
+though both complete the same rotation in the same time, so angular
+velocity alone does not capture the actual distance traveled. Starting from
+$s = r\theta$ and dividing both sides by time $t$ gives
+\[
+\frac{s}{t} = r\cdot\frac{\theta}{t},
+\]
+and recognizing $s/t$ as the \emph{linear velocity} $v$ and $\theta/t$ as
+the angular velocity $\omega$ yields the relationship between them.
+
+\begin{theorem}
+For uniform circular motion, $v = r\omega$. A larger radius produces a
+larger linear velocity even when the angular velocity remains unchanged.
+\end{theorem}
+
+\begin{algorithmproc}{How to Relate Angular and Linear Velocity}
+Given a point rotating about a center, identify the radius $r$ from the
+center to the point and the angular velocity $\omega$ of the rotation.
+Apply $v = r\omega$ to obtain the linear velocity, and check that the units
+of $r$ and $\omega$ are consistent (typically meters and radians per
+second) before reporting the result.
+\end{algorithmproc}
+
+\begin{example}
+A carousel rotates at $0.5$ radians per second, and a rider sits $4$ meters
+from the center. Using $v = r\omega$,
+\[
+v = (4)(0.5) = 2 \text{ m/s,}
+\]
+so the rider travels two meters along the circular path every second.
+\end{example}
+
+\begin{practicenow}
+A wheel rotates at $3$ radians per second and has radius $0.4$ meters.
+Find the linear velocity of a point on the rim.
+\end{practicenow}
+
+\section{Uniform Circular Motion}
+
+This section arrives at the central idea of the chapter. Consider a point
+moving around the unit circle with constant angular velocity $\omega$,
+beginning at angle $0$. After time $t$ the angle has become $\theta =
+\omega t$, and from Chapter~4 the point on the unit circle at angle
+$\theta$ has coordinates $(\cos\theta, \sin\theta)$. Substituting $\theta =
+\omega t$ gives the position at time $t$ as $(\cos\omega t, \sin\omega t)$:
+the horizontal coordinate of the moving point changes according to a cosine
+function of time, and the vertical coordinate changes according to a sine
+function of time. Sine and cosine are, in other words, the projections of
+uniform circular motion onto two perpendicular axes, and this observation
+is among the most important in the entire subject, since it is what will
+eventually let an oscillation --- a swinging pendulum, a vibrating string, a
+sound wave --- be understood as the shadow of some circle turning at
+constant speed.
+
+\section{Coordinates of Uniform Circular Motion}
+
+The same idea extends immediately to motion beginning at an arbitrary
+starting angle $\theta_0$ rather than at $0$. After time $t$, the angle has
+become $\theta = \omega t + \theta_0$.
+
+\begin{theorem}
+A point moving uniformly around the unit circle with angular velocity
+$\omega$ and initial angle $\theta_0$ has coordinates
+\[
+x(t) = \cos(\omega t + \theta_0), \qquad y(t) = \sin(\omega t + \theta_0).
+\]
+\end{theorem}
+
+\begin{proof}
+From Chapter~4, a point at angle $\theta$ has coordinates $(\cos\theta,
+\sin\theta)$. Uniform rotation with initial angle $\theta_0$ gives $\theta =
+\omega t + \theta_0$, and substituting this into the coordinate formulas
+gives $x(t) = \cos(\omega t + \theta_0)$ and $y(t) = \sin(\omega t +
+\theta_0)$.
+\end{proof}
+
+\section{Applications}
+
+Circular motion appears throughout science and engineering, from rotating
+machinery, gears, and flywheels to planetary orbits, electrical generators,
+sound waves, and signal processing. The formulas of this chapter reveal
+that every periodic oscillation can, in principle, be understood as the
+shadow of some circular motion projected onto an axis, an idea that will
+eventually lead to Fourier analysis in Chapter~19, where complicated
+signals are decomposed into collections of such circular motions added
+together. For now, the chapter offers a new interpretation of sine and
+cosine themselves: no longer merely ratios read off a triangle, but
+descriptions of motion unfolding in time.
+
+\section{Looking Ahead}
+
+This chapter introduced motion into trigonometry, developing formulas for
+arc length and sector area, relating angular velocity to linear velocity,
+and discovering that sine and cosine arise naturally as the coordinates of
+uniform circular motion. The functions themselves, however, remain in a
+sense still hidden: their role in describing motion around a circle has
+been established, but their shape, plotted on ordinary coordinate axes, has
+not yet been examined directly. What happens when $y = \sin\theta$ or $y =
+\cos\theta$ is plotted as a curve, with $\theta$ running along the
+horizontal axis instead of wrapping around a circle? The next chapter takes
+up the graphs of the trigonometric functions, and shows how the periodic
+motion studied here appears once it is unrolled and viewed through time.
+
+\section{Exercises}
+\begin{exercise}
+A circle has radius $9$ centimeters. Find the arc length and sector area
+corresponding to a central angle of $5\pi/6$ radians.
+\end{exercise}
+
+\begin{exercise}
+A Ferris wheel has radius $15$ meters and completes one revolution every
+$40$ seconds. Find its angular velocity in radians per second, and the
+linear velocity of a rider at the rim.
+\end{exercise}
+
+\begin{exercise}
+A point moves uniformly around the unit circle with angular velocity
+$\omega = \pi/3$ radians per second, starting at $\theta_0 = \pi/4$. Write
+its position $(x(t), y(t))$ as a function of $t$, and find its position at
+$t = 2$ seconds.
+\end{exercise}
+
+\begin{exercise}
+Two gears of different radii are connected so that their rims move at the
+same linear velocity. Explain, using $v = r\omega$, why the gear with the
+smaller radius must have the larger angular velocity.
+\end{exercise}

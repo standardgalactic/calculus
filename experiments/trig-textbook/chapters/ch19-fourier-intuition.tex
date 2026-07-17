@@ -1,0 +1,397 @@
+\chapter{Fourier Intuition}
+\label{ch:ch19-fourier-intuition}
+
+\section{Periodic Cycles and Hidden Patterns}
+
+In ancient astronomy, one of the most useful discoveries was the
+\emph{Metonic cycle}: nineteen solar years are almost exactly equal to
+$235$ lunar months. Neither cycle is defined in terms of the other; one
+measures the motion of the Earth around the Sun, and the other measures
+the phases of the Moon. Yet when the two cycles are observed together, a
+larger repeating pattern emerges. This observation suggests a broader
+question --- what happens when several periodic processes are combined?
+--- and the answer leads to one of the most influential ideas in
+mathematics, science, and engineering: complicated periodic behavior can
+often be understood as a combination of simpler periodic motions.
+
+\section{From Simple Oscillations to Complex Patterns}
+
+Throughout this book we have encountered periodic functions such as
+$\sin x$ and $\cos x$, functions that repeat indefinitely. Many
+phenomena in nature are also periodic --- musical tones, ocean tides,
+planetary motion, electrical current, and seasonal variation all recur
+in cycles --- yet most real signals are not perfect sine waves. A violin
+note is not a pure sinusoid, ocean tides are not perfectly smooth, and
+human speech contains many interacting oscillations at once. This raises
+a natural question: can complicated periodic patterns be built from
+simple ones?
+
+\section{Frequency Revisited}
+
+In Chapter~\ref{ch:ch06-graphs}, we saw that $\sin(nx)$ oscillates more
+rapidly than $\sin x$.
+
+\begin{definition}
+The \emph{frequency} of a periodic oscillation measures how rapidly it
+repeats. For trigonometric functions, $\sin(nx)$ and $\cos(nx)$ have
+frequency $n$ times that of $\sin x$ and $\cos x$.
+\end{definition}
+
+For example, $\sin(3x)$ completes three full oscillations in the same
+interval where $\sin x$ completes one.
+
+\section{Harmonics}
+
+Frequencies that are whole-number multiples of a fundamental frequency
+are called harmonics.
+
+\begin{definition}
+If $\sin x$ is taken as a fundamental oscillation, then $\sin(2x),
+\sin(3x), \sin(4x), \dots$ and $\cos(2x), \cos(3x), \cos(4x), \dots$ are
+called its \emph{harmonics}.
+\end{definition}
+
+Musical instruments rarely produce a single frequency; instead, they
+produce combinations of harmonics, and the particular mixture of
+harmonics present helps determine the distinctive sound, or
+\emph{timbre}, of an instrument.
+
+\section{Superposition}
+
+The simplest way to create a more complicated oscillation is to add
+simple oscillations together. Consider $f(x) = \sin x + \tfrac12\sin(2x)$:
+the resulting graph is periodic, but it is no longer a pure sine wave.
+Adding another harmonic produces even greater complexity, as in $f(x) =
+\sin x + \tfrac12\sin(2x) + \tfrac14\sin(3x)$; each component remains
+simple, but their combination produces a richer pattern. This principle
+is called \emph{superposition}.
+
+\begin{definition}
+\emph{Superposition} is the formation of a new function by adding
+simpler functions together.
+\end{definition}
+
+The central idea of Fourier analysis is that surprisingly complicated
+periodic functions can often be represented through superposition of
+harmonics.
+
+\section{Complex Exponentials and Harmonic Sums}
+
+Chapter~\ref{ch:ch16-complex-euler} introduced complex exponentials,
+$e^{i\theta} = \cos\theta + i\sin\theta$, and
+Chapter~\ref{ch:ch18-sequences-series} showed how finite sums of complex
+powers may be analyzed algebraically. Consider a finite sum
+\[
+F(\theta) = \sum_{k=-n}^{n} c_k e^{ik\theta}.
+\]
+Each term $e^{ik\theta}$ represents a rotating unit vector whose angular
+speed is proportional to $k$, so $F(\theta)$ is a finite superposition of
+rotating vectors, in exactly the sense developed in the previous chapter.
+Using Euler's formula, $e^{ik\theta} = \cos(k\theta) + i\sin(k\theta)$,
+so
+\[
+F(\theta) = \sum_{k=-n}^{n} c_k\bigl(\cos(k\theta) + i\sin(k\theta)\bigr).
+\]
+When the coefficients satisfy $c_{-k} = \overline{c_k}$, the imaginary
+contributions cancel in pairs, leaving a real-valued function.
+Consequently, finite sums of complex exponentials correspond precisely
+to finite sums of sine and cosine harmonics: the rotating vectors of
+Chapter~\ref{ch:ch16-complex-euler} become the oscillating harmonics of
+this chapter, related by nothing more than Euler's formula already in
+hand.
+
+\section{The Fourier Idea}
+
+The central claim of Fourier analysis is remarkably simple: many
+periodic functions can be represented as sums of harmonics,
+\[
+f(x) = a_0 + \sum_{n=1}^{\infty} \bigl(a_n\cos(nx) + b_n\sin(nx)\bigr),
+\]
+where the coefficients $a_n$ and $b_n$ determine how much of each
+harmonic is present. This statement is one of the most important ideas
+in applied mathematics. In a more advanced course, calculus provides
+methods for computing the coefficients themselves; here the focus is on
+the idea alone, that complicated periodic behavior may be assembled from
+simple oscillatory components.
+
+\section{Why Orthogonality Matters}
+
+Chapter~\ref{ch:ch13-vectors-dot-products} studied orthogonality using
+the dot product: two perpendicular vectors represent independent
+directions. Fourier analysis relies on a closely related idea, in which
+different harmonics behave like independent directions in a much larger
+space, and the coefficient associated with a harmonic measures how
+strongly that harmonic contributes to the overall signal. Just as a
+vector may be decomposed into components along coordinate axes, a
+periodic function may be decomposed into components along harmonic
+directions. The analogy is not exact, but it captures the essential
+geometric intuition: Fourier coefficients play a role similar to vector
+projections.
+
+\section{Visualizing Decomposition}
+
+A useful analogy comes from optics. White light appears uniform, yet
+when passed through a prism it separates into many component colors; the
+light was not changed by the prism, which merely revealed structure
+already present within it. Fourier analysis plays a similar role: a
+complicated waveform may appear indivisible, yet Fourier decomposition
+reveals the frequencies hidden within it, and musical tones, speech
+signals, ocean waves, and electrical currents may all be viewed through
+this same frequency-based perspective.
+
+\begin{practicenow}
+Identify the frequencies present in $f(x) = 2\sin x + \cos(3x)$. Which
+frequency contributes the larger amplitude?
+\end{practicenow}
+
+\section{Applications}
+
+Fourier analysis appears throughout science and engineering, wherever
+oscillatory phenomena are present: in music and acoustics, where it
+explains timbre; in audio compression, filtering, and signal processing
+generally; in the study of heat flow and diffusion, the problem that
+originally motivated it; in astronomy, where periodic signals reveal
+orbital and rotational structure; and in medical imaging, where
+frequency-domain methods reconstruct images from raw scanner data.
+Whenever a phenomenon oscillates, Fourier methods provide a powerful
+common language for analyzing it.
+
+\section{A Historical Perspective}
+
+Joseph Fourier introduced these ideas while studying the flow of heat
+through matter. His original goal was not music, communication, or image
+processing; he wanted to understand temperature. The remarkable
+discovery was that the same mathematical decomposition appeared in many
+unrelated contexts far removed from heat, and what began as a theory of
+heat became one of the central tools of modern science.
+
+\section{Looking Back}
+
+This book began with ratios arising from similarity. From similarity
+came the trigonometric functions; from trigonometric functions came
+rotations; from rotations came amplitwists; from amplitwists came
+complex numbers; from complex numbers came derivatives and geometric
+series; from geometric series came superpositions of oscillations; and
+from superposition came the Fourier idea developed in this chapter. The
+path has been long, but it has followed a single theme throughout:
+mathematics often progresses by identifying transformations, discovering
+what remains invariant under those transformations, and then giving
+those invariant structures names. The concepts introduced in this book
+are not isolated topics gathered under one title. They are parts of a
+single connected framework for understanding pattern, change, and
+structure.
+
+\section{Exercises}
+
+\subsection*{Frequency and Harmonics}
+\begin{exercise}
+Identify the frequencies present in $\sin x + \sin(4x)$.
+\end{exercise}
+\begin{exercise}
+Identify the harmonics appearing in $2\cos x + \cos(5x)$.
+\end{exercise}
+\begin{exercise}
+Which function oscillates more rapidly, $\sin(2x)$ or $\sin(7x)$?
+\end{exercise}
+
+\subsection*{Frequency and Period}
+\begin{exercise}
+Determine the frequency and period of $\sin(4x)$.
+\end{exercise}
+\begin{exercise}
+Determine the frequency and period of $\cos(7x)$.
+\end{exercise}
+\begin{exercise}
+Which function has the shorter period, $\sin(3x)$ or $\sin(5x)$?
+\end{exercise}
+\begin{exercise}
+Find a function whose frequency is twice that of $\cos x$.
+\end{exercise}
+\begin{exercise}
+Find a function whose frequency is five times that of $\sin x$.
+\end{exercise}
+
+\subsection*{Superposition}
+\begin{exercise}
+Sketch $\sin x + \tfrac12\sin(2x)$.
+\end{exercise}
+\begin{exercise}
+Sketch $\cos x + \tfrac13\cos(3x)$.
+\end{exercise}
+\begin{exercise}
+Explain how superposition differs from multiplication of functions.
+\end{exercise}
+
+\subsection*{Harmonics and Superposition}
+\begin{exercise}
+Identify the harmonics present in $f(x) = \sin x + \tfrac12\sin(2x) +
+\tfrac14\sin(3x)$.
+\end{exercise}
+\begin{exercise}
+Identify the harmonics present in $f(x) = 2\cos x - \cos(4x)$.
+\end{exercise}
+\begin{exercise}
+Which harmonic has the largest amplitude in $f(x) = 3\sin x + \sin(2x) +
+\tfrac12\sin(5x)$?
+\end{exercise}
+\begin{exercise}
+Explain why $\sin x + \sin(2x)$ is more complicated than either term
+alone.
+\end{exercise}
+
+\subsection*{Complex Exponentials}
+\begin{exercise}
+Use Euler's formula to expand $e^{i2x}$.
+\end{exercise}
+\begin{exercise}
+Express $e^{i3x}$ in terms of sine and cosine.
+\end{exercise}
+\begin{exercise}
+Explain why $e^{ix} + e^{-ix}$ is real-valued.
+\end{exercise}
+\begin{exercise}
+Show that $e^{-ix} = \cos x - i\sin x$.
+\end{exercise}
+\begin{exercise}
+Show that $e^{ix} + e^{-ix} = 2\cos x$.
+\end{exercise}
+\begin{exercise}
+Show that $e^{ix} - e^{-ix} = 2i\sin x$.
+\end{exercise}
+\begin{exercise}
+Explain why $e^{ix}$ may be interpreted as a rotating unit vector.
+\end{exercise}
+
+\subsection*{Finite Fourier Sums}
+\begin{exercise}
+Express $\cos x + \sin x$ as a finite Fourier sum.
+\end{exercise}
+\begin{exercise}
+Express $2+\cos x+\sin(2x)$ as a finite Fourier sum.
+\end{exercise}
+\begin{exercise}
+Identify the constant term and harmonic terms in $3+2\cos x-\sin(3x)$.
+\end{exercise}
+\begin{exercise}
+How many distinct frequencies appear in $\sin x+\sin(2x)+\sin(4x)$?
+\end{exercise}
+\begin{exercise}
+Explain why every finite Fourier sum is periodic.
+\end{exercise}
+
+\subsection*{Orthogonality and Projection}
+\begin{exercise}
+In Chapter~\ref{ch:ch13-vectors-dot-products}, orthogonal vectors
+represented independent directions. Explain the analogous role played
+by harmonics.
+\end{exercise}
+\begin{exercise}
+Why is it useful to think of $\cos x$ and $\cos(5x)$ as distinct
+directions?
+\end{exercise}
+\begin{exercise}
+Explain how Fourier coefficients resemble vector coordinates.
+\end{exercise}
+\begin{exercise}
+Explain how Fourier decomposition resembles projection onto coordinate
+axes.
+\end{exercise}
+\begin{exercise}
+Compare the decomposition of a vector into components with the
+decomposition of a signal into harmonics.
+\end{exercise}
+
+\subsection*{Applications}
+\begin{exercise}
+A musical tone contains frequencies $220$ Hz, $440$ Hz, and $660$ Hz.
+Which frequencies are harmonics of the fundamental?
+\end{exercise}
+\begin{exercise}
+Why does a violin sound different from a flute even when both play the
+same note?
+\end{exercise}
+\begin{exercise}
+Explain how noise-cancelling headphones use superposition.
+\end{exercise}
+\begin{exercise}
+Why might an engineer wish to remove certain frequencies from a signal?
+\end{exercise}
+\begin{exercise}
+Describe one application of Fourier analysis in astronomy.
+\end{exercise}
+\begin{exercise}
+Describe one application of Fourier analysis in medical imaging.
+\end{exercise}
+
+\subsection*{Connections Across the Book}
+\begin{exercise}
+Explain how Chapter~\ref{ch:ch08-rotation-geometry} contributes to the
+Fourier idea.
+\end{exercise}
+\begin{exercise}
+Explain how amplitwists lead naturally to complex multiplication.
+\end{exercise}
+\begin{exercise}
+Explain why $e^{i\theta}$ can be viewed simultaneously as a complex
+number and a rotation.
+\end{exercise}
+\begin{exercise}
+Explain how the geometric-series formula of
+Chapter~\ref{ch:ch18-sequences-series} supports the study of complex
+exponentials.
+\end{exercise}
+\begin{exercise}
+Trace the chain rotation $\to$ amplitwist $\to$ complex multiplication
+$\to$ Fourier analysis, explaining the role played by each step.
+\end{exercise}
+\begin{exercise}
+Explain why Fourier analysis may be viewed as a study of superposed
+rotations.
+\end{exercise}
+
+\subsection*{Capstone Problems}
+\begin{exercise}
+Trace the conceptual chain similarity $\to$ trigonometry $\to$ rotation
+$\to$ complex numbers $\to$ Fourier analysis, and explain the role
+played by each step.
+\end{exercise}
+\begin{exercise}
+Explain why Fourier analysis can be viewed as a study of superposition.
+\end{exercise}
+\begin{exercise}
+Describe how Chapters~\ref{ch:ch15-amplitwists},
+\ref{ch:ch16-complex-euler}, and \ref{ch:ch18-sequences-series}
+contribute to the Fourier idea.
+\end{exercise}
+
+\subsection*{Challenge Problems}
+\begin{exercise}
+Use Euler's formula to show that $\cos x = \dfrac{e^{ix}+e^{-ix}}{2}$.
+\end{exercise}
+\begin{exercise}
+Use Euler's formula to show that $\sin x = \dfrac{e^{ix}-e^{-ix}}{2i}$.
+\end{exercise}
+\begin{exercise}
+Explain why every finite Fourier sum can be written using complex
+exponentials.
+\end{exercise}
+\begin{exercise}
+Explain why every finite Fourier sum can also be written using only
+sines and cosines.
+\end{exercise}
+\begin{exercise}
+A signal contains only frequencies $1$, $3$, and $5$. Write a possible
+finite Fourier sum representing such a signal.
+\end{exercise}
+\begin{exercise}
+Explain why the Fourier idea is fundamentally a statement about
+representation rather than computation.
+\end{exercise}
+\begin{exercise}
+The chapter began with the Metonic cycle. Explain how the interaction of
+two periodic processes can produce a larger apparent cycle.
+\end{exercise}
+\begin{exercise}
+Write a one-page essay describing how the ideas of this book progress
+from similarity to Fourier decomposition.
+\end{exercise}

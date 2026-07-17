@@ -1,0 +1,251 @@
+\chapter{Multiple-Angle and Product Identities}
+\label{ch:ch10-multiple-angle-product}
+
+\section{Nothing New, Only Consequences}
+
+The previous two chapters assembled a substantial identity toolkit: the sum
+and difference formulas of Chapter~8, together with the reciprocal,
+quotient, Pythagorean, cofunction, and even/odd identities of Chapter~9. At
+this point trigonometry can begin to look like an ever-growing collection
+of formulas with no end in sight, but that appearance is misleading. Many
+of the identities still to come are consequences of a much smaller set of
+principles already in hand, and the purpose of this chapter is to
+demonstrate that fact explicitly. Everything derived here follows from the
+sum and difference formulas of Chapter~8 together with the algebraic
+identities of Chapter~9; no new geometry is introduced anywhere in this
+chapter, because the geometry has already done its work.
+
+\section{Double-Angle Formulas}
+
+The simplest application of the sum formulas occurs when the two angles
+being added are equal. Setting $A = B = \theta$ in the sine sum formula
+gives
+\[
+\sin(2\theta) = \sin(\theta+\theta) = \sin\theta\cos\theta +
+\cos\theta\sin\theta,
+\]
+which combines to
+\[
+\boxed{\sin(2\theta) = 2\sin\theta\cos\theta}.
+\]
+Applying the same substitution to the cosine sum formula gives
+\[
+\boxed{\cos(2\theta) = \cos^2\theta - \sin^2\theta}.
+\]
+For tangent, $\tan(2\theta) = \sin(2\theta)/\cos(2\theta)$; substituting the
+two results just derived and dividing numerator and denominator by
+$\cos^2\theta$ gives
+\[
+\boxed{\tan(2\theta) = \frac{2\tan\theta}{1-\tan^2\theta}}
+\]
+whenever the denominator is nonzero. None of these three formulas is a new
+fact about trigonometry; each is simply the corresponding sum formula of
+Chapter~8, evaluated at two equal angles.
+
+\section{Three Forms of the Cosine Double-Angle Formula}
+
+The cosine double-angle formula is particularly useful because the
+Pythagorean identity allows it to be rewritten in two further equivalent
+forms. Substituting $\sin^2\theta = 1 - \cos^2\theta$ into
+$\cos(2\theta) = \cos^2\theta - \sin^2\theta$ gives
+\[
+\cos(2\theta) = \cos^2\theta - (1-\cos^2\theta) = 2\cos^2\theta - 1,
+\]
+so $\boxed{\cos(2\theta) = 2\cos^2\theta - 1}$. Substituting instead
+$\cos^2\theta = 1 - \sin^2\theta$ gives
+\[
+\cos(2\theta) = (1-\sin^2\theta) - \sin^2\theta = 1 - 2\sin^2\theta,
+\]
+so $\boxed{\cos(2\theta) = 1 - 2\sin^2\theta}$. The three boxed equations
+\[
+\cos(2\theta) = \cos^2\theta - \sin^2\theta, \qquad
+\cos(2\theta) = 2\cos^2\theta - 1, \qquad
+\cos(2\theta) = 1 - 2\sin^2\theta
+\]
+are not three separate identities but three algebraic forms of the same
+one, each convenient in different circumstances; the second and third, in
+particular, will be exactly what is needed to derive the half-angle
+formulas in the next section.
+
+\begin{example}
+Suppose $\sin\theta = 3/5$ and $\theta$ lies in Quadrant~I. Find
+$\sin(2\theta)$. Constructing the corresponding right triangle as in
+Chapter~7, the side opposite $\theta$ is $3$ and the hypotenuse is $5$, so
+the remaining side is $4$ and $\cos\theta = 4/5$. Applying the double-angle
+formula,
+\[
+\sin(2\theta) = 2\sin\theta\cos\theta = 2\left(\frac35\right)\left(\frac45\right) = \frac{24}{25}.
+\]
+\end{example}
+
+\section{Half-Angle Formulas}
+
+The half-angle formulas arise by solving the double-angle formulas in
+reverse. Starting from $\cos(2\theta) = 1 - 2\sin^2\theta$ and solving for
+$\sin\theta$,
+\[
+\sin^2\theta = \frac{1-\cos(2\theta)}{2}, \qquad
+\sin\theta = \pm\sqrt{\frac{1-\cos(2\theta)}{2}}.
+\]
+Replacing $\theta$ by $\theta/2$ throughout gives
+\[
+\boxed{\sin\left(\frac{\theta}{2}\right) = \pm\sqrt{\frac{1-\cos\theta}{2}}}.
+\]
+The same procedure applied to $\cos(2\theta) = 2\cos^2\theta - 1$ gives
+\[
+\boxed{\cos\left(\frac{\theta}{2}\right) = \pm\sqrt{\frac{1+\cos\theta}{2}}},
+\]
+and dividing the two, $\tan(\theta/2) = \sin(\theta/2)/\cos(\theta/2)$,
+gives
+\[
+\boxed{\tan\left(\frac{\theta}{2}\right) = \pm\sqrt{\frac{1-\cos\theta}{1+\cos\theta}}}.
+\]
+
+\section{Choosing the Correct Sign}
+
+The half-angle formulas contain a genuine subtlety: taking a square root
+introduces two possible signs, and the correct one is determined by the
+quadrant of $\theta/2$, not by the quadrant of $\theta$ itself. This
+distinction is essential and easy to overlook. If $\theta = 240^\circ$,
+for instance, then $\theta/2 = 120^\circ$, which lies in Quadrant~II, so
+$\sin(\theta/2)$ is positive while $\cos(\theta/2)$ is negative; the sign
+in each half-angle formula must be chosen accordingly, based on this
+quadrant of $\theta/2$ and not on the fact that $\theta$ itself lies in
+Quadrant~IV. The issue plays much the same role here that the range
+restriction on the inverse trigonometric functions played in Chapter~7:
+a formula that looks single-valued in fact requires an extra piece of
+quadrant information before it can be evaluated correctly.
+
+\begin{algorithmproc}{How to Evaluate a Half-Angle Expression}
+Identify the appropriate half-angle formula for the function requested,
+and substitute the known value of $\cos\theta$ into it. Simplify the
+resulting radical as far as possible, then determine the quadrant of
+$\theta/2$ itself, not the quadrant of $\theta$. Choose the sign of the
+radical to match that quadrant, and check the result for consistency with
+the sign pattern established in Chapter~4.
+\end{algorithmproc}
+
+\begin{example}
+Compute $\sin(15^\circ)$. Since $15^\circ = 30^\circ/2$, the half-angle
+formula gives
+\[
+\sin(15^\circ) = \sqrt{\frac{1-\cos30^\circ}{2}},
+\]
+with the positive root chosen because $15^\circ$ lies in Quadrant~I.
+Substituting $\cos30^\circ = \sqrt3/2$,
+\[
+\sin(15^\circ) = \sqrt{\frac{1-\frac{\sqrt3}{2}}{2}} = \sqrt{\frac{2-\sqrt3}{4}} = \frac{\sqrt{2-\sqrt3}}{2}.
+\]
+This agrees exactly with the value obtainable from the difference formula
+of Chapter~8: the two methods are different routes to the same result, a
+useful check that both chapters are internally consistent.
+\end{example}
+
+\begin{practicenow}
+Compute $\cos(15^\circ)$ using the half-angle formula, and confirm that the
+result matches the value obtainable from Chapter~8's difference formula.
+\end{practicenow}
+
+\section{Product-to-Sum Formulas}
+
+The sum and difference formulas can be combined to transform a product of
+trigonometric functions into a sum. Adding $\sin(A+B) = \sin A\cos B +
+\cos A\sin B$ and $\sin(A-B) = \sin A\cos B - \cos A\sin B$ cancels the
+mixed terms:
+\[
+\sin(A+B) + \sin(A-B) = 2\sin A\cos B, \qquad
+\boxed{\sin A\cos B = \frac{\sin(A+B)+\sin(A-B)}{2}}.
+\]
+The same strategy, applied to the cosine sum and difference formulas,
+gives
+\[
+\boxed{\cos A\cos B = \frac{\cos(A+B)+\cos(A-B)}{2}}, \qquad
+\boxed{\sin A\sin B = \frac{\cos(A-B)-\cos(A+B)}{2}}.
+\]
+These are the product-to-sum formulas, and each is obtained purely by
+adding or subtracting two instances of results already derived in
+Chapter~8.
+
+\section{Sum-to-Product Formulas}
+
+The product-to-sum formulas can be reversed. Introducing new variables
+$A = (x+y)/2$ and $B = (x-y)/2$, so that $A+B = x$ and $A-B = y$, turns the
+product-to-sum formulas into statements expressing a sum as a product:
+\[
+\boxed{\sin x + \sin y = 2\sin\left(\frac{x+y}{2}\right)\cos\left(\frac{x-y}{2}\right)}, \qquad
+\boxed{\cos x + \cos y = 2\cos\left(\frac{x+y}{2}\right)\cos\left(\frac{x-y}{2}\right)},
+\]
+with the analogous formulas for $\sin x - \sin y$ and $\cos x - \cos y$
+following by the same substitution. The details are purely algebraic and
+add nothing beyond a relabeling of the product-to-sum identities already
+established.
+
+\section{Applications}
+
+The formulas of this chapter matter well beyond elementary trigonometry:
+they simplify oscillatory expressions, support signal analysis, explain
+the beat frequencies heard when two close musical pitches sound together,
+appear throughout electrical engineering, and enable the calculus
+techniques used to integrate products of trigonometric functions. In many
+of these settings, the ability to rewrite an expression in a more
+convenient form matters more than evaluating it directly, which is exactly
+why a toolkit of equivalent forms, rather than a single canonical formula,
+is worth having.
+
+\section{Looking Ahead}
+
+This chapter completes the identity toolkit begun in Chapters~8 and 9. The
+book now has in hand the sum and difference formulas, the reciprocal,
+quotient, Pythagorean, cofunction, and even/odd identities, and the
+double-angle, half-angle, product-to-sum, and sum-to-product formulas
+derived here. The next chapter finally puts this toolkit to work in a
+different kind of problem. Rather than proving that two expressions are
+equivalent, Chapter~11 solves equations: given a trigonometric statement
+involving an unknown angle, it determines every angle for which that
+statement is true, using the identities of this chapter and the last to
+reduce a complicated equation to one the tools of Chapter~7 can finish.
+
+\section{Exercises}
+\begin{exercise}
+Starting from the cosine sum formula, derive $\cos(2\theta) = \cos^2\theta
+- \sin^2\theta$.
+\end{exercise}
+
+\begin{exercise}
+Use the Pythagorean identity to derive $\cos(2\theta) = 2\cos^2\theta - 1$.
+\end{exercise}
+
+\begin{exercise}
+Use the Pythagorean identity to derive $\cos(2\theta) = 1 - 2\sin^2\theta$.
+\end{exercise}
+
+\begin{exercise}
+If $\sin\theta = 5/13$ and $\theta$ lies in Quadrant~I, find $\sin(2\theta)$.
+\end{exercise}
+
+\begin{exercise}
+If $\cos\theta = -3/5$ and $\theta$ lies in Quadrant~II, find
+$\cos(2\theta)$.
+\end{exercise}
+
+\begin{exercise}
+Evaluate $\sin(22.5^\circ)$ exactly.
+\end{exercise}
+
+\begin{exercise}
+Evaluate $\cos(22.5^\circ)$ exactly.
+\end{exercise}
+
+\begin{exercise}
+Determine the correct sign in $\cos(\theta/2)$ when $\theta = 300^\circ$,
+and explain your reasoning.
+\end{exercise}
+
+\begin{exercise}
+Derive the product-to-sum formula for $\cos A\cos B$.
+\end{exercise}
+
+\begin{exercise}
+Why are the double-angle and half-angle formulas best understood as
+consequences of the sum formulas rather than as independent identities?
+\end{exercise}

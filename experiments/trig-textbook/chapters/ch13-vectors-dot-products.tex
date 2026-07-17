@@ -1,0 +1,1291 @@
+\chapter{Vectors and Dot Products}
+\label{ch:ch13-vectors-dot-products}
+
+\section{From Triangles to Vector Operations}
+
+The previous chapter concluded with an observation that deserves further
+attention. The Law of Cosines,
+
+\[
+c^2=a^2+b^2-2ab\cos C,
+\]
+
+appeared at first to be a statement about triangles, yet its structure
+suggests something more general. The formula relates lengths and angles in
+a single expression, measuring not only how large two sides are but also
+how they are oriented relative to one another. In Chapter~2, vectors were
+introduced as quantities possessing both magnitude and direction, and
+their lengths were computed using the distance formula. What remained
+missing was an operation capable of combining two vectors while taking
+both magnitude and direction into account simultaneously.
+
+This chapter introduces such an operation. It will first appear as a
+simple algebraic rule whose purpose is not immediately obvious. Only after
+a derivation based on the Law of Cosines will its geometric meaning become
+clear. The result is one of the most important operations in mathematics
+and physics: the dot product.
+
+\section{The Algebraic Definition}
+
+Suppose
+
+\[
+\mathbf{u}=\langle u_1,u_2\rangle,
+\qquad
+\mathbf{v}=\langle v_1,v_2\rangle.
+\]
+
+\begin{definition}
+The \emph{dot product} of $\mathbf{u}$ and $\mathbf{v}$ is
+
+\[
+\mathbf{u}\cdot\mathbf{v}
+=
+u_1v_1+u_2v_2.
+\]
+\end{definition}
+
+At first glance this definition appears somewhat arbitrary. Why should the
+products of corresponding coordinates be added together? Why not subtract
+them, multiply them, or combine them in some other way? The definition
+provides a quantity that is easy to compute, but it does not yet explain
+what that quantity represents.
+
+For example, if
+
+\[
+\mathbf{u}=\langle 3,4\rangle,
+\qquad
+\mathbf{v}=\langle 2,5\rangle,
+\]
+
+then
+
+\[
+\mathbf{u}\cdot\mathbf{v}
+=
+(3)(2)+(4)(5)
+=
+6+20
+=
+26.
+\]
+
+The computation is straightforward, but the meaning of the answer is not.
+The purpose of the next section is to show that this seemingly ad hoc rule
+has a remarkably natural geometric interpretation.
+
+\section{The Geometric Formula}
+
+The algebraic definition of the dot product provides a method of
+calculation, but it does not explain why the operation is useful. To
+discover its geometric meaning, consider two vectors placed with their
+tails at the origin:
+
+\[
+\mathbf{u}=\langle u_1,u_2\rangle,
+\qquad
+\mathbf{v}=\langle v_1,v_2\rangle.
+\]
+
+Let $\theta$ denote the angle between them. The vectors and the segment
+joining their endpoints form a triangle. That third side is represented by
+the vector
+
+\[
+\mathbf{u}-\mathbf{v}
+=
+\langle u_1-v_1,\;u_2-v_2\rangle.
+\]
+
+The lengths of the three sides are therefore
+
+\[
+|\mathbf{u}|,
+\qquad
+|\mathbf{v}|,
+\qquad
+|\mathbf{u}-\mathbf{v}|.
+\]
+
+Since these lengths form the sides of a triangle, the Law of Cosines from
+Chapter~12 applies directly.
+
+\begin{theorem}[Geometric Formula for the Dot Product]
+For nonzero vectors $\mathbf{u}$ and $\mathbf{v}$ with angle $\theta$
+between them,
+
+\[
+\mathbf{u}\cdot\mathbf{v}
+=
+|\mathbf{u}|\,|\mathbf{v}|\cos\theta.
+\]
+\end{theorem}
+
+\begin{proof}
+Applying the Law of Cosines to the triangle formed by
+$\mathbf{u}$, $\mathbf{v}$, and $\mathbf{u}-\mathbf{v}$ gives
+
+\[
+|\mathbf{u}-\mathbf{v}|^2
+=
+|\mathbf{u}|^2
++
+|\mathbf{v}|^2
+-
+2|\mathbf{u}|\,|\mathbf{v}|\cos\theta.
+\]
+
+We now compute the same quantity using coordinates.
+
+Since
+
+\[
+\mathbf{u}-\mathbf{v}
+=
+\langle u_1-v_1,\;u_2-v_2\rangle,
+\]
+
+the magnitude formula gives
+
+\[
+|\mathbf{u}-\mathbf{v}|^2
+=
+(u_1-v_1)^2+(u_2-v_2)^2.
+\]
+
+Expanding,
+
+\[
+|\mathbf{u}-\mathbf{v}|^2
+=
+u_1^2-2u_1v_1+v_1^2
++
+u_2^2-2u_2v_2+v_2^2.
+\]
+
+Rearranging terms,
+
+\[
+|\mathbf{u}-\mathbf{v}|^2
+=
+(u_1^2+u_2^2)
++
+(v_1^2+v_2^2)
+-
+2(u_1v_1+u_2v_2).
+\]
+
+Using the magnitude formula once again,
+
+\[
+u_1^2+u_2^2
+=
+|\mathbf{u}|^2,
+\qquad
+v_1^2+v_2^2
+=
+|\mathbf{v}|^2,
+\]
+
+so
+
+\[
+|\mathbf{u}-\mathbf{v}|^2
+=
+|\mathbf{u}|^2
++
+|\mathbf{v}|^2
+-
+2(u_1v_1+u_2v_2).
+\]
+
+Both derivations describe the same quantity
+$|\mathbf{u}-\mathbf{v}|^2$, so
+
+\[
+|\mathbf{u}|^2
++
+|\mathbf{v}|^2
+-
+2(u_1v_1+u_2v_2)
+=
+|\mathbf{u}|^2
++
+|\mathbf{v}|^2
+-
+2|\mathbf{u}|\,|\mathbf{v}|\cos\theta.
+\]
+
+Subtracting the common terms and dividing by $-2$ yields
+
+\[
+u_1v_1+u_2v_2
+=
+|\mathbf{u}|\,|\mathbf{v}|\cos\theta.
+\]
+
+Since the left-hand side is the algebraic definition of the dot product,
+
+\[
+\mathbf{u}\cdot\mathbf{v}
+=
+|\mathbf{u}|\,|\mathbf{v}|\cos\theta,
+\]
+
+which completes the proof.
+\end{proof}
+
+The theorem reveals why the algebraic definition was chosen. The quantity
+
+\[
+u_1v_1+u_2v_2
+\]
+
+appeared at first to be merely a computational rule, but the proof shows
+that it measures something fundamentally geometric. The dot product
+depends simultaneously on the lengths of the vectors and on the angle
+between them. Two vectors pointing in nearly the same direction produce a
+large positive dot product; vectors pointing in opposite directions
+produce a negative dot product; vectors meeting at a right angle produce
+zero.
+
+The algebraic formula and the geometric formula therefore provide two
+different descriptions of the same quantity. The algebraic version is
+usually easier to compute from coordinates, while the geometric version
+often makes interpretation easier. One of the central advantages of the
+dot product is that it allows these two viewpoints to be translated into
+one another.
+
+\section{A Worked Example}
+
+The theorem becomes more convincing when both formulas are applied to the
+same pair of vectors.
+
+\begin{example}
+Let
+
+\[
+\mathbf{u}
+=
+\langle 3,4\rangle,
+\qquad
+\mathbf{v}
+=
+\langle 4,0\rangle.
+\]
+
+Using the algebraic definition,
+
+\[
+\mathbf{u}\cdot\mathbf{v}
+=
+(3)(4)+(4)(0)
+=
+12.
+\]
+
+Now compute the same quantity geometrically.
+
+The magnitudes are
+
+\[
+|\mathbf{u}|
+=
+\sqrt{3^2+4^2}
+=
+5,
+\]
+
+and
+
+\[
+|\mathbf{v}|
+=
+\sqrt{4^2}
+=
+4.
+\]
+
+The angle between the vectors satisfies
+
+\[
+\cos\theta
+=
+\frac{3}{5},
+\]
+
+since $\mathbf{u}$ forms a $3$-$4$-$5$ triangle with the positive
+$x$-axis.
+
+The geometric formula gives
+
+\[
+\mathbf{u}\cdot\mathbf{v}
+=
+(5)(4)\left(\frac35\right)
+=
+12.
+\]
+
+Both methods produce the same result, exactly as the theorem predicts.
+\end{example}
+
+\section{Orthogonality}
+
+One of the most important consequences of the geometric formula appears
+when the angle between two vectors is a right angle.
+
+Recall that two vectors are said to be \emph{orthogonal} if they are
+perpendicular. In coordinate geometry, determining whether two vectors
+meet at a right angle might appear to require finding slopes or computing
+angles directly. The dot product provides a much simpler test.
+
+\begin{theorem}
+Let $\mathbf{u}$ and $\mathbf{v}$ be nonzero vectors. Then
+
+\[
+\mathbf{u}\cdot\mathbf{v}=0
+\]
+
+if and only if
+
+\[
+\mathbf{u}\perp\mathbf{v}.
+\]
+\end{theorem}
+
+\begin{proof}
+By the geometric formula,
+
+\[
+\mathbf{u}\cdot\mathbf{v}
+=
+|\mathbf{u}|\,|\mathbf{v}|\cos\theta.
+\]
+
+Since $\mathbf{u}$ and $\mathbf{v}$ are nonzero, their magnitudes are
+positive, so the product can equal zero only when
+
+\[
+\cos\theta=0.
+\]
+
+This occurs precisely when
+
+\[
+\theta=90^\circ.
+\]
+
+Thus
+
+\[
+\mathbf{u}\cdot\mathbf{v}=0
+\]
+
+if and only if the vectors are perpendicular.
+\end{proof}
+
+The theorem converts a geometric question into a simple algebraic
+calculation. Instead of constructing right angles or comparing slopes, one
+need only compute a dot product and check whether the result is zero.
+
+\begin{example}
+Determine whether
+
+\[
+\mathbf{u}
+=
+\langle 2,3\rangle,
+\qquad
+\mathbf{v}
+=
+\langle 3,-2\rangle
+\]
+
+are perpendicular.
+
+Computing the dot product,
+
+\[
+\mathbf{u}\cdot\mathbf{v}
+=
+(2)(3)+(3)(-2)
+=
+6-6
+=
+0.
+\]
+
+Since the dot product is zero, the vectors are orthogonal.
+\end{example}
+
+This criterion is often used in geometry, physics, computer graphics, and
+engineering because it avoids measuring angles directly. Orthogonality
+becomes an algebraic condition rather than a geometric construction.
+
+\section{Finding the Angle Between Two Vectors}
+
+The geometric formula can also be solved for the angle itself. Starting
+with
+
+\[
+\mathbf{u}\cdot\mathbf{v}
+=
+|\mathbf{u}|\,|\mathbf{v}|\cos\theta,
+\]
+
+divide by the product of the magnitudes:
+
+\[
+\cos\theta
+=
+\frac{\mathbf{u}\cdot\mathbf{v}}
+     {|\mathbf{u}|\,|\mathbf{v}|}.
+\]
+
+Provided neither vector is zero, the angle can then be obtained by
+applying the inverse cosine function introduced in Chapter~7:
+
+\[
+\theta
+=
+\arccos
+\left(
+\frac{\mathbf{u}\cdot\mathbf{v}}
+     {|\mathbf{u}|\,|\mathbf{v}|}
+\right).
+\]
+
+The formula transforms a geometric measurement into a sequence of
+algebraic computations.
+
+\begin{algorithmproc}{How to Compute a Dot Product and the Angle Between Two Vectors}
+Given vectors $\mathbf{u}$ and $\mathbf{v}$, first compute the dot product
+using the algebraic formula
+\[
+\mathbf{u}\cdot\mathbf{v}
+=
+u_1v_1+u_2v_2.
+\]
+Next compute the magnitudes
+\[
+|\mathbf{u}|=\sqrt{u_1^2+u_2^2},
+\qquad
+|\mathbf{v}|=\sqrt{v_1^2+v_2^2}.
+\]
+Then evaluate
+\[
+\cos\theta
+=
+\frac{\mathbf{u}\cdot\mathbf{v}}
+     {|\mathbf{u}|\,|\mathbf{v}|}.
+\]
+Finally, apply the inverse cosine function:
+\[
+\theta
+=
+\arccos
+\left(
+\frac{\mathbf{u}\cdot\mathbf{v}}
+     {|\mathbf{u}|\,|\mathbf{v}|}
+\right).
+\]
+\end{algorithmproc}
+
+\begin{example}
+Find the angle between
+
+\[
+\mathbf{u}
+=
+\langle 1,2\rangle,
+\qquad
+\mathbf{v}
+=
+\langle 3,1\rangle.
+\]
+
+First compute the dot product:
+
+\[
+\mathbf{u}\cdot\mathbf{v}
+=
+(1)(3)+(2)(1)
+=
+5.
+\]
+
+The magnitudes are
+
+\[
+|\mathbf{u}|
+=
+\sqrt{1^2+2^2}
+=
+\sqrt5,
+\]
+
+and
+
+\[
+|\mathbf{v}|
+=
+\sqrt{3^2+1^2}
+=
+\sqrt{10}.
+\]
+
+Therefore
+
+\[
+\cos\theta
+=
+\frac{5}{\sqrt5\,\sqrt{10}}
+=
+\frac{1}{\sqrt2}.
+\]
+
+Applying the inverse cosine,
+
+\[
+\theta
+=
+\arccos\!\left(\frac1{\sqrt2}\right)
+=
+45^\circ.
+\]
+
+The vectors meet at an angle of $45^\circ$.
+\end{example}
+
+\begin{practicenow}
+Find the angle between
+
+\[
+\mathbf{u}
+=
+\langle 2,1\rangle,
+\qquad
+\mathbf{v}
+=
+\langle 1,4\rangle.
+\]
+
+Compute the dot product first, then use the geometric formula to find the
+angle between the vectors.
+\end{practicenow}
+
+\section{Projection}
+
+The geometric formula for the dot product contains more information than
+the angle between two vectors. It also reveals how much of one vector
+lies in the direction of another.
+
+Suppose two vectors $\mathbf{u}$ and $\mathbf{v}$ form an angle
+$\theta$. If we drop a perpendicular from the endpoint of $\mathbf{u}$ to
+the line determined by $\mathbf{v}$, the resulting right triangle shows
+that the length of the component of $\mathbf{u}$ in the direction of
+$\mathbf{v}$ is
+
+\[
+|\mathbf{u}|\cos\theta.
+\]
+
+This quantity is called the \emph{scalar projection} of
+$\mathbf{u}$ onto $\mathbf{v}$.
+
+Because the geometric formula for the dot product is
+
+\[
+\mathbf{u}\cdot\mathbf{v}
+=
+|\mathbf{u}|\,|\mathbf{v}|\cos\theta,
+\]
+
+dividing by $|\mathbf{v}|$ gives
+
+\[
+|\mathbf{u}|\cos\theta
+=
+\frac{\mathbf{u}\cdot\mathbf{v}}
+     {|\mathbf{v}|}.
+\]
+
+Thus the scalar projection can be computed directly from the dot product.
+
+\begin{definition}
+The \emph{scalar projection} of $\mathbf{u}$ onto $\mathbf{v}$ is
+
+\[
+\operatorname{comp}_{\mathbf{v}}(\mathbf{u})
+=
+\frac{\mathbf{u}\cdot\mathbf{v}}
+     {|\mathbf{v}|}.
+\]
+\end{definition}
+
+The scalar projection measures a length. Positive values indicate that
+$\mathbf{u}$ points generally in the same direction as $\mathbf{v}$,
+while negative values indicate that it points generally in the opposite
+direction.
+
+Often, however, a length alone is not enough. We may wish to construct
+the actual vector lying along the direction of $\mathbf{v}$.
+
+To do so, first observe that
+
+\[
+\frac{\mathbf{v}}{|\mathbf{v}|}
+\]
+
+is a unit vector pointing in the same direction as $\mathbf{v}$. If we
+multiply this unit vector by the scalar projection, we obtain the desired
+projection vector.
+
+\begin{definition}
+The \emph{vector projection} of $\mathbf{u}$ onto $\mathbf{v}$ is
+
+\[
+\operatorname{proj}_{\mathbf{v}}(\mathbf{u})
+=
+\left(
+\frac{\mathbf{u}\cdot\mathbf{v}}
+     {|\mathbf{v}|}
+\right)
+\frac{\mathbf{v}}
+     {|\mathbf{v}|}
+=
+\frac{\mathbf{u}\cdot\mathbf{v}}
+     {|\mathbf{v}|^2}
+\mathbf{v}.
+\]
+\end{definition}
+
+The projection vector points along $\mathbf{v}$ and has exactly the
+length needed to represent the component of $\mathbf{u}$ in that
+direction.
+
+\begin{example}
+Let
+
+\[
+\mathbf{u}
+=
+\langle 4,3\rangle,
+\qquad
+\mathbf{v}
+=
+\langle 2,0\rangle.
+\]
+
+First compute the dot product:
+
+\[
+\mathbf{u}\cdot\mathbf{v}
+=
+(4)(2)+(3)(0)
+=
+8.
+\]
+
+Since
+
+\[
+|\mathbf{v}|=2,
+\]
+
+the scalar projection is
+
+\[
+\operatorname{comp}_{\mathbf{v}}(\mathbf{u})
+=
+\frac{8}{2}
+=
+4.
+\]
+
+The vector projection is
+
+\[
+\operatorname{proj}_{\mathbf{v}}(\mathbf{u})
+=
+\frac{8}{2^2}
+\langle 2,0\rangle
+=
+2\langle 2,0\rangle
+=
+\langle 4,0\rangle.
+\]
+
+The vector $\langle 4,0\rangle$ is precisely the horizontal component of
+$\mathbf{u}$.
+\end{example}
+
+Projection provides a useful way to decompose vectors into parts. A
+vector can be viewed as containing one component parallel to a given
+direction and another component perpendicular to it. The projection
+isolates the parallel component, leaving the remainder to account for the
+perpendicular part.
+
+\section{Applications}
+
+The geometric interpretation of the dot product makes it useful whenever
+the effect of one quantity depends on how strongly it acts in a
+particular direction.
+
+One of the most important examples occurs in physics. Suppose a force
+$\mathbf{F}$ moves an object through a displacement $\mathbf{d}$. Only the
+component of the force acting in the direction of motion contributes to
+the work performed. A force perpendicular to the motion changes the
+direction of travel but does no work.
+
+If $\theta$ is the angle between the force and the displacement, then
+
+\[
+W
+=
+|\mathbf{F}|\,|\mathbf{d}|\cos\theta.
+\]
+
+Using the geometric formula for the dot product, this becomes
+
+\[
+\boxed{
+W
+=
+\mathbf{F}\cdot\mathbf{d}.
+}
+\]
+
+Work is therefore a dot product.
+
+This interpretation explains why the cosine appears. The factor
+$\cos\theta$ extracts the component of the force acting along the
+direction of motion. When the force points entirely in the direction of
+travel, $\theta=0^\circ$ and the work is maximized. When the force is
+perpendicular to the motion, $\theta=90^\circ$ and the work is zero.
+
+\begin{example}
+A force
+
+\[
+\mathbf{F}
+=
+\langle 10,5\rangle
+\]
+
+moves an object through a displacement
+
+\[
+\mathbf{d}
+=
+\langle 4,0\rangle.
+\]
+
+The work performed is
+
+\[
+W
+=
+\mathbf{F}\cdot\mathbf{d}
+=
+(10)(4)+(5)(0)
+=
+40.
+\]
+
+The vertical component of the force contributes nothing because the
+motion is entirely horizontal.
+\end{example}
+
+Dot products also appear in navigation, where movement in a particular
+direction must be isolated from a more complicated motion; in computer
+graphics, where lighting calculations depend on the angle between
+surfaces and light sources; and in data analysis, where geometric ideas
+about similarity are often expressed through dot products and related
+operations.
+
+In each case the underlying idea is the same. The dot product measures
+not merely how large two vectors are, but how strongly they align with
+one another.
+
+\section{Looking Ahead}
+
+This chapter completes a thread that began when vectors were introduced in
+Chapter~2 and continued through the trigonometry of Chapters~8--12. The
+Law of Cosines, originally derived as a statement about triangles, has
+reappeared as the foundation of a general vector operation. Length,
+angle, orthogonality, and projection can now all be expressed within a
+single algebraic framework.
+
+The next chapter shifts attention from vectors themselves to an
+alternative coordinate system. Instead of locating points by horizontal
+and vertical displacement, polar coordinates describe position using a
+distance and an angle. This change of viewpoint will make rotational
+structure more visible and will prepare the way for Chapters~15 and~16,
+where scaling and rotation are first combined into a single operator and
+then, together with vectors, absorbed into the single mathematical
+language of complex numbers.
+
+\section{Exercises}
+
+\subsection*{Computing Dot Products}
+
+\begin{exercise}
+Compute each dot product.
+
+\begin{enumerate}
+\item[(a)]
+\[
+\langle 2,3\rangle\cdot\langle 4,1\rangle
+\]
+
+\item[(b)]
+\[
+\langle -1,5\rangle\cdot\langle 2,7\rangle
+\]
+
+\item[(c)]
+\[
+\langle 6,-2\rangle\cdot\langle -3,4\rangle
+\]
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Let
+
+\[
+\mathbf{u}
+=
+\langle 3,4\rangle,
+\qquad
+\mathbf{v}
+=
+\langle 5,2\rangle.
+\]
+
+Compute $\mathbf{u}\cdot\mathbf{v}$.
+\end{exercise}
+
+\begin{exercise}
+Find the dot product of
+
+\[
+\langle 7,1\rangle
+\]
+
+and
+
+\[
+\langle -2,8\rangle.
+\]
+\end{exercise}
+
+\subsection*{Geometric Interpretation}
+
+\begin{exercise}
+Use the geometric formula
+
+\[
+\mathbf{u}\cdot\mathbf{v}
+=
+|\mathbf{u}|\,|\mathbf{v}|\cos\theta
+\]
+
+to compute the dot product of vectors with magnitudes $5$ and $8$ that
+meet at an angle of $60^\circ$.
+\end{exercise}
+
+\begin{exercise}
+Vectors $\mathbf{u}$ and $\mathbf{v}$ have magnitudes
+
+\[
+|\mathbf{u}|=6,
+\qquad
+|\mathbf{v}|=10,
+\]
+
+and the angle between them is $120^\circ$.
+
+Find $\mathbf{u}\cdot\mathbf{v}$.
+\end{exercise}
+
+\begin{exercise}
+Verify the geometric formula for
+
+\[
+\mathbf{u}
+=
+\langle 3,4\rangle,
+\qquad
+\mathbf{v}
+=
+\langle 4,0\rangle,
+\]
+
+by computing the dot product both algebraically and geometrically.
+\end{exercise}
+
+\subsection*{Orthogonality}
+
+\begin{exercise}
+Determine whether the following pairs of vectors are orthogonal.
+
+\begin{enumerate}
+\item[(a)]
+\[
+\langle 2,3\rangle,
+\qquad
+\langle 3,-2\rangle
+\]
+
+\item[(b)]
+\[
+\langle 4,1\rangle,
+\qquad
+\langle 2,-8\rangle
+\]
+
+\item[(c)]
+\[
+\langle 5,-2\rangle,
+\qquad
+\langle 1,3\rangle
+\]
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Find a vector orthogonal to
+
+\[
+\langle 7,4\rangle.
+\]
+\end{exercise}
+
+\begin{exercise}
+Find a nonzero vector orthogonal to
+
+\[
+\langle -3,8\rangle.
+\]
+\end{exercise}
+
+\subsection*{Angles Between Vectors}
+
+\begin{exercise}
+Find the angle between
+
+\[
+\langle 1,2\rangle
+\]
+
+and
+
+\[
+\langle 3,1\rangle.
+\]
+\end{exercise}
+
+\begin{exercise}
+Find the angle between
+
+\[
+\langle 2,1\rangle
+\]
+
+and
+
+\[
+\langle 1,4\rangle.
+\]
+\end{exercise}
+
+\begin{exercise}
+Find the angle between
+
+\[
+\langle 4,0\rangle
+\]
+
+and
+
+\[
+\langle 2,5\rangle.
+\]
+\end{exercise}
+
+\begin{exercise}
+Show that two nonzero vectors are perpendicular precisely when the angle
+formula yields
+
+\[
+\theta=90^\circ.
+\]
+\end{exercise}
+
+\subsection*{Projection}
+
+\begin{exercise}
+Find the scalar projection of
+
+\[
+\mathbf{u}
+=
+\langle 6,2\rangle
+\]
+
+onto
+
+\[
+\mathbf{v}
+=
+\langle 3,0\rangle.
+\]
+\end{exercise}
+
+\begin{exercise}
+Find both the scalar projection and vector projection of
+
+\[
+\mathbf{u}
+=
+\langle 4,3\rangle
+\]
+
+onto
+
+\[
+\mathbf{v}
+=
+\langle 2,0\rangle.
+\]
+\end{exercise}
+
+\begin{exercise}
+Find
+
+\[
+\operatorname{proj}_{\mathbf{v}}(\mathbf{u})
+\]
+
+for
+
+\[
+\mathbf{u}
+=
+\langle 5,1\rangle,
+\qquad
+\mathbf{v}
+=
+\langle 1,1\rangle.
+\]
+\end{exercise}
+
+\begin{exercise}
+A vector is decomposed into a component parallel to a given direction and
+a component perpendicular to it. Explain how projection provides the
+parallel component.
+\end{exercise}
+
+\subsection*{Applications}
+
+\begin{exercise}
+A force
+
+\[
+\mathbf{F}
+=
+\langle 8,3\rangle
+\]
+
+moves an object through a displacement
+
+\[
+\mathbf{d}
+=
+\langle 5,0\rangle.
+\]
+
+Find the work performed.
+\end{exercise}
+
+\begin{exercise}
+A force
+
+\[
+\mathbf{F}
+=
+\langle 12,5\rangle
+\]
+
+acts through a displacement
+
+\[
+\mathbf{d}
+=
+\langle 3,4\rangle.
+\]
+
+Compute the work.
+\end{exercise}
+
+\begin{exercise}
+Explain why a force perpendicular to a displacement performs no work.
+\end{exercise}
+
+\begin{exercise}
+A boat moves due east while a current pushes due north. Explain, using
+the dot product, why the current contributes no work in the direction of
+travel.
+\end{exercise}
+
+\subsection*{Mixed Problems}
+
+\begin{exercise}
+For
+
+\[
+\mathbf{u}
+=
+\langle 2,5\rangle,
+\qquad
+\mathbf{v}
+=
+\langle 4,-1\rangle,
+\]
+
+compute:
+
+\begin{enumerate}
+\item[(a)] the dot product,
+\item[(b)] the angle between the vectors,
+\item[(c)] the scalar projection of $\mathbf{u}$ onto $\mathbf{v}$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Determine whether the triangle formed by the vectors
+
+\[
+\langle 4,1\rangle
+\]
+
+and
+
+\[
+\langle 1,-4\rangle
+\]
+
+contains a right angle.
+\end{exercise}
+
+\begin{exercise}
+Show that
+
+\[
+\mathbf{u}\cdot\mathbf{u}
+=
+|\mathbf{u}|^2
+\]
+
+for every vector $\mathbf{u}$.
+\end{exercise}
+
+\begin{exercise}
+Use the result of the previous exercise to derive the magnitude formula
+
+\[
+|\mathbf{u}|
+=
+\sqrt{\mathbf{u}\cdot\mathbf{u}}.
+\]
+\end{exercise}
+
+\subsection*{Conceptual and Exploratory Problems}
+
+\begin{exercise}
+The algebraic definition of the dot product appears to depend on
+coordinates, while the geometric formula refers only to lengths and
+angles. Explain why the theorem relating the two descriptions is
+important.
+\end{exercise}
+
+\begin{exercise}
+Why does the dot product become negative when the angle between two
+vectors exceeds $90^\circ$?
+\end{exercise}
+
+\begin{exercise}
+Describe the geometric meaning of the quantity
+
+\[
+|\mathbf{u}|\cos\theta.
+\]
+\end{exercise}
+
+\begin{exercise}
+Suppose two vectors have fixed lengths. How does their dot product change
+as the angle between them increases from $0^\circ$ to $180^\circ$?
+\end{exercise}
+
+\begin{exercise}
+The geometric formula for the dot product was derived from the Law of
+Cosines. Explain how this chapter extends the results of Chapter~12 from
+triangles to vectors.
+\end{exercise}
+
+\subsection*{Challenge Problems}
+
+\begin{exercise}
+Prove the geometric formula for the dot product by beginning with
+
+\[
+|\mathbf{u}+\mathbf{v}|^2
+\]
+
+instead of
+
+\[
+|\mathbf{u}-\mathbf{v}|^2.
+\]
+\end{exercise}
+
+\begin{exercise}
+Show that
+
+\[
+|\mathbf{u}-\mathbf{v}|^2
+=
+|\mathbf{u}|^2
++
+|\mathbf{v}|^2
+-
+2(\mathbf{u}\cdot\mathbf{v}).
+\]
+
+Explain how this identity reflects the proof of the geometric formula.
+\end{exercise}
+
+\begin{exercise}
+Find all vectors
+
+\[
+\langle x,y\rangle
+\]
+
+that are orthogonal to
+
+\[
+\langle 3,4\rangle.
+\]
+\end{exercise}
+
+\begin{exercise}
+Suppose the algebraic definition of the dot product did not agree with
+the geometric formula. What geometric properties of vectors would fail?
+Discuss how orthogonality, angle measurement, and projection would be
+affected.
+\end{exercise}

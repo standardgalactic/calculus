@@ -1,0 +1,351 @@
+\chapter{Trigonometric Equations}
+\label{ch:ch11-equations}
+
+\section{From Identities to Equations}
+
+The previous three chapters were concerned primarily with identities: how
+rotations combine, how the unit circle constrains admissible trigonometric
+values, and how apparently complicated formulas can be derived from a
+small collection of fundamental relationships. Throughout that development
+the task was always the same in kind --- start from one expression,
+transform it into another, and show that the two are equivalent. The task
+of this chapter is different. Rather than proving that two expressions are
+always equal, this chapter asks for which values of an angle a particular
+equation becomes true, moving from proving identities to solving equations.
+
+At first glance this may look like a familiar algebraic exercise: solving
+$x^2 - 5x + 6 = 0$ means finding the values of $x$ that make the equation
+true, so why should a trigonometric equation be any different? The answer
+is periodicity. A polynomial equation ordinarily has only finitely many
+solutions, but trigonometric functions repeat indefinitely, and if a point
+on the unit circle returns to the same position every full revolution,
+then any trigonometric value that occurs once must occur again and again.
+Trigonometric equations therefore typically possess infinitely many
+solutions, and the challenge shifts from finding a single value that works
+to describing the entire family of values that work. When solving an
+algebraic equation it is often enough to list the roots; when solving a
+trigonometric equation, the final answer is usually not a number but a
+description of a repeating structure.
+
+\section{The Simplest Equations}
+
+The natural place to begin is with an equation involving a single
+trigonometric function, such as $\sin\theta = a$. Chapter~7 introduced the
+inverse sine function and showed how to find an angle whose sine equals a
+specified value, giving $\theta = \arcsin(a)$; this angle is called the
+\emph{principal value}, the particular solution returned by the inverse
+function. It is rarely the complete answer. A horizontal line drawn across
+the unit circle generally intersects it at two points sharing the same
+vertical coordinate and therefore the same sine value, so
+$\sin(\pi/6) = \tfrac12$ but also $\sin(5\pi/6) = \tfrac12$; the inverse
+function returns only the first of these, while the geometry of the circle
+guarantees that a second one exists. The periodicity of sine then produces
+infinitely many further solutions, since adding any integer multiple of
+$2\pi$ leaves the sine value unchanged.
+
+\begin{theorem}
+Let $\alpha = \arcsin(a)$. Every solution of $\sin\theta = a$ is given by
+$\theta = \alpha + 2\pi k$ or $\theta = \pi - \alpha + 2\pi k$, for $k$ any
+integer.
+\end{theorem}
+
+This theorem is often memorized as a formula, but its content is simpler
+than it looks: the angle $\alpha$ names one point on the unit circle, and
+$\pi - \alpha$ names its mirror image across the vertical axis, a point
+with the same height and hence the same sine value; adding multiples of
+$2\pi$ simply repeats both positions on every subsequent revolution. The
+theorem formalizes the geometry of the circle rather than introducing
+anything beyond it.
+
+Cosine behaves similarly, though its symmetry runs the other way: equal
+cosine values arise from reflection across the horizontal axis rather than
+the vertical one. If $\alpha = \arccos(a)$, every solution of $\cos\theta =
+a$ can be written as $\theta = \pm\alpha + 2\pi k$. Tangent differs because
+its period is $\pi$ rather than $2\pi$, established in Chapter~6, so once a
+single solution $\arctan(a)$ is known, every other solution is obtained by
+adding integer multiples of $\pi$ alone: $\theta = \arctan(a) + \pi k$.
+
+\begin{example}
+Solve $\sin\theta = \tfrac12$ completely. The inverse sine function gives
+the principal solution $\theta = \arcsin(1/2) = \pi/6$, but this alone
+cannot be the whole story: the graph of sine shows that the value
+$\tfrac12$ occurs twice within a single cycle, at the reference angle and
+again at its Quadrant~II partner, $\theta = 5\pi/6$. Having found both
+solutions in one revolution, periodicity extends each into an infinite
+family:
+\[
+\theta = \frac{\pi}{6} + 2\pi k \qquad \text{or} \qquad \theta = \frac{5\pi}{6} + 2\pi k,
+\]
+for $k$ any integer. The pattern is worth naming explicitly, since nearly
+every equation in this chapter follows it: begin with an inverse function,
+use geometry to find any remaining solutions within one revolution, and use
+periodicity to generate the entire family from those.
+\end{example}
+
+\section{A General Strategy}
+
+The equations solved so far shared a convenient feature: the trigonometric
+function was already isolated. Many equations do not arrive in so
+convenient a form. The equation $2\sin\theta\cos\theta - \sin\theta = 0$,
+for instance, offers no immediate use for an inverse trigonometric
+function, since neither sine nor cosine has been isolated, and some
+algebraic work must be done before any geometric reasoning can begin. This
+observation is worth stating as a general principle: solving a
+trigonometric equation is a collaboration between algebra and geometry,
+where algebra simplifies the equation until its structure becomes visible
+and geometry then identifies the corresponding angles and their periodic
+repetitions. Neither approach is sufficient alone. The identity toolkit of
+Chapters~8 through 10 exists largely for this purpose --- not merely as a
+set of facts to be proved, but as a set of tools for rewriting an equation
+into a form whose solutions can be read off geometrically.
+
+\begin{algorithmproc}{How to Solve a Trigonometric Equation}
+Begin by treating the equation exactly as an algebraic equation: factor
+where possible, move all terms to one side, and look for common factors or
+useful substitutions. If the equation mixes more than one trigonometric
+function or more than one angle, apply an identity from Chapters~8 through
+10 to reduce it to a single function of a single angle. Once the equation
+involves only one trigonometric function, isolate that function and apply
+the appropriate inverse function together with the reference-angle and
+quadrant reasoning of Chapter~4 to find every solution within one
+revolution. Extend those solutions to the general solution using
+periodicity, then check any restricted domain and verify that no
+extraneous solutions were introduced by the algebraic steps along the way.
+\end{algorithmproc}
+
+\begin{example}
+Solve $2\sin\theta\cos\theta - \sin\theta = 0$. Factoring out the common
+factor $\sin\theta$ gives $\sin\theta(2\cos\theta - 1) = 0$, and since a
+product equals zero only when at least one factor does, either
+$\sin\theta = 0$ or $2\cos\theta - 1 = 0$. The original problem has become
+two simpler ones. The first, $\sin\theta = 0$, holds whenever the
+corresponding point lies on the horizontal axis of the unit circle, giving
+$\theta = k\pi$. The second, $\cos\theta = 1/2$, has reference angle
+$\pi/3$; since cosine is positive in Quadrants~I and IV,
+$\theta = \pm\pi/3 + 2\pi k$. Combining the two families gives the
+complete solution set. Notice how little trigonometry was needed once the
+factorization was found: the difficult step was algebraic, and the
+geometry that followed was routine.
+\end{example}
+
+\section{Quadratic Trigonometric Equations}
+
+Some trigonometric equations resemble polynomial equations even more
+closely. The equation $2\sin^2\theta - \sin\theta - 1 = 0$ involves only
+powers of a single trigonometric function, and looks remarkably like
+$2x^2 - x - 1 = 0$; this resemblance is not accidental. Whenever an
+equation involves only one trigonometric function and its powers,
+substitution converts the problem into an ordinary algebraic equation: set
+that quantity temporarily equal to a new variable, solve the resulting
+polynomial equation, and translate the roots back into trigonometric
+language once the algebra is finished.
+
+\begin{example}
+Solve $2\sin^2\theta - \sin\theta - 1 = 0$. Substituting $u = \sin\theta$
+gives the quadratic $2u^2 - u - 1 = 0$, which factors as
+$(2u+1)(u-1) = 0$, so $u = 1$ or $u = -\tfrac12$. Substituting back,
+$\sin\theta = 1$ or $\sin\theta = -\tfrac12$. The equation $\sin\theta = 1$
+corresponds to the top of the unit circle, giving $\theta = \pi/2 + 2\pi
+k$. The equation $\sin\theta = -\tfrac12$ has reference angle $\pi/6$; since
+the value is negative, the relevant quadrants are III and IV, giving
+$\theta = 7\pi/6 + 2\pi k$ and $\theta = 11\pi/6 + 2\pi k$. The complete
+solution consists of these three infinite families together. What matters
+about this example is not the particular answer but the pattern: many
+trigonometric equations are solved by temporarily converting them into
+algebraic equations, solving those, and translating the roots back into
+geometric language.
+\end{example}
+
+\section{Why the Identity Toolkit Was Necessary}
+
+A natural question arises at this point: why spend three chapters
+developing identities if factoring and substitution already solve so much?
+The answer is that many equations do not initially involve a single
+trigonometric function. The equation $\cos(2\theta) + \sin\theta = 0$
+contains two different trigonometric expressions, and neither factoring
+nor a direct inverse function is immediately useful against it; the
+obstacle is not the equation itself but its form, and Chapter~10 supplies
+exactly the tool needed to change that form.
+
+\begin{practicenow}
+Before reading the worked example below, try rewriting $\cos(2\theta) +
+\sin\theta = 0$ using the double-angle identity $\cos(2\theta) = 1 -
+2\sin^2\theta$, and see how far the substitution $u = \sin\theta$ takes
+you toward a solution.
+\end{practicenow}
+
+\begin{example}
+Solve $\cos(2\theta) + \sin\theta = 0$. Using
+$\cos(2\theta) = 1 - 2\sin^2\theta$ from Chapter~10, the equation becomes
+$1 - 2\sin^2\theta + \sin\theta = 0$, in which every term now involves
+sine alone: a mixed trigonometric expression has been transformed into a
+quadratic equation in disguise. Substituting $u = \sin\theta$ reduces it
+to $2u^2 - u - 1 = 0$, precisely the equation solved in the previous
+section, so the same solution families follow immediately once $u$ is
+translated back into $\sin\theta$.
+\end{example}
+
+This example captures the central purpose of the identity toolkit: an
+identity is not primarily an object of memorization but a transformation
+rule, valuable because it converts a difficult equation into one that can
+already be solved. Much of mathematics proceeds by replacing an unfamiliar
+problem with a familiar one, and the identities of Chapters~8 through 10
+are the machinery that makes such replacements possible here.
+
+\section{Extraneous Solutions and the Importance of Checking}
+
+Every transformation used so far --- factoring, substitution, applying an
+identity --- has relied on the assumption that the transformed equation has
+exactly the same solutions as the original one. That assumption is often
+correct, but not always. Certain algebraic operations can introduce
+solutions that were not present in the original problem, called
+\emph{extraneous solutions}: a value that genuinely solves a transformed
+equation but fails to solve the equation from which that transformed
+equation was derived. Because trigonometric equations often require
+substantial manipulation before becoming solvable, this deserves careful
+attention, and the safest habit is simple: every candidate solution should
+be checked in the original equation before being accepted.
+
+\begin{example}
+Consider $\sin\theta = \cos\theta$. Squaring both sides gives
+$\sin^2\theta = \cos^2\theta$, and using the Pythagorean identity,
+$\sin^2\theta = 1 - \sin^2\theta$, so $2\sin^2\theta = 1$ and $\sin\theta =
+\pm\sqrt2/2$. These values produce four candidate solutions in a full
+revolution. The original equation, however, is satisfied only when
+$\sin\theta$ and $\cos\theta$ share the same sign, so the angles lying in
+Quadrants~II and IV, where sine and cosine have opposite signs, must be
+discarded even though they satisfy the squared equation. Squaring
+introduced possibilities that were not present in the original statement,
+and the only reliable way to detect this is to substitute each candidate
+back into the equation as originally posed.
+\end{example}
+
+Checking a candidate solution is not a tedious final formality; it is part
+of the solution process itself. Some operations, such as factoring,
+preserve the solution set automatically as an equation is rewritten, but
+others --- squaring both sides, multiplying by an unknown quantity, or
+clearing a denominator --- can enlarge it. The resulting equation may be
+easier to solve, but it is no longer guaranteed to describe exactly the
+original situation, and checking is what restores that guarantee. For this
+reason a candidate solution is best regarded as provisional until it has
+actually been verified.
+
+\section{Solving on a Restricted Domain}
+
+The equations solved so far sought every solution, and the answers
+therefore involved an integer parameter $k \in \mathbb{Z}$, appropriate
+when the domain is understood to be all real numbers. Many applications
+instead specify a particular interval: an engineer may be interested only
+in the first cycle of an oscillation, a navigator may need a bearing
+between $0^\circ$ and $360^\circ$, or a problem may simply ask for
+solutions on $[0, 2\pi)$. The underlying mathematics is unchanged; only the
+final step differs, since the task becomes identifying which members of
+the general solution family lie inside the specified interval, producing a
+finite answer rather than an infinite one.
+
+\begin{example}
+Solve $\cos\theta = -\tfrac12$ for $0 \le \theta < 2\pi$. The reference
+angle is $\pi/3$, and since cosine is negative in Quadrants~II and III, the
+solutions within one revolution are $\theta = 2\pi/3$ and $\theta =
+4\pi/3$. Were the general solution requested, $2\pi k$ would be appended
+to each; the restricted domain instead says to stop here, so the complete
+answer is
+\[
+\boxed{\theta = \frac{2\pi}{3},\ \frac{4\pi}{3}.}
+\]
+\end{example}
+
+Restricted-domain problems are often easier to visualize geometrically than
+their general-solution counterparts: rather than imagining infinitely many
+revolutions around the circle, only one revolution needs to be pictured,
+with the sign of the relevant trigonometric function identifying the
+correct quadrants and the reference angle fixing the distance from the
+nearest axis. The periodic structure remains present in the background,
+but it is temporarily suppressed rather than eliminated.
+
+\section{Applications of Trigonometric Equations}
+
+The appearance of infinitely many solutions is not merely a mathematical
+curiosity; it reflects the behavior of physical systems that repeat.
+Suppose a tide reaches a particular height at noon: if the tidal cycle
+repeats, that height recurs later as well, so a single solution is not
+enough, and what matters is the entire sequence of times at which the
+event occurs. The same reasoning governs sound waves, alternating
+electrical current, planetary motion, and seasonal cycles. A model such as
+$h(t) = 4 + 2\sin t$ describes a quantity oscillating continuously, and
+asking when $h(t) = 5$ is asking for the times at which this graph
+intersects a horizontal line --- a trigonometric equation of exactly the
+kind this chapter has developed methods for. What began as geometry on the
+unit circle becomes, by this point, a working tool for analyzing recurring
+events throughout the natural world.
+
+\section{Looking Back and Looking Ahead}
+
+Part III has told a complete story. Chapter~8 began with rotations and
+showed that angle addition arises from the composition of transformations,
+leading to the sum and difference formulas. Chapter~9 showed that the unit
+circle imposes fundamental constraints on admissible trigonometric values,
+producing the Pythagorean identities and their consequences. Chapter~10
+showed that a large collection of seemingly independent formulas can be
+generated from that same small set of underlying principles. This chapter
+has finally put those principles to work: the identities developed earlier
+were not endpoints but tools, meant all along to transform equations into
+forms that could be solved. Seen as a whole, Part III has been an extended
+study of transformation --- rotations transformed points, identities
+transformed expressions, and algebraic substitutions transformed equations
+--- with the same goal recurring at every stage: replace a difficult object
+with an equivalent but more useful one.
+
+The next part of the book broadens its scope considerably. Trigonometry
+has so far lived primarily inside the unit circle and the right triangle;
+the chapters ahead move beyond that setting to study arbitrary triangles,
+vector geometry, alternative coordinate systems, and eventually complex
+numbers. The first question to ask is a simple one: what happens when the
+triangle is no longer right? The answer leads to two of the most important
+results in all of trigonometry, the Law of Sines and the Law of Cosines,
+which extend the ideas developed throughout this book to a far wider class
+of geometric problems and open Part IV.
+
+\section{Exercises}
+\begin{exercise}
+Solve $\sin\theta = \dfrac{\sqrt3}{2}$. Give the general solution.
+\end{exercise}
+
+\begin{exercise}
+Solve $\cos\theta = -\dfrac{\sqrt2}{2}$. Give the general solution.
+\end{exercise}
+
+\begin{exercise}
+Solve $\tan\theta = 1$. Give the general solution.
+\end{exercise}
+
+\begin{exercise}
+Solve $2\sin\theta - 1 = 0$. Give the general solution.
+\end{exercise}
+
+\begin{exercise}
+Solve $\sin\theta(2\cos\theta + 1) = 0$. Give the general solution.
+\end{exercise}
+
+\begin{exercise}
+Solve $2\sin^2\theta + \sin\theta - 1 = 0$. Give the general solution.
+\end{exercise}
+
+\begin{exercise}
+Solve $\cos(2\theta) - \cos\theta = 0$, using an identity to reduce the
+equation to a single function.
+\end{exercise}
+
+\begin{exercise}
+Solve $\sin\theta = \dfrac12$ on the interval $0 \le \theta < 2\pi$.
+\end{exercise}
+
+\begin{exercise}
+Explain why $\theta = \arcsin(a)$ is generally not the complete solution of
+$\sin\theta = a$.
+\end{exercise}
+
+\begin{exercise}
+A periodic signal is modeled by $V(t) = 5\sin t$. Find all times for which
+$V(t) = 5/2$, expressed as a general solution set.
+\end{exercise}

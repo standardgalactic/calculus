@@ -1,0 +1,663 @@
+\chapter{Complex Numbers and Euler's Formula}
+\label{ch:ch16-complex-euler}
+
+\section{Extending the Number System}
+
+Chapter~15 studied amplitwists, $A = sR(\theta)$, and found that they
+compose according to the rule $(s_1,\theta_1)\circ(s_2,\theta_2) =
+(s_1s_2,\theta_1+\theta_2)$, a rule that combines two different
+arithmetic operations, multiplication and addition, in a single formula.
+The purpose of this chapter is to show that an arithmetic answering to
+exactly this description already exists: complex numbers provide an
+algebraic language for amplitwists, and multiplying complex numbers turns
+out to perform exactly the same operation as composing amplitwists.
+Before that connection can be established, the number system itself must
+first be extended.
+
+The natural numbers arise from counting. The integers extend the natural
+numbers by introducing negative quantities, allowing subtraction to be
+performed universally. The rational numbers extend the integers by
+introducing fractions, allowing division by any nonzero number. The real
+numbers extend the rationals to accommodate measurement and continuity.
+Each extension solves equations that could not previously be solved: $x+3
+= 1$ has no solution among the natural numbers but has the integer
+solution $x = -2$; $2x = 1$ has no integer solution but has the rational
+solution $x = 1/2$; and the real numbers solve equations such as $x^2=2$,
+whose solutions are not themselves rational. A natural question therefore
+arises: does the equation $x^2+1=0$, which may be rewritten as $x^2=-1$,
+have any solution at all? No real number has a square equal to a negative
+quantity, so no real solution exists, and to solve this equation a new
+kind of number must be introduced.
+
+\section{The Imaginary Unit}
+
+\begin{definition}
+The \emph{imaginary unit} is the number $i$ satisfying $i^2 = -1$.
+\end{definition}
+
+\begin{historicalnote}{A Dismissive Name That Stuck}
+The word \emph{imaginary} was coined by Ren\'e Descartes, the same figure
+Chapter~2 credited with Cartesian coordinates, and he did not intend it
+as a compliment \cite{boyer1991}. In his 1637 \emph{La G\'eom\'etrie},
+Descartes used \emph{nombres imaginaires} to describe roots of equations
+that had no correspondence to any measurable length or quantity,
+essentially dismissing them as fictions useful for bookkeeping in an
+algebraic calculation but not real numbers in any meaningful sense. The
+name persisted long after mathematicians including Euler, Gauss, and
+others showed that these numbers had a perfectly concrete geometric
+meaning, as the points of a plane rather than points on a line, exactly
+the picture this chapter develops through the complex plane and Euler's
+formula. By the time the geometry was understood, the dismissive name
+had already become standard usage, and no replacement has displaced it
+since; the complex numbers of this chapter are, etymologically, still
+named after Descartes' doubt that they were real numbers at all.
+\end{historicalnote}
+
+This definition immediately produces a repeating pattern:
+\[
+i^1 = i, \qquad i^2 = -1, \qquad i^3 = i^2\cdot i = -i, \qquad i^4 =
+i^2\cdot i^2 = (-1)(-1) = 1.
+\]
+Continuing, $i^5 = i$ and $i^6 = -1$, and the cycle repeats indefinitely.
+
+\begin{theorem}
+The powers of $i$ repeat with period four.
+\end{theorem}
+
+\begin{proof}
+Since $i^4 = 1$, for any positive integer $n$ write $n = 4q+r$ with $0
+\le r < 4$; then $i^n = (i^4)^q i^r = 1^q i^r = i^r$, so $i^n$ depends
+only on the remainder of $n$ upon division by $4$.
+\end{proof}
+
+\begin{example}
+Compute $i^{23}$. Since $23 = 4(5)+3$, $i^{23} = (i^4)^5 i^3 = 1^5(-i) =
+-i$.
+\end{example}
+
+\section{Complex Numbers}
+
+\begin{definition}
+A \emph{complex number} is an expression of the form $z = a+bi$, where
+$a$ and $b$ are real numbers and $i$ is the imaginary unit.
+\end{definition}
+
+The number $a$ is called the \emph{real part} of $z$, written
+$\operatorname{Re}(z) = a$, and $b$ is called the \emph{imaginary part},
+written $\operatorname{Im}(z) = b$. Addition is performed componentwise,
+$(a+bi)+(c+di) = (a+c)+(b+d)i$, while multiplication follows the
+distributive law together with $i^2=-1$.
+
+\begin{example}
+Compute $(2+3i)(1+4i)$. Expanding gives $2+8i+3i+12i^2$; since $i^2=-1$,
+this becomes $2+11i-12 = -10+11i$.
+\end{example}
+
+The algebra looks unfamiliar at first, but the next section reveals its
+geometric meaning.
+
+\section{The Complex Plane}
+
+Complex numbers become much easier to understand once they are
+represented geometrically. Recall from Chapter~2 that every ordered pair
+$(a,b)$ corresponds to a point in the Cartesian plane; since every
+complex number has the form $z=a+bi$, it is natural to associate $z$ with
+the point $(a,b)$. This interpretation produces the \emph{complex plane},
+in which the horizontal axis represents real parts and the vertical axis
+represents imaginary parts:
+\[
+a+bi \longleftrightarrow (a,b).
+\]
+Thus $3+2i$ corresponds to the point $(3,2)$, while $-1+4i$ corresponds
+to $(-1,4)$. Because complex numbers correspond to points, their distance
+from the origin can be measured exactly as it was for vectors in
+Chapter~2.
+
+\begin{definition}
+The \emph{modulus} of a complex number $z=a+bi$ is $|z| = \sqrt{a^2+b^2}$,
+the length of the segment from the origin to the point representing $z$.
+\end{definition}
+
+\begin{example}
+Find the modulus of $z=3+4i$. Using the definition, $|z| =
+\sqrt{3^2+4^2} = \sqrt{25} = 5$, so $z$ lies five units from the origin.
+\end{example}
+
+This is exactly the distance formula introduced earlier in the text; no
+new geometry has been created, only familiar geometry reinterpreted in a
+new algebraic setting.
+
+\section{Multiplication as Transformation}
+
+Addition of complex numbers behaves much like vector addition.
+Multiplication behaves differently, and to investigate its geometric
+meaning, consider multiplying by $i$. For $z=a+bi$,
+\[
+iz = i(a+bi) = ai + bi^2 = -b+ai,
+\]
+so in coordinate form $(a,b) \mapsto (-b,a)$.
+
+\begin{example}
+The complex number $1$ corresponds to $(1,0)$. Multiplying by $i$ gives
+$i$, corresponding to $(0,1)$: the point has rotated through $90^\circ$.
+\end{example}
+
+\begin{example}
+The complex number $2+i$ corresponds to $(2,1)$. Multiplying by $i$ gives
+$-1+2i$, corresponding to $(-1,2)$: again the point has rotated through
+$90^\circ$.
+\end{example}
+
+\begin{theorem}
+Multiplication by $i$ rotates every point in the complex plane through
+$90^\circ$ counterclockwise.
+\end{theorem}
+
+\begin{proof}
+Multiplication by $i$ sends $(a,b) \mapsto (-b,a)$. From Chapter~8, the
+rotation matrix
+\[
+R(90^\circ) = \begin{pmatrix} 0 & -1\\ 1 & 0 \end{pmatrix}
+\]
+produces exactly the same transformation, since $\begin{pmatrix} 0 &
+-1\\ 1 & 0 \end{pmatrix}\begin{pmatrix} a\\ b \end{pmatrix} =
+\begin{pmatrix} -b\\ a \end{pmatrix}$. Therefore multiplication by $i$ is
+a rotation through $90^\circ$.
+\end{proof}
+
+This discovery is remarkable: multiplication is no longer merely
+arithmetic, but has become geometry. Multiplication by $-1$ sends
+$(a,b)\mapsto(-a,-b)$, a rotation through $180^\circ$; multiplication by
+$2i$ rotates through $90^\circ$ and doubles all distances from the
+origin; and multiplication by $1+i$ appears to rotate and scale
+simultaneously. A pattern is emerging: multiplication seems to combine
+scaling and rotation into a single operation. But scaling and rotation
+combined were precisely the amplitwists of Chapter~15, and the next
+section makes this connection exact.
+
+\section{Polar Form}
+
+Chapter~14 introduced polar coordinates: every point in the plane may be
+described by a distance $r$ from the origin and an angle $\theta$
+measured from the positive $x$-axis, related by $x = r\cos\theta$ and $y
+= r\sin\theta$. Substituting these into $z = x+iy$ gives
+\[
+z = r\cos\theta + ir\sin\theta,
+\]
+and factoring out $r$,
+\[
+z = r(\cos\theta + i\sin\theta).
+\]
+
+\begin{definition}
+The expression $z = r(\cos\theta+i\sin\theta)$ is called the \emph{polar
+form} of $z$, where $r = |z|$ is the modulus and $\theta$ is the angle
+made with the positive real axis.
+\end{definition}
+
+\begin{example}
+Convert $1+i$ to polar form. The modulus is $r = \sqrt{1^2+1^2} =
+\sqrt2$, and since the point lies on the line $y=x$ in the first
+quadrant, $\theta = 45^\circ$. Therefore $1+i = \sqrt2(\cos45^\circ +
+i\sin45^\circ)$.
+\end{example}
+
+Whereas rectangular form is ideal for addition and subtraction, polar
+form reveals the geometric meaning of multiplication, as the next section
+shows.
+
+\section{Multiplication in Polar Form}
+
+The connection between complex numbers and amplitwists is revealed by
+multiplying two complex numbers written in polar form. Let $z_1 =
+r_1(\cos\theta_1+i\sin\theta_1)$ and $z_2 =
+r_2(\cos\theta_2+i\sin\theta_2)$. Multiplying gives
+\[
+z_1z_2 = r_1r_2(\cos\theta_1+i\sin\theta_1)(\cos\theta_2+i\sin\theta_2),
+\]
+and expanding the product,
+\[
+z_1z_2 = r_1r_2\Big[(\cos\theta_1\cos\theta_2 - \sin\theta_1\sin\theta_2)
++ i(\sin\theta_1\cos\theta_2 + \cos\theta_1\sin\theta_2)\Big].
+\]
+The real part contains $\cos\theta_1\cos\theta_2 -
+\sin\theta_1\sin\theta_2$, which Chapter~8 identified as
+$\cos(\theta_1+\theta_2)$, while the imaginary part contains
+$\sin\theta_1\cos\theta_2 + \cos\theta_1\sin\theta_2 =
+\sin(\theta_1+\theta_2)$. Substituting these identities yields the
+central theorem of the chapter.
+
+\begin{theorem}
+If $z_1 = r_1(\cos\theta_1+i\sin\theta_1)$ and $z_2 =
+r_2(\cos\theta_2+i\sin\theta_2)$, then
+\[
+z_1z_2 = r_1r_2\Big(\cos(\theta_1+\theta_2) + i\sin(\theta_1+\theta_2)\Big).
+\]
+\end{theorem}
+
+\begin{corollary}
+When complex numbers are multiplied, moduli multiply and angles add.
+\end{corollary}
+
+This is exactly the composition law of Chapter~15. Beside the amplitwist
+rule $(s_1,\theta_1)\circ(s_2,\theta_2) = (s_1s_2,\theta_1+\theta_2)$,
+place the multiplication theorem just proved, $(r_1,\theta_1)\cdot(r_2,
+\theta_2) = (r_1r_2,\theta_1+\theta_2)$: the two rules are identical.
+Complex multiplication is amplitwist composition. Every nonzero complex
+number determines an amplitwist, and multiplying complex numbers
+composes the corresponding transformations; the geometry of Chapter~15
+and the algebra of this chapter describe the same mathematical structure.
+
+\begin{example}
+Multiply $2(\cos30^\circ+i\sin30^\circ)$ and
+$3(\cos40^\circ+i\sin40^\circ)$. The theorem gives $z_1z_2 =
+6(\cos70^\circ+i\sin70^\circ)$: the modulus has become $2\cdot3=6$, while
+the angle has become $30^\circ+40^\circ=70^\circ$.
+\end{example}
+
+\section{Euler's Formula}
+
+The expression $\cos\theta+i\sin\theta$ occurs so frequently that a
+special notation is introduced for it.
+
+\begin{definition}[Euler's Formula]
+For every real number $\theta$, $e^{i\theta} = \cos\theta+i\sin\theta$.
+\end{definition}
+
+Using this notation, a complex number in polar form becomes $z =
+re^{i\theta}$, and the multiplication theorem of the previous section
+takes its simplest possible form:
+\[
+e^{i\theta_1}e^{i\theta_2} = e^{i(\theta_1+\theta_2)}, \qquad\text{so
+that}\qquad (re^{i\theta})(se^{i\phi}) = rse^{i(\theta+\phi)}.
+\]
+Angle addition has become ordinary exponent addition. This chapter treats
+Euler's formula as a definition motivated by the compactness it lends to
+the multiplication law already proved; a derivation of the same formula
+from the power series for $e^x$, $\sin x$, and $\cos x$ belongs to a
+calculus course and is not needed here to use the formula correctly.
+Instead of carrying trigonometric expressions through every calculation,
+this notation allows complex arithmetic to be handled directly through
+exponentials, with multiplication automatically scaling by $rs$ and
+rotating by $\theta+\phi$ in a single step.
+
+\section{Euler's Identity}
+
+A celebrated special case occurs when $\theta = \pi$. Substituting into
+Euler's formula gives $e^{i\pi} = \cos\pi + i\sin\pi$, and since $\cos\pi
+= -1$ and $\sin\pi = 0$, this becomes $e^{i\pi} = -1$, or equivalently:
+
+\begin{theorem}[Euler's Identity]
+$e^{i\pi} + 1 = 0$.
+\end{theorem}
+
+This equation connects five of the most important constants in
+mathematics --- $0$, $1$, $\pi$, $e$, and $i$ --- in a single relation,
+and is often regarded as one of the most elegant formulas in mathematics
+for exactly that reason.
+
+\section{Repeated Multiplication and De Moivre's Theorem}
+
+Chapter~15 showed that repeated amplitwist composition satisfies $A^n =
+s^nR(n\theta)$. Complex numbers obey an identical law. Let $z =
+re^{i\theta}$; then $z^2 = (re^{i\theta})(re^{i\theta}) = r^2e^{i2\theta}$,
+and similarly $z^3 = r^3e^{i3\theta}$, suggesting the general formula $z^n
+= r^ne^{in\theta}$.
+
+\begin{theorem}[De Moivre's Theorem]
+For every positive integer $n$, $(re^{i\theta})^n = r^ne^{in\theta}$.
+Equivalently, $(\cos\theta+i\sin\theta)^n = \cos(n\theta)+i\sin(n\theta)$.
+\end{theorem}
+
+\begin{proof}
+Using the multiplication law for complex numbers in polar form
+repeatedly, each additional factor of $re^{i\theta}$ contributes one more
+factor of $r$ to the modulus and adds one more $\theta$ to the angle:
+$(re^{i\theta})^2 = r^2e^{i2\theta}$, $(re^{i\theta})^3 = r^3e^{i3\theta}$,
+and continuing this process $n$ times yields $(re^{i\theta})^n =
+r^ne^{in\theta}$. Setting $r=1$ and applying Euler's formula gives
+$(e^{i\theta})^n = e^{in\theta}$, which is
+$(\cos\theta+i\sin\theta)^n = \cos(n\theta)+i\sin(n\theta)$.
+\end{proof}
+
+The similarity to Chapter~15 is striking: $A^n = s^nR(n\theta)$ and
+$(re^{i\theta})^n = r^ne^{in\theta}$ are the same statement written in
+two different languages, the first describing repeated amplitwist
+composition geometrically and the second describing repeated complex
+multiplication algebraically.
+
+\begin{example}
+Compute $(\cos30^\circ+i\sin30^\circ)^6$. By De Moivre's theorem, this
+equals $\cos(180^\circ)+i\sin(180^\circ)$; since $\cos180^\circ=-1$ and
+$\sin180^\circ=0$, the value is $-1$.
+\end{example}
+
+\begin{algorithmproc}{How to Compute Powers Using Euler's Formula}
+Write the complex number in polar form $z = re^{i\theta}$, apply De
+Moivre's theorem to obtain $z^n = r^ne^{in\theta}$ by raising the modulus
+$r$ to the $n$-th power and multiplying the angle $\theta$ by $n$, and
+convert the result back to rectangular form if required.
+\end{algorithmproc}
+
+\begin{practicenow}
+Compute $\left(2(\cos45^\circ+i\sin45^\circ)\right)^4$.
+\end{practicenow}
+
+\section{Roots of Unity}
+
+The equation $z^n=1$ asks for all complex numbers whose $n$-th power
+equals $1$. Using polar form, write $1 = e^{i2\pi k}$ for any integer
+$k$, and let $z = re^{i\theta}$, so that $z^n = r^ne^{in\theta}$. Setting
+this equal to $e^{i2\pi k}$ requires equal moduli and equal angles, so
+$r^n=1$, giving $r=1$, and $n\theta = 2\pi k$, giving $\theta = 2\pi
+k/n$.
+
+\begin{theorem}
+The solutions of $z^n=1$ are $z_k = e^{2\pi ik/n}$ for $k = 0, 1, 2,
+\dots, n-1$, called the \emph{$n$-th roots of unity}.
+\end{theorem}
+
+Each root lies on the unit circle, and successive roots differ by a
+rotation through $2\pi/n$, so the roots form the vertices of a regular
+$n$-gon.
+
+\begin{example}
+Find the cube roots of unity. Here $n=3$, so $z_k = e^{2\pi ik/3}$. For
+$k=0$, $z_0=1$. For $k=1$, $z_1 = \cos120^\circ+i\sin120^\circ =
+-\tfrac12+\tfrac{\sqrt3}{2}i$. For $k=2$, $z_2 = \cos240^\circ +
+i\sin240^\circ = -\tfrac12-\tfrac{\sqrt3}{2}i$. These three points form
+an equilateral triangle on the unit circle.
+\end{example}
+
+From the amplitwist viewpoint, the roots of unity are equally
+remarkable: each root represents a rotation which, applied repeatedly $n$
+times, returns exactly to the starting position.
+
+\section{Applications}
+
+Complex numbers appear throughout mathematics, science, and engineering.
+In electrical engineering, alternating-current circuits are often
+described using complex numbers whose moduli represent amplitudes and
+whose angles represent phase shifts. In signal processing, oscillations
+are represented by rotating complex numbers called \emph{phasors}, and
+complex multiplication allows amplitude and phase changes to be handled
+simultaneously. In computer graphics, rotations and scalings can be
+performed through complex multiplication, making many geometric
+calculations more efficient. In physics, wave phenomena are frequently
+modeled using expressions involving Euler's formula, since oscillatory
+motion can be represented compactly by complex exponentials. Although
+these applications may appear different on the surface, they all exploit
+the same fact established in this chapter: complex multiplication
+combines scaling and rotation into a single operation.
+
+\section{Looking Ahead}
+
+This chapter has shown that the amplitwists of Chapter~15 and the
+complex numbers of this chapter describe the same mathematical
+structure: a complex number written as $re^{i\theta}$ represents an
+amplitwist with amplitude $r$ and angle $\theta$, and multiplication
+obeys the familiar law $(re^{i\theta})(se^{i\phi}) =
+rse^{i(\theta+\phi)}$. Geometry has become algebra. The next chapter
+begins a new phase of the book, moving from geometric transformations to
+analytical questions involving limits and rates of change. Its first goal
+is to establish the fundamental limit $\lim_{\theta\to0} \sin\theta/\theta
+= 1$, which leads directly to the derivatives of the sine and cosine
+functions and forms the bridge from trigonometry to calculus.
+
+\section{Exercises}
+
+\subsection*{Basic Computations}
+\begin{exercise}
+Compute $i^7$.
+\end{exercise}
+\begin{exercise}
+Compute $i^{50}$.
+\end{exercise}
+\begin{exercise}
+Simplify $(3+2i)+(4-5i)$.
+\end{exercise}
+\begin{exercise}
+Simplify $(2+3i)(1-2i)$.
+\end{exercise}
+\begin{exercise}
+Find the modulus of $3+4i$.
+\end{exercise}
+
+\subsection*{The Complex Plane}
+\begin{exercise}
+Plot the complex number $2+3i$.
+\end{exercise}
+\begin{exercise}
+Plot the complex number $-4+i$.
+\end{exercise}
+\begin{exercise}
+Plot the complex number $-2-2i$, and describe its position relative to
+the axes.
+\end{exercise}
+\begin{exercise}
+Explain how the complex plane extends the Cartesian plane introduced in
+Chapter~2.
+\end{exercise}
+
+\subsection*{Multiplication and Geometry}
+\begin{exercise}
+Verify that multiplication by $i$ sends $(a,b)$ to $(-b,a)$.
+\end{exercise}
+\begin{exercise}
+Determine the image of $3+i$ under multiplication by $i$.
+\end{exercise}
+\begin{exercise}
+Determine the image of $2-4i$ under multiplication by $i$.
+\end{exercise}
+\begin{exercise}
+Describe geometrically the effect of multiplication by $-1$.
+\end{exercise}
+\begin{exercise}
+Explain why multiplication by $i$ represents a rotation rather than a
+translation.
+\end{exercise}
+
+\subsection*{Polar Form}
+\begin{exercise}
+Convert $1+i$ to polar form.
+\end{exercise}
+\begin{exercise}
+Convert $-1+i$ to polar form.
+\end{exercise}
+\begin{exercise}
+Convert $2(\cos60^\circ+i\sin60^\circ)$ to rectangular form.
+\end{exercise}
+\begin{exercise}
+Convert $3(\cos150^\circ+i\sin150^\circ)$ to rectangular form.
+\end{exercise}
+\begin{exercise}
+Explain why polar form is especially useful for multiplication.
+\end{exercise}
+
+\subsection*{Euler's Formula and De Moivre's Theorem}
+\begin{exercise}
+Use Euler's formula to evaluate $e^{i0}$.
+\end{exercise}
+\begin{exercise}
+Use Euler's formula to evaluate $e^{i\pi/2}$.
+\end{exercise}
+\begin{exercise}
+Use Euler's formula to evaluate $e^{i\pi}$.
+\end{exercise}
+\begin{exercise}
+Use Euler's formula to evaluate $e^{i3\pi/2}$.
+\end{exercise}
+\begin{exercise}
+Use Euler's formula to evaluate $e^{i2\pi}$.
+\end{exercise}
+\begin{exercise}
+Compute $(\cos30^\circ+i\sin30^\circ)^2$.
+\end{exercise}
+\begin{exercise}
+Compute $(\cos45^\circ+i\sin45^\circ)^4$.
+\end{exercise}
+\begin{exercise}
+Compute $(\cos60^\circ+i\sin60^\circ)^3$.
+\end{exercise}
+\begin{exercise}
+Compute $\left(2(\cos30^\circ+i\sin30^\circ)\right)^3$.
+\end{exercise}
+\begin{exercise}
+Compute $\left(3(\cos20^\circ+i\sin20^\circ)\right)^4$.
+\end{exercise}
+\begin{exercise}
+Express $(\cos\theta+i\sin\theta)^5$ using De Moivre's theorem.
+\end{exercise}
+\begin{exercise}
+Explain geometrically why De Moivre's theorem multiplies angles by $n$.
+\end{exercise}
+
+\subsection*{Roots of Unity}
+\begin{exercise}
+Find all solutions of $z^2=1$.
+\end{exercise}
+\begin{exercise}
+Find all solutions of $z^3=1$.
+\end{exercise}
+\begin{exercise}
+Find all solutions of $z^4=1$.
+\end{exercise}
+\begin{exercise}
+Find all solutions of $z^6=1$.
+\end{exercise}
+\begin{exercise}
+Sketch the fourth roots of unity on the complex plane.
+\end{exercise}
+\begin{exercise}
+Sketch the sixth roots of unity on the complex plane.
+\end{exercise}
+\begin{exercise}
+Show that the cube roots of unity form an equilateral triangle.
+\end{exercise}
+\begin{exercise}
+Show that the fourth roots of unity form a square.
+\end{exercise}
+\begin{exercise}
+Determine the angle separating adjacent eighth roots of unity.
+\end{exercise}
+\begin{exercise}
+Explain why the $n$-th roots of unity always form a regular polygon.
+\end{exercise}
+
+\subsection*{Connections with Amplitwists}
+\begin{exercise}
+Write the complex number $2e^{i45^\circ}$ in rectangular form.
+\end{exercise}
+\begin{exercise}
+Write the complex number $3e^{i120^\circ}$ in rectangular form.
+\end{exercise}
+\begin{exercise}
+Multiply $2e^{i30^\circ}$ and $3e^{i40^\circ}$.
+\end{exercise}
+\begin{exercise}
+Show that multiplying by $e^{i\theta}$ leaves the modulus of a complex
+number unchanged.
+\end{exercise}
+\begin{exercise}
+Show that multiplying by $re^{i0}$ scales a complex number without
+changing its angle.
+\end{exercise}
+\begin{exercise}
+Explain why $(re^{i\theta})(se^{i\phi}) = rse^{i(\theta+\phi)}$ is the
+amplitwist composition law of Chapter~15 written algebraically.
+\end{exercise}
+\begin{exercise}
+Describe geometrically the transformation represented by multiplication
+by $1+i$.
+\end{exercise}
+\begin{exercise}
+Determine the modulus and angle of $1+i$.
+\end{exercise}
+\begin{exercise}
+Show that every nonzero complex number determines a unique amplitwist.
+\end{exercise}
+\begin{exercise}
+Explain why Chapter~15 can be viewed as a geometric introduction to
+complex multiplication.
+\end{exercise}
+
+\subsection*{Proofs and Theory}
+\begin{exercise}
+Prove that the powers of $i$ repeat with period four.
+\end{exercise}
+\begin{exercise}
+Prove that the product of two nonzero complex numbers is nonzero.
+\end{exercise}
+\begin{exercise}
+Show that multiplication by $i$ preserves distance from the origin.
+\end{exercise}
+\begin{exercise}
+Prove that multiplication by $i$ represents a $90^\circ$ rotation.
+\end{exercise}
+\begin{exercise}
+Prove De Moivre's theorem by mathematical induction.
+\end{exercise}
+\begin{exercise}
+Show directly from Euler's formula that $e^{i\theta_1}e^{i\theta_2} =
+e^{i(\theta_1+\theta_2)}$.
+\end{exercise}
+\begin{exercise}
+Show that every nonzero complex number can be written in polar form.
+\end{exercise}
+\begin{exercise}
+Show that the modulus of a product satisfies $|z_1z_2| = |z_1||z_2|$.
+\end{exercise}
+\begin{exercise}
+Show that the angle of a product equals the sum of the angles of the
+factors.
+\end{exercise}
+\begin{exercise}
+Explain why complex multiplication naturally combines scaling and
+rotation.
+\end{exercise}
+
+\subsection*{Challenge Problems}
+\begin{exercise}
+Determine all solutions of $z^5=1$.
+\end{exercise}
+\begin{exercise}
+Determine all solutions of $z^8=1$.
+\end{exercise}
+\begin{exercise}
+Show that the product of all $n$-th roots of unity is $(-1)^{n+1}$.
+\end{exercise}
+\begin{exercise}
+Suppose $z=e^{i\theta}$ is an $n$-th root of unity with $z\neq1$. Show
+that $1+z+z^2+\cdots+z^{n-1}=0$.
+\end{exercise}
+\begin{exercise}
+Prove that the $n$-th roots of unity form a group under multiplication.
+\end{exercise}
+\begin{exercise}
+Show that repeated multiplication by a complex number of modulus $1$
+traces points on a circle.
+\end{exercise}
+\begin{exercise}
+Let $z=re^{i\theta}$. Determine all values of $r$ and $\theta$ for which
+$z^2=1$.
+\end{exercise}
+\begin{exercise}
+Determine all values of $z$ satisfying $z^3=1$, expressing each in both
+polar and rectangular form.
+\end{exercise}
+\begin{exercise}
+Show that complex multiplication is commutative by using the amplitwist
+interpretation.
+\end{exercise}
+\begin{exercise}
+Chapter~15 showed that every orientation-preserving similarity
+transformation fixing the origin can be written uniquely as $A =
+sR(\theta)$. Restate this result in the language of complex numbers, and
+explain what it implies about every nonzero complex number.
+\end{exercise}
+\begin{exercise}
+Chapter~15 described amplitwists geometrically, and this chapter
+described complex numbers algebraically. Explain in detail why these are
+not two different theories but two descriptions of the same mathematical
+structure.
+\end{exercise}

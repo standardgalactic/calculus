@@ -1,0 +1,238 @@
+\chapter{Inverse Trigonometric Functions}
+\label{ch:ch07-inverse-functions}
+
+\section{Why Ordinary Inverses Fail}
+
+The previous chapter closed on a difficulty worth stating plainly: the
+equation $\sin\theta = \tfrac12$ does not have a single solution, since
+$\theta = \pi/6, 5\pi/6, 13\pi/6, 17\pi/6, \dots$ all satisfy it. If several
+different inputs produce the same output, no inverse function can determine
+which input was originally intended, and sine, as a result, cannot be
+reversed uniquely across its full domain. The remedy is simple in
+principle: rather than working with the entire graph of sine, a portion of
+it is chosen on which every output occurs exactly once, and the inverse is
+defined only on that restricted portion.
+
+\section{One-to-One Functions and Invertibility}
+
+\begin{definition}
+A function $f$ is \emph{one-to-one} if different inputs always produce
+different outputs; equivalently, $f(a) = f(b)$ implies $a = b$. A function
+has an inverse if and only if it is one-to-one on its domain.
+\end{definition}
+
+Sine fails to be one-to-one on all of $\mathbb{R}$, since for instance
+$\sin(\pi/6) = \sin(5\pi/6) = \tfrac12$, and consequently sine has no
+inverse on its full domain. If the domain is restricted to
+$\left[-\pi/2, \pi/2\right]$, however, every output value between $-1$ and
+$1$ occurs exactly once, and on that interval sine becomes invertible.
+
+\section{Restricting the Domain of Sine}
+
+\begin{theorem}
+The sine function is one-to-one on $\left[-\pi/2, \pi/2\right]$.
+\end{theorem}
+
+\begin{proof}
+As $\theta$ moves from $-\pi/2$ to $\pi/2$, the corresponding point on the
+unit circle moves continuously from $(0,-1)$ to $(0,1)$, and its vertical
+coordinate increases strictly throughout this motion. Since sine measures
+the vertical coordinate, distinct angles in this interval produce distinct
+sine values, so sine is one-to-one there.
+\end{proof}
+
+\section{The Arcsine Function}
+
+Because sine is one-to-one on this restricted domain, it has an inverse
+defined there.
+
+\begin{definition}
+The \emph{arcsine} function is defined by $\arcsin x = \theta$ if and only
+if $\sin\theta = x$ and $-\pi/2 \le \theta \le \pi/2$. Its domain is
+$[-1,1]$ and its range is $\left[-\pi/2, \pi/2\right]$.
+\end{definition}
+
+Thus $\arcsin(0) = 0$, $\arcsin(1) = \pi/2$, and $\arcsin(1/2) = \pi/6$.
+The last of these deserves emphasis: although many angles have sine equal
+to $1/2$, arcsine always returns the unique one of them lying in its
+restricted range.
+
+\section{Arccosine and Arctangent}
+
+The same idea extends to cosine and tangent, each restricted to whichever
+interval makes it one-to-one.
+
+\begin{definition}
+Cosine is one-to-one on $[0,\pi]$, and $\arccos x = \theta$ means
+$\cos\theta = x$ with $0 \le \theta \le \pi$.
+\end{definition}
+
+Hence $\arccos(1) = 0$, $\arccos(0) = \pi/2$, and $\arccos(-1) = \pi$.
+
+\begin{definition}
+Tangent is one-to-one on $\left(-\pi/2, \pi/2\right)$, and $\arctan x =
+\theta$ means $\tan\theta = x$ with $-\pi/2 < \theta < \pi/2$.
+\end{definition}
+
+Hence $\arctan(0) = 0$, $\arctan(1) = \pi/4$, and $\arctan(-1) = -\pi/4$.
+None of these three intervals was chosen arbitrarily: each is a maximal
+interval on which its function is monotonic and therefore one-to-one.
+Restricting the domain further than necessary would discard values that
+could otherwise be recovered, while enlarging it even slightly would
+destroy invertibility by reintroducing repeated outputs.
+
+\section{Composition Identities}
+
+Inverse functions obey a pair of composition rules, and the two directions
+of composition behave quite differently from one another.
+
+\begin{theorem}
+For every $x \in [-1,1]$, $\sin(\arcsin x) = x$.
+\end{theorem}
+
+\begin{proof}
+By definition, $\arcsin x$ is the angle whose sine equals $x$; applying
+sine to it simply recovers that value, $x$.
+\end{proof}
+
+The analogous statements $\cos(\arccos x) = x$ and $\tan(\arctan x) = x$
+hold for the same reason. The reverse composition, however, is far more
+delicate.
+
+\begin{theorem}
+$\arcsin(\sin\theta) = \theta$ holds only when $-\pi/2 \le \theta \le
+\pi/2$.
+\end{theorem}
+
+\begin{proof}
+By definition, $\arcsin$ must return a value lying in its restricted range
+$\left[-\pi/2,\pi/2\right]$. If $\theta$ already lies in that range, the
+returned value is $\theta$ itself. If $\theta$ lies outside that range,
+$\arcsin(\sin\theta)$ instead returns whichever angle inside
+$\left[-\pi/2,\pi/2\right]$ shares the same sine value as $\theta$, which is
+a different number from $\theta$ whenever $\theta$ itself lies outside that
+interval.
+\end{proof}
+
+This asymmetry between the two composition directions is one of the most
+common sources of error in trigonometry, precisely because the forward
+composition $\sin(\arcsin x) = x$ always holds while the reverse
+composition does not, and it is worth working through carefully before
+relying on either.
+
+\begin{example}
+Evaluate $\arcsin\left(\sin\dfrac{3\pi}{4}\right)$. First, $\sin(3\pi/4) =
+\sqrt2/2$. The angle in $\left[-\pi/2,\pi/2\right]$ whose sine equals
+$\sqrt2/2$ is $\pi/4$, so
+\[
+\arcsin\left(\sin\frac{3\pi}{4}\right) = \frac{\pi}{4},
+\]
+not $3\pi/4$: the inverse function is required to return a value inside its
+restricted range, regardless of what angle originally produced the sine
+value inside the parentheses.
+\end{example}
+
+\begin{algorithmproc}{How to Evaluate an Inverse Trigonometric Expression}
+Identify which inverse function is involved and recall its restricted
+output range. If the expression contains an inner trigonometric function
+applied to an angle, compute that inner value first, then find the unique
+angle in the restricted range that produces it. Before concluding, check
+explicitly whether a composition identity is being applied, and never
+assume $\arcsin(\sin\theta) = \theta$, or the analogous statement for cosine
+or tangent, without first verifying that $\theta$ already lies in the
+permitted range.
+\end{algorithmproc}
+
+\begin{practicenow}
+Evaluate $\arccos\left(\cos\dfrac{5\pi}{4}\right)$.
+\end{practicenow}
+
+\section{Finding Angles from Ratios}
+
+Inverse trigonometric functions allow an unknown angle to be solved for
+directly rather than estimated. If $\tan\theta = 7/4$, applying $\arctan$
+to both sides gives $\theta = \arctan(7/4)$, which a calculator evaluates
+to approximately $1.052$ radians, or $60.3^\circ$. This formalizes, with a
+precise definition behind it, the process first used informally in
+Chapter~3 to recover an unknown angle from a known ratio of sides.
+
+\section{Right-Triangle Interpretation}
+
+An inverse trigonometric expression can also be read geometrically. Suppose
+$\theta = \arcsin(3/5)$, so that $\sin\theta = 3/5$. Interpreting this
+ratio as $\text{opposite}/\text{hypotenuse} = 3/5$ suggests a right
+triangle with sides $3$, $4$, $5$, from which the remaining ratios follow
+at once: $\cos\theta = 4/5$ and $\tan\theta = 3/4$. This construction turns
+a single inverse trigonometric expression into a complete right triangle,
+from which every other trigonometric quantity associated with $\theta$ can
+be read off directly, without ever computing $\theta$ itself numerically.
+
+\section{Applications}
+
+Inverse trigonometric functions arise whenever an angle must be recovered
+from geometric information already in hand: determining a ship's bearing
+from coordinate data, computing an angle of elevation, analyzing forces in
+engineering, recovering a direction from vector components, and solving
+problems in navigation and surveying all rely on them. Together with the
+trigonometric functions themselves, they complete a cycle running from
+angle to ratio and back to angle again, closing the loop that Chapter~3
+opened.
+
+\section{Looking Ahead}
+
+Inverse trigonometric functions solve equations of the simple forms
+$\sin\theta = a$, $\cos\theta = a$, and $\tan\theta = a$. Many equations
+that arise in practice are considerably more complicated, involving
+products, powers, multiple angles, or several trigonometric functions at
+once, and such equations cannot be solved systematically until a richer
+collection of identities is available. The next several chapters develop
+the geometry of rotation and the algebra of trigonometric identities that
+this richer toolkit requires, after which Chapter~11 returns to the problem
+of solving general trigonometric equations with the full apparatus in
+place.
+
+\section{Exercises}
+\begin{exercise}
+Evaluate $\arcsin\left(\dfrac{\sqrt3}{2}\right)$.
+\end{exercise}
+
+\begin{exercise}
+Evaluate $\arccos\left(-\dfrac12\right)$.
+\end{exercise}
+
+\begin{exercise}
+Evaluate $\arctan(1)$.
+\end{exercise}
+
+\begin{exercise}
+Evaluate $\arcsin\left(\sin\dfrac{5\pi}{6}\right)$.
+\end{exercise}
+
+\begin{exercise}
+Evaluate $\arccos\left(\cos\dfrac{7\pi}{6}\right)$.
+\end{exercise}
+
+\begin{exercise}
+Find $\theta = \arctan\left(\dfrac53\right)$ to the nearest tenth of a
+degree.
+\end{exercise}
+
+\begin{exercise}
+If $\theta = \arcsin\left(\dfrac{8}{17}\right)$, find $\cos\theta$ and
+$\tan\theta$.
+\end{exercise}
+
+\begin{exercise}
+Explain why $\sin(\arcsin x) = x$ holds for every $x \in [-1,1]$, but
+$\arcsin(\sin\theta) = \theta$ does not hold for every $\theta$.
+\end{exercise}
+
+\begin{exercise}
+Construct a right triangle corresponding to $\theta = \arccos\left(\dfrac{12}{13}\right)$,
+and use it to determine $\sin\theta$ and $\tan\theta$.
+\end{exercise}
+
+\begin{exercise}
+A surveyor measures the ratio $\text{height}/\text{horizontal distance} =
+0.65$. Find the angle of elevation.
+\end{exercise}

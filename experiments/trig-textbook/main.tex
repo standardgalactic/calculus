@@ -1,0 +1,236 @@
+\documentclass[11pt,twoside]{book}
+
+% ============================================================
+% ENGINE: LuaLaTeX (fallback: XeLaTeX). Kept engine-agnostic via fontspec.
+% Compile twice for cross-references / TOC.
+% ============================================================
+
+\usepackage{fontspec}
+\usepackage{unicode-math}
+
+\setmainfont{TeX Gyre Pagella}
+\setmathfont{TeX Gyre Pagella Math}
+
+\usepackage[a4paper,margin=1in,marginparwidth=1.5cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{angles,quotes,arrows.meta,calc,intersections}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+% ------------------------------------------------------------
+% Theorem-like environments
+% ------------------------------------------------------------
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% ------------------------------------------------------------
+% Exercise environment — boxed and numbered, not an itemized list.
+% ------------------------------------------------------------
+\newtcolorbox{exercisebox}{
+  breakable, enhanced, colback=white, colframe=black!60,
+  boxrule=0.4pt, arc=1pt, left=6pt, right=6pt, top=4pt, bottom=4pt
+}
+\newcounter{exercise}[chapter]
+\newenvironment{exercise}
+  {\refstepcounter{exercise}\begin{exercisebox}\noindent\textbf{Exercise \thechapter.\theexercise.}~}
+  {\end{exercisebox}}
+
+% ------------------------------------------------------------
+% Algorithm environment — every major construction gets an
+% explicit, numbered procedure (per the book's stated pedagogy).
+% ------------------------------------------------------------
+\newtcolorbox{algorithmbox}{
+  breakable, enhanced, colback=black!3, colframe=black!70,
+  boxrule=0.5pt, arc=1pt, left=8pt, right=8pt, top=6pt, bottom=6pt,
+  fonttitle=\bfseries
+}
+\newcounter{algorithmctr}[chapter]
+\newenvironment{algorithmproc}[1]
+  {\refstepcounter{algorithmctr}\begin{algorithmbox}
+   \noindent\textbf{Procedure \thechapter.\thealgorithmctr\ (#1).}\par\smallskip}
+  {\end{algorithmbox}}
+
+% ------------------------------------------------------------
+% "Practice Now" — a short self-check, distinct from the
+% end-of-section exercise set (borrowed micro-scaffolding pattern:
+% definition -> derivation -> example -> practice -> exercises).
+% ------------------------------------------------------------
+\newtcolorbox{practicenowbox}{
+  breakable, enhanced, colback=white, colframe=black!40,
+  boxrule=0.4pt, arc=1pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  borderline west={1.5pt}{0pt}{black!60}
+}
+\newenvironment{practicenow}
+  {\begin{practicenowbox}\noindent\textit{Practice now.}~}
+  {\end{practicenowbox}}
+
+% ------------------------------------------------------------
+% Comparative sidebar — brief excursions outside mathematics
+% (numeral systems, calendars, linguistic structure, writing
+% systems) illustrating a structural idea under discussion.
+% Kept visually subordinate to the main narrative.
+% ------------------------------------------------------------
+\newtcolorbox{sidebarbox}{
+  breakable, enhanced, colback=black!1, colframe=black!30,
+  boxrule=0.3pt, arc=0pt, left=8pt, right=8pt, top=5pt, bottom=5pt,
+  fontupper=\small
+}
+\newenvironment{sidebar}[1]
+  {\begin{sidebarbox}\noindent\textbf{\small Comparative Note: #1.}\par\smallskip}
+  {\end{sidebarbox}}
+
+% ------------------------------------------------------------
+% Historical note — brief etymological or biographical asides
+% tracing a term or idea to its origin (e.g. the word "calculus",
+% or Needham's coinage of "amplitwist"). Distinct in purpose from
+% the comparative sidebar above: a comparative note draws a
+% structural analogy to a non-mathematical system, while a
+% historical note traces the actual lineage of a term or result
+% already in use in the main text. Same visual register, kept
+% brief and subordinate to the mathematical narrative.
+% ------------------------------------------------------------
+\newenvironment{historicalnote}[1]
+  {\begin{sidebarbox}\noindent\textbf{\small Historical Note: #1.}\par\smallskip}
+  {\end{sidebarbox}}
+
+% ------------------------------------------------------------
+% Header/footer
+% ------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\nouppercase{\leftmark}}
+\fancyhead[RO]{\nouppercase{\rightmark}}
+\fancyfoot[C]{\thepage}
+
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+
+% ------------------------------------------------------------
+% Front matter metadata
+% ------------------------------------------------------------
+\title{Trigonometry and Transformation}
+\author{Flyxion\\\small Independent Researcher}
+\date{\today}
+
+% ------------------------------------------------------------
+% Build control: comment/uncomment to compile a subset while
+% drafting. Front/back matter stays included.
+% ------------------------------------------------------------
+\includeonly{
+  front/introduction,
+  front/preface,
+  chapters/ch00-structure-from-constraint,
+  chapters/ch01-similarity-ratios,
+  chapters/ch02-coordinates-vectors,
+  chapters/ch03-right-triangle,
+  chapters/ch04-unit-circle,
+  chapters/ch05-circular-motion,
+  chapters/ch06-graphs,
+  chapters/ch07-inverse-functions,
+  chapters/ch08-rotation-geometry,
+  chapters/ch09-identities,
+  chapters/ch10-multiple-angle-product,
+  chapters/ch11-equations,
+  chapters/ch12-laws-sines-cosines,
+  chapters/ch13-vectors-dot-products,
+  chapters/ch14-polar-coordinates,
+  chapters/ch15-amplitwists,
+  chapters/ch16-complex-euler,
+  chapters/ch17-calculus-connections,
+  chapters/ch18-sequences-series,
+  chapters/ch19-fourier-intuition,
+  chapters/ch20-projection-interpretation,
+  back/appendix-algebra,
+  back/appendix-identity-table,
+  back/appendix-answers
+}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+\include{front/introduction}
+\include{front/preface}
+\tableofcontents
+
+\mainmatter
+
+% Chapter 0 sits outside the Part structure, numbered 0, as an
+% intuition-building bridge before the standard curriculum begins.
+\setcounter{chapter}{-1}
+\include{chapters/ch00-structure-from-constraint}
+
+\part{Similarity, Ratios, and Coordinates}
+\include{chapters/ch01-similarity-ratios}
+\include{chapters/ch02-coordinates-vectors}
+\include{chapters/ch03-right-triangle}
+
+\part{The Unit Circle and Circular Motion}
+\include{chapters/ch04-unit-circle}
+\include{chapters/ch05-circular-motion}
+\include{chapters/ch06-graphs}
+\include{chapters/ch07-inverse-functions}
+
+\part{Rotation and Transformation}
+\include{chapters/ch08-rotation-geometry}
+\include{chapters/ch09-identities}
+\include{chapters/ch10-multiple-angle-product}
+\include{chapters/ch11-equations}
+
+\part{Vectors, Complex Numbers, and Unification}
+\include{chapters/ch12-laws-sines-cosines}
+\include{chapters/ch13-vectors-dot-products}
+\include{chapters/ch14-polar-coordinates}
+\include{chapters/ch15-amplitwists}
+\include{chapters/ch16-complex-euler}
+
+\part{Toward Analysis}
+\include{chapters/ch17-calculus-connections}
+\include{chapters/ch18-sequences-series}
+\include{chapters/ch19-fourier-intuition}
+
+\part{Coda: Projection and Interpretation}
+\include{chapters/ch20-projection-interpretation}
+
+\appendix
+\backmatter
+\include{back/appendix-algebra}
+\include{back/appendix-identity-table}
+\include{back/appendix-answers}
+
+\begin{thebibliography}{99}
+% Populate manually; no self-citations.
+\bibitem{stewart} Stewart, J. \emph{Precalculus: Mathematics for Calculus}.
+\bibitem{sullivan} Sullivan, M. \emph{Trigonometry}.
+\bibitem{needham1997} Needham, T. (1997). \emph{Visual Complex Analysis}.
+Oxford: Clarendon Press.
+% TODO: fill in full journal/venue, volume, and page numbers once known.
+\bibitem{kean2025} Kean, H., et al. (2025). Evidence from Formal Logical
+Reasoning Reveals that the Language of Thought is not Natural Language.
+% General reference for etymological/historical notes throughout the book.
+\bibitem{boyer1991} Boyer, C. B., \& Merzbach, U. C. (1991). \emph{A
+History of Mathematics} (2nd ed.). New York: Wiley.
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,1952 @@
+1
+00:00:00,000 --> 00:00:07,380
+Usually, when we think about the concept of a rule or a constraint, we tend to think of it as something that stocks us.
+
+2
+00:00:07,660 --> 00:00:08,820
+Right. Like a cage.
+
+3
+00:00:09,020 --> 00:00:19,140
+Yeah, exactly like a cage. You know, you want to run wild, you want infinite possibilities, but the rule steps in and says, no, stop right there. You can't cross this line.
+
+4
+00:00:19,140 --> 00:00:25,700
+We inherently view restrictions as the enemy of freedom. I mean, open-ended spaces just feel like pure potential.
+
+5
+00:00:26,000 --> 00:00:29,420
+Right. Like a blank canvas. It just feels like art waiting to happen.
+
+6
+00:00:29,420 --> 00:00:35,000
+Exactly. But then you step into the world of mathematics, and suddenly that cage is actually a skeleton.
+
+7
+00:00:35,140 --> 00:00:35,800
+A skeleton.
+
+8
+00:00:36,020 --> 00:00:41,600
+Yeah. It's the only reason the thing can stand up at all. What looks like a limitation is, well, it's actually the birthplace of all structure.
+
+9
+00:00:41,840 --> 00:00:52,160
+And today, we're doing a deep dive into a text that makes this argument just brilliantly. It's called Trigonometry and Transformation, and it's by the Flyxion Independent Researcher.
+
+10
+00:00:52,240 --> 00:00:54,020
+It's a really fascinating piece of work.
+
+11
+00:00:54,020 --> 00:01:04,940
+It really is. And the core mission of this deep dive for you listening today is to completely reframe how we view rules, geometry, and specifically, Trigonometry.
+
+12
+00:01:04,940 --> 00:01:09,620
+Because usually, Trig just triggers traumatic flashbacks to high school exams.
+
+13
+00:01:09,860 --> 00:01:22,920
+Totally. Just rote memorization of, like, endless formulas. But this text strips all of that away. It presents the subject as a profound philosophical investigation into how constraints create structure.
+
+14
+00:01:23,400 --> 00:01:24,940
+And how we find invariance.
+
+15
+00:01:24,940 --> 00:01:30,260
+Yes, covariance. Which is, you know, the things that survive when everything else in the universe is changing.
+
+16
+00:01:30,720 --> 00:01:40,460
+The author is really challenging you to stop looking at math as just a collection of isolated facts or tools to solve a test question.
+
+17
+00:01:40,640 --> 00:01:45,720
+Right. Because mathematical understanding is completely transformed when we actually see the network of relationships.
+
+18
+00:01:45,720 --> 00:01:55,560
+Yeah, we are tracking how incredibly simple, finite rules build up layer by layer to eventually describe the continuous dynamic motion of reality.
+
+19
+00:01:55,800 --> 00:02:01,560
+So to start us off, the text introduces this really provocative concept, discrete state spaces.
+
+20
+00:02:01,900 --> 00:02:04,980
+Which, I mean, on the surface, that doesn't sound like trigonometry at all.
+
+21
+00:02:05,080 --> 00:02:08,280
+No, not at all. It sounds like computer science or something.
+
+22
+00:02:08,280 --> 00:02:17,080
+It does. But to understand continuous geometry, the author argues we first need to understand finite, discrete symbols.
+
+23
+00:02:17,440 --> 00:02:18,260
+Okay. Right.
+
+24
+00:02:18,320 --> 00:02:23,240
+So imagine you have a finite set of symbols, like an alphabet. It could be A through Z or just, you know, zero and one.
+
+25
+00:02:23,420 --> 00:02:23,620
+Yeah.
+
+26
+00:02:23,720 --> 00:02:32,620
+If you can string those symbols together in any order whatsoever, without limitation, you don't actually have a structure. You just have chaos.
+
+27
+00:02:32,720 --> 00:02:38,000
+It's an undifferentiated pile of sequences. Every sequence is as valid as any other.
+
+28
+00:02:38,300 --> 00:02:38,780
+Exactly.
+
+29
+00:02:38,980 --> 00:02:44,900
+I was thinking about this, and it's kind of like setting up a password system where the rule is just type anything.
+
+30
+00:02:45,080 --> 00:02:45,540
+Right, right.
+
+31
+00:02:45,560 --> 00:02:47,700
+You can just smash your hands on the keyboard and it's accepted.
+
+32
+00:02:47,700 --> 00:02:59,040
+But the moment you add a constraint, say, like, it must contain a number, and no consecutive identical letters, you immediately partition that infinite chaos into two distinct universes.
+
+33
+00:02:59,340 --> 00:03:01,640
+The admissible sequences and the inadmissible ones.
+
+34
+00:03:01,640 --> 00:03:04,000
+Yes. The constraint acts as a filter.
+
+35
+00:03:04,000 --> 00:03:07,820
+And the text really emphasizes that these constraints are often local.
+
+36
+00:03:08,220 --> 00:03:12,820
+So whether a symbol is allowed depends entirely on the symbol immediately preceding it.
+
+37
+00:03:13,080 --> 00:03:15,680
+Okay. So it doesn't care about the whole history of the sequence.
+
+38
+00:03:15,800 --> 00:03:17,620
+No, not at all. Just the immediate transition.
+
+39
+00:03:17,780 --> 00:03:22,400
+So the rule only evaluates the keystroke I just made against the one I'm making right now.
+
+40
+00:03:22,520 --> 00:03:26,940
+Exactly. And we can record those local rules in what's called a transition graph.
+
+41
+00:03:26,940 --> 00:03:28,260
+A transition graph. Okay.
+
+42
+00:03:28,480 --> 00:03:37,700
+Yeah. You map out the symbols as vertices and you draw directed arrows between them, but only if the rule allows that specific transition.
+
+43
+00:03:37,940 --> 00:03:43,560
+So that single finite map governs every admissible sequence you could possibly generate.
+
+44
+00:03:43,680 --> 00:03:48,220
+Right. Whether it's three characters long or, you know, three billion characters long.
+
+45
+00:03:48,220 --> 00:03:57,080
+That is wild. And then the text translates this abstract idea of a transition graph into something measurable using an adjacency matrix.
+
+46
+00:03:57,440 --> 00:03:57,660
+Yes.
+
+47
+00:03:57,900 --> 00:04:03,100
+I want to spend a minute here because this is where the mechanics of the math get really, really elegant.
+
+48
+00:04:03,440 --> 00:04:04,640
+It's a beautiful concept.
+
+49
+00:04:04,640 --> 00:04:09,880
+So we all know an adjacency matrix is just a grid of numbers representing the connections in a graph.
+
+50
+00:04:10,540 --> 00:04:16,120
+Like A1 means there's a valid path from node A to node B, and a 0 means there isn't.
+
+51
+00:04:16,180 --> 00:04:17,460
+Right. Pretty standard stuff.
+
+52
+00:04:17,460 --> 00:04:27,300
+But the text states that if you multiply this matrix by itself, the resulting numbers perfectly predict exactly how many admissible sequences exist of length 2.
+
+53
+00:04:27,700 --> 00:04:29,420
+And you multiply it again, you get length 3.
+
+54
+00:04:29,800 --> 00:04:32,540
+Yes. I want to unpack the how of that.
+
+55
+00:04:32,660 --> 00:04:38,280
+Like, how does a grid of 1s and 0s become a prediction engine just by squaring it?
+
+56
+00:04:38,400 --> 00:04:40,820
+Well, think about the mechanics of matrix multiplication.
+
+57
+00:04:40,820 --> 00:04:48,040
+Let's say you want to find the value in the new squared matrix for row A, column C.
+
+58
+00:04:48,200 --> 00:04:48,420
+Okay.
+
+59
+00:04:48,780 --> 00:04:53,200
+That value represents the number of valid two-step paths from A to C.
+
+60
+00:04:53,560 --> 00:05:01,360
+So to calculate it, you take the entire row A from your first matrix, and you compute the dot product with the entire column C of the second matrix.
+
+61
+00:05:01,480 --> 00:05:05,940
+Right. So you are matching up the elements term by term, multiplying them, and adding the results.
+
+62
+00:05:05,940 --> 00:05:08,820
+Which logically mirrors the act of tracing a path.
+
+63
+00:05:08,900 --> 00:05:09,940
+Oh, wow. Yeah.
+
+64
+00:05:10,080 --> 00:05:16,300
+You are asking, essentially, can I go from A to an intermediate node, say, node B? That's the first number.
+
+65
+00:05:16,380 --> 00:05:16,600
+Right.
+
+66
+00:05:16,600 --> 00:05:21,620
+And then you multiply it by, well, can I go from that intermediate node, B, to my final destination, C?
+
+67
+00:05:21,820 --> 00:05:24,340
+So the 1s and 0s are acting as logical A and D gates.
+
+68
+00:05:24,480 --> 00:05:26,900
+If the path from A to B is valid, that's a 1.
+
+69
+00:05:27,140 --> 00:05:29,940
+If the path from B to C is valid, that's a 1.
+
+70
+00:05:30,360 --> 00:05:31,820
+1 times 1 is 1.
+
+71
+00:05:31,900 --> 00:05:34,580
+A valid two-step path survives the multiplication.
+
+72
+00:05:34,940 --> 00:05:41,040
+But if either leg of the journey is invalid-like, a 0, the multiplication just kills the path.
+
+73
+00:05:41,360 --> 00:05:42,800
+1 times 0 is 0.
+
+74
+00:05:42,940 --> 00:05:43,840
+It's a dead end.
+
+75
+00:05:43,840 --> 00:05:56,700
+Yep. And when you sum up all those resulting products across the row and column, you are literally just tallying up every surviving valid two-step route from A to C through any possible intermediate node.
+
+76
+00:05:56,800 --> 00:05:57,980
+That is so elegant.
+
+77
+00:05:58,260 --> 00:05:58,700
+It is.
+
+78
+00:05:59,400 --> 00:06:10,860
+The text uses induction to prove this scales up to any power, but the deeper philosophical point the author is making is that the constraint itself generates a highly specific, countable architecture.
+
+79
+00:06:10,860 --> 00:06:13,660
+The surviving subset of sequences isn't random.
+
+80
+00:06:13,840 --> 00:06:16,880
+No, it inherits its entire topography from the rule that birthed it.
+
+81
+00:06:17,000 --> 00:06:21,580
+The author grounds this whole idea in positional notation, like our base 10 numeric system.
+
+82
+00:06:21,600 --> 00:06:22,840
+Right, the numbers we use every day.
+
+83
+00:06:23,060 --> 00:06:23,500
+Exactly.
+
+84
+00:06:23,500 --> 00:06:35,820
+We take whole numbers for granted, but the text frames a nine-digit number as a discrete state space governed by a single highly local constraint concentrated entirely on the very first position.
+
+85
+00:06:36,160 --> 00:06:38,180
+Which is that the first digit cannot be 0.
+
+86
+00:06:38,180 --> 00:06:38,540
+Right.
+
+87
+00:06:38,540 --> 00:06:50,500
+Digits 2 through 9 can be anything 0 through 9, but that first one has a rule, so counting the total number of valid nine-digit sequences doesn't require us to, you know, count them one by one.
+
+88
+00:06:50,840 --> 00:06:52,460
+The structure does the counting for you.
+
+89
+00:06:52,940 --> 00:06:58,300
+You have nine choices for the first slot, multiplied by ten choices for each of the remaining eight slots.
+
+90
+00:06:58,440 --> 00:07:00,020
+Nine times ten to the eighth power?
+
+91
+00:07:00,020 --> 00:07:00,700
+Exactly.
+
+92
+00:07:01,120 --> 00:07:04,620
+The constraint perfectly binds the edges of our numeric system.
+
+93
+00:07:05,060 --> 00:07:12,260
+And speaking of numeric structures, the text includes these fascinating comparative notes that venture outside traditional Western math.
+
+94
+00:07:12,340 --> 00:07:13,460
+Oh, I love these sections.
+
+95
+00:07:13,700 --> 00:07:18,900
+Yeah, there's one on Cistercian numerals that beautifully illustrates this concept of composing constraints.
+
+96
+00:07:18,900 --> 00:07:21,140
+Right, this is Cistercian monks in the Middle Ages.
+
+97
+00:07:21,680 --> 00:07:29,740
+They developed this system to write any whole number from 1 to 9,999 as a single combined glyph.
+
+98
+00:07:30,060 --> 00:07:33,000
+Just one symbol for a four-digit number.
+
+99
+00:07:33,640 --> 00:07:41,720
+It's an incredibly efficient use of visual space, but the mathematical underpinnings are what make it relevant for our deep dive today.
+
+100
+00:07:41,720 --> 00:07:48,880
+Yeah, the author draws a direct line between this 13th century monastic script and the concept of independent coordinates.
+
+101
+00:07:49,360 --> 00:07:52,780
+So the system uses a single vertical stem as the base.
+
+102
+00:07:52,940 --> 00:07:53,080
+Right.
+
+103
+00:07:53,340 --> 00:07:55,600
+And on that stem, there are four fixed positions.
+
+104
+00:07:56,260 --> 00:08:02,900
+There's the top right for units, the top left for tens, the bottom right for hundreds, and the bottom left for thousands.
+
+105
+00:08:03,500 --> 00:08:07,000
+And each position can hold one of ten possible stroke patterns.
+
+106
+00:08:07,000 --> 00:08:14,480
+So here is the crucial element. What you draw in the units position has zero effect on what you are allowed to draw in the tens position.
+
+107
+00:08:14,640 --> 00:08:19,240
+The choices are structurally isolated from one another. They operate in independent dimensions.
+
+108
+00:08:19,360 --> 00:08:24,480
+Because nothing constrains the adjacent choices, you compose the total space by multiplying.
+
+109
+00:08:24,700 --> 00:08:27,140
+Ten choices times ten times ten times ten.
+
+110
+00:08:27,180 --> 00:08:31,000
+You get 10,000 representable values, including the empty stem for zero.
+
+111
+00:08:31,480 --> 00:08:34,480
+The monks essentially engineered a discrete vector space.
+
+112
+00:08:34,480 --> 00:08:44,300
+They really did. They took a tiny, finite alphabet of ten strokes and mapped it across independent axes to multiply their expressive power exponentially.
+
+113
+00:08:44,860 --> 00:08:50,000
+It demonstrates that complexity doesn't require a massive, unwieldy set of raw materials.
+
+114
+00:08:50,520 --> 00:08:55,640
+It just requires a small set of constrained parts intercepting across independent dimensions.
+
+115
+00:08:56,000 --> 00:08:56,360
+Exactly.
+
+116
+00:08:56,360 --> 00:09:01,880
+So we established that rules create structure in discrete, finite spaces.
+
+117
+00:09:02,260 --> 00:09:07,720
+You can count the strokes, you can tally the matrix paths, but the text pivots pretty sharply here.
+
+118
+00:09:07,860 --> 00:09:14,420
+It asks, what happens when we apply this exact same philosophy to infinite, continuous space?
+
+119
+00:09:14,560 --> 00:09:14,760
+Right.
+
+120
+00:09:14,760 --> 00:09:19,720
+We leave behind the realm of counting symbols, and we enter the geometry of shapes, sizes, and scale.
+
+121
+00:09:20,160 --> 00:09:26,660
+And the central question really becomes, when a continuous object undergoes a transformation, what actually survives?
+
+122
+00:09:26,840 --> 00:09:32,520
+The text starts with this thought experiment regarding maps, which introduces scale transformations or dilations.
+
+123
+00:09:32,700 --> 00:09:34,140
+Let's talk about that map example.
+
+124
+00:09:34,220 --> 00:09:40,500
+Sure. So imagine you have a pocket map of a city, and then you have a massive wall-sized map of the exact same city.
+
+125
+00:09:40,500 --> 00:09:44,100
+The absolute physical measurements on the paper are completely different.
+
+126
+00:09:44,900 --> 00:09:51,320
+The area, the perimeter, the physical distance between two intersections, all of it is vastly larger on the wall map.
+
+127
+00:09:51,580 --> 00:09:53,140
+But the shape of the city persists.
+
+128
+00:09:53,460 --> 00:09:57,740
+The larger map doesn't invent new avenues, and the smaller map doesn't delete the river.
+
+129
+00:09:57,900 --> 00:10:04,780
+Right. Mathematically, what survives is the ratio between the lengths of the streets and the angles at which they intersect.
+
+130
+00:10:04,780 --> 00:10:17,380
+The text defines a dilation formally as a point in the Cartesian plane, x, y, is multiplied by a scale factor, k, moving to k times x, k times y.
+
+131
+00:10:17,600 --> 00:10:20,340
+It changes magnitude, but preserves the proportional structure.
+
+132
+00:10:20,700 --> 00:10:25,440
+Two figures are considered similar if they share this invariant shape, regardless of their absolute size.
+
+133
+00:10:25,440 --> 00:10:36,240
+I really want to dig into this concept of invariance, because the text makes the bold claim that ratios are the absolute bedrock of geometry, specifically because they ignore size.
+
+134
+00:10:36,320 --> 00:10:37,200
+You're immune to it.
+
+135
+00:10:37,340 --> 00:10:38,820
+Let's look at the mechanism of that.
+
+136
+00:10:39,040 --> 00:10:44,960
+Because if I take a digital photograph of a triangle and scale it up by 200%, the scale factor k is 2.
+
+137
+00:10:45,480 --> 00:10:48,500
+Every coordinate has doubled. Every length is twice as long.
+
+138
+00:10:48,900 --> 00:10:52,520
+To our senses, the entire object has been fundamentally altered.
+
+139
+00:10:52,620 --> 00:10:54,480
+It feels like a completely different triangle.
+
+140
+00:10:54,480 --> 00:11:01,100
+Exactly. So how does the ratio mathematically immunize itself against that scale factor?
+
+141
+00:11:01,520 --> 00:11:07,000
+Well, the text provides a proof in Theorem 1.3 that is just elegantly simple.
+
+142
+00:11:07,860 --> 00:11:08,940
+Let's trace the algebra.
+
+143
+00:11:09,280 --> 00:11:10,180
+Okay, let's do it.
+
+144
+00:11:10,220 --> 00:11:12,500
+You have two line segments in your original image.
+
+145
+00:11:13,020 --> 00:11:16,640
+Segment A with length little a, and segment B with length little b.
+
+146
+00:11:16,760 --> 00:11:16,980
+Right.
+
+147
+00:11:17,340 --> 00:11:19,400
+The original ratio is a divided by b.
+
+148
+00:11:19,780 --> 00:11:22,300
+Now you scale the image by a factor of k.
+
+149
+00:11:22,300 --> 00:11:25,140
+The new lengths are k times a and k times b.
+
+150
+00:11:25,360 --> 00:11:28,620
+So they are physically altered by the multiplier. They are larger now.
+
+151
+00:11:28,760 --> 00:11:29,060
+Yes.
+
+152
+00:11:29,760 --> 00:11:34,460
+But when you compute the ratio of those new lengths, you are dividing k times a by k times b.
+
+153
+00:11:34,620 --> 00:11:37,320
+And assuming k is a non-zero scale factor?
+
+154
+00:11:37,380 --> 00:11:39,340
+It exists in both the numerator and the denominator.
+
+155
+00:11:39,440 --> 00:11:41,780
+Oh, so it algebraically cancels itself out.
+
+156
+00:11:42,080 --> 00:11:43,280
+The k vanishes entirely.
+
+157
+00:11:43,280 --> 00:11:48,980
+k times a divided by k times b simplifies instantly back to a divided by b.
+
+158
+00:11:49,900 --> 00:11:54,040
+The ratio of the new lengths is mathematically identical to the ratio of the original lengths.
+
+159
+00:11:54,480 --> 00:11:57,960
+The scale factor literally erases itself from the relationship.
+
+160
+00:11:58,400 --> 00:12:02,000
+That algebraic cancellation is the mechanism of invariance.
+
+161
+00:12:02,120 --> 00:12:02,440
+Exactly.
+
+162
+00:12:02,440 --> 00:12:04,760
+The math self-corrects for the zoom function.
+
+163
+00:12:05,220 --> 00:12:09,560
+It strips away the absolute magnitude and leaves only the structural relationship behind.
+
+164
+00:12:10,020 --> 00:12:13,380
+And the text shows how this invariance is incredibly practical.
+
+165
+00:12:14,220 --> 00:12:18,560
+We can weaponize it to measure the unmeasurable using the similarity criteria,
+
+166
+00:12:18,980 --> 00:12:20,620
+like angle-angle, side-angle-side.
+
+167
+00:12:20,860 --> 00:12:25,920
+The classic application is determining the height of an inaccessible object using shadows, right?
+
+168
+00:12:25,960 --> 00:12:26,920
+That's a brilliant example.
+
+169
+00:12:26,960 --> 00:12:28,620
+Like you want to measure a massive tree.
+
+170
+00:12:29,160 --> 00:12:31,140
+You obviously can't climb it with a tape measure.
+
+171
+00:12:31,140 --> 00:12:31,780
+Right.
+
+172
+00:12:32,100 --> 00:12:36,980
+The text points out that because the sun is so distant, its rays arrive effectively parallel.
+
+173
+00:12:37,600 --> 00:12:41,880
+This means the invisible triangle formed by the giant tree and its shadow on the ground
+
+174
+00:12:41,880 --> 00:12:48,540
+is perfectly mathematically similar to the tiny triangle formed by a one-meter stick and its shadow.
+
+175
+00:12:48,940 --> 00:12:50,880
+The angle-angle similarity holds.
+
+176
+00:12:51,340 --> 00:12:54,600
+The sun's rays hit both objects at the exact same angle,
+
+177
+00:12:54,880 --> 00:12:59,260
+and both the tree and the stick form a 90-degree angle with the flat ground.
+
+178
+00:12:59,260 --> 00:13:04,160
+And because the triangles are similar, the ratios must survive the change in scale.
+
+179
+00:13:04,360 --> 00:13:04,960
+They have to.
+
+180
+00:13:05,260 --> 00:13:10,900
+So if the tree casts a 12-meter shadow and the one-meter stick casts a 0.8-meter shadow,
+
+181
+00:13:11,300 --> 00:13:12,800
+you'd just set up the equivalence.
+
+182
+00:13:13,400 --> 00:13:19,480
+The tree's unknown height, h, divided by 12, equals the stick's height, 1, divided by 0.8.
+
+183
+00:13:19,680 --> 00:13:23,740
+Multiply both sides by 12, and you find the tree is exactly 15 meters tall.
+
+184
+00:13:23,740 --> 00:13:30,740
+You extract a physical reality from the environment by relying on the fact that the ratio is immune to the tree's massive size.
+
+185
+00:13:31,440 --> 00:13:34,660
+It's such a powerful illustration of why invariance matters,
+
+186
+00:13:35,380 --> 00:13:42,240
+which connects to a brilliant philosophical note the author includes about why we bother naming things in science and mathematics.
+
+187
+00:13:42,580 --> 00:13:44,860
+Yeah, we don't just assign terminology randomly.
+
+188
+00:13:45,100 --> 00:13:45,320
+Right.
+
+189
+00:13:45,520 --> 00:13:51,660
+The task argues that a quantity earns a name largely because it survives transformations that alter everything else around it.
+
+190
+00:13:51,660 --> 00:13:55,120
+We name temperature because it survives the geometry of its container.
+
+191
+00:13:55,580 --> 00:13:55,780
+Right.
+
+192
+00:13:56,280 --> 00:14:02,420
+A cup of coffee has the same temperature whether you pour it into a tall, narrow thermos or a wide, shallow bowl.
+
+193
+00:14:02,860 --> 00:14:03,720
+The shape changes.
+
+194
+00:14:03,980 --> 00:14:05,000
+The temperature survives.
+
+195
+00:14:05,220 --> 00:14:08,760
+And we name density because it survives the scale of the sample.
+
+196
+00:14:08,900 --> 00:14:09,100
+Yeah.
+
+197
+00:14:09,220 --> 00:14:13,220
+A tiny flick of gold and a massive brick of gold have identical density.
+
+198
+00:14:13,680 --> 00:14:18,180
+The mass and volume change wildly, but the ratio, the density survives.
+
+199
+00:14:18,180 --> 00:14:21,640
+We attach names to the anchors in a system.
+
+200
+00:14:22,500 --> 00:14:25,260
+The properties that refuse to drift when the environment changes.
+
+201
+00:14:26,080 --> 00:14:29,560
+That stability is what makes a concept universally applicable.
+
+202
+00:14:30,060 --> 00:14:32,480
+And this is the foundational setup for trigonometry.
+
+203
+00:14:33,320 --> 00:14:38,660
+A trigonometric ratio is given a name sign, cosine, tangent for one specific reason.
+
+204
+00:14:38,740 --> 00:14:41,960
+Because it survives the scale of the right triangle it was computed from.
+
+205
+00:14:41,960 --> 00:14:48,440
+Exactly. The author really wants us to stop viewing sign as just an arbitrary formula to memorize for a test.
+
+206
+00:14:48,580 --> 00:14:49,960
+It's not a formula. It's a title.
+
+207
+00:14:50,140 --> 00:14:53,260
+An honored title we give to an unkillable invariant structure.
+
+208
+00:14:53,520 --> 00:14:55,260
+It's the standard maneuver in mathematics.
+
+209
+00:14:55,940 --> 00:15:01,860
+You identify a family of transformations, you find the property that refuses to change during that transformation, and you name it.
+
+210
+00:15:02,080 --> 00:15:05,280
+But the text points out that scale is only half the battle.
+
+211
+00:15:05,620 --> 00:15:05,820
+Right.
+
+212
+00:15:05,820 --> 00:15:12,900
+A map gives you the invariant shape of the city, but if you actually want to navigate through it, scale alone isn't enough.
+
+213
+00:15:13,240 --> 00:15:15,620
+You need to understand direction and movement.
+
+214
+00:15:15,920 --> 00:15:19,060
+We have to move from static geometry to the mathematics of displacement.
+
+215
+00:15:19,460 --> 00:15:21,040
+Which requires a coordinate system.
+
+216
+00:15:21,780 --> 00:15:27,360
+The text credits Rene Descartes and his 1637 appendix, La Geometry.
+
+217
+00:15:28,020 --> 00:15:31,560
+He translated geometric shapes into algebraic relationships.
+
+218
+00:15:31,560 --> 00:15:39,000
+Though the text is careful to note that Descartes didn't actually use the clean perpendicular intersecting axes we use today.
+
+219
+00:15:39,200 --> 00:15:39,700
+Oh, really?
+
+220
+00:15:39,820 --> 00:15:43,260
+Yeah, he used a single reference line and measured a second distance obliquely.
+
+221
+00:15:43,360 --> 00:15:43,720
+Huh.
+
+222
+00:15:44,020 --> 00:15:50,880
+The perpendicular axes were formalized by later mathematicians, but the core insight that space could be quantified algebraically.
+
+223
+00:15:51,100 --> 00:15:51,740
+That was his.
+
+224
+00:15:52,200 --> 00:15:55,040
+And from that Cartesian plane, we get the concept of vectors.
+
+225
+00:15:55,400 --> 00:15:55,840
+Yes.
+
+226
+00:15:55,840 --> 00:16:01,880
+The text defines a vector as an object possessing magnitude and direction, but lacking a fixed location.
+
+227
+00:16:02,340 --> 00:16:05,440
+Which is a tough concept for some people to wrap their head around initially.
+
+228
+00:16:05,840 --> 00:16:06,700
+Yeah, it is.
+
+229
+00:16:06,900 --> 00:16:17,860
+But if you walk three kilometers east and two kilometers north, that displacement vector 3, comma 2 is the exact same mathematical object whether you started in New York or Tokyo.
+
+230
+00:16:18,060 --> 00:16:20,800
+It's an instruction for movement, independent of origin.
+
+231
+00:16:20,800 --> 00:16:25,240
+And because it lacks a fixed location, it can be manipulated purely algebraically.
+
+232
+00:16:25,640 --> 00:16:29,020
+You can add vectors by summing their horizontal and vertical components.
+
+233
+00:16:29,200 --> 00:16:32,360
+You can scale them by multiplying by a constant.
+
+234
+00:16:32,620 --> 00:16:39,120
+Which is just applying the dilation transformation we discussed earlier, but to a displacement rather than a static shape.
+
+235
+00:16:39,240 --> 00:16:39,680
+Exactly.
+
+236
+00:16:39,680 --> 00:16:43,300
+But the crucial maneuver in this section of the text is decomposition.
+
+237
+00:16:43,880 --> 00:16:43,960
+Yeah.
+
+238
+00:16:44,200 --> 00:16:53,680
+When you take a diagonal vector and break it down into a purely horizontal x component and a purely vertical y component, you create an inescapable geometric reality.
+
+239
+00:16:54,580 --> 00:16:59,700
+Every single vector in a Cartesian plane inherently carries a right triangle inside of it.
+
+240
+00:16:59,780 --> 00:17:01,740
+The horizontal displacement is the bottom leg.
+
+241
+00:17:01,900 --> 00:17:03,780
+The vertical displacement is the side leg.
+
+242
+00:17:03,900 --> 00:17:08,620
+And the vector itself, the direct path from start to finish, is the hypotenuse.
+
+243
+00:17:08,620 --> 00:17:16,400
+And because it is permanently a right triangle, we evaluate the magnitude of the vector using the Pythagorean theorem.
+
+244
+00:17:16,600 --> 00:17:16,860
+Right.
+
+245
+00:17:17,140 --> 00:17:23,000
+The length of vector x, comma y is the square root of x squared plus y squared.
+
+246
+00:17:23,180 --> 00:17:25,920
+But measuring the magnitude only gives us the distance.
+
+247
+00:17:26,540 --> 00:17:33,220
+A vector of length, 130, could be pointing in any direction across a 360-degree spread.
+
+248
+00:17:33,360 --> 00:17:33,620
+Right.
+
+249
+00:17:33,780 --> 00:17:36,280
+So how do we formally define the direction?
+
+250
+00:17:36,280 --> 00:17:38,140
+This is where the concepts collide.
+
+251
+00:17:38,620 --> 00:17:46,300
+We take the invariant ratios from the first chapter and we apply them to the inescapable right triangles hiding inside the vectors of the second chapter.
+
+252
+00:17:46,460 --> 00:17:47,180
+It all comes together.
+
+253
+00:17:47,360 --> 00:17:55,000
+Because the vector forms a right triangle with the axes, the angle of its direction can be perfectly defined by the ratios of the triangle sides.
+
+254
+00:17:55,000 --> 00:18:05,100
+And as we proved earlier, because those ratios are invariant under scaling, the direction defined by the ratio remains constant, regardless of the vector's magnitude.
+
+255
+00:18:05,100 --> 00:18:08,720
+The ratio of the opposite side over the hypotenuse is sine.
+
+256
+00:18:08,720 --> 00:18:11,780
+The adjacent side over the hypotenuse is cosine.
+
+257
+00:18:11,780 --> 00:18:20,120
+The text emphasizes that sine and cosine don't care if the vector represents a displacement of a few millimeters or a light year.
+
+258
+00:18:20,120 --> 00:18:22,460
+The ratio defining the angle remains absolute.
+
+259
+00:18:22,840 --> 00:18:23,080
+Yeah.
+
+260
+00:18:23,880 --> 00:18:27,040
+But, okay, I have to stop here because we need to talk about the names themselves.
+
+261
+00:18:27,720 --> 00:18:34,680
+The author includes a historical note on the etymology of the word sine, and it is an unbelievable story of translation errors.
+
+262
+00:18:34,780 --> 00:18:35,740
+Oh, it's so fun.
+
+263
+00:18:35,740 --> 00:18:44,040
+We are dealing with pristine universal mathematical truths, and the label we slacked on it is the result of a centuries-long game of telephone.
+
+264
+00:18:44,040 --> 00:18:52,400
+It perfectly highlights the stark contrast between the objective reality of the math and the messy human reality of history.
+
+265
+00:18:52,600 --> 00:18:53,300
+It really does.
+
+266
+00:18:53,440 --> 00:18:55,740
+So, it starts in India in the first millennium.
+
+267
+00:18:56,100 --> 00:19:02,640
+Indian astronomers are working with these ratios inside circles, and they use the term ja'arda, which is Sanskrit for half-cord.
+
+268
+00:19:02,640 --> 00:19:05,920
+Which is a perfectly logical, descriptive, geometric term.
+
+269
+00:19:06,120 --> 00:19:07,200
+Yes, very accurate.
+
+270
+00:19:07,680 --> 00:19:10,880
+Over time, they abbreviate it to jarar or jivaat.
+
+271
+00:19:10,940 --> 00:19:13,080
+Still functioning properly as a mathematical label.
+
+272
+00:19:13,200 --> 00:19:16,540
+Then, Arabic scholars translate the Sanskrit texts.
+
+273
+00:19:17,040 --> 00:19:22,540
+But instead of translating the meaning of the word half-cord, they just transliterate the phonetic sound.
+
+274
+00:19:22,680 --> 00:19:22,880
+Right.
+
+275
+00:19:23,060 --> 00:19:24,540
+So, jivaat becomes jiba.
+
+276
+00:19:25,260 --> 00:19:28,220
+But jiba has absolutely no meaning in Arabic.
+
+277
+00:19:28,420 --> 00:19:30,880
+It's a nonsense word, just a phonetic placeholder.
+
+278
+00:19:30,880 --> 00:19:33,440
+And Arabic is typically written without vowels.
+
+279
+00:19:34,160 --> 00:19:36,760
+The text only records the consonants for j and b.
+
+280
+00:19:37,000 --> 00:19:42,380
+So, later readers come along, they see these consonants, and they try to read it as a legitimate Arabic word.
+
+281
+00:19:42,820 --> 00:19:46,880
+They misread the phonetic placeholder jiba as the common word jiba.
+
+282
+00:19:47,020 --> 00:19:51,660
+And jiba translates to a bay, a gulf, or a fold in a garment.
+
+283
+00:19:51,780 --> 00:19:53,000
+Like the pocket of a shirt.
+
+284
+00:19:53,200 --> 00:19:56,100
+We have drifted entirely away from geometry at this point.
+
+285
+00:19:56,180 --> 00:19:56,620
+Completely.
+
+286
+00:19:57,080 --> 00:19:58,820
+But the chain of errors continues.
+
+287
+00:19:58,820 --> 00:20:07,420
+Fast forward to the 12th century, and Girard of Cremona is translating these Arabic texts into Latin for European scholars.
+
+288
+00:20:07,580 --> 00:20:08,540
+And he sees the word jiba.
+
+289
+00:20:08,860 --> 00:20:09,040
+Right.
+
+290
+00:20:09,300 --> 00:20:13,520
+And instead of transliterating the sound, he translates the literal meaning of the word into Latin.
+
+291
+00:20:13,920 --> 00:20:17,840
+The Latin word for a bay, a curve, or a fold of cloth is sinus.
+
+292
+00:20:17,840 --> 00:20:20,180
+And from sinus, English inherits sinning.
+
+293
+00:20:20,380 --> 00:20:21,640
+It's totally wild.
+
+294
+00:20:21,840 --> 00:20:32,200
+The foundational function of trigonometry, the math used to map the stars, engineer bridges, and measure the frequencies of light and sound, is named after a fold in a shirt.
+
+295
+00:20:32,200 --> 00:20:41,800
+All because a 12th century translator accurately translated a misread vowel on a meaningless phonetic abbreviation of a Sanskrit word.
+
+296
+00:20:41,800 --> 00:20:43,120
+It just cracks me up.
+
+297
+00:20:43,320 --> 00:20:49,440
+The author notes that cosine and cotangent manage to survive with slightly more logical names, at least.
+
+298
+00:20:49,520 --> 00:20:50,120
+Oh, really?
+
+299
+00:20:50,400 --> 00:20:50,540
+Yeah.
+
+300
+00:20:50,620 --> 00:20:57,440
+The prefix co is just an abbreviation of complementary, noting that the cosine of an angle is equal to the sine of its complementary angle.
+
+301
+00:20:57,520 --> 00:20:57,760
+Okay.
+
+302
+00:20:57,840 --> 00:20:58,740
+That makes a bit more sense.
+
+303
+00:20:58,840 --> 00:20:58,940
+Yeah.
+
+304
+00:20:58,940 --> 00:21:05,060
+So, we have our weirdly named invariant ratios, and we can solve right triangles.
+
+305
+00:21:05,160 --> 00:21:07,960
+We can calculate heights, distances, components of force.
+
+306
+00:21:08,360 --> 00:21:09,540
+The math works perfectly.
+
+307
+00:21:09,980 --> 00:21:10,260
+What?
+
+308
+00:21:10,500 --> 00:21:15,280
+Yeah, but the text points out a catastrophic flaw in the system we've built.
+
+309
+00:21:15,400 --> 00:21:16,420
+The trapped angle problem.
+
+310
+00:21:16,520 --> 00:21:16,780
+Yes.
+
+311
+00:21:16,980 --> 00:21:27,040
+If sine and cosine are strictly defined as the ratios of the physical sides inside a right triangle, then the angle we are measuring is physically trapped by the geometry of the polygon.
+
+312
+00:21:27,540 --> 00:21:27,780
+Right.
+
+313
+00:21:27,780 --> 00:21:34,380
+An acute angle inside a right triangle must be greater than zero, and strictly less than 90 degrees.
+
+314
+00:21:34,740 --> 00:21:38,140
+If the angle hits 90 degrees, the two legs become parallel.
+
+315
+00:21:38,860 --> 00:21:41,380
+The hypotenuse never intersects the adjacent side.
+
+316
+00:21:41,700 --> 00:21:43,780
+The triangle literally ceases to exist.
+
+317
+00:21:43,840 --> 00:21:45,540
+It completely shatters the model.
+
+318
+00:21:45,740 --> 00:21:47,920
+You cannot have a negative interior angle.
+
+319
+00:21:48,600 --> 00:21:54,180
+And what happens if I want to describe the rotation of an engine crank turning 720 degrees?
+
+320
+00:21:54,280 --> 00:21:56,580
+Right triangle trigonometry is entirely blind to it.
+
+321
+00:21:56,580 --> 00:22:02,820
+Our tool for describing direction breaks the second the direction points backwards, or spins in a circle.
+
+322
+00:22:03,180 --> 00:22:04,320
+We need a new constraint.
+
+323
+00:22:04,320 --> 00:22:07,700
+And this is where the text pivots from the polygon to the continuous curve.
+
+324
+00:22:08,100 --> 00:22:13,340
+We abandon the triangle, and we constrain the entire Cartesian plane to a single equation.
+
+325
+00:22:13,640 --> 00:22:16,340
+X squared plus Y squared equals 1.
+
+326
+00:22:16,500 --> 00:22:17,200
+The unit circle.
+
+327
+00:22:17,420 --> 00:22:19,940
+This is a profound shift in perspective.
+
+328
+00:22:20,140 --> 00:22:20,460
+It is.
+
+329
+00:22:20,980 --> 00:22:25,160
+The unit circle is a discrete state space applied to continuous reality.
+
+330
+00:22:25,160 --> 00:22:28,260
+The entire infinite plane of coordinates is the alphabet.
+
+331
+00:22:28,620 --> 00:22:28,680
+Right.
+
+332
+00:22:28,900 --> 00:22:33,540
+The equation X squared plus Y squared equals 1 is the admissibility constraint.
+
+333
+00:22:34,180 --> 00:22:39,860
+Only points that satisfy that exact relationship are allowed to exist in this new space.
+
+334
+00:22:40,080 --> 00:22:43,620
+And think about what that constraint actually accomplishes mathematically.
+
+335
+00:22:43,620 --> 00:22:48,720
+By forcing the radius to always equal exactly 1, you isolate the variance.
+
+336
+00:22:49,000 --> 00:22:49,780
+Size is frozen.
+
+337
+00:22:50,180 --> 00:22:51,220
+Magnitude is locked.
+
+338
+00:22:51,540 --> 00:22:54,860
+It's analogous to normalizing a data set in computer science.
+
+339
+00:22:54,900 --> 00:22:55,860
+Oh, that's a good comparison.
+
+340
+00:22:56,120 --> 00:22:56,260
+Yeah.
+
+341
+00:22:56,320 --> 00:23:01,380
+If you have a data set measuring two variables, but one variable is in the billions and the other is in the decimals,
+
+342
+00:23:01,960 --> 00:23:04,100
+the absolute volume drowns out the pattern.
+
+343
+00:23:04,220 --> 00:23:05,460
+You can't see the relationship.
+
+344
+00:23:05,660 --> 00:23:05,880
+Right.
+
+345
+00:23:06,060 --> 00:23:07,080
+You normalize the data.
+
+346
+00:23:07,260 --> 00:23:07,480
+Yeah.
+
+347
+00:23:07,620 --> 00:23:10,080
+You force the baseline to a standard scale.
+
+348
+00:23:10,300 --> 00:23:13,900
+So the algorithm only judges the variance, the underlying relationship.
+
+349
+00:23:14,100 --> 00:23:16,600
+And the unit circle normalizes geometry.
+
+350
+00:23:16,940 --> 00:23:17,360
+Exactly.
+
+351
+00:23:17,600 --> 00:23:20,560
+It strips away magnitude so we can isolate and study pure direction.
+
+352
+00:23:20,920 --> 00:23:26,000
+So under this new constraint, an angle is no longer the interior corner of a shape.
+
+353
+00:23:26,260 --> 00:23:28,100
+It is redefined as a rotation.
+
+354
+00:23:28,100 --> 00:23:30,760
+You start at the positive X axis and you rotate.
+
+355
+00:23:31,840 --> 00:23:32,960
+Counterclockwise is positive.
+
+356
+00:23:33,140 --> 00:23:34,060
+Clockwise is negative.
+
+357
+00:23:34,100 --> 00:23:40,280
+Where your rotated line intersects the perimeter of the unit circle is your coordinate point, X comma Y.
+
+358
+00:23:40,500 --> 00:23:43,220
+And here, the text delivers the ultimate redefinition.
+
+359
+00:23:43,780 --> 00:23:49,400
+For any rotation angle theta, cosine is simply defined as the X coordinate of that point on the circle.
+
+360
+00:23:49,500 --> 00:23:51,520
+And sine is defined as the Y coordinate.
+
+361
+00:23:51,820 --> 00:23:52,200
+Exactly.
+
+362
+00:23:52,280 --> 00:23:53,380
+No opposite sides.
+
+363
+00:23:53,620 --> 00:23:54,620
+No hypotenuse.
+
+364
+00:23:55,100 --> 00:23:57,160
+Sine is just the vertical height on the graph.
+
+365
+00:23:57,640 --> 00:23:59,700
+Cosine is just the horizontal distance.
+
+366
+00:23:59,860 --> 00:24:03,140
+And because they are just coordinates on a grid, the cage is open.
+
+367
+00:24:03,140 --> 00:24:11,480
+We can rotate 150 degrees into the second quadrant where X is negative and Y is positive, giving us a negative cosine and a positive sine.
+
+368
+00:24:11,540 --> 00:24:13,860
+We can rotate negative 45 degrees.
+
+369
+00:24:14,020 --> 00:24:16,320
+We can spin around the circle 100 times.
+
+370
+00:24:16,460 --> 00:24:19,960
+And the text proves that this doesn't invalidate the old right triangle math.
+
+371
+00:24:19,960 --> 00:24:20,920
+No, not at all.
+
+372
+00:24:20,920 --> 00:24:29,560
+If you draw a right triangle inside the unit circle, dropping a line from the point straight down to the X axis, the hypotenuse is the radius, which is 1.
+
+373
+00:24:29,560 --> 00:24:35,300
+So the old ratio opposite over hypotenuse becomes Y over 1, which is just Y.
+
+374
+00:24:35,700 --> 00:24:40,780
+The new definition perfectly encompasses the old one while expanding its domain to infinity.
+
+375
+00:24:41,160 --> 00:24:45,440
+This expansion introduces periodicity, coterminal angles.
+
+376
+00:24:45,600 --> 00:24:45,780
+Right.
+
+377
+00:24:45,780 --> 00:24:57,900
+Because we are trapped on the perimeter of a circle, if you start at an angle and add 360 degrees, you complete a full revolution and land on the exact same X comma Y coordinate.
+
+378
+00:24:58,120 --> 00:25:06,060
+40 degrees and 400 degrees represent completely different amounts of physical rotation, but they share the exact same structural location.
+
+379
+00:25:06,340 --> 00:25:08,640
+They have identical signs and cosines.
+
+380
+00:25:08,640 --> 00:25:12,900
+The output of the function repeats in an infinite, predictable loop.
+
+381
+00:25:13,220 --> 00:25:18,600
+But before we get too deep into that looping motion, I want to address a structural shift the text demands.
+
+382
+00:25:19,040 --> 00:25:19,600
+Degrees.
+
+383
+00:25:19,840 --> 00:25:21,200
+Degrees versus radians.
+
+384
+00:25:21,360 --> 00:25:21,660
+Yes.
+
+385
+00:25:22,140 --> 00:25:31,240
+360 degrees in a circle feels incredibly natural to human intuition, likely tracing back to ancient approximations of the 365-day solar year.
+
+386
+00:25:31,360 --> 00:25:32,700
+Yeah, it's very culturally ingrained.
+
+387
+00:25:32,700 --> 00:25:39,160
+But the text, and mathematicians in general, insist on using radians, and radians feel deeply unintuitive.
+
+388
+00:25:39,680 --> 00:25:43,520
+A full circle is 2 pi radians, roughly 6.28.
+
+389
+00:25:43,800 --> 00:25:44,020
+Right.
+
+390
+00:25:44,400 --> 00:25:47,820
+Why abandon a clean integer system for an irrational number?
+
+391
+00:25:48,180 --> 00:25:50,020
+Well, degrees are a cultural artifact.
+
+392
+00:25:50,540 --> 00:25:53,060
+They are a human convention mapped onto geometry.
+
+393
+00:25:53,700 --> 00:25:58,980
+But the text argues that radians are the inherent structural language of the circle itself.
+
+394
+00:25:59,160 --> 00:26:02,340
+Okay, let's look at the mechanical definition of a radian.
+
+395
+00:26:02,340 --> 00:26:10,920
+One radian is defined as the angle that carves out an arc on the circumference of the circle whose physical length is exactly equal to the length of the circle's radius.
+
+396
+00:26:11,200 --> 00:26:20,040
+So if the radius of the circle is 7 centimeters, one radian is the angle where the curved arc length along the edge is exactly 7 centimeters.
+
+397
+00:26:20,140 --> 00:26:20,320
+Right.
+
+398
+00:26:20,720 --> 00:26:30,920
+And because the total circumference of any circle is 2 times pi times the radius 2 pi r, it naturally follows that a full revolution contains exactly 2 pi radians.
+
+399
+00:26:30,920 --> 00:26:32,120
+It's conversion is direct.
+
+400
+00:26:32,720 --> 00:26:35,620
+180 degrees equals pi radians.
+
+401
+00:26:35,880 --> 00:26:38,720
+But why is that structural language superior for mathematics?
+
+402
+00:26:39,340 --> 00:26:40,560
+Yeah, that's the question.
+
+403
+00:26:40,780 --> 00:26:47,320
+The superiority reveals itself when you try to calculate the distance traveled along the arc length, usually denoted as s.
+
+404
+00:26:47,320 --> 00:26:55,260
+Based on the definition we just established, an angle measured in radians theta is literally the ratio of the arc length to the radius.
+
+405
+00:26:55,840 --> 00:26:57,420
+Theta equals s divided by r.
+
+406
+00:26:57,520 --> 00:27:03,080
+Which means if you rearrange the algebra, multiplying both sides by r, you get s equals r times theta.
+
+407
+00:27:03,860 --> 00:27:06,420
+Arc length equals the radius multiplied by the angle.
+
+408
+00:27:06,620 --> 00:27:09,360
+It is a pristine, structurally perfect equation.
+
+409
+00:27:09,360 --> 00:27:12,600
+And if you attempt to calculate arc length using degrees.
+
+410
+00:27:12,820 --> 00:27:22,360
+The formula requires an ugly conversion factor, multiplying by pi over 180 just to force the arbitrary human units to balance with the geometric reality.
+
+411
+00:27:22,520 --> 00:27:24,780
+Radiants strip away the human bias.
+
+412
+00:27:24,920 --> 00:27:28,380
+They allow the radius and the circumference to speak directly to each other.
+
+413
+00:27:28,560 --> 00:27:30,600
+The math just clicks together without friction.
+
+414
+00:27:30,600 --> 00:27:40,360
+And this natural cyclical structure of things repeating in predictable loops brings us to a fantastic comparative note in the text regarding the Chinese sixaginary cycle.
+
+415
+00:27:40,540 --> 00:27:41,400
+The calendar system.
+
+416
+00:27:41,480 --> 00:27:41,660
+Yeah.
+
+417
+00:27:41,900 --> 00:27:46,740
+The author uses it to illustrate how periodicity governs systems far beyond geometry.
+
+418
+00:27:47,300 --> 00:27:50,980
+It's a really compelling look at modular arithmetic applied to timekeeping.
+
+419
+00:27:51,320 --> 00:27:54,760
+Traditional Chinese calendars utilize this cycle to track years.
+
+420
+00:27:55,300 --> 00:27:58,420
+The system relies on pairing two distinct sets of symbols.
+
+421
+00:27:58,420 --> 00:28:03,960
+You have 10 symbols known as the heavenly stems and 12 symbols known as the earthly branches.
+
+422
+00:28:04,560 --> 00:28:09,600
+Think of them as two interlocking gears of different sizes turning simultaneously.
+
+423
+00:28:09,960 --> 00:28:10,340
+Exactly.
+
+424
+00:28:10,840 --> 00:28:12,760
+Year one is stem one and branch one.
+
+425
+00:28:13,220 --> 00:28:15,260
+Year two is stem two and branch two.
+
+426
+00:28:15,420 --> 00:28:16,760
+They advance in lockstep.
+
+427
+00:28:16,840 --> 00:28:17,040
+Right.
+
+428
+00:28:17,280 --> 00:28:23,880
+Now, basic intuition might suggest that to find the total number of unique combinations, you just multiply the sizes of the two sets.
+
+429
+00:28:24,180 --> 00:28:25,660
+10 times 12 is 120.
+
+430
+00:28:25,660 --> 00:28:32,600
+But the constraint of the system, the fact that they advance simultaneously, prevents certain pairings from ever occurring.
+
+431
+00:28:32,800 --> 00:28:33,020
+Right.
+
+432
+00:28:33,440 --> 00:28:35,520
+Stem one will never align with branch two.
+
+433
+00:28:35,820 --> 00:28:36,180
+Never.
+
+434
+00:28:36,480 --> 00:28:43,640
+So to find out when the cycle actually resets, when it returns to stem one and branch one simultaneously, you don't multiply.
+
+435
+00:28:43,800 --> 00:28:47,100
+You have to find the least common multiple of 10 and 12.
+
+436
+00:28:47,100 --> 00:28:47,920
+Which is 60.
+
+437
+00:28:48,120 --> 00:28:50,240
+The cycle resets every 60 steps.
+
+438
+00:28:50,580 --> 00:28:51,800
+The 60-year calendar.
+
+439
+00:28:52,600 --> 00:28:56,820
+The author highlights this to show that periodicity is a universal structural phenomenon.
+
+440
+00:28:57,320 --> 00:29:03,600
+Two distinct periods interacting will create a new, larger period governed by their common multiples.
+
+441
+00:29:03,920 --> 00:29:12,100
+It's modular arithmetic playing out in the organization of human institutions, centuries before Western mathematics formalized the theory of cyclic groups.
+
+442
+00:29:12,100 --> 00:29:14,560
+And the parallel to trigonometry is direct.
+
+443
+00:29:15,380 --> 00:29:17,400
+The unit circle is entirely modular.
+
+444
+00:29:18,260 --> 00:29:23,480
+The terminal angles are just values that differ by a multiple of the circle's fundamental period, 2 pi.
+
+445
+00:29:23,660 --> 00:29:23,880
+Right.
+
+446
+00:29:24,240 --> 00:29:31,000
+When you begin adding different oscillating sine waves together, which the text points out as the foundation of Fourier analysis later on,
+
+447
+00:29:31,000 --> 00:29:38,160
+the interacting frequencies create complex, combined periods governed by those exact same mathematical rules.
+
+448
+00:29:38,480 --> 00:29:46,300
+Whether you are tracking a 60-year calendar, analyzing the harmonics of a vibrating guitar string, or predicting the orbital alignments of the planets,
+
+449
+00:29:46,940 --> 00:29:50,260
+it is all cyclical movement governed by structural constraints.
+
+450
+00:29:50,540 --> 00:29:53,980
+Which brings us to the final horizon of this text, the introduction of time.
+
+451
+00:29:54,280 --> 00:29:54,560
+Yes.
+
+452
+00:29:55,040 --> 00:29:58,280
+Up until this point, even on the unit circle, our angles have been static.
+
+453
+00:29:58,280 --> 00:30:02,220
+We rotated 150 degrees and stopped to measure the coordinates.
+
+454
+00:30:02,640 --> 00:30:03,920
+But reality doesn't stop.
+
+455
+00:30:04,500 --> 00:30:06,720
+The universe is in constant motion.
+
+456
+00:30:07,220 --> 00:30:09,480
+The angle theta is no longer a fixed value.
+
+457
+00:30:09,820 --> 00:30:12,120
+It becomes a function of time, theta of t.
+
+458
+00:30:12,360 --> 00:30:16,540
+And once your angle is continuously changing over time, you can measure the rate of that change.
+
+459
+00:30:16,640 --> 00:30:17,960
+You derive angular velocity.
+
+460
+00:30:18,220 --> 00:30:21,300
+This is where the entire architecture of the text fulfills its purpose.
+
+461
+00:30:21,580 --> 00:30:21,840
+Yes.
+
+462
+00:30:22,440 --> 00:30:27,100
+The discrete rules that built the matrices, the scale and variances that define the ratios,
+
+463
+00:30:27,100 --> 00:30:33,180
+the right triangles hidden inside the vectors, the unit circle normalizing the plane to isolate direction.
+
+464
+00:30:33,700 --> 00:30:38,280
+All of these are the necessary grammatical components required to write the language of dynamic motion.
+
+465
+00:30:38,520 --> 00:30:46,240
+The text evolves trigonometry from a static tool for solving triangles into a unified theory of continuous periodic reality.
+
+466
+00:30:46,240 --> 00:30:49,120
+It fundamentally changes how you perceive the world around you.
+
+467
+00:30:49,460 --> 00:30:52,900
+And that brings me to a final thought I want to leave with you, the listener.
+
+468
+00:30:53,260 --> 00:30:55,780
+Something to consider long after this discussion ends.
+
+469
+00:30:56,040 --> 00:30:59,900
+We started this journey by acknowledging our inherent bias against rules.
+
+470
+00:31:00,300 --> 00:31:03,500
+We view constraints as cages that limit our potential.
+
+471
+00:31:04,220 --> 00:31:07,900
+But throughout this text, the mathematics have proven the exact opposite.
+
+472
+00:31:08,160 --> 00:31:09,020
+They really have.
+
+473
+00:31:09,020 --> 00:31:16,640
+It is the constraint, the strict limitation that actually births the structure, the meaning and the utility of the system.
+
+474
+00:31:17,040 --> 00:31:25,660
+Without the constraint, without the transition rules pruning the sequences, without the unit circle violently restricting the radius to exactly one,
+
+475
+00:31:26,040 --> 00:31:30,180
+you are left with a chaotic, meaningless soup of infinite possibilities.
+
+476
+00:31:30,180 --> 00:31:34,320
+Pure freedom, in a mathematical sense, is just noise.
+
+477
+00:31:34,460 --> 00:31:39,640
+Exactly. It cannot be navigated, it cannot be measured, and it cannot build anything sustainable.
+
+478
+00:31:40,100 --> 00:31:45,640
+So look at the architecture of your own life, your work, your relationships, your creative projects, your business strategies.
+
+479
+00:31:46,120 --> 00:31:49,020
+We spend so much energy fighting against our limitations.
+
+480
+00:31:49,400 --> 00:31:55,420
+We constantly wish for infinite resources, an unlimited budget, total unconstrained freedom, more hours in the day.
+
+481
+00:31:55,500 --> 00:31:59,540
+We are convinced that if the cage were removed, we could finally achieve our vision.
+
+482
+00:31:59,540 --> 00:32:03,020
+But what if you are misinterpreting the mechanics of your situation?
+
+483
+00:32:03,560 --> 00:32:08,620
+What if the specific constraints you are wrestling with right now, the impossibly tight deadline, the shrinking budget,
+
+484
+00:32:08,760 --> 00:32:14,720
+the physical or geographic limitations you are stuck within, are not obstacles blocking your path?
+
+485
+00:32:15,020 --> 00:32:20,700
+What if they are the exact mathematical parameters required to generate your unique admissible structure?
+
+486
+00:32:20,960 --> 00:32:26,960
+What if the cage you are trying to break out of is actually the skeleton that will finally allow your work to stand up?
+
+487
+00:32:27,300 --> 00:32:28,960
+Thank you for exploring this with us.
+
+488
+00:32:28,960 --> 00:32:29,900
+Until next time!
+

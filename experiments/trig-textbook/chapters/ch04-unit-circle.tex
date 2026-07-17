@@ -1,0 +1,274 @@
+\chapter{The Unit Circle and General Angles}
+\label{ch:ch04-unit-circle}
+
+\section{Beyond Right Triangles}
+
+The trigonometric functions were introduced in the previous chapter as
+ratios associated with right triangles, and that approach provided a
+powerful method for relating angles and side lengths. It also imposed a
+limitation, since a right triangle can contain only acute angles: the angle
+$\theta$ under discussion had to satisfy $0^\circ < \theta < 90^\circ$. What,
+then, is the sine of $150^\circ$, or the cosine of $-45^\circ$, or the
+meaning of an angle of $720^\circ$? None of these questions can be answered
+using right triangles alone, and the difficulty is not with trigonometry
+itself but with having tied the trigonometric functions to the interior
+angle of a triangle in the first place. To remove the restriction, angle
+must be redefined not as part of a triangle but as a rotation, and the
+geometric object that makes this possible is the unit circle.
+
+\section{The Unit Circle}
+
+Recall the distance formula of Chapter~2: a point $(x,y)$ lies at distance
+$\sqrt{x^2+y^2}$ from the origin. Requiring every point under consideration
+to lie exactly one unit from the origin means requiring $\sqrt{x^2+y^2}=1$,
+or equivalently $x^2+y^2=1$.
+
+\begin{definition}
+The \emph{unit circle} is the set of all points $(x,y)$ satisfying
+$x^2+y^2=1$.
+\end{definition}
+
+The unit circle is not the entire plane; it is a constrained subset of it,
+in exactly the sense of Chapter~0. Among all possible points $(x,y)$, only
+those satisfying $x^2+y^2=1$ are admissible, and this single constraint
+fixes magnitude at $1$ while leaving direction free to vary. The circle is
+therefore precisely the geometric setting needed to study direction in
+isolation, without the interference of size that occupied Chapter~1.
+
+\section{Angles as Rotations}
+
+\begin{definition}
+An \emph{angle} is a rotation from the positive $x$-axis, called the
+\emph{initial side}, to a rotated ray called the \emph{terminal side}. A
+counterclockwise rotation is considered positive, and a clockwise rotation
+is considered negative. The point where the terminal side meets the unit
+circle is the point corresponding to that angle.
+\end{definition}
+
+This definition allows angles such as $120^\circ$, $-45^\circ$, and
+$720^\circ$ to be spoken of naturally, since none of them is required to fit
+inside a triangle: an angle is now simply an amount of rotation, unrestricted
+in sign or size.
+
+\section{Degree Measure and Radian Measure}
+
+Angles have historically been measured in degrees, with a complete
+revolution comprising $360^\circ$. Mathematics also makes frequent use of a
+second unit, the radian.
+
+\begin{definition}
+One \emph{radian} is the angle that subtends an arc of the unit circle whose
+length equals the circle's radius.
+\end{definition}
+
+Because the circumference of a circle of radius $r$ is $2\pi r$, a complete
+revolution subtends an arc of length $2\pi r$, and dividing by the radius
+shows that a complete revolution corresponds to an angle of $2\pi$ radians.
+Hence $360^\circ = 2\pi$ radians, from which the conversion formulas
+\[
+\theta_{\text{rad}} = \theta_{\text{deg}}\cdot\frac{\pi}{180}, \qquad
+\theta_{\text{deg}} = \theta_{\text{rad}}\cdot\frac{180}{\pi}
+\]
+follow immediately. Degrees and radians are two units for the same
+geometric quantity, and this book will move between them as convenience
+dictates.
+
+\section{Extending Sine and Cosine}
+
+Let $\theta$ be any angle, and rotate from the positive $x$-axis until
+reaching the terminal side of $\theta$. Suppose this terminal side meets the
+unit circle at the point $P = (x,y)$.
+
+\begin{definition}
+For any angle $\theta$, $\cos\theta = x$ and $\sin\theta = y$, where $(x,y)$
+is the point at which the terminal side of $\theta$ meets the unit circle.
+In words, cosine is the horizontal coordinate of this point and sine is its
+vertical coordinate.
+\end{definition}
+
+This definition places no restriction on $\theta$ whatsoever, and applies
+equally well to angles of any size or sign. It remains to check that nothing
+established in Chapter~3 has been lost in the generalization.
+
+\begin{theorem}
+For an acute angle $\theta$ of a right triangle, the unit-circle definitions
+of sine and cosine agree with the definitions of Chapter~3.
+\end{theorem}
+
+\begin{proof}
+Let the right triangle have hypotenuse $r$, so that by Chapter~3,
+$\cos\theta = \text{adjacent}/r$ and $\sin\theta = \text{opposite}/r$.
+Dividing every side length of the triangle by $r$ scales the triangle onto
+the unit circle, by the scalar multiplication of Chapter~2 with $k = 1/r$,
+and the vertex corresponding to the angle $\theta$ moves to the point
+$\left(\text{adjacent}/r,\ \text{opposite}/r\right)$. This is exactly the
+point at which the terminal side of $\theta$ meets the unit circle, so
+$x = \cos\theta$ and $y = \sin\theta$ under the new definition agree with
+the ratios of the old one.
+\end{proof}
+
+Nothing from Chapter~3 has therefore been replaced; the unit-circle
+definitions merely extend the right-triangle definitions to angles the
+triangle could never have contained.
+
+\section{Tangent and the Remaining Functions}
+
+Since $\sin\theta = y$ and $\cos\theta = x$ on the unit circle, tangent is
+defined as before by
+\[
+\tan\theta = \frac{\sin\theta}{\cos\theta} = \frac{y}{x}.
+\]
+Whenever $x=0$ this ratio is undefined, so tangent fails to exist at
+$90^\circ$, $270^\circ$, and every angle coterminal with them. The
+reciprocal functions are defined exactly as in Chapter~3:
+\[
+\csc\theta = \frac{1}{\sin\theta}, \qquad
+\sec\theta = \frac{1}{\cos\theta}, \qquad
+\cot\theta = \frac{1}{\tan\theta}.
+\]
+
+\section{Coterminal Angles}
+
+Beginning at the positive $x$-axis and rotating through one complete
+revolution returns to the same point of the unit circle, so adding
+$360^\circ$ to an angle changes its description but not the point it names.
+
+\begin{theorem}
+For every integer $k$, the angles $\theta$ and $\theta + 360^\circ k$
+determine the same point of the unit circle; equivalently, $\theta$ and
+$\theta + 2\pi k$ determine the same point when measured in radians. Angles
+related in this way are called \emph{coterminal}.
+\end{theorem}
+
+This is the first appearance, in the context of angle itself, of a theme
+that will recur throughout the rest of the book: periodicity. The circle
+repeats, and its geometry is inherently cyclic, so that any function defined
+in terms of position on the circle must inherit that same repetition.
+
+\section{Reference Angles}
+
+Although the trigonometric functions are now defined for every angle,
+evaluating them typically reduces to a much simpler problem, since every
+angle can be associated with an acute angle in the first quadrant called its
+\emph{reference angle}.
+
+\begin{algorithmproc}{How to Evaluate a Trigonometric Function Using a Reference Angle}
+Given an angle $\theta$, first locate the quadrant containing its terminal
+side. Next determine the acute reference angle formed between the terminal
+side and the $x$-axis. Evaluate the corresponding trigonometric function at
+this first-quadrant reference angle, and finally apply the sign appropriate
+to the original quadrant, using the fact that $\cos\theta$ is the horizontal
+coordinate and $\sin\theta$ is the vertical coordinate of a point on the
+unit circle.
+\end{algorithmproc}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lccc}
+\toprule
+Quadrant & $\sin\theta$ & $\cos\theta$ & $\tan\theta$ \\
+\midrule
+I   & $+$ & $+$ & $+$ \\
+II  & $+$ & $-$ & $-$ \\
+III & $-$ & $-$ & $+$ \\
+IV  & $-$ & $+$ & $-$ \\
+\bottomrule
+\end{tabular}
+\caption{Sign of each trigonometric function by quadrant.}
+\end{table}
+
+\begin{example}
+Evaluate $\sin(210^\circ)$. Since $210^\circ = 180^\circ + 30^\circ$, the
+angle lies in Quadrant III with reference angle $30^\circ$. From
+Chapter~3, $\sin(30^\circ) = \tfrac12$, and sine is negative in Quadrant
+III, so
+\[
+\sin(210^\circ) = -\frac12.
+\]
+\end{example}
+
+\begin{practicenow}
+Evaluate $\cos(135^\circ)$ using a reference angle.
+\end{practicenow}
+
+\begin{sidebar}{The Sexagenary Cycle and Simultaneous Periods}
+A sharper illustration of periodicity than the calendar in general comes
+from the traditional Chinese sexagenary cycle, which names successive
+years, and historically days, by pairing one of ten symbols called
+heavenly stems with one of twelve symbols called earthly branches. Both
+sequences advance together, one position at a time, so that a given
+pairing recurs only once both cycles have returned to their starting
+point simultaneously. Since the stem cycle has length ten and the branch
+cycle has length twelve, the combined cycle has length
+$\operatorname{lcm}(10,12) = 60$, not the $10\times12 = 120$ pairings that
+might naively be expected, because the two cycles advance in lockstep
+rather than independently: only those pairings whose position differences
+are consistent with a single shared step actually occur, cutting the
+apparent count in half. This is ordinary modular arithmetic operating
+inside a human institution centuries before the vocabulary of cyclic
+groups existed to describe it. The unit circle exhibits the same
+structure in continuous form: two angles are coterminal exactly when
+their difference is a multiple of the circle's own period, $2\pi$, and
+the interaction of two distinct periods, as will reappear when several
+oscillations of different frequencies are added together later in this
+book, likewise produces a combined period governed by a common multiple
+rather than a simple product of the two.
+\end{sidebar}
+
+\section{Exact Values on the Unit Circle}
+
+The special angles derived in Chapter~3 now acquire explicit geometric
+locations on the circle:
+\[
+30^\circ \mapsto \left(\frac{\sqrt3}{2}, \frac12\right), \qquad
+45^\circ \mapsto \left(\frac{\sqrt2}{2}, \frac{\sqrt2}{2}\right), \qquad
+60^\circ \mapsto \left(\frac12, \frac{\sqrt3}{2}\right).
+\]
+Combined with the sign pattern of the reference-angle table, these three
+points generate the exact trigonometric value of every multiple of
+$30^\circ$ and $45^\circ$ around the entire circle, so that the unit circle
+functions as a complete map of the exact values a course in trigonometry is
+expected to know without a calculator.
+
+\section{Applications}
+
+The unit circle appears wherever a rotational phenomenon is studied: in the
+motion of wheels and gears, in the orbits of planets, in rotating
+machinery, and in the description of waves and oscillations. By fixing
+magnitude at $1$ and allowing only direction to vary, the unit circle
+supplies a single, universal geometric language in which every one of these
+rotational systems can be described.
+
+\section{Looking Ahead}
+
+The unit circle allows the trigonometric functions to be defined for every
+real angle, and it has revealed periodicity, symmetry, and the exact
+geometric values underlying the special angles of Chapter~3. Everything
+done in this chapter, however, remains static: an angle is specified, a
+point is identified, a value is computed, and the process stops there. What
+happens when the angle changes continuously, as it does for a rotating
+wheel or an orbiting planet? What path does the corresponding point trace
+out over time, and how quickly does it move along that path? The next
+chapter begins the study of trigonometry as a theory of motion, taking up
+arc length, angular velocity, and the geometry of continuous rotation.
+
+\section{Exercises}
+\begin{exercise}
+Find the reference angle for each of the following, and state the quadrant
+each lies in: $150^\circ$, $-60^\circ$, $300^\circ$, $\dfrac{5\pi}{4}$.
+\end{exercise}
+
+\begin{exercise}
+Evaluate $\tan(225^\circ)$ and $\sec(150^\circ)$ using reference angles.
+\end{exercise}
+
+\begin{exercise}
+List three angles coterminal with $40^\circ$, including at least one
+negative angle, and explain why all four name the same point of the unit
+circle.
+\end{exercise}
+
+\begin{exercise}
+Explain why $\sin\theta$ and $\cos\theta$ are defined for every real number
+$\theta$, while $\tan\theta$ is not.
+\end{exercise}

@@ -1,0 +1,437 @@
+\chapter{Small-Angle Limits and Trigonometric Derivatives}
+\label{ch:ch17-calculus-connections}
+
+\section{From Geometry to Analysis}
+
+The Introduction to this book described trigonometry not merely as a
+collection of formulas, but as a bridge between geometry and calculus.
+The preceding chapters have gradually built that bridge. Chapter~15
+showed how scaling and rotation combine into amplitwists; Chapter~16
+showed that complex numbers provide an algebraic language for those same
+transformations. Geometry became algebra. This chapter takes the next
+step: algebra now becomes analysis. The central question is simple: how
+do trigonometric functions behave under infinitesimal change? To answer
+it requires understanding what happens as an angle becomes extremely
+small. The resulting limit leads directly to the derivatives of the sine
+and cosine functions and establishes the first substantial connection
+between trigonometry and calculus.
+
+\section{The Geometry of Small Angles}
+
+Consider the values of $\sin\theta$, $\theta$, and $\tan\theta$ for
+progressively smaller angles.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{c|c|c}
+$\theta$ & $\sin\theta$ & $\tan\theta$\\
+\hline
+$0.5$ & $0.4794$ & $0.5463$\\
+$0.1$ & $0.0998$ & $0.1003$\\
+$0.05$ & $0.0500$ & $0.0500$\\
+$0.01$ & $0.0100$ & $0.0100$
+\end{tabular}
+\caption{Values of $\sin\theta$ and $\tan\theta$ as $\theta \to 0$ (radians).}
+\end{table}
+
+As $\theta$ approaches zero, the three quantities appear to become
+indistinguishable, $\sin\theta \approx \theta \approx \tan\theta$. This
+observation suggests an important limit, but before proving it a crucial
+remark is needed: the approximation works only when $\theta$ is measured
+in \emph{radians}. If degrees are used instead, the numerical agreement
+disappears, and this fact is not accidental. Chapter~4 introduced radians
+because they arise naturally from arc length, and this chapter reveals a
+second reason: radians are the angular unit that makes the calculus of
+trigonometric functions take its simplest form.
+
+\section{The Sector-Area Sandwich}
+
+Consider a unit circle and an angle $\theta$ satisfying $0 < \theta <
+\pi/2$. Three regions can be constructed at this angle: the triangle
+formed by the radius and the chord, the circular sector subtended by the
+angle, and the larger triangle formed by the radius and the tangent
+line. The first of these regions lies entirely inside the sector, while
+the sector in turn lies entirely inside the outer triangle, giving
+\[
+\text{Area}_{\text{inner}} < \text{Area}_{\text{sector}} <
+\text{Area}_{\text{outer}}.
+\]
+Each area can now be computed directly. The inner triangle has base $1$
+and height $\sin\theta$, so $\text{Area}_{\text{inner}} =
+\tfrac12\sin\theta$. The sector area was derived in Chapter~5:
+$\text{Area}_{\text{sector}} = \tfrac12\theta$. The outer triangle has
+base $1$ and height $\tan\theta$, giving $\text{Area}_{\text{outer}} =
+\tfrac12\tan\theta$. Combining these results yields
+\[
+\frac12\sin\theta < \frac12\theta < \frac12\tan\theta,
+\]
+and multiplying by $2$ gives the fundamental inequality
+\[
+\sin\theta < \theta < \tan\theta.
+\]
+This geometric sandwich is the key to everything that follows.
+
+\section{The Fundamental Small-Angle Limit}
+
+The inequality $\sin\theta < \theta < \tan\theta$ now determines the
+behavior of $\sin\theta/\theta$ as $\theta$ approaches zero.
+
+\begin{theorem}
+$\displaystyle\lim_{\theta\to0} \frac{\sin\theta}{\theta} = 1$.
+\end{theorem}
+
+\begin{proof}
+For $0 < \theta < \pi/2$, $\sin\theta < \theta < \tan\theta$. Dividing
+through by $\sin\theta$ gives $1 < \theta/\sin\theta < 1/\cos\theta$, and
+taking reciprocals reverses the inequalities:
+\[
+\cos\theta < \frac{\sin\theta}{\theta} < 1.
+\]
+As $\theta \to 0$, $\cos\theta \to 1$, and the right-hand bound is
+already $1$; by the Squeeze Theorem, $\lim_{\theta\to0} \sin\theta/\theta
+= 1$.
+\end{proof}
+
+This result is the most important limit in elementary trigonometry, and
+the derivatives of sine and cosine ultimately depend on it.
+
+\section{Corollary Limits}
+
+Several additional limits follow immediately.
+
+\begin{theorem}
+$\displaystyle\lim_{\theta\to0} \frac{\tan\theta}{\theta} = 1$.
+\end{theorem}
+
+\begin{proof}
+Since $\tan\theta = \sin\theta/\cos\theta$, $\tan\theta/\theta =
+(\sin\theta/\theta)\cdot(1/\cos\theta)$. Taking limits, $\lim_{\theta\to0}
+\tan\theta/\theta = 1\cdot1 = 1$.
+\end{proof}
+
+\begin{theorem}
+$\displaystyle\lim_{\theta\to0} \frac{1-\cos\theta}{\theta} = 0$.
+\end{theorem}
+
+\begin{proof}
+Using the identity $1-\cos\theta = 2\sin^2(\theta/2)$ from Chapter~10,
+\[
+\frac{1-\cos\theta}{\theta} = \sin\left(\frac{\theta}{2}\right)\cdot
+\frac{2\sin(\theta/2)}{\theta}.
+\]
+As $\theta \to 0$, $\sin(\theta/2) \to 0$, while
+$\sin(\theta/2)/(\theta/2) \to 1$ by the fundamental limit. The entire
+product therefore approaches $0$.
+\end{proof}
+
+\section{The Derivative}
+
+The limits established above describe the behavior of trigonometric
+functions under extremely small changes. Calculus formalizes this idea
+through the concept of a derivative. Suppose a function $f(x)$ is
+defined on an interval, and let $x$ and $x+h$ be two nearby points; the
+average rate of change of the function between them is
+$(f(x+h)-f(x))/h$, the slope of the secant line joining $(x,f(x))$ and
+$(x+h,f(x+h))$. As $h$ becomes smaller, the secant line approaches the
+tangent line at $x$.
+
+\begin{definition}
+The \emph{derivative} of a function $f$ at $x$ is
+\[
+f'(x) = \lim_{h\to0} \frac{f(x+h)-f(x)}{h},
+\]
+provided the limit exists.
+\end{definition}
+
+The derivative measures the instantaneous rate of change of the
+function, and gives the slope of its tangent line. The goal of the next
+two sections is to compute the derivatives of the sine and cosine
+functions.
+
+\section{The Derivative of Sine}
+
+Begin with $f(x) = \sin x$. By the definition of the derivative,
+\[
+f'(x) = \lim_{h\to0} \frac{\sin(x+h)-\sin x}{h}.
+\]
+The sum formula from Chapter~8 gives $\sin(x+h) = \sin x\cos h + \cos
+x\sin h$, and substituting into the difference quotient,
+\[
+f'(x) = \lim_{h\to0} \frac{\sin x\cos h + \cos x\sin h - \sin x}{h}.
+\]
+Grouping terms,
+\[
+f'(x) = \lim_{h\to0} \left[\sin x\,\frac{\cos h-1}{h} + \cos
+x\,\frac{\sin h}{h}\right].
+\]
+Since $\sin x$ and $\cos x$ do not depend on $h$, they may be treated as
+constants:
+\[
+f'(x) = \sin x \lim_{h\to0}\frac{\cos h-1}{h} + \cos x
+\lim_{h\to0}\frac{\sin h}{h}.
+\]
+The previous section established $\lim_{h\to0} \sin h/h = 1$ and
+$\lim_{h\to0} (\cos h-1)/h = 0$, so $f'(x) = \sin x(0) + \cos x(1)$.
+
+\begin{theorem}
+$\dfrac{d}{dx}\sin x = \cos x$.
+\end{theorem}
+
+\begin{proof}
+The computation above establishes the result directly from the
+definition of the derivative.
+\end{proof}
+
+The result is remarkable because the derivative of sine is another
+trigonometric function rather than an entirely different kind of
+expression.
+
+\section{The Derivative of Cosine}
+
+The same calculation applies to $f(x) = \cos x$. By definition,
+\[
+f'(x) = \lim_{h\to0} \frac{\cos(x+h)-\cos x}{h}.
+\]
+Using the cosine sum formula, $\cos(x+h) = \cos x\cos h - \sin x\sin h$,
+so
+\[
+f'(x) = \lim_{h\to0} \frac{\cos x\cos h - \sin x\sin h - \cos x}{h} =
+\lim_{h\to0}\left[\cos x\,\frac{\cos h-1}{h} - \sin x\,\frac{\sin
+h}{h}\right].
+\]
+Applying the two fundamental limits, $f'(x) = \cos x(0) - \sin x(1) =
+-\sin x$.
+
+\begin{theorem}
+$\dfrac{d}{dx}\cos x = -\sin x$.
+\end{theorem}
+
+\begin{proof}
+The result follows directly from the derivative definition and the
+trigonometric sum formulas, exactly as in the derivative of sine.
+\end{proof}
+
+Together, the two derivative formulas form one of the most important
+relationships in mathematics: differentiation transforms sine into
+cosine and cosine into negative sine. A second differentiation yields
+$\dfrac{d^2}{dx^2}\sin x = -\sin x$ and $\dfrac{d^2}{dx^2}\cos x =
+-\cos x$, a property that will later explain why sine and cosine
+naturally describe oscillations, waves, and periodic motion.
+
+\begin{algorithmproc}{How to Differentiate an Expression Involving Sine and Cosine}
+Apply the rules $\dfrac{d}{dx}\sin x = \cos x$ and $\dfrac{d}{dx}\cos x =
+-\sin x$ directly whenever the argument is simply $x$. If the angle
+appearing inside sine or cosine is itself a function of $x$, differentiate
+using these rules and then multiply by the derivative of that inner
+function according to the chain rule.
+\end{algorithmproc}
+
+\begin{example}
+Differentiate $f(x) = \sin(2x) + 3\cos x$. Using the derivative rules
+together with the chain rule, $f'(x) = 2\cos(2x) - 3\sin x$.
+\end{example}
+
+\begin{practicenow}
+Differentiate $f(x) = 4\sin(3x) - 2\cos(2x)$.
+\end{practicenow}
+
+\section{Circular Motion Revisited}
+
+Chapter~5 studied circular motion using the parametric equations $x(t) =
+\cos t$, $y(t) = \sin t$, introduced geometrically as the coordinates of
+a point moving around the unit circle at constant angular speed. The
+derivative formulas of this chapter now allow that motion to be analyzed
+quantitatively. Differentiating the coordinate functions gives $x'(t) =
+-\sin t$ and $y'(t) = \cos t$, so the velocity vector is
+\[
+\mathbf v(t) = \begin{pmatrix} x'(t) \\ y'(t) \end{pmatrix} =
+\begin{pmatrix} -\sin t \\ \cos t \end{pmatrix},
+\]
+while the position vector is $\mathbf r(t) = \begin{pmatrix} \cos t \\
+\sin t \end{pmatrix}$. Comparing the two reveals that the velocity
+vector is obtained from the position vector by a rotation through
+$90^\circ$:
+\[
+\begin{pmatrix} -\sin t \\ \cos t \end{pmatrix} = \begin{pmatrix} 0 & -1
+\\ 1 & 0 \end{pmatrix}\begin{pmatrix} \cos t \\ \sin t \end{pmatrix},
+\]
+and Chapter~8 identified this matrix as $R(90^\circ)$, the quarter-turn
+rotation.
+
+\begin{theorem}
+For motion on the unit circle, $\mathbf r(t)\cdot\mathbf v(t) = 0$;
+consequently, the velocity vector is tangent to the circle at every
+point.
+\end{theorem}
+
+\begin{proof}
+Compute the dot product: $\mathbf r(t)\cdot\mathbf v(t) = (\cos
+t)(-\sin t) + (\sin t)(\cos t) = -\cos t\sin t + \sin t\cos t = 0$, so
+the vectors are perpendicular.
+\end{proof}
+
+This result provides a satisfying closure to Chapter~5. The trigonometric
+functions that originally described circular motion now explain the
+geometry of that motion directly: the velocity is always tangent to the
+circle, and differentiation acts as a quarter-turn rotation of the
+position vector.
+
+\section{Why Radians Matter}
+
+Throughout this chapter, the limits $\lim_{\theta\to0} \sin\theta/\theta
+= 1$ and $\lim_{\theta\to0} \tan\theta/\theta = 1$ have played a central
+role, and these formulas are true only when angles are measured in
+radians. To see why, suppose angle measure is expressed in degrees.
+Since $180^\circ = \pi$ radians, an angle of $h$ degrees corresponds to
+$\pi h/180$ radians, so
+\[
+\lim_{h\to0} \frac{\sin h^\circ}{h} = \lim_{h\to0}
+\frac{\sin(\pi h/180)}{\pi h/180}\cdot\frac{\pi}{180}.
+\]
+The first factor approaches $1$, leaving $\lim_{h\to0} \sin h^\circ/h =
+\pi/180$: instead of obtaining $1$, an additional constant appears, and
+consequently $\dfrac{d}{dx}\sin x = \dfrac{\pi}{180}\cos x$ when $x$ is
+measured in degrees. The derivative formula becomes cluttered with a
+conversion factor. By contrast, when angles are measured in radians,
+$\dfrac{d}{dx}\sin x = \cos x$ with no additional constant. Radians are
+therefore not merely a convenient convention; they are the angular unit
+naturally adapted to the geometry of circles and the calculus of
+trigonometric functions, confirming the theme introduced in Chapter~4
+that radians are the unit in which the fundamental structures of
+trigonometry take their simplest form.
+
+\section{Applications}
+
+The derivative relationships $\dfrac{d}{dx}\sin x = \cos x$ and
+$\dfrac{d}{dx}\cos x = -\sin x$ appear throughout mathematics, science,
+and engineering. In simple harmonic motion, the position of an
+oscillating object is often modeled by a sine or cosine function, while
+the derivative describes its velocity. In acoustics, vibrating strings
+and sound waves are represented using trigonometric functions whose
+derivatives describe rates of change in pressure and displacement. In
+electrical engineering, alternating-current signals are modeled by
+sinusoids, with derivatives corresponding to changing voltages and
+currents. In astronomy, periodic motions such as rotations and orbital
+approximations are frequently expressed using trigonometric functions
+and their derivatives. The reason these applications are so widespread
+is now visible: differentiation preserves the trigonometric family, and
+the derivative of a sine function is another trigonometric function, as
+is the derivative of a cosine function.
+
+\section{Looking Ahead}
+
+This chapter marks a transition in the book. The earlier chapters
+studied finite transformations: rotations, similarities, amplitwists,
+and complex multiplication. This chapter introduced infinitesimal change
+through limits and derivatives. A different kind of infinite process
+remains to be studied: instead of examining what happens under
+infinitely small changes, the next chapter investigates what happens
+when infinitely many quantities are accumulated together. The central
+objects will be sequences and series, which provide the mathematical
+foundation for approximation, convergence, and many of the analytical
+techniques used throughout modern mathematics.
+
+\section{Exercises}
+
+\subsection*{Small-Angle Limits}
+\begin{exercise}
+Compute $\sin\theta/\theta$ for $\theta = 0.5$, $0.1$, and $0.01$
+radians.
+\end{exercise}
+
+\begin{exercise}
+Compute $\tan\theta/\theta$ for $\theta = 0.5$, $0.1$, and $0.01$
+radians.
+\end{exercise}
+
+\begin{exercise}
+Explain numerically why $\sin\theta \approx \theta$ for small angles.
+\end{exercise}
+
+\begin{exercise}
+Reproduce the geometric argument establishing $\sin\theta < \theta <
+\tan\theta$.
+\end{exercise}
+
+\begin{exercise}
+Use the Squeeze Theorem to prove $\lim_{\theta\to0} \sin\theta/\theta =
+1$.
+\end{exercise}
+
+\subsection*{Differentiation}
+\begin{exercise}
+Differentiate $f(x) = \sin x$.
+\end{exercise}
+
+\begin{exercise}
+Differentiate $f(x) = \cos x$.
+\end{exercise}
+
+\begin{exercise}
+Differentiate $f(x) = 3\sin x - 2\cos x$.
+\end{exercise}
+
+\begin{exercise}
+Differentiate $f(x) = \sin(2x)$.
+\end{exercise}
+
+\begin{exercise}
+Differentiate $f(x) = 4\cos(3x)$.
+\end{exercise}
+
+\begin{exercise}
+Differentiate $f(x) = \sin(5x) + \cos(2x)$.
+\end{exercise}
+
+\begin{exercise}
+Differentiate $f(x) = 2\sin(4x) - 3\cos(5x)$.
+\end{exercise}
+
+\subsection*{Circular Motion}
+\begin{exercise}
+For $x(t) = \cos t$, $y(t) = \sin t$, find the velocity vector.
+\end{exercise}
+
+\begin{exercise}
+Show that the velocity vector is perpendicular to the position vector.
+\end{exercise}
+
+\begin{exercise}
+Verify that the velocity vector is tangent to the unit circle.
+\end{exercise}
+
+\begin{exercise}
+Find the velocity vector at $t = \pi/2$.
+\end{exercise}
+
+\begin{exercise}
+Find the velocity vector at $t = \pi$.
+\end{exercise}
+
+\subsection*{Challenge Problems}
+\begin{exercise}
+Prove $\lim_{\theta\to0} \tan\theta/\theta = 1$.
+\end{exercise}
+
+\begin{exercise}
+Show that $\dfrac{d^2}{dx^2}\sin x = -\sin x$.
+\end{exercise}
+
+\begin{exercise}
+Show that $\dfrac{d^2}{dx^2}\cos x = -\cos x$.
+\end{exercise}
+
+\begin{exercise}
+Explain why the equation $y'' = -y$ is naturally solved by sine and
+cosine functions.
+\end{exercise}
+
+\begin{exercise}
+Represent the pair $(\cos x, \sin x)$ as a vector, and show that
+differentiation acts as a quarter-turn rotation on it.
+\end{exercise}
+
+\begin{exercise}
+Compare the action of differentiation on $(\cos x, \sin x)$ with
+multiplication by $i$ in Chapter~16. Explain the similarity.
+\end{exercise}

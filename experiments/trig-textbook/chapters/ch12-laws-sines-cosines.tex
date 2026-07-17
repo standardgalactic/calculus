@@ -1,0 +1,464 @@
+\chapter{The Law of Sines and the Law of Cosines}
+\label{ch:ch12-laws-sines-cosines}
+
+\section{Beyond the Right Triangle}
+
+The trigonometry developed so far has rested on two geometric settings, and
+both, on inspection, share a common feature. The right triangle of
+Chapter~3 supplied sine, cosine, and tangent as ratios invariant under
+scaling, with a right angle present explicitly; the unit circle of
+Chapter~4 extended those same functions beyond acute angles by measuring
+coordinates against a pair of perpendicular axes, with the right angle now
+hidden inside the coordinate system rather than inside a triangle. As long
+as a right angle is available somewhere in the configuration, the tools
+built in earlier chapters suffice. Many geometric situations, however,
+supply no such angle. A surveyor measuring the distance between two
+inaccessible points may obtain a triangle with no right angle at all; a
+navigator determining position from bearings, or an astronomer inferring
+distance from parallax, may encounter a triangle whose angles bear no
+particular relationship to ninety degrees. If trigonometry is to serve
+these settings, it must be extended beyond the right triangle, and this
+chapter's two central results, the Law of Sines and the Law of Cosines,
+should reduce to the familiar right-triangle relationships whenever a
+right angle happens to be present, so that right-triangle trigonometry
+becomes a special case of a broader theory rather than a separate subject
+entirely.
+
+\section{Deriving the Law of Sines}
+
+Consider a triangle with sides $a$, $b$, $c$ opposite angles $A$, $B$,
+$C$ respectively. Dropping an altitude of length $h$ from the vertex
+opposite side $c$ divides the triangle into two right triangles sharing
+that altitude, which provides a bridge between two different
+trigonometric descriptions of the same quantity.
+
+\begin{theorem}[Law of Sines]
+For any triangle, $\dfrac{a}{\sin A} = \dfrac{b}{\sin B} = \dfrac{c}{\sin
+C}$.
+\end{theorem}
+
+\begin{proof}
+In the right triangle containing angle $A$, $\sin A = h/b$, so $h =
+b\sin A$; in the right triangle containing angle $B$, $\sin B = h/a$, so
+$h = a\sin B$. Both expressions describe the same altitude, so $a\sin B =
+b\sin A$, and dividing by $\sin A \sin B$ gives $a/\sin A = b/\sin B$.
+Repeating the construction with an altitude dropped from a different
+vertex relates the third side-angle pair in the same way, establishing all
+three ratios as equal.
+\end{proof}
+
+Each ratio in the theorem measures the same underlying quantity, namely
+twice the circumradius of the triangle, so the equality of the three
+ratios expresses a single consistency constraint that any valid
+configuration of sides and angles must satisfy, rather than three
+independent facts. The formula is also consistent with what Chapter~3
+already established: if $C = 90^\circ$, then $\sin C = 1$ and the Law of
+Sines reduces to $a/\sin A = b/\sin B = c$, or equivalently $\sin A = a/c$
+and $\sin B = b/c$, exactly the right-triangle definitions of Chapter~3.
+The Law of Sines therefore extends the earlier theory rather than
+replacing it.
+
+\begin{example}
+Solve the triangle with $A = 42^\circ$, $B = 68^\circ$, $a = 12$. Since the
+angles of a triangle sum to $180^\circ$, $C = 180^\circ - 42^\circ -
+68^\circ = 70^\circ$. The Law of Sines gives
+\[
+\frac{12}{\sin42^\circ} = \frac{b}{\sin68^\circ}, \qquad
+b = 12\,\frac{\sin68^\circ}{\sin42^\circ} \approx 16.6,
+\]
+and similarly $c = 12\,\sin70^\circ/\sin42^\circ \approx 16.8$, completing
+the triangle without any altitude or right angle ever having been given
+directly.
+\end{example}
+
+\section{The Ambiguous Case}
+
+Most triangle-solving configurations determine either one triangle or
+none. The Law of Sines admits a notable exception when two sides and a
+non-included angle are known, traditionally called the SSA case. Fixing
+one side and one angle and allowing the remaining given side to pivot
+about its attached endpoint like a hinged rod shows why: depending on its
+length relative to the altitude and the adjacent side, the free endpoint
+may fail to reach the base at all, may reach it in exactly one position,
+or may reach it in two distinct positions, yielding no triangle, one
+triangle, or two triangles respectively. The ambiguity has an algebraic
+source as well as a geometric one: it arises because a single sine value
+corresponds to two different angles within one revolution, precisely the
+phenomenon already encountered in solving equations of the form
+$\sin\theta = 1/2$ in Chapter~11. The SSA case is therefore not an
+isolated irregularity but a direct consequence of the geometry of the
+sine function.
+
+\begin{algorithmproc}{How to Determine the Number of Triangles in the SSA Case}
+Given angle $A$ and sides $a$ and $b$, compute the altitude $h = b\sin A$
+from the vertex opposite $b$. If $a < h$, no triangle exists, since side
+$a$ is too short to reach the base. If $a = h$, exactly one triangle
+exists, a right triangle with the right angle opposite $a$. If $h < a <
+b$, two triangles exist, corresponding to the two angles $B$ and $180^\circ
+- B$ satisfying $\sin B = b\sin A / a$. If $a \geq b$, exactly one triangle
+exists, since the supplementary angle $180^\circ - B$ would make the angle
+sum of the triangle exceed $180^\circ$.
+\end{algorithmproc}
+
+\begin{example}
+Solve the triangle with $A = 30^\circ$, $a = 10$, $b = 18$. The Law of
+Sines gives $10/\sin30^\circ = 18/\sin B$, and since $\sin30^\circ =
+1/2$, this becomes $20 = 18/\sin B$, so $\sin B = 18/20 = 0.9$ and $B
+\approx 64.2^\circ$. Because $h = b\sin A = 9$ and $a = 10$ satisfies $h <
+a < b$, a second solution is expected: $B = 180^\circ - 64.2^\circ =
+115.8^\circ$ also satisfies $\sin B = 0.9$, and both angles are compatible
+with the given data. The first possibility gives $C = 180^\circ - 30^\circ
+- 64.2^\circ = 85.8^\circ$, and the second gives $C = 180^\circ - 30^\circ
+- 115.8^\circ = 34.2^\circ$; both triangles are valid, each containing a
+side of length $10$, a side of length $18$, and an angle of $30^\circ$,
+with the given data alone insufficient to distinguish between them.
+\end{example}
+
+Whenever the Law of Sines produces an angle through an inverse sine
+computation, the supplementary angle should be checked against the
+algorithm above before it is discarded, since in the SSA case it will
+sometimes, though not always, correspond to a second valid triangle.
+
+\section{Toward the Law of Cosines}
+
+The Law of Sines cannot resolve every configuration. If all three sides
+of a triangle are known and an angle is sought, the Law of Sines offers no
+starting point, since it requires an already-known side-angle pair. A
+different relationship is needed, and it is obtained by returning to
+coordinate geometry, the strategy Chapter~2 introduced for translating
+geometric questions into algebra.
+
+\section{Deriving the Law of Cosines}
+
+Place a triangle with sides $a$, $b$, $c$ and opposite angles $A$, $B$,
+$C$ so that the vertex at angle $C$ lies at the origin and the side of
+length $b$ extends along the positive $x$-axis to the point $(b,0)$. The
+third vertex lies at distance $a$ from the origin, at angle $C$ from the
+positive $x$-axis, so by the unit-circle coordinate formulas of Chapter~4
+it has coordinates $(a\cos C, a\sin C)$.
+
+\begin{theorem}[Law of Cosines]
+For any triangle, $c^2 = a^2 + b^2 - 2ab\cos C$, and similarly $a^2 = b^2
++ c^2 - 2bc\cos A$ and $b^2 = a^2 + c^2 - 2ac\cos B$.
+\end{theorem}
+
+\begin{proof}
+The side of length $c$ is the distance between $(b,0)$ and $(a\cos C,
+a\sin C)$, so by the distance formula of Chapter~2,
+\[
+c^2 = (b - a\cos C)^2 + (a\sin C)^2 = b^2 - 2ab\cos C + a^2\cos^2 C +
+a^2\sin^2 C.
+\]
+By the Pythagorean identity of Chapter~9, $a^2\cos^2 C + a^2\sin^2 C =
+a^2$, so $c^2 = a^2 + b^2 - 2ab\cos C$. The remaining two forms follow by
+relabeling the triangle's vertices and repeating the same argument.
+\end{proof}
+
+The three ingredients of this derivation are drawn from earlier chapters
+of the book: the coordinate placement from Chapter~2, the trigonometric
+coordinates from Chapter~4, and the Pythagorean identity from Chapter~9.
+Setting $C = 90^\circ$ gives $\cos C = 0$, so the correction term vanishes
+and $c^2 = a^2 + b^2$, the ordinary Pythagorean theorem; the Law of
+Cosines therefore generalizes the Pythagorean theorem rather than
+replacing it, with the familiar right-triangle relationship recovered
+exactly when the included angle is a right angle.
+
+\section{Solving Triangles with the Law of Cosines}
+
+The most direct use of the Law of Cosines occurs when two sides and the
+included angle are known, the SAS case.
+
+\begin{example}
+Solve for $c$ given $a = 8$, $b = 11$, $C = 50^\circ$. The Law of Cosines
+gives
+\[
+c^2 = 8^2 + 11^2 - 2(8)(11)\cos50^\circ = 64 + 121 - 176(0.6428) \approx
+71.9,
+\]
+so $c \approx 8.48$. Once all three sides are known, either the Law of
+Sines or the Law of Cosines can determine the two remaining angles, since
+the Law of Sines requires only one known side-angle pair to proceed and
+one, $C$, is already known.
+\end{example}
+
+\begin{practicenow}
+Solve for $c$ given $a = 13$, $b = 9$, $C = 120^\circ$.
+\end{practicenow}
+
+A second application arises when all three sides are known and an angle
+is sought, the SSS case.
+
+\begin{example}
+Given $a = 7$, $b = 9$, $c = 11$, find angle $C$. Substituting into
+$c^2 = a^2 + b^2 - 2ab\cos C$,
+\[
+121 = 49 + 81 - 126\cos C, \qquad 126\cos C = 9, \qquad \cos C =
+\frac{9}{126} = \frac{1}{14},
+\]
+so $C = \arccos(1/14) \approx 85.9^\circ$. Unlike the SSA configuration of
+Section~12.3, no ambiguity arises here: three side lengths satisfying the
+triangle inequality determine a unique triangle, since $\arccos$ returns
+exactly one angle in $[0,\pi]$ for any given ratio, with no supplementary
+angle to check.
+\end{example}
+
+\begin{algorithmproc}{How to Solve an Oblique Triangle}
+Given the known measurements of a triangle, determine which case applies.
+If two angles and any side are known (AAS or ASA), find the third angle
+from the angle sum and apply the Law of Sines directly. If two sides and
+the included angle are known (SAS), apply the Law of Cosines to find the
+third side, then use the Law of Sines or a second application of the Law
+of Cosines to find the remaining angles. If all three sides are known
+(SSS), apply the Law of Cosines to find one angle at a time. If two sides
+and a non-included angle are known (SSA), apply the Law of Sines and use
+the algorithm of Section~12.3 to determine whether zero, one, or two
+triangles satisfy the data.
+\end{algorithmproc}
+
+\section{The Cosine Correction Term}
+
+The formula $c^2 = a^2 + b^2 - 2ab\cos C$ is often committed to memory
+without attention to its geometric content. The term $a^2 + b^2$ is
+exactly what the Pythagorean theorem would predict if sides $a$ and $b$
+met at a right angle, and the term $-2ab\cos C$ measures the departure of
+the actual triangle from that special case. When $C = 90^\circ$, $\cos C =
+0$ and the correction vanishes entirely; when $C < 90^\circ$, $\cos C$ is
+positive and the correction subtracts from $a^2+b^2$, so the side opposite
+an acute included angle is shorter than the right-triangle prediction;
+when $C > 90^\circ$, $\cos C$ is negative and subtracting a negative
+quantity lengthens the opposite side beyond that prediction. The Law of
+Cosines can therefore be read as the Pythagorean theorem together with an
+explicit correction recording how far the included angle departs from a
+right angle.
+
+\section{Area from Trigonometry}
+
+Returning to the altitude construction that opened this chapter yields a
+further consequence. With sides $a$ and $b$ enclosing angle $C$, and $b$
+taken as the base, the altitude from the opposite vertex is $h = a\sin C$,
+so the ordinary area formula $\text{Area} = \tfrac12(\text{base})(\text{height})$
+becomes
+\[
+\boxed{\text{Area} = \frac12 ab\sin C},
+\]
+with the analogous formulas $\text{Area} = \tfrac12 bc\sin A$ and
+$\text{Area} = \tfrac12 ac\sin B$ following by relabeling. Each of these
+computes an area without requiring the altitude to be found explicitly,
+since the sine function already encodes the necessary height information.
+
+\begin{example}
+Find the area of the triangle with $a = 12$, $b = 15$, $C = 40^\circ$.
+\[
+\text{Area} = \frac12(12)(15)\sin40^\circ \approx 90(0.6428) \approx 57.9
+\]
+square units, obtained without ever computing an altitude directly.
+\end{example}
+
+\section{Applications}
+
+The two laws developed in this chapter recover distances and angles that
+cannot be measured directly. Surveyors use triangulation to determine the
+widths of rivers, the positions of landmarks, and the boundaries of large
+parcels of land; navigators infer position from measured bearings and
+distances; engineers analyze forces acting along non-perpendicular
+directions; astronomers estimate the geometry of distant objects from
+measurements taken at different locations. In each case certain distances
+or angles are inaccessible to direct measurement, yet sufficient
+constraints can be gathered to reconstruct them indirectly, and the
+process is fundamentally reconstructive in the sense introduced in this
+book's preface: measurements are not merely recorded but used to infer a
+structure that was not itself observed.
+
+\section{Looking Ahead}
+
+The Law of Sines generalized the relationship between a triangle's sides
+and its opposite angles; the Law of Cosines generalized the Pythagorean
+theorem. Together the two provide a complete method for solving an
+arbitrary triangle from any sufficient set of given measurements. The next
+chapter moves from the geometry of individual triangles toward a broader
+language for describing space, returning to the vectors of Chapter~2 with
+new tools available. Vectors allow magnitude and direction to be treated
+as a single object, and among their properties is an operation, the dot
+product, whose defining formula will turn out to have exactly the
+structure of the Law of Cosines derived here: a length-squared relation
+with a cosine correction term. What in this chapter is a statement about
+the sides and angles of a triangle will reappear in the next as a general
+algebraic operation on vectors, continuing this book's movement from
+individual geometric configurations toward increasingly unified
+descriptions of transformation and space.
+
+\section{Exercises}
+
+\subsection*{The Law of Sines}
+\begin{exercise}
+For each triangle, use the Law of Sines to find the missing side, rounded
+to the nearest tenth: (a) $A=35^\circ$, $B=85^\circ$, $a=12$; (b)
+$A=48^\circ$, $C=67^\circ$, $c=15$; (c) $B=72^\circ$, $C=41^\circ$,
+$b=18$.
+\end{exercise}
+
+\begin{exercise}
+A triangle has $A = 40^\circ$, $B = 65^\circ$, $a = 10$. Find $C$, $b$,
+and $c$.
+\end{exercise}
+
+\begin{exercise}
+A triangle has $B = 58^\circ$, $C = 47^\circ$, $c = 14$. Solve the
+triangle completely.
+\end{exercise}
+
+\begin{exercise}
+Verify directly that the triangle with $A = 30^\circ$, $B = 60^\circ$, $C
+= 90^\circ$ satisfies the Law of Sines.
+\end{exercise}
+
+\subsection*{The Ambiguous Case}
+\begin{exercise}
+Determine whether each SSA configuration produces no triangle, one
+triangle, or two triangles: (a) $A=35^\circ$, $a=8$, $b=15$; (b)
+$A=40^\circ$, $a=12$, $b=10$; (c) $A=25^\circ$, $a=9$, $b=18$.
+\end{exercise}
+
+\begin{exercise}
+Solve completely, giving all possible triangles: $A = 30^\circ$, $a = 10$,
+$b = 18$.
+\end{exercise}
+
+\begin{exercise}
+Solve completely: $A = 50^\circ$, $a = 16$, $b = 12$.
+\end{exercise}
+
+\begin{exercise}
+Explain why the SSA case can sometimes produce two different triangles.
+\end{exercise}
+
+\subsection*{The Law of Cosines}
+\begin{exercise}
+Use the Law of Cosines to find the missing side: (a) $a=8$, $b=11$,
+$C=50^\circ$; (b) $a=13$, $b=9$, $C=120^\circ$; (c) $a=7$, $b=14$,
+$C=35^\circ$.
+\end{exercise}
+
+\begin{exercise}
+Find the third side of a triangle whose sides of length $12$ and $17$
+include an angle of $110^\circ$.
+\end{exercise}
+
+\begin{exercise}
+Two roads leave a town and diverge at an angle of $75^\circ$. A traveler
+goes $18$ km along one road and another traveler goes $25$ km along the
+other. How far apart are they?
+\end{exercise}
+
+\subsection*{Finding Angles from Three Sides}
+\begin{exercise}
+Use the Law of Cosines to find the indicated angle: (a) $a=7$, $b=9$,
+$c=11$, find $C$; (b) $a=10$, $b=10$, $c=12$, find $C$; (c) $a=5$, $b=8$,
+$c=10$, find $A$.
+\end{exercise}
+
+\begin{exercise}
+Determine all three angles of a triangle with sides $6$, $8$, $10$.
+\end{exercise}
+
+\begin{exercise}
+Determine all three angles of a triangle with sides $9$, $11$, $15$.
+\end{exercise}
+
+\begin{exercise}
+Explain why the SSS case always determines a unique triangle whenever the
+triangle inequalities are satisfied.
+\end{exercise}
+
+\subsection*{Area of a Triangle}
+\begin{exercise}
+Find the area: (a) $a=12$, $b=15$, $C=40^\circ$; (b) $a=9$, $b=14$,
+$C=65^\circ$; (c) $b=20$, $c=11$, $A=32^\circ$.
+\end{exercise}
+
+\begin{exercise}
+A triangular plot of land has sides of length $60$ m and $85$ m with an
+included angle of $54^\circ$. Find its area.
+\end{exercise}
+
+\begin{exercise}
+Show that $\tfrac12 ab\sin C = \tfrac12 bc\sin A$ using the Law of Sines.
+\end{exercise}
+
+\subsection*{Mixed Problems}
+\begin{exercise}
+Solve each triangle completely: (a) $a=8$, $b=11$, $C=50^\circ$; (b)
+$A=42^\circ$, $B=68^\circ$, $a=12$; (c) $a=7$, $b=9$, $c=11$.
+\end{exercise}
+
+\begin{exercise}
+A surveyor stands at point $P$ and measures the angle between two
+landmarks $Q$ and $R$ to be $63^\circ$. The distances from $P$ to the
+landmarks are $240$ m and $310$ m. Find the distance between the
+landmarks.
+\end{exercise}
+
+\begin{exercise}
+A ship travels $120$ km due east and then changes course, traveling $90$
+km on a heading $35^\circ$ north of east. How far is the ship from its
+starting point?
+\end{exercise}
+
+\begin{exercise}
+A triangular support frame has side lengths $4.2$ m, $5.6$ m, and $7.1$
+m. Determine its largest angle.
+\end{exercise}
+
+\begin{exercise}
+Explain when the Law of Sines is usually preferable to the Law of
+Cosines, and when the reverse is true.
+\end{exercise}
+
+\subsection*{Conceptual and Exploratory Problems}
+\begin{exercise}
+Show algebraically that the Law of Cosines reduces to the Pythagorean
+theorem when $C = 90^\circ$.
+\end{exercise}
+
+\begin{exercise}
+Describe geometrically the meaning of the correction term $-2ab\cos C$ in
+the Law of Cosines.
+\end{exercise}
+
+\begin{exercise}
+A student claims that the Law of Cosines is merely a complicated version
+of the Pythagorean theorem. Evaluate this claim.
+\end{exercise}
+
+\begin{exercise}
+The Law of Sines and the Law of Cosines both reconstruct unknown
+measurements from partial information. Explain how each accomplishes this
+in a different way.
+\end{exercise}
+
+\begin{exercise}
+Describe how this chapter extends the trigonometry of right triangles to
+arbitrary triangles.
+\end{exercise}
+
+\subsection*{Challenge Problems}
+\begin{exercise}
+A triangle has sides $13$, $14$, $15$. Find its area without using
+Heron's formula.
+\end{exercise}
+
+\begin{exercise}
+A triangle has $A = 25^\circ$, $a = 8$, $b = 14$. Determine all possible
+triangles and classify each as acute, right, or obtuse.
+\end{exercise}
+
+\begin{exercise}
+Prove the Law of Cosines using an altitude rather than coordinates.
+\end{exercise}
+
+\begin{exercise}
+For a triangle with sides $a$, $b$, $c$, show that
+$\cos C = \dfrac{a^2+b^2-c^2}{2ab}$, and explain why this formula allows
+any angle of a triangle to be computed directly from the side lengths
+alone.
+\end{exercise}

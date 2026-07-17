@@ -1,0 +1,253 @@
+\chapter{Rotation Geometry}
+\label{ch:ch08-rotation-geometry}
+
+\section{Combining Rotations}
+
+The previous chapter recovered angles from trigonometric ratios. A
+different kind of question now presents itself, concerning not a single
+angle but several angles acting in sequence. Suppose a point is rotated by
+an angle $A$, and the result is then rotated again by an angle $B$. What is
+the overall effect of the two rotations together? Does the outcome depend
+on the order in which they are performed, and can two successive rotations
+always be replaced by a single rotation? Questions of this kind move the
+discussion from individual angles to transformations acting on the plane,
+and, more importantly, they reveal the geometric origin of many identities
+that are too often presented as isolated formulas to be memorized. The goal
+of this chapter is to derive those identities from the geometry of rotation
+itself.
+
+\section{Rotations as Transformations}
+
+Recall from Chapter~4 that every point on the unit circle can be written as
+$(\cos\theta, \sin\theta)$, obtained by rotating the point $(1,0)$ through
+angle $\theta$. Consider now an arbitrary point $(x,y)$, written in polar
+form as $x = r\cos\phi$ and $y = r\sin\phi$. Rotating this point by an
+angle $\theta$ changes only its angle, not its distance $r$ from the
+origin, so the rotated point has coordinates $(r\cos(\phi+\theta),
+r\sin(\phi+\theta))$. The task of this section is to express these new
+coordinates in terms of $x$, $y$, and $\theta$ alone, without reference to
+$\phi$ or $r$.
+
+\begin{theorem}
+Rotating a point $(x,y)$ counterclockwise through an angle $\theta$
+produces the point
+\[
+(x',y') = (x\cos\theta - y\sin\theta,\ x\sin\theta + y\cos\theta).
+\]
+\end{theorem}
+
+\begin{proof}
+A rotation of the plane is a linear transformation fixing the origin: it
+carries sums of displacements to sums of the rotated displacements, and it
+preserves distance from the origin. Such a transformation is completely
+determined by where it sends the two points $(1,0)$ and $(0,1)$, since
+every point $(x,y)$ is the combination $x(1,0) + y(0,1)$. By the
+definition of sine and cosine in Chapter~4, rotating $(1,0)$, which lies at
+angle $0$, by $\theta$ sends it to the point at angle $\theta$, namely
+$(\cos\theta, \sin\theta)$. The point $(0,1)$ lies a quarter turn ahead of
+$(1,0)$, at angle $\pi/2$; a direct check across the four quadrants using
+the special angles of Chapter~4 shows that a quarter turn always sends a
+point $(a,b)$ on the unit circle to $(-b,a)$, so rotating $(0,1)$ by
+$\theta$ sends it to $(-\sin\theta, \cos\theta)$. Combining the two images
+by linearity,
+\[
+(x,y) = x(1,0) + y(0,1) \ \longmapsto\ x(\cos\theta,\sin\theta) +
+y(-\sin\theta,\cos\theta) = (x\cos\theta - y\sin\theta,\ x\sin\theta +
+y\cos\theta).
+\]
+\end{proof}
+
+\section{Composition of Rotations}
+
+Rotations obey a strikingly simple composition law.
+
+\begin{theorem}
+A rotation by angle $A$ followed by a rotation by angle $B$ is equivalent
+to a single rotation by angle $A+B$.
+\end{theorem}
+
+\begin{proof}
+Let a point initially have angular coordinate $\phi$. After the first
+rotation its angular coordinate becomes $\phi + A$, and after the second
+it becomes $(\phi + A) + B$. By associativity of addition, $(\phi+A)+B =
+\phi + (A+B)$, so the final point is exactly the result of rotating once by
+angle $A+B$.
+\end{proof}
+
+This simple fact is the source of the most important identities in
+trigonometry.
+
+\section{Deriving the Sum Formulas}
+
+Consider the point $(\cos A, \sin A)$, obtained geometrically by rotating
+$(1,0)$ through angle $A$. Rotating this point by an additional angle $B$
+and applying the rotation formula of Section~8.2 gives
+\[
+x' = \cos A\cos B - \sin A\sin B, \qquad y' = \sin A\cos B + \cos A\sin B.
+\]
+By the composition theorem just proved, however, rotating first by $A$ and
+then by $B$ is equivalent to rotating $(1,0)$ once by $A+B$, so the
+resulting point must also equal $(\cos(A+B), \sin(A+B))$. Since both
+descriptions refer to the same point, corresponding coordinates must agree:
+\[
+\boxed{\cos(A+B) = \cos A\cos B - \sin A\sin B}, \qquad
+\boxed{\sin(A+B) = \sin A\cos B + \cos A\sin B}.
+\]
+These formulas are not arbitrary identities to be verified after the fact;
+they are the coordinate expression of rotation composition, true because
+two rotations performed in sequence must land on exactly the point that a
+single combined rotation would reach.
+
+\section{Difference Formulas}
+
+The difference formulas follow immediately from the sum formulas, without
+any further geometry. Replacing $B$ with $-B$ in the sum formulas and using
+the symmetries proved in Chapter~6, $\cos(-B) = \cos B$ and $\sin(-B) =
+-\sin B$, gives
+\[
+\boxed{\cos(A-B) = \cos A\cos B + \sin A\sin B}, \qquad
+\boxed{\sin(A-B) = \sin A\cos B - \cos A\sin B}.
+\]
+Nothing new has been assumed here; the difference formulas are simply the
+sum formulas viewed through the even symmetry of cosine and the odd
+symmetry of sine established earlier in the book.
+
+\begin{example}
+Compute $\sin(75^\circ)$ exactly. Writing $75^\circ = 45^\circ + 30^\circ$
+and applying the sum formula for sine,
+\[
+\sin(75^\circ) = \sin45^\circ\cos30^\circ + \cos45^\circ\sin30^\circ
+= \left(\frac{\sqrt2}{2}\right)\left(\frac{\sqrt3}{2}\right) +
+\left(\frac{\sqrt2}{2}\right)\left(\frac12\right)
+= \frac{\sqrt6+\sqrt2}{4}.
+\]
+\end{example}
+
+\begin{algorithmproc}{How to Derive an Identity from Rotation Composition}
+Identify a point obtained as the image of a known point under one
+rotation, then apply a second rotation to it using the rotation formula of
+Section~8.2 to obtain its coordinates algebraically. Separately, express
+the same final point using angle addition and the composition theorem.
+Since both expressions describe the identical point, equate corresponding
+coordinates and simplify the resulting equations; the result is the
+desired identity. Many of the identities appearing later in this book arise
+from precisely this strategy.
+\end{algorithmproc}
+
+\begin{practicenow}
+Compute $\cos(15^\circ)$ exactly, using $15^\circ = 45^\circ - 30^\circ$.
+\end{practicenow}
+
+\begin{sidebar}{Arabic Root-and-Pattern Morphology}
+Arabic and the other Semitic languages build words through a mechanism
+unusually close to the operator-and-object structure of this chapter. A
+word is generated from a consonantal root, typically three consonants
+carrying a core meaning, together with a separately specified pattern, a
+template of vowels and affixes into which the root's consonants are
+inserted. The root $f$-$\text{'}$-$l$, associated broadly with the idea
+of doing or acting, yields distinct words such as \textit{fa'ala} (he
+did), \textit{fa\text{''}ala} (he caused to do, intensively),
+\textit{f\={a}'ala} (he did reciprocally, with another), and
+\textit{af'ala} (he caused to do), among others, depending only on which
+pattern is applied to the same fixed root. The root supplies the
+invariant content; the pattern supplies the transformation acting on it,
+and in each case the output can be described as
+$\text{Pattern}(\text{Root}) = \text{Word}$, a fixed object transformed
+by a chosen operator into a new but recognizably related object. This is
+precisely the structure a rotation exhibits in this chapter, where a
+fixed point is transformed by an operator $R(\theta)$ into a new point
+that is different in position yet identical in its distance from the
+origin: an invariant core, and a family of operators acting on it to
+produce variation without destroying what makes each output recognizable
+as a transformation of the same underlying thing.
+\end{sidebar}
+
+\section{Rotation Matrices}
+
+The rotation transformation of Section~8.2 can be written compactly as
+\[
+\begin{pmatrix} x' \\ y' \end{pmatrix}
+=
+\begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}
+\begin{pmatrix} x \\ y \end{pmatrix}.
+\]
+This array of numbers is called a matrix, and although a full study of
+matrices lies beyond the scope of this book, one fact is worth noting here:
+composing two rotations, as in Section~8.4, corresponds exactly to
+multiplying their two matrices together. The matrix form therefore encodes
+the same angle-addition structure derived earlier in this chapter, in a
+notation that will reappear in later mathematical study, particularly in
+linear algebra, physics, and computer graphics.
+
+\section{Applications}
+
+Rotations occur throughout science and technology: rotating objects in
+computer graphics, steering the joints of a robotic arm, controlling the
+orientation of a spacecraft, describing crystallographic symmetries, and
+analyzing mechanical linkages and gears all depend on the transformation
+studied in this chapter. The identities derived above are not merely
+algebraic conveniences to be looked up when needed; they are mathematical
+descriptions of how rotational transformations combine, and every one of
+these applications relies on that combination rule holding exactly.
+
+\section{Looking Ahead}
+
+The sum and difference formulas mark a turning point in the book. A large
+share of the identities encountered in the chapters that follow are direct
+consequences of them: the double-angle formulas of Chapter~10 arise simply
+by setting $A = B$ in the sum formulas derived here, the half-angle
+formulas emerge by solving those same equations in reverse, and the
+product-to-sum formulas follow from further algebraic manipulation of the
+same starting point. A large portion of trigonometric algebra therefore
+grows from a single geometric fact established in this chapter: rotations
+compose by adding angles. The next chapters develop this identity toolkit
+further, showing how increasingly complex trigonometric expressions can be
+simplified, transformed, and ultimately solved.
+
+\section{Exercises}
+\begin{exercise}
+Use the sum formula to compute $\sin(105^\circ)$ exactly.
+\end{exercise}
+
+\begin{exercise}
+Use the difference formula to compute $\cos(75^\circ)$ exactly.
+\end{exercise}
+
+\begin{exercise}
+Use the sum formula to compute $\sin(15^\circ)$ exactly.
+\end{exercise}
+
+\begin{exercise}
+Use the difference formula to compute $\cos(105^\circ)$ exactly.
+\end{exercise}
+
+\begin{exercise}
+Starting from the sum formula for $\sin(A+B)$, derive the difference
+formula for sine.
+\end{exercise}
+
+\begin{exercise}
+Starting from the sum formula for $\cos(A+B)$, derive the difference
+formula for cosine.
+\end{exercise}
+
+\begin{exercise}
+Verify directly that two successive rotations of $40^\circ$ and $50^\circ$
+produce the same result as a single rotation of $90^\circ$.
+\end{exercise}
+
+\begin{exercise}
+Explain why a rotation cannot change the distance of a point from the
+origin.
+\end{exercise}
+
+\begin{exercise}
+Write the rotation matrix corresponding to a rotation of $90^\circ$, and
+apply it to the point $(1,0)$.
+\end{exercise}
+
+\begin{exercise}
+Why must composing a rotation by $A$ with a rotation by $B$ produce the
+same result as a single rotation by $A+B$? What would break in the
+geometry of the circle if this were not true?
+\end{exercise}

@@ -1,0 +1,78 @@
+\chapter{Review of Algebraic Prerequisites}
+\label{app:algebra}
+
+This appendix collects, without proof, the algebraic facts assumed throughout
+the text: properties of exponents and radicals, factoring techniques, the
+quadratic formula, and the algebra of rational expressions. Students who find
+early exercises unexpectedly difficult are encouraged to consult it first.
+
+\section{Exponents and Radicals}
+
+For real numbers $a, b$ and integers $m, n$ (with $a, b \neq 0$ where
+division or a nonpositive exponent is involved), the exponent rules are
+\[
+a^m a^n = a^{m+n}, \qquad \frac{a^m}{a^n} = a^{m-n}, \qquad (a^m)^n =
+a^{mn}, \qquad (ab)^n = a^n b^n, \qquad a^0 = 1, \qquad a^{-n} =
+\frac{1}{a^n}.
+\]
+A radical is related to a fractional exponent by $\sqrt[n]{a} =
+a^{1/n}$, and more generally $a^{m/n} = \sqrt[n]{a^m} =
+\left(\sqrt[n]{a}\right)^m$, provided $\sqrt[n]{a}$ is defined. The
+following radical identities hold whenever both sides are defined:
+\[
+\sqrt[n]{ab} = \sqrt[n]{a}\,\sqrt[n]{b}, \qquad
+\sqrt[n]{\frac{a}{b}} = \frac{\sqrt[n]{a}}{\sqrt[n]{b}}, \qquad
+\sqrt[n]{a^n} = |a| \text{ when } n \text{ is even}, \qquad
+\sqrt[n]{a^n} = a \text{ when } n \text{ is odd}.
+\]
+A radical in a denominator is customarily removed by rationalizing:
+multiplying numerator and denominator by $\sqrt{a}$ clears a single
+square root, as in $\dfrac{1}{\sqrt{a}} = \dfrac{\sqrt{a}}{a}$, while a
+denominator of the form $a + \sqrt{b}$ is cleared by multiplying by its
+conjugate $a - \sqrt{b}$, using the difference-of-squares identity of the
+next section.
+
+\section{Factoring}
+
+The following factoring patterns recur throughout the text.
+\begin{align*}
+\text{Common factor:} \qquad & ax + ay = a(x+y). \\
+\text{Difference of squares:} \qquad & a^2 - b^2 = (a-b)(a+b). \\
+\text{Perfect square trinomial:} \qquad & a^2 \pm 2ab + b^2 = (a \pm
+b)^2. \\
+\text{Difference of cubes:} \qquad & a^3 - b^3 = (a-b)(a^2+ab+b^2). \\
+\text{Sum of cubes:} \qquad & a^3 + b^3 = (a+b)(a^2-ab+b^2). \\
+\text{Trinomial:} \qquad & x^2 + (p+q)x + pq = (x+p)(x+q).
+\end{align*}
+For a general quadratic $ax^2+bx+c$ with $a \neq 1$, factoring by
+grouping is often effective: rewrite the middle term as a sum of two
+terms whose coefficients multiply to $ac$ and add to $b$, then factor the
+resulting four-term expression in pairs.
+
+The \emph{quadratic formula} solves $ax^2+bx+c=0$ for $a \neq 0$:
+\[
+x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}.
+\]
+The quantity $b^2-4ac$, called the \emph{discriminant}, determines the
+number and type of solutions: two distinct real solutions when it is
+positive, one repeated real solution when it is zero, and two complex
+conjugate solutions when it is negative, as discussed in Chapter~16.
+
+\section{Solving Equations}
+
+An equation is solved by applying the same operation to both sides until
+the unknown is isolated, using operations that preserve the solution set:
+adding or subtracting the same quantity from both sides, multiplying or
+dividing both sides by the same nonzero quantity, and factoring a side
+that equals zero. Two operations deserve particular caution, both
+discussed in the context of trigonometric equations in Chapter~11:
+squaring both sides of an equation can introduce extraneous solutions
+not present in the original equation, and multiplying both sides by an
+expression that could equal zero, or that involves the unknown, can
+likewise change the solution set. Every candidate solution obtained by
+such an operation should be checked in the original equation before being
+accepted. A rational equation, one containing the unknown in a
+denominator, is typically solved by multiplying through by the least
+common denominator to clear the fractions, solving the resulting
+polynomial equation, and then discarding any solution that makes an
+original denominator equal to zero.

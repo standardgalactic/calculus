@@ -1,0 +1,264 @@
+\chapter{Right Triangle Trigonometry}
+\label{ch:ch03-right-triangle}
+
+Chapter~1 established that certain ratios survive changes of scale. Chapter~2
+established vectors, and showed that every vector generates a right
+triangle whose legs are its components. This chapter asks the question that
+those two results were building toward: given a right triangle with a fixed
+acute angle, what remains unchanged as the triangle is enlarged or reduced?
+The answer will turn out to be a small, fixed collection of ratios, and
+naming those ratios is all that defining sine, cosine, and tangent amounts
+to.
+
+\section{Motivation: The Problem of Direction}
+
+A vector $\mathbf{v} = \langle x,y \rangle$ has a magnitude,
+$|\mathbf{v}| = \sqrt{x^2+y^2}$, computed in the previous chapter. Magnitude
+alone, however, does not determine a vector: a vector of length $10$ may
+point in infinitely many directions, and nothing established so far can
+distinguish one from another. Measuring direction will require a new idea,
+and that idea begins with the right triangle every vector already carries
+inside it.
+
+\section{Similar Right Triangles}
+
+Construct several right triangles sharing the same acute angle $\theta$: for
+instance, triangles with sides $3$-$4$-$5$, $6$-$8$-$10$, and $9$-$12$-$15$.
+Each is obtained from the $3$-$4$-$5$ triangle by scaling, so by
+Angle--Angle similarity all three triangles are similar, and Chapter~1
+guarantees that corresponding side ratios agree across all of them:
+\[
+\frac{3}{5} = \frac{6}{10} = \frac{9}{15}, \qquad
+\frac{4}{5} = \frac{8}{10} = \frac{12}{15}.
+\]
+
+\begin{theorem}
+For any collection of right triangles sharing a common acute angle $\theta$,
+the ratio of any two corresponding sides is the same across every triangle
+in the collection.
+\end{theorem}
+
+\begin{proof}
+Two right triangles sharing an acute angle $\theta$ also share their right
+angle, hence agree in two corresponding angles and are similar by the
+Angle--Angle criterion of Chapter~1. Similar triangles have proportional
+corresponding sides, so the ratio of any two corresponding sides is the
+common scale factor's cancellation, exactly as shown in the derivation of
+Section~1.5: the scale factor appears in both the numerator and denominator
+of the ratio and cancels, leaving a value depending only on $\theta$ and not
+on the size of the triangle chosen.
+\end{proof}
+
+This is the central theorem of the chapter, and everything that follows is
+simply a matter of giving names to the ratios it guarantees exist.
+
+\section{Naming the Invariants}
+
+For an acute angle $\theta$ in a right triangle, call the side across from
+$\theta$ the \emph{opposite} side, the side adjacent to $\theta$ that is not
+the hypotenuse the \emph{adjacent} side, and the side across from the right
+angle the \emph{hypotenuse}.
+
+\begin{definition}
+For an acute angle $\theta$ of a right triangle,
+\[
+\sin\theta = \frac{\text{opposite}}{\text{hypotenuse}}, \qquad
+\cos\theta = \frac{\text{adjacent}}{\text{hypotenuse}}, \qquad
+\tan\theta = \frac{\text{opposite}}{\text{adjacent}}.
+\]
+\end{definition}
+
+\begin{historicalnote}{Where the Word ``Sine'' Comes From}
+The word \emph{sine} has an unusually crooked history for a term this
+central to mathematics \cite{boyer1991}. Indian astronomers of the first
+millennium worked with a quantity called \emph{jy\={a}-ardha}, literally
+``half-chord,'' shortened in later Sanskrit texts to \emph{jy\={a}} or
+\emph{jiv\={a}}. When these texts were translated into Arabic, the word
+was transliterated phonetically as \emph{jiba}, a term with no meaning of
+its own in Arabic. Arabic is ordinarily written without vowels, so later
+readers encountering the consonants of \emph{jiba} reinterpreted them as
+the ordinary Arabic word \emph{jaib}, meaning a bay, fold, or pocket in a
+garment. When the twelfth-century translator Gerard of Cremona rendered
+this word into Latin, he translated the meaning of \emph{jaib} rather
+than transliterating the original Sanskrit, giving the Latin word
+\emph{sinus}, meaning a bay, curve, or fold of cloth, from which English
+inherited \emph{sine}. The name of one of the most important functions in
+mathematics therefore descends from a fold in a piece of clothing, by way
+of a translator's honest misreading of an unfamiliar word.
+Cosine and cotangent follow more transparently: the prefix ``co-''
+abbreviates \emph{complementi}, since the cosine of $\theta$ is the sine
+of its complementary angle, $90^\circ - \theta$.
+\end{historicalnote}
+
+It is worth pausing on what has actually happened here. These three
+equations are not arbitrary formulas handed down by convention; they are
+names attached to quantities the theorem of the previous section has already
+proved to be invariant under scaling. Nothing about $\sin\theta$,
+$\cos\theta$, or $\tan\theta$ depends on which triangle with acute angle
+$\theta$ happens to be drawn, precisely because the ratio defining each one
+was shown, in general, to be scale-independent before it was ever given a
+name.
+
+\begin{sidebar}{Why Do We Name Invariants?}
+A quantity earns a name in mathematics and science largely because it
+survives changes that are, for the purpose at hand, irrelevant. Temperature
+is useful because it survives the shape of its container; density is useful
+because it survives the size of the sample measured; a trigonometric ratio
+is useful because it survives the scale of the triangle it is computed from.
+In each case a name is attached not to a number but to an invariant, a
+quantity that stays fixed while everything else around it changes, and it is
+this stability that makes the quantity worth comparing across situations in
+the first place. Mathematics repeatedly performs this same maneuver ---
+identify what a family of transformations leaves unchanged, then name it ---
+and sine, cosine, and tangent are among the earliest and most durable
+examples a student will encounter.
+\end{sidebar}
+
+\section{The Remaining Three Functions}
+
+Three further ratios are traditionally defined as reciprocals of the ones
+above:
+\[
+\csc\theta = \frac{1}{\sin\theta}, \qquad
+\sec\theta = \frac{1}{\cos\theta}, \qquad
+\cot\theta = \frac{1}{\tan\theta}.
+\]
+These reciprocal functions --- cosecant, secant, and cotangent --- appear
+throughout the historical literature and remain useful in certain identities
+and calculus formulas encountered later in this book, but the overwhelming
+majority of applications in this text and elsewhere rely on sine, cosine,
+and tangent alone.
+
+\section{Finding Unknown Sides}
+
+\begin{algorithmproc}{How to Find an Unknown Side Using a Trigonometric Ratio}
+Given a right triangle with one known acute angle and one known side, first
+identify which of the two known quantities the unknown side is related to
+by determining whether the unknown side is opposite, adjacent, or the
+hypotenuse relative to the known angle. Next, select whichever of
+$\sin\theta$, $\cos\theta$, or $\tan\theta$ relates the known side, the
+unknown side, and the known angle. Write the resulting equation and solve it
+for the unknown side.
+\end{algorithmproc}
+
+\begin{example}
+A ten-meter ladder leans against a wall, making a $65^\circ$ angle with the
+ground. How high up the wall does the ladder reach? The height $h$ is
+opposite the given angle, and the ladder itself is the hypotenuse, so
+\[
+\sin(65^\circ) = \frac{h}{10}, \qquad h = 10\sin(65^\circ) \approx 9.06
+\text{ meters.}
+\]
+\end{example}
+
+\begin{practicenow}
+A twelve-meter ladder leans against a wall, making a $72^\circ$ angle with
+the ground. Find the height the ladder reaches up the wall.
+\end{practicenow}
+
+\section{Finding Unknown Angles}
+
+The reverse problem also arises naturally: given the ratio of two sides, how
+is the corresponding angle recovered? If $\tan\theta = 7/4$, for example,
+some process must undo the tangent function and return $\theta$ itself. Such
+a process exists and is used freely at this stage with a calculator, but it
+will not be formally defined until Chapter~7 introduces the inverse
+trigonometric functions with the care that definition deserves. For now it
+is enough to know that the question is meaningful, and that a numerical
+answer can be obtained.
+
+\section{Special Right Triangles}
+
+Two right triangles recur so often that their ratios are worth deriving
+explicitly, once and for all, rather than looked up in a table.
+
+\begin{example}[The $45^\circ$--$45^\circ$--$90^\circ$ Triangle]
+Consider an isosceles right triangle with both legs of length $1$. By the
+Pythagorean theorem, its hypotenuse has length $\sqrt{1^2+1^2} = \sqrt{2}$,
+giving side lengths $1$, $1$, $\sqrt{2}$. Since the two legs are equal, the
+two acute angles are also equal, and since they sum to $90^\circ$ each must
+equal $45^\circ$. Applying the definitions of the previous section,
+\[
+\sin 45^\circ = \cos 45^\circ = \frac{1}{\sqrt{2}} = \frac{\sqrt2}{2}, \qquad
+\tan 45^\circ = \frac{1}{1} = 1.
+\]
+\end{example}
+
+\begin{example}[The $30^\circ$--$60^\circ$--$90^\circ$ Triangle]
+Consider an equilateral triangle with side length $2$, so that all three
+angles equal $60^\circ$. Dropping an altitude from one vertex to the
+midpoint of the opposite side bisects both that side and the angle at the
+vertex, producing two congruent right triangles, each with hypotenuse $2$,
+short leg $1$ (half of the original side), and a $30^\circ$--$60^\circ$--$90^\circ$
+angle configuration. By the Pythagorean theorem the remaining leg has length
+$\sqrt{2^2 - 1^2} = \sqrt{3}$, giving side lengths $1$, $\sqrt3$, $2$.
+Applying the definitions of the previous section to the $30^\circ$ angle,
+whose opposite side is the short leg of length $1$ and whose adjacent side
+is the leg of length $\sqrt3$,
+\[
+\sin 30^\circ = \frac{1}{2}, \qquad
+\cos 30^\circ = \frac{\sqrt3}{2}, \qquad
+\tan 30^\circ = \frac{1}{\sqrt3} = \frac{\sqrt3}{3}.
+\]
+The complementary angle $60^\circ$ exchanges the roles of opposite and
+adjacent, giving $\sin 60^\circ = \sqrt3/2$, $\cos 60^\circ = 1/2$, and
+$\tan 60^\circ = \sqrt3$.
+\end{example}
+
+\section{Applications}
+
+Right-triangle trigonometry is the working tool of surveying, where an
+inaccessible height or distance is recovered from an angle of elevation or
+depression together with a measured baseline; of navigation, where a
+vessel's position is found from bearing and distance; and of architecture
+and engineering, where the ratios of this chapter govern everything from
+roof pitch to the forces along a diagonal brace. The mathematics developed
+above is what makes each of these applications possible, and the
+applications themselves are best treated as exercises in identifying which
+side and angle are known and which ratio connects them.
+
+\section{Looking Ahead}
+
+This chapter has defined the trigonometric functions using right triangles,
+and that definition carries a built-in restriction worth stating plainly.
+An acute angle inside a right triangle can never reach or exceed $90^\circ$,
+and it can never be negative, so as it stands sine, cosine, and tangent are
+only defined for a narrow range of angles. If trigonometry is to become a
+general theory of direction, capable of describing a vector pointing in any
+direction whatsoever, this restriction must eventually be removed. The next
+chapter develops a framework capable of describing any angle at all, by
+returning to the unit circle introduced informally in Chapter~0 and asking
+what a trigonometric ratio can mean once the right triangle that first
+defined it is allowed to disappear.
+
+The pattern established in this chapter, transformation to invariant to
+name, is one that recurs throughout the book: a family of transformations
+(here, scaling) is shown to preserve some quantity (here, a ratio of sides),
+and that preserved quantity is given a name (here, sine, cosine, and
+tangent) precisely because its invariance is what makes it worth naming.
+The same pattern will reappear with rotations in Chapter~8, with complex
+numbers in Chapter~16, and with Fourier modes in Chapter~19.
+
+\section{Exercises}
+\begin{exercise}
+A right triangle has an acute angle of $38^\circ$ and a hypotenuse of $14$
+centimeters. Find the lengths of the two legs.
+\end{exercise}
+
+\begin{exercise}
+Derive the values of $\sin 45^\circ$, $\cos 45^\circ$, and $\tan 45^\circ$
+directly from a right triangle with legs of length $2$ instead of $1$, and
+confirm that the result agrees with the derivation given in the text.
+\end{exercise}
+
+\begin{exercise}
+A surveyor stands $40$ meters from the base of a tower and measures the
+angle of elevation to the top of the tower as $52^\circ$. Find the height
+of the tower.
+\end{exercise}
+
+\begin{exercise}
+Explain, using the theorem of Section~3.2, why $\sin\theta$ could not
+possibly depend on which right triangle with acute angle $\theta$ is used to
+compute it.
+\end{exercise}

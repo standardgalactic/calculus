@@ -1,0 +1,219 @@
+\chapter{Graphs of the Trigonometric Functions}
+\label{ch:ch06-graphs}
+
+\section{From Motion to Graphs}
+
+The previous chapter showed that sine and cosine arise naturally from
+circular motion: a point moving around the unit circle with angular
+velocity $\omega$ has coordinates $x(t) = \cos(\omega t)$ and $y(t) =
+\sin(\omega t)$, equations that describe a position on a circle rather than
+a curve on a page. A natural question follows immediately. What happens if
+the circle itself is set aside and only one coordinate --- say, the
+vertical one --- is tracked through time? As the point rises and falls
+around the circle, its height changes continuously, and plotting angle
+along the horizontal axis against height along the vertical axis produces
+the familiar wave-shaped curve known as the graph of the sine function.
+That curve is therefore not an arbitrary construction handed down by
+convention; it is the geometric record of circular motion, unrolled onto a
+flat page.
+
+\section{Building the Sine Curve}
+
+Consider a point moving around the unit circle, and recall the special
+angles of Chapter~4. At $\theta = 0$ the point is $(1,0)$, so $\sin(0) = 0$;
+at $\theta = \pi/2$ the point is $(0,1)$, so $\sin(\pi/2) = 1$; at $\theta =
+\pi$ the point is $(-1,0)$, so $\sin(\pi) = 0$; at $\theta = 3\pi/2$ the
+point is $(0,-1)$, so $\sin(3\pi/2) = -1$; and at $\theta = 2\pi$ the point
+returns to $(1,0)$, so $\sin(2\pi) = 0$. Plotting these five points and
+connecting them smoothly produces the sine curve, a graph that records
+nothing more than the changing vertical position of the point rotating
+around the circle in the previous chapter.
+
+\section{Building the Cosine Curve}
+
+The cosine function records the horizontal coordinate of the same rotating
+point. At the same five special angles, $\cos(0) = 1$, $\cos(\pi/2) = 0$,
+$\cos(\pi) = -1$, $\cos(3\pi/2) = 0$, and $\cos(2\pi) = 1$. The resulting
+graph has the same wave shape as the sine curve but begins at its maximum
+value rather than at zero, and like the sine graph it is a direct
+consequence of the same circular motion, differing only in which coordinate
+is being tracked.
+
+\section{Periodic Functions}
+
+Both graphs reveal a striking property: after one complete revolution, the
+same pattern repeats exactly, a fact that is nothing more than the
+coterminal-angle theorem of Chapter~4 seen from a new angle.
+
+\begin{definition}
+A function $f$ is \emph{periodic} if there exists a positive number $P$
+such that $f(x+P) = f(x)$ for every $x$ in the domain of $f$. The smallest
+such positive number is called the \emph{period} of $f$.
+\end{definition}
+
+\begin{definition}
+The \emph{amplitude} of a periodic function is the maximum distance from
+its midline to a peak or a trough. Amplitude measures the size of an
+oscillation, while period measures the length of one complete cycle.
+\end{definition}
+
+\section{Period and Amplitude of Sine and Cosine}
+
+The unit circle immediately supplies both quantities for sine and cosine.
+
+\begin{theorem}
+The functions $y = \sin\theta$ and $y = \cos\theta$ have period $2\pi$ and
+amplitude $1$.
+\end{theorem}
+
+\begin{proof}
+By the coterminal-angle theorem of Chapter~4, $\theta$ and $\theta + 2\pi$
+determine the same point on the unit circle, so $\sin(\theta+2\pi) =
+\sin\theta$ and $\cos(\theta+2\pi) = \cos\theta$; the period is therefore
+$2\pi$. Every point $(x,y)$ on the unit circle satisfies $-1 \le x \le 1$
+and $-1 \le y \le 1$, so the largest value either coordinate can attain is
+$1$ and the smallest is $-1$. The distance from the midline $y=0$ to either
+extreme is therefore $1$, which is the amplitude.
+\end{proof}
+
+\section{Symmetry}
+
+The graphs possess symmetries that follow directly from the geometry of the
+unit circle rather than from inspection of the curve alone.
+
+\begin{theorem}
+The sine function is odd: $\sin(-\theta) = -\sin\theta$.
+\end{theorem}
+
+\begin{proof}
+Reflecting an angle across the $x$-axis reverses the sign of its vertical
+coordinate while leaving the horizontal coordinate unchanged. Since sine
+measures the vertical coordinate of a point on the unit circle,
+$\sin(-\theta) = -\sin\theta$.
+\end{proof}
+
+\begin{theorem}
+The cosine function is even: $\cos(-\theta) = \cos\theta$.
+\end{theorem}
+
+\begin{proof}
+Reflecting an angle across the $x$-axis leaves the horizontal coordinate
+unchanged. Since cosine measures the horizontal coordinate of a point on
+the unit circle, $\cos(-\theta) = \cos\theta$.
+\end{proof}
+
+These two properties are traditionally called odd symmetry and even
+symmetry, and each is a direct geometric consequence of what sine and
+cosine measure on the circle, rather than an independent fact requiring
+separate proof.
+
+\section{The Tangent Function}
+
+Recall from Chapter~4 that $\tan\theta = \sin\theta/\cos\theta$, undefined
+whenever $\cos\theta = 0$. This occurs at $\pi/2$, $3\pi/2$, $5\pi/2$, and
+every angle coterminal with them, so the graph of tangent contains a
+vertical asymptote at each of these values; unlike sine and cosine, the
+tangent graph is unbounded, stretching from $-\infty$ to $\infty$ between
+each pair of consecutive asymptotes.
+
+\begin{theorem}
+The tangent function has period $\pi$.
+\end{theorem}
+
+\begin{proof}
+Adding $\pi$ to an angle reverses the sign of both sine and cosine:
+$\sin(\theta+\pi) = -\sin\theta$ and $\cos(\theta+\pi) = -\cos\theta$.
+Therefore
+\[
+\tan(\theta+\pi) = \frac{-\sin\theta}{-\cos\theta} = \frac{\sin\theta}{\cos\theta} = \tan\theta,
+\]
+so the graph of tangent repeats every $\pi$ units, half the period of sine
+and cosine, precisely because the two sign changes that occur after adding
+only $\pi$ cancel inside the ratio.
+\end{proof}
+
+\section{Transformations of Trigonometric Graphs}
+
+Most applications involve a modified trigonometric function rather than the
+basic sine or cosine curve, typically written
+\[
+y = A\sin(B\theta - C) + D.
+\]
+Each parameter controls a distinct geometric feature of the graph. The
+factor $A$ scales the graph vertically, so that the amplitude becomes
+$|A|$. The factor $B$ compresses or stretches the graph horizontally,
+changing the period from $2\pi$ to $2\pi/|B|$, since a full cycle of the
+inner angle $B\theta - C$ now requires $\theta$ to advance through only
+$2\pi/|B|$ units rather than a full $2\pi$. The quantity $C/B$ shifts the
+graph horizontally and is called the \emph{phase shift}, since setting
+$B\theta - C = 0$ shows that the graph's usual starting point has been
+delayed until $\theta = C/B$. Finally, the constant $D$ moves the entire
+graph vertically, so that its new midline is $y = D$ rather than $y = 0$.
+
+\begin{algorithmproc}{How to Graph a Trigonometric Function from Its Parameters}
+Given $y = A\sin(B\theta - C) + D$, first determine the amplitude $|A|$ and
+the period $2\pi/|B|$. Next determine the phase shift $C/B$, taking care
+with its sign, and the vertical shift $D$, which fixes the new midline.
+Use these four values to sketch one complete cycle of the curve using its
+key points, then extend the sketch periodically in both directions.
+\end{algorithmproc}
+
+\begin{example}
+Graph $y = 3\sin\left(2\theta - \dfrac{\pi}{2}\right) + 1$. The amplitude is
+$3$, the period is $2\pi/2 = \pi$, the phase shift is $(\pi/2)/2 = \pi/4$
+to the right, and the vertical shift is $1$, giving a midline of $y=1$. The
+graph therefore oscillates between $4$ and $-2$, completing one full cycle
+every $\pi$ units, with that cycle beginning $\pi/4$ units later than an
+unshifted sine curve would.
+\end{example}
+
+\begin{practicenow}
+Determine the amplitude, period, phase shift, and vertical shift of
+$y = 2\cos(3\theta + \pi) - 4$.
+\end{practicenow}
+
+\section{Applications}
+
+The graphs developed in this chapter model an enormous range of periodic
+phenomena, from seasonal temperature variation and ocean tides to sound
+waves, alternating electrical current, and biological rhythms. The same
+curves that emerge from a single point rotating around the unit circle in
+Chapter~5 turn out to describe some of the most important oscillatory
+processes in the natural and engineered world, which is exactly the payoff
+promised at the end of that chapter.
+
+\section{Looking Ahead}
+
+The graphs of sine and cosine reveal an important complication: a
+horizontal line typically intersects either graph at infinitely many
+points, so that an equation such as $\sin\theta = 1/2$ has infinitely many
+solutions rather than one. Sine and cosine, as they stand, therefore cannot
+be reversed uniquely across their entire domains, and if a trigonometric
+function is to be "undone" at all, its domain must first be restricted to a
+piece on which it is one-to-one. The next chapter takes up this problem
+directly, developing the inverse trigonometric functions and showing how an
+angle can be recovered from a known ratio once the appropriate restriction
+has been made.
+
+\section{Exercises}
+\begin{exercise}
+State the amplitude, period, phase shift, and vertical shift of
+$y = 4\sin\left(\dfrac{\theta}{2} - \pi\right) + 2$, and sketch one cycle.
+\end{exercise}
+
+\begin{exercise}
+Explain, using the proof of the tangent period theorem, why the period of
+$\tan\theta$ is $\pi$ while the period of $\sin\theta$ and $\cos\theta$ is
+$2\pi$.
+\end{exercise}
+
+\begin{exercise}
+Find all solutions of $\cos\theta = -\dfrac{\sqrt2}{2}$ in the interval
+$[0, 4\pi)$, and use the graph of cosine to explain why there is more than
+one solution.
+\end{exercise}
+
+\begin{exercise}
+Write an equation of the form $y = A\sin(B\theta - C) + D$ for a curve with
+amplitude $5$, period $4\pi$, no phase shift, and midline $y = -3$.
+\end{exercise}

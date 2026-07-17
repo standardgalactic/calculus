@@ -1,0 +1,384 @@
+\chapter{Amplitwists: Scaling and Rotation Combined}
+\label{ch:ch15-amplitwists}
+
+\section{Scaling and Rotation as a Single Transformation}
+
+In Chapter~1 we introduced scaling transformations of the form
+$(x,y)\mapsto(kx,ky)$, which enlarge or shrink figures while preserving
+their shape. In Chapter~8 we introduced rotations, represented by the
+matrix
+\[
+R(\theta)=
+\begin{pmatrix}
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
+\end{pmatrix},
+\]
+which preserve lengths while changing orientation. These transformations
+were studied separately: scaling changes size but not direction, and
+rotation changes direction but not size. A natural question therefore
+arises, whether scaling and rotation can be combined into a single
+transformation. The answer is yes, and this chapter develops a unified
+operator that performs both actions simultaneously.
+
+\section{Scaling as a Matrix}
+
+Recall that scaling every vector by a factor $s$ can be written as
+\[
+S(s)=
+\begin{pmatrix}
+s & 0\\
+0 & s
+\end{pmatrix}.
+\]
+Applying this matrix to a vector $\mathbf v = \begin{pmatrix} x\\ y
+\end{pmatrix}$ gives $S(s)\mathbf v = \begin{pmatrix} sx\\ sy
+\end{pmatrix}$: every coordinate is multiplied by the same factor, so
+every length is multiplied by $s$.
+
+\begin{example}
+Let $\mathbf v = \begin{pmatrix} 3\\ 4 \end{pmatrix}$. Applying the
+scaling matrix $S(2) = \begin{pmatrix} 2&0\\ 0&2 \end{pmatrix}$ produces
+$S(2)\mathbf v = \begin{pmatrix} 6\\ 8 \end{pmatrix}$. The original
+length was $\sqrt{3^2+4^2}=5$; the new length is $\sqrt{6^2+8^2}=10$. The
+vector has doubled in length while preserving its direction.
+\end{example}
+
+\section{Rotation Revisited}
+
+A rotation through an angle $\theta$ is represented by $R(\theta)$ as
+above; applying $R(\theta)$ changes the direction of a vector without
+changing its length. From Chapter~8, recall the composition rule
+$R(\theta_1)R(\theta_2) = R(\theta_1+\theta_2)$, which will play a
+central role in what follows.
+
+\section{The Amplitwist}
+
+\begin{definition}
+An \emph{amplitwist} is a transformation obtained by combining a scaling
+factor $s>0$ with a rotation through an angle $\theta$: $A = sR(\theta)$.
+\end{definition}
+
+\begin{historicalnote}{The Origin of the Term ``Amplitwist''}
+The term \emph{amplitwist} was coined by Tristan Needham in his textbook
+\emph{Visual Complex Analysis} \cite{needham1997}, where it names the
+local action of a complex-differentiable function: near a point $a$, such
+a function acts on an infinitesimally small displacement as multiplication
+by a fixed complex number, simultaneously amplifying its length and
+twisting its direction, hence \emph{amplitwist}. This chapter borrows
+Needham's term and geometric picture but restricts it to a single global
+transformation of the plane, $A = sR(\theta)$, applied everywhere at once,
+rather than a transformation that varies infinitesimally from point to
+point as it does in Needham's original setting. Chapter~17's treatment of
+derivatives, and in particular its identification of differentiation with
+a quarter-turn rotation, is the closest this book comes to Needham's
+full picture: a differentiable function's derivative at a point is, in
+exactly this sense, the amplitwist that best approximates the function
+near that point.
+\end{historicalnote}
+
+Expanding the matrix gives
+\[
+A=
+\begin{pmatrix}
+s\cos\theta & -s\sin\theta\\
+s\sin\theta & s\cos\theta
+\end{pmatrix}.
+\]
+The parameter $s$ controls size while $\theta$ controls orientation.
+
+\begin{example}
+Let $A = 2R(30^\circ)$. Applying $A$ to $\mathbf v = \begin{pmatrix} 1\\
+0 \end{pmatrix}$ gives
+\[
+A\mathbf v=
+\begin{pmatrix}
+2\cos30^\circ\\
+2\sin30^\circ
+\end{pmatrix}
+=
+\begin{pmatrix}
+\sqrt3\\
+1
+\end{pmatrix}.
+\]
+The vector has been rotated by $30^\circ$ and its length has doubled.
+\end{example}
+
+\section{Geometric Meaning}
+
+An amplitwist preserves all angles and shape relationships; it changes
+only the overall size of a figure and its orientation, altering neither
+the relative proportions between the figure's parts nor the angles
+between its edges. When $\theta = 0$, the amplitwist reduces to a pure
+scaling transformation, $A = sR(0) = S(s)$, so every similarity
+transformation fixing the origin is an amplitwist.
+
+\section{Composition of Amplitwists}
+
+The central result of this chapter is that amplitwists compose in a
+remarkably simple way.
+
+\begin{theorem}
+If $A_1 = s_1R(\theta_1)$ and $A_2 = s_2R(\theta_2)$, then $A_1A_2 =
+s_1s_2R(\theta_1+\theta_2)$.
+\end{theorem}
+
+\begin{proof}
+Using matrix multiplication, $A_1A_2 = (s_1R(\theta_1))(s_2R(\theta_2))$.
+Since scalars commute with matrices, $A_1A_2 = s_1s_2
+R(\theta_1)R(\theta_2)$. By the rotation composition theorem of
+Chapter~8, $R(\theta_1)R(\theta_2) = R(\theta_1+\theta_2)$, so $A_1A_2 =
+s_1s_2R(\theta_1+\theta_2)$: amplitudes multiply while angles add.
+\end{proof}
+
+\begin{algorithmproc}{How to Compose Two Amplitwists}
+Given amplitwists $(s_1,\theta_1)$ and $(s_2,\theta_2)$, multiply the
+amplitudes to obtain $s = s_1s_2$, add the angles to obtain $\theta =
+\theta_1+\theta_2$, and write the result as the amplitwist $(s,\theta)$.
+\end{algorithmproc}
+
+\begin{practicenow}
+Compose the amplitwists $(3,50^\circ)$ and $\left(\dfrac12,
+110^\circ\right)$, giving your answer both in amplitwist coordinates and
+as $sR(\theta)$.
+\end{practicenow}
+
+\section{Identity and Inverses}
+
+The identity amplitwist is $I = 1\cdot R(0)$; applying $I$ leaves every
+vector unchanged.
+
+\begin{theorem}
+The inverse of $A = sR(\theta)$ is $A^{-1} = \dfrac1s R(-\theta)$.
+\end{theorem}
+
+\begin{proof}
+Compute $AA^{-1} = sR(\theta)\left(\dfrac1s R(-\theta)\right)$, which
+simplifies to $R(\theta)R(-\theta)$. Using rotation composition,
+$AA^{-1} = R(0) = I$, so $A^{-1} = \dfrac1s R(-\theta)$.
+\end{proof}
+
+\section{Amplitwist Coordinates}
+
+Every amplitwist can be represented by the ordered pair $(s,\theta)$, and
+composition becomes $(s_1,\theta_1)\circ(s_2,\theta_2) =
+(s_1s_2,\theta_1+\theta_2)$. Two different arithmetic operations appear
+simultaneously in this single rule: scales are multiplied while angles
+are added. This unusual combination will reappear, in a new guise, in the
+next chapter.
+
+\section{Repeated Amplitwists and Spirals}
+
+Repeated application of an amplitwist produces a simple pattern.
+
+\begin{theorem}
+For every positive integer $n$, $A^n = s^nR(n\theta)$.
+\end{theorem}
+
+\begin{proof}
+We proceed by induction. For $n=1$, $A^1 = sR(\theta)$, which is true.
+Assume $A^n = s^nR(n\theta)$; then $A^{n+1} = A^nA$, and substituting the
+inductive hypothesis gives $A^{n+1} = s^nR(n\theta)\cdot sR(\theta)$.
+Using the composition theorem, $A^{n+1} = s^{n+1}R((n+1)\theta)$, so the
+formula holds for $n+1$, completing the induction.
+\end{proof}
+
+Repeated amplitwists generate spiral trajectories: if $s>1$, the spiral
+expands outward; if $0<s<1$, it contracts inward; and if $s=1$, the
+motion becomes pure rotation around a circle, since the amplitude never
+changes at all.
+
+\section{Applications}
+
+Amplitwists appear naturally in many fields. In computer graphics,
+objects are frequently rotated and scaled simultaneously; in robotics,
+coordinate systems are continually transformed as machines move through
+space; in signal processing, amplitude and phase changes occur together
+in oscillatory systems; and in fractal geometry and iterated function
+systems, repeated amplitwists generate self-similar structures and
+spiral patterns.
+
+\section{Looking Ahead}
+
+The composition law $(s_1,\theta_1)\circ(s_2,\theta_2) =
+(s_1s_2,\theta_1+\theta_2)$ may seem unusual at first. In the next
+chapter we will discover that complex numbers obey exactly this same
+rule: multiplying complex numbers turns out to be nothing more than
+amplitwist composition written in algebraic form. Complex numbers
+therefore provide a numerical language for the geometry developed in
+this chapter.
+
+\section{Exercises}
+
+\subsection*{Basic Computations}
+\begin{exercise}
+Let $A = 2R(45^\circ)$. Apply $A$ to the vector $\begin{pmatrix} 1\\ 0
+\end{pmatrix}$, and describe both the change in length and the change in
+direction.
+\end{exercise}
+
+\begin{exercise}
+Let $A = 3R(90^\circ)$. Apply $A$ to $\begin{pmatrix} 2\\ 1
+\end{pmatrix}$.
+\end{exercise}
+
+\begin{exercise}
+Write the amplitwist $4R(30^\circ)$ as a single $2\times2$ matrix.
+\end{exercise}
+
+\begin{exercise}
+Write the amplitwist $\dfrac12 R(120^\circ)$ as a single $2\times2$
+matrix.
+\end{exercise}
+
+\begin{exercise}
+Determine the image of $\begin{pmatrix} 4\\ 0 \end{pmatrix}$ under the
+amplitwist $2R(60^\circ)$.
+\end{exercise}
+
+\subsection*{Composition of Amplitwists}
+\begin{exercise}
+Compute $(2,30^\circ)\circ(3,40^\circ)$, expressing the answer both in
+amplitwist coordinates and as $sR(\theta)$.
+\end{exercise}
+
+\begin{exercise}
+Compute $(5,15^\circ)\circ\left(\dfrac12,75^\circ\right)$.
+\end{exercise}
+
+\begin{exercise}
+Verify directly by matrix multiplication that $2R(30^\circ)\cdot
+3R(45^\circ) = 6R(75^\circ)$.
+\end{exercise}
+
+\begin{exercise}
+Compose the amplitwists $(4,120^\circ)$ and $\left(\dfrac14,
+-120^\circ\right)$. What transformation results?
+\end{exercise}
+
+\begin{exercise}
+Find the amplitwist obtained by composing $(2,90^\circ)$,
+$(2,90^\circ)$, and $(2,90^\circ)$.
+\end{exercise}
+
+\subsection*{Identity and Inverses}
+\begin{exercise}
+Find the inverse of $A = 5R(40^\circ)$.
+\end{exercise}
+
+\begin{exercise}
+Find the inverse of $A = \dfrac13 R(-120^\circ)$.
+\end{exercise}
+
+\begin{exercise}
+Verify directly that $AA^{-1} = I$ for $A = 2R(60^\circ)$.
+\end{exercise}
+
+\begin{exercise}
+Determine the amplitwist whose composition with $(7,-25^\circ)$ produces
+the identity.
+\end{exercise}
+
+\begin{exercise}
+Explain geometrically why the inverse amplitwist must reverse both the
+scaling and the rotation.
+\end{exercise}
+
+\subsection*{Amplitwist Coordinates}
+\begin{exercise}
+Express the composition $(3,20^\circ)\circ(4,10^\circ)$ using amplitwist
+coordinates only.
+\end{exercise}
+
+\begin{exercise}
+Compute $(2,45^\circ)^2$.
+\end{exercise}
+
+\begin{exercise}
+Compute $(2,45^\circ)^3$.
+\end{exercise}
+
+\begin{exercise}
+Compute $(2,45^\circ)^4$. What familiar transformation appears?
+\end{exercise}
+
+\begin{exercise}
+Explain why amplitudes multiply but angles add when amplitwists are
+composed.
+\end{exercise}
+
+\subsection*{Repeated Amplitwists and Spirals}
+\begin{exercise}
+Let $A = 1.2R(30^\circ)$. Compute $A$, $A^2$, $A^3$, $A^4$, and describe
+the resulting sequence geometrically.
+\end{exercise}
+
+\begin{exercise}
+Let $A = 0.8R(45^\circ)$. Compute $A^5$. Is the resulting orbit
+expanding or contracting?
+\end{exercise}
+
+\begin{exercise}
+Let $A = R(72^\circ)$. Compute $A^5$. What does this reveal about
+repeated rotations?
+\end{exercise}
+
+\begin{exercise}
+Starting with $\mathbf v = \begin{pmatrix} 1\\ 0 \end{pmatrix}$, apply
+$A = 1.1R(40^\circ)$ repeatedly, and sketch the first six points.
+\end{exercise}
+
+\begin{exercise}
+Describe the qualitative behavior of repeated amplitwists when $s>1$,
+$0<s<1$, and $s=1$.
+\end{exercise}
+
+\subsection*{Proofs and Theory}
+\begin{exercise}
+Prove by induction that $A^n = s^nR(n\theta)$ for every positive integer
+$n$.
+\end{exercise}
+
+\begin{exercise}
+Show that the set of all amplitwists is closed under composition.
+\end{exercise}
+
+\begin{exercise}
+Show that the composition of two amplitwists is always an amplitwist.
+\end{exercise}
+
+\begin{exercise}
+Show that every amplitwist has a unique inverse.
+\end{exercise}
+
+\begin{exercise}
+Prove that the identity amplitwist is $(1,0)$.
+\end{exercise}
+
+\subsection*{Challenge Problems}
+\begin{exercise}
+Let $A = sR(\theta)$. Determine all amplitwists satisfying $A^2 = I$.
+\end{exercise}
+
+\begin{exercise}
+Determine all amplitwists satisfying $A^3 = I$.
+\end{exercise}
+
+\begin{exercise}
+Suppose $A = sR(\theta)$ and $B = tR(\phi)$. Show that $AB = BA$.
+\end{exercise}
+
+\begin{exercise}
+Prove that the amplitwist coordinates form a group under composition.
+\end{exercise}
+
+\begin{exercise}
+Show that every orientation-preserving similarity transformation fixing
+the origin can be written uniquely as $A = sR(\theta)$.
+\end{exercise}
+
+\begin{exercise}
+Explain why amplitwist composition resembles a new arithmetic. What
+quantities are being multiplied, and what quantities are being added?
+\end{exercise}

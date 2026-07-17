@@ -1,0 +1,222 @@
+\chapter{Similarity, Ratios, and Scale}
+\label{ch:ch01-similarity-ratios}
+
+\section{Why Size Matters}
+
+Imagine two maps of the same city, one small enough to fit on a pocket card
+and the other large enough to cover a classroom wall. The streets, rivers, and
+landmarks occupy different physical distances on the two sheets of paper, yet
+both maps represent the same place: the larger map has not created new
+streets, and the smaller map has not removed any, since one is simply a
+scaled copy of the other. This observation introduces one of the oldest and
+most important ideas in mathematics, namely that some properties change when
+size changes while others remain the same. A line segment that measures two
+centimeters on one map may measure ten centimeters on another, and areas and
+volumes change along with it, yet certain relationships survive: the ratio
+between the lengths of two streets is unchanged, the angle at which two roads
+meet is unchanged, and the overall shape of the city persists even as its
+scale varies from map to map. Mathematics often begins by asking a
+deceptively simple question --- what remains unchanged when everything else
+changes? --- and the study of similarity is one of the oldest and most
+productive answers to that question.
+
+\section{Scale Transformations}
+
+\begin{definition}
+Let $P = (x,y)$ be a point of the Cartesian plane and let $k$ be a positive
+real number. The \emph{scale transformation}, or \emph{dilation}, by factor
+$k$ sends $P$ to the point $P' = (kx, ky)$.
+\end{definition}
+
+Every point of a figure moves proportionally under this transformation: if
+$k > 1$ the figure expands away from the origin, and if $0 < k < 1$ the
+figure contracts toward it. The map $(x,y) \mapsto (kx,ky)$ changes the size
+of a figure while preserving its shape, and the question this chapter takes
+up is which properties survive such a transformation and which do not.
+
+\section{Similar Figures}
+
+\begin{definition}
+Two figures are \emph{similar} if one can be obtained from the other by some
+combination of scaling, translation, reflection, and rotation. Informally,
+similar figures share a common shape without necessarily sharing a common
+size.
+\end{definition}
+
+Two squares of different sizes are similar, as are two circles of different
+radii and two equilateral triangles of different side lengths, since in each
+case one figure is obtained from the other by scaling alone. A square and a
+rectangle whose sides are unequal, by contrast, are not similar, since no
+combination of scaling, translation, reflection, and rotation carries one
+onto the other. Similarity is therefore a statement about structure rather
+than about measurement: it asks whether two figures agree in shape, leaving
+their absolute size unspecified.
+
+\section{Similar Triangles}
+
+Triangles provide the most important examples of similarity encountered in
+this book. Consider two triangles $\triangle ABC$ and $\triangle DEF$. If
+their corresponding angles agree, so that $\angle A = \angle D$,
+$\angle B = \angle E$, and $\angle C = \angle F$, the triangles are said to be
+similar, written $\triangle ABC \sim \triangle DEF$. When two triangles are
+similar, every pair of corresponding sides occurs in the same ratio,
+\[
+\frac{AB}{DE} = \frac{BC}{EF} = \frac{AC}{DF},
+\]
+and this common ratio is called the \emph{scale factor} relating the two
+triangles.
+
+\section{Derivation: Why Ratios Survive Scaling}
+
+\begin{theorem}
+Let $a$ and $b$ be the lengths of two segments, and suppose both are scaled
+by the same factor $k > 0$, becoming $ka$ and $kb$. Then the ratio of the new
+lengths equals the ratio of the original lengths: $\dfrac{ka}{kb} =
+\dfrac{a}{b}$.
+\end{theorem}
+
+\begin{proof}
+Since $k \neq 0$, it may be cancelled from numerator and denominator:
+\[
+\frac{ka}{kb} = \frac{k}{k}\cdot\frac{a}{b} = \frac{a}{b}.
+\]
+\end{proof}
+
+The scale factor cancels because it appears identically in numerator and
+denominator, and this is the fundamental reason ratios play such a central
+role in geometry. A ratio ignores absolute size and records only structure:
+whenever every length in a figure changes by the same factor, the ratios
+between those lengths remain exactly as they were before the figure was
+scaled.
+
+\section{The Geometry of Invariance}
+
+\begin{example}
+Consider a right triangle with sides $3$, $4$, and $5$, and suppose every
+side is doubled, producing a new triangle with sides $6$, $8$, and $10$. The
+lengths, the area, and the perimeter of the new triangle all differ from
+those of the original. Yet
+\[
+\frac{3}{5} = \frac{6}{10} \qquad\text{and}\qquad \frac{4}{5} = \frac{8}{10},
+\]
+so the ratios between corresponding sides remain exactly the same: only the
+scale has changed, not the shape.
+\end{example}
+
+This observation lies at the foundation of everything that follows in this
+book. The trigonometric functions to be introduced in later chapters arise
+precisely because certain ratios of a right triangle depend only on the
+triangle's angles and not on its size, and before sine, cosine, or tangent
+can be defined in any meaningful way, it is necessary to first understand why
+such size-independent quantities can exist at all. Similarity provides the
+answer: because ratios are invariant under scaling, a ratio computed from any
+triangle similar to a given one will agree with the ratio computed from the
+original, which is exactly the property that will let the trigonometric
+ratios of Chapter~3 depend on angle alone.
+
+\section{Similarity Criteria}
+
+Three standard criteria determine whether two triangles are similar without
+requiring every angle and every side to be checked individually.
+
+\begin{theorem}[Angle--Angle]
+If two angles of one triangle equal two corresponding angles of another, the
+two triangles are similar.
+\end{theorem}
+\begin{proof}
+Since the angles of a triangle sum to a fixed total, agreement of two
+corresponding angles forces agreement of the third as well, so all three
+corresponding angles agree and the triangles are similar by definition.
+\end{proof}
+
+\begin{theorem}[Side--Angle--Side]
+If two pairs of corresponding sides of two triangles are proportional and the
+included angles are equal, the triangles are similar.
+\end{theorem}
+
+\begin{theorem}[Side--Side--Side]
+If all three pairs of corresponding sides of two triangles occur in the same
+ratio, $\dfrac{AB}{DE} = \dfrac{BC}{EF} = \dfrac{AC}{DF}$, the triangles are
+similar.
+\end{theorem}
+
+\begin{algorithmproc}{How to Determine Whether Two Triangles Are Similar}
+Given two triangles, first check whether two pairs of corresponding angles
+are known and equal; if so, the Angle--Angle criterion applies and no further
+check is needed. If instead two pairs of corresponding sides and their
+included angle are known, compute the ratio of the two known sides in each
+triangle; if the ratios agree and the included angles are equal, the
+Side--Angle--Side criterion applies. If all three pairs of corresponding
+sides are known, compute all three ratios; if the three ratios agree, the
+Side--Side--Side criterion applies. If none of these conditions can be
+verified from the given information, similarity cannot yet be concluded, and
+more information about the triangles is required.
+\end{algorithmproc}
+
+\begin{example}
+Determine whether a triangle with sides $3$, $4$, $5$ is similar to a
+triangle with sides $6$, $8$, $10$. Computing the three ratios of
+corresponding sides gives
+\[
+\frac{6}{3} = 2, \qquad \frac{8}{4} = 2, \qquad \frac{10}{5} = 2,
+\]
+and since all three ratios agree, the Side--Side--Side criterion applies:
+the triangles are similar, with scale factor $k = 2$.
+\end{example}
+
+\section{Applications: Similarity as a Tool for Measurement}
+
+Similarity allows unknown lengths to be determined without direct
+measurement. Suppose a tree casts a shadow $12$ meters long, and at the same
+moment a vertical meter stick casts a shadow $0.8$ meters long. Because
+sunlight arrives at essentially parallel angles, the triangle formed by the
+tree and its shadow is similar to the triangle formed by the meter stick and
+its shadow, so the ratio of height to shadow length must agree between them:
+\[
+\frac{h}{12} = \frac{1}{0.8}.
+\]
+Solving for $h$ gives $h = 15$, so the tree is fifteen meters tall. No direct
+measurement of the tree itself was required; similarity alone was enough to
+convert an inaccessible length into an accessible one.
+
+\begin{practicenow}
+A flagpole casts a shadow $9$ meters long at the same moment that a
+$1.5$-meter fence post casts a shadow $2$ meters long. Set up the
+similar-triangle ratio implied by these measurements and find the height of
+the flagpole.
+\end{practicenow}
+
+\section{Looking Ahead}
+
+This chapter has introduced the idea that will support everything that
+follows: a scale transformation changes lengths but preserves the ratios
+between them, and those preserved quantities are the first examples of what
+this book will repeatedly call invariants. The next chapter introduces
+coordinates and vectors, and with them a second kind of transformation ---
+rotation --- that changes orientation while preserving other quantities in
+turn. Where similarity studies what survives a change of size, the chapters
+ahead study what survives a change of orientation, and the path from
+triangles to the trigonometric functions begins with the same simple
+cancellation derived above: $ka/kb = a/b$. The scale factor vanishes, and
+what remains is structure.
+
+\section{Exercises}
+\begin{exercise}
+A triangle has sides $5$, $12$, $13$. A second triangle has sides $10$,
+$24$, $26$. Determine whether the triangles are similar, and if so, state the
+scale factor.
+\end{exercise}
+
+\begin{exercise}
+Two triangles share an angle of $40^\circ$, and the sides adjacent to that
+angle are in the ratio $3:5$ in both triangles. Which similarity criterion
+applies, and why is that criterion sufficient without knowing the remaining
+angles or sides?
+\end{exercise}
+
+\begin{exercise}
+A person of height $1.7$ meters stands beside a building and casts a shadow
+$2.1$ meters long. At the same moment, the building casts a shadow $34$
+meters long. Find the height of the building, and explain in a sentence why
+the assumption of parallel sunlight is essential to the argument.
+\end{exercise}

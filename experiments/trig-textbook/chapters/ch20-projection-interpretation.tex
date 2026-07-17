@@ -1,0 +1,362 @@
+\chapter{Projection, Interpretation, and Living Dynamics}
+\label{ch:ch20-projection-interpretation}
+
+This closing chapter asks a question that has been implicit since
+Chapter~2 but never stated directly: what is lost whenever an object is
+replaced by a description of it? Coordinates, projections, and Fourier
+decompositions have each, in their turn, shown that a single object can be
+described in more than one way, and that different descriptions make
+different features easy to see. What none of the earlier chapters asked
+explicitly is what a description \emph{cannot} see --- and it is that
+question, posed with the ordinary linear algebra already developed in this
+book, that occupies the pages that follow. The illustrative material in
+this chapter is drawn from a debate in neuroscience about what it means
+for a measured neural signal to "represent" something, but the
+neuroscience is only a worked example. The mathematics being illustrated
+is entirely general.
+
+\section{Representation as a Mathematical Relation}
+
+Recall from Chapter~2 that a vector's coordinates depend on a chosen
+basis: the same displacement is recorded by different ordered pairs
+under different coordinate frames, yet the vector itself, as a
+displacement, does not change when the frame does. This distinction
+generalizes. Let $X$ be a space of possible states of some system, and let
+\[
+\pi: X \to Y
+\]
+be any measurement or representation, associating to each state $x \in X$
+a description $\pi(x)$ in some representational space $Y$. The description
+$\pi(x)$ is not the state $x$ itself; it is $x$ viewed through the
+particular relation $\pi$. Chapters~2, 13, and 14 each supplied an
+instance of this same pattern --- coordinates, a projection onto a
+direction, and a change of coordinate system --- without stating the
+general principle they shared. This chapter states it, and asks what
+follows from it.
+
+\section{Projection and the Kernel}
+
+Suppose $\pi$ is linear, as every projection encountered in this book has
+been.
+
+\begin{definition}
+The \emph{kernel} of a linear map $P: X \to Y$ is $\ker(P) = \{x \in X :
+P(x) = 0\}$.
+\end{definition}
+
+\begin{theorem}[Principle of Invisible Structure]
+If $k \in \ker(P)$, then $P(x) = P(x+k)$ for every $x \in X$. Consequently,
+no observation made solely through $P$ can distinguish $x$ from $x+k$.
+\end{theorem}
+
+\begin{proof}
+By linearity, $P(x+k) = P(x) + P(k) = P(x) + 0 = P(x)$.
+\end{proof}
+
+The proof is one line, and deliberately so: the content of the theorem is
+not its difficulty but its interpretation. The kernel of a projection is
+not an absence of structure in the original system; it is the set of
+directions in which the system can vary without the chosen measurement
+noticing. Consider a biological illustration. Let a neuron's full state
+be some high-dimensional $x$, encompassing its spike timing, its
+neuromodulatory context, its metabolic condition, and its recent history,
+and suppose an experiment measures only a single projection of this
+state, a firing rate $P(x)$. Neuromodulatory context, metabolic
+condition, and history may then inhabit, in whole or in part, the kernel
+of $P$. Nothing about the neuron has disappeared; the measuring apparatus
+simply cannot see those directions. The theorem gives this familiar
+methodological caution --- absence of evidence is not evidence of absence
+--- a precise mathematical location: the evidence is absent because it
+lies in $\ker(P)$, and it can be found only by choosing a different $P$.
+
+\section{Multiple Interpretability}
+
+A second consequence follows from the same observation, stated now for the
+image of $\pi$ rather than its kernel.
+
+\begin{definition}
+Given a measured value $y = \pi(x)$, an observer may define a
+\emph{decoding map} $d: Y \to Q$ and interpret $d(y)$ as the quantity
+represented by $x$. \emph{Multiple interpretability} is the fact that,
+absent further constraint, many decoding maps $d_1, d_2, d_3, \dots$ may
+all be defined on the same $Y$, so that a single measured state supports
+several formally valid, but mutually incompatible, interpretations.
+\end{definition}
+
+If a measured value happens to equal some quantity $n$, it equally well
+satisfies $y = 2(n+1) - 2$, or countless other relations; the raw
+correlation between $y$ and $n$ does not, by itself, single out $n$ as
+\emph{the} thing $y$ represents rather than any of the other quantities
+$y$ is equally correlated with. This is worth distinguishing from a
+related and more familiar idea: \emph{multiple realizability} asks how
+many different physical systems can implement one formal structure.
+Multiple interpretability asks the reverse question, how many formal
+structures can be imposed on one physical system, and it is this second
+question that bears on what a measurement is entitled to claim.
+
+\section{Sparse Projections and Apparent Representation}
+
+Modern data analysis often seeks a low-dimensional projection $z = Px$ of
+a high-dimensional state $x \in \mathbb{R}^N$, with $P: \mathbb{R}^N \to
+\mathbb{R}^k$ for $k \ll N$, sometimes further expressed as $x \approx
+D\alpha$ for a sparse coefficient vector $\alpha$. Such projections can
+genuinely reveal invariants, low-dimensional constraints, recurring modes,
+and predictive relationships; none of that value is in question. What
+does not follow from the existence of a successful sparse projection is
+that the system being measured internally computes that projection, that
+its coefficients are symbols manipulated by the system, or that the axes
+the projection happens to use are privileged by the system itself rather
+than convenient to the observer.
+
+\begin{theorem}
+Decodability does not imply internal representation.
+\end{theorem}
+
+This is not a theorem in the sense of the rest of this book, with a
+derivation from prior results; it is closer to a definition made precise.
+A decoder demonstrates that an observer, given $P(x)$, can recover some
+target quantity. It does not, by that fact alone, demonstrate that the
+system whose state is $x$ performs the same decoding, or uses $P(x)$ for
+anything at all. The gap between these two claims is exactly the gap
+between an observer's successful use of a projection and a claim about
+what lies outside that projection's kernel.
+
+\begin{sidebar}{A Neuroscientific Instance: Language and Reasoning}
+A 2025 study of logical reasoning offers an unusually direct empirical
+case of the gap this section describes. Kean and colleagues
+\cite{kean2025} asked whether formal reasoning is carried out using the
+brain's ordinary natural-language machinery, or whether language instead serves only as
+an interface through which a problem is presented and a conclusion is
+reported. Using functional imaging, they found that language-selective
+brain regions were not substantially engaged while healthy participants
+solved inductive and deductive reasoning tasks; a separate, domain-general
+network associated with working memory and cognitive control was engaged
+instead. They then studied two individuals with profound aphasia, whose
+grammatical comprehension was severely impaired, and found that both
+solved logical induction and matrix-reasoning problems at or above
+typical levels despite this impairment. In the language of this chapter,
+the natural-language system functions here as one measurable projection
+of cognitive activity, $P_{\text{language}}$, correlated with reasoning
+performance under ordinary conditions but not identical to whatever
+operator actually carries out the reasoning; when that projection is
+severely degraded, as in profound aphasia, the underlying capacity it had
+seemed to track remains intact. A close correlation between a measured
+quantity and an ability, in other words, is not by itself evidence that
+the measured quantity is the mechanism producing that ability, whether
+the system under study is a projected vector, a decoded neural signal, or
+the relationship between language and thought.
+\end{sidebar}
+
+\section{Invariance Without Symbolism}
+
+Chapter~1 showed that certain ratios are invariant under scaling; Chapter~6
+showed that sine is odd and cosine is even under $\theta \to -\theta$. In
+each case, invariance was a structural fact: a quantity $I(x)$ satisfying
+$I(Tx) = I(x)$ for some transformation $T$. It is worth being precise
+about what such a fact does and does not establish. If some measured
+quantity $F$ satisfies $F(R(\theta)x) = F(x)$ for every rotation
+$R(\theta)$ of Chapter~8, this establishes that $F$ is insensitive to
+rotation --- a genuine structural discovery. It does not, by itself,
+establish that $F$ "means" or "represents" the identity of the object
+being rotated; that further claim requires more than invariance alone
+provides. A productive habit, when this distinction threatens to
+collapse, is to replace the question "what does this state represent"
+with the question this book's tools can actually answer: which
+transformations leave the measured relation unchanged?
+
+\section{Fourier Decomposition and Observer Choice}
+
+Chapter~19 showed that a periodic function may be written as a sum of
+harmonics, $f(x) = a_0 + \sum_{n=1}^\infty (a_n\cos nx + b_n\sin nx)$.
+Nothing in that construction requires the decomposition to be unique in
+kind: the same function could equally be expressed relative to a basis of
+localized pulses, wavelets, or modes derived directly from data, and each
+choice of basis makes some features of the function easy to see and
+others hard to see, exactly as Chapter~14 showed for polar versus
+rectangular coordinates. That a signal admits a clean, useful Fourier
+decomposition therefore does not imply that whatever physical system
+produced the signal stores, computes, or manipulates a list of Fourier
+coefficients; it implies only that the Fourier basis is a good basis for
+that signal, in the same sense that polar coordinates are a good
+coordinate system for a circle. The decomposition is a fact about the
+relation between the signal and the chosen basis, not a fact about the
+internal machinery of whatever produced the signal.
+
+\section{The Commutativity Test}
+
+The distinction between a useful decoder coordinate and a variable a
+system actually uses suggests a test, rather than only a caution. Suppose
+a measured state $x$ is projected to $z = P(x)$, and $z$ is claimed to be
+a genuine variable used by the system rather than merely an observer's
+coordinate. An intervention that changes $x$ to some $x'$ should then
+produce a corresponding, predictable change from $z$ to $z' = P(x')$, and
+this claim can be drawn as a square,
+\[
+\begin{array}{ccc}
+x & \xrightarrow{\ P\ } & z \\[2pt]
+\big\downarrow{\scriptstyle\text{intervention}} & & \big\downarrow{\scriptstyle ?} \\[2pt]
+x' & \xrightarrow{\ P\ } & z'
+\end{array}
+\]
+which commutes exactly when the effect of the intervention on $z$ agrees
+with what $P$ predicts from its effect on $x$. If the square commutes
+reliably under intervention, $z$ behaves as a variable genuinely coupled
+to the system's dynamics. If it does not, $z$ may still be a perfectly
+good coordinate for an observer to use, recoverable from the data and
+correlated with behavior, without being a variable the system itself is
+sensitive to. The test converts a hard interpretive question into an
+ordinary question about whether a diagram commutes, which is exactly the
+kind of question the algebra of this book is built to answer.
+
+\section{The Representation Theorem}
+
+The results of this chapter can be collected into a single closing
+statement.
+
+\begin{theorem}[The Representation Theorem]
+Let $P: X \to Y$ be any non-injective representation of a system. Then
+$\ker(P)$ is nontrivial, and $P(x) = P(x+k)$ for every $k \in \ker(P)$.
+Consequently, no claim about distinctions lying entirely within
+$\ker(P)$ can be established, supported, or refuted by observations made
+through $P$ alone.
+\end{theorem}
+
+\begin{proof}
+Non-injectivity means some two distinct states $x_1 \neq x_2$ satisfy
+$P(x_1) = P(x_2)$; setting $k = x_1 - x_2$ gives a nonzero element of
+$\ker(P)$ by linearity, so $\ker(P) \neq \{0\}$. The remaining claims are
+the Principle of Invisible Structure of Section~20.2, restated for
+general $k \in \ker(P)$.
+\end{proof}
+
+The theorem is almost embarrassingly simple to prove; its force lies
+entirely in how often it is forgotten in practice, whenever the image of
+a representation, $P(X)$, is treated as though it were $X$ itself.
+
+\section{Further Directions}
+
+The mathematics developed above --- kernels, invariance, basis-dependence,
+and the commutativity test --- is enough to state the chapter's central
+result rigorously. The same questions extend naturally beyond a single,
+fixed projection. A living system does not simply sit still to be
+measured: it acts on its environment and is in turn shaped by that
+environment, so that organism and environment are better modeled as
+co-evolving, $dO/dt = F(O,E)$ and $dE/dt = G(E,O)$, than as a fixed input
+feeding a fixed output. More strikingly, the transformation rule
+governing such a system need not itself stay fixed the way every operator
+in Chapters~1 through 19 has: a system's own admissible transformations
+can change over time, $T_{t+1} = \mathcal{U}(T_t, x_t, e_t)$, so that the
+pair $(x_t, T_t)$, rather than $x_t$ alone, becomes the true state of the
+system. Questions of viability (which states a system can occupy and
+still persist), entrainment (how internal rhythms synchronize with
+external ones without symbolic prediction), and information-theoretic
+limits on what successive measurements can recover all extend from this
+same starting point. Each is a substantial subject in its own right, and
+each is a natural continuation of the mathematics in this chapter rather
+than a further topic this book will develop; they are noted here as an
+indication of where the kernel and commutativity ideas lead next, for a
+reader who wants to follow them.
+
+\section{Looking Back}
+
+This book opened with two maps of the same city, one small enough for a
+pocket and one large enough for a classroom wall, observing that a change
+of scale alters measurement while leaving certain ratios untouched.
+Chapter~1 called such ratios invariants. Every chapter since has, in its
+own way, returned to the same pair of questions: what does a given
+transformation preserve, and what does it discard? Coordinates showed
+that one object admits many descriptions; rotation and the identities
+built from it showed that different algebraic forms can encode identical
+structure; projection showed that a measurement preserves some
+distinctions while discarding others outright; polar coordinates and
+amplitwists showed that the choice of representation changes what appears
+simple; Euler's formula showed that separate formalisms can be
+manifestations of a single underlying structure; Fourier decomposition
+showed that even a decomposition into "elementary" pieces is relative to
+a chosen basis. This chapter's contribution is the final piece of that
+pattern, made precise rather than left as an intuition: every
+representation is itself a transformation, and every transformation
+carries a kernel, a set of distinctions it cannot see. Mathematics
+supplies extraordinary power to describe structure. What this closing
+chapter asks a reader to carry forward is the discipline to ask, of any
+description powerful enough to seem complete, what its kernel contains.
+
+\section{Exercises}
+\begin{exercise}
+Give two coordinate descriptions of the same vector using different
+bases, and explain why the vector is not identical to either coordinate
+list.
+\end{exercise}
+
+\begin{exercise}
+Let $P: \mathbb{R}^2 \to \mathbb{R}$ be given by $P(x,y) = x$. Find
+$\ker(P)$, and give two distinct vectors that $P$ cannot distinguish.
+\end{exercise}
+
+\begin{exercise}
+A firing rate is computed by counting events over three different time
+windows of different lengths. Explain why the resulting values need not
+describe the same underlying feature of the system.
+\end{exercise}
+
+\begin{exercise}
+Let $y = 2x+1$. Construct two different decoding maps from $y$ to a
+target quantity, and explain why the correlation between $y$ and $x$
+alone does not select one interpretation over the other.
+\end{exercise}
+
+\begin{exercise}
+Let $P = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \end{pmatrix}$ project
+$\mathbb{R}^3$ onto $\mathbb{R}^2$. Find $\ker(P)$, and explain why
+successfully recovering a label from $P(x)$ does not prove that the
+original system computes that label.
+\end{exercise}
+
+\begin{exercise}
+Find a function of two variables that is invariant under the rotation
+$R(\theta)$ of Chapter~8, and one that is invariant under the scaling
+$S(s)$ of Chapter~15. Explain why exhibiting such an invariant is a
+weaker claim than exhibiting a symbolic representation.
+\end{exercise}
+
+\begin{exercise}
+Express a specific periodic signal using two different bases (for
+instance, a Fourier basis and a basis of localized pulses), and discuss
+whether the Fourier coefficients should be regarded as physically
+separate components of the signal.
+\end{exercise}
+
+\begin{exercise}
+Draw the commutativity-test square for a claimed decoder $z = P(x)$ of
+your own construction, and describe what evidence would show the square
+fails to commute under intervention.
+\end{exercise}
+
+\begin{exercise}
+Explain, in your own words, why a useful decoder does not necessarily
+reveal an internal code used by the system being decoded.
+\end{exercise}
+
+\begin{exercise}
+Prove that an invertible change of coordinates has trivial kernel, and
+explain why this means it preserves every distinction even though it
+changes every coordinate description.
+\end{exercise}
+
+\begin{exercise}
+Prove the Representation Theorem directly for a specific non-injective
+linear map of your choice, exhibiting a nonzero element of its kernel.
+\end{exercise}
+
+\begin{exercise}[Capstone]
+For a variable $z$ recovered from a measured system, distinguish three
+separate claims: that $z$ is \emph{decodable} (an observer can recover
+$z$ from the measurement), that $z$ is \emph{causally relevant} (altering
+$z$ changes the system's subsequent behavior), and that $z$ is
+\emph{represented} by the system (the system itself uses $z$ as a
+variable in its own dynamics). Give an example in which the first claim
+holds but the second does not, and an example in which the first two
+claims hold but evidence for the third is still lacking. Explain, in a
+short paragraph, why these three claims are routinely conflated, and why
+separating them requires most of the mathematics developed in this book.
+\end{exercise}
