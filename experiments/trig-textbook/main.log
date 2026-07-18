@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.17.0 (TeX Live 2023/Debian)  (format=lualatex 2026.5.3)  17 JUL 2026 17:18
+This is LuaHBTeX, Version 1.17.0 (TeX Live 2023/Debian)  (format=lualatex 2026.5.3)  18 JUL 2026 16:43
  restricted system commands enabled.
 **main.tex
 (./main.tex
@@ -2870,7 +2870,6 @@ laMath(1)/m/n/10.95 (1, 0)$ \TU/TeXGyrePagella(0)/m/n/10.95 to $\TU/TeXGyrePage
 llaMath(1)/m/n/10.95 ([] 90[], [] 90[]) =
  []
 
-)
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2889,6 +2888,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [153]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2897,11 +2899,65 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[154
+[154]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[155]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[156]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[157])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[158]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[159]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[160
 
 
 
-] [155] (./main.aux (./front/introduction.aux) (./front/preface.aux)
+] [161] (./main.aux (./front/introduction.aux) (./front/preface.aux)
 (./chapters/ch00-structure-from-constraint.aux)
 (./chapters/ch01-similarity-ratios.aux)
 (./chapters/ch02-coordinates-vectors.aux) (./chapters/ch03-right-triangle.aux)
@@ -2925,15 +2981,15 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 )
 
 Here is how much of LuaTeX's memory you used:
- 47789 strings out of 476553
- 125002,1977958 words of node,token memory allocated
+ 47795 strings out of 476553
+ 156259,1977958 words of node,token memory allocated
  1482 words of node memory still in use:
    7 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 240 attribute, 62 glue_spe
 c, 240 attribute_list, 2 write nodes
-   avail lists: 2:4596,3:3042,4:238,5:1020,6:152,7:10368,8:90,9:1138,10:31,11:88
-2
+   avail lists: 1:1,2:4596,3:3042,4:238,5:1252,6:152,7:12947,8:90,9:1138,10:31,1
+1:953
  67242 multiletter control sequences out of 65536+600000
- 124 fonts using 36028467 bytes
+ 124 fonts using 36028583 bytes
  102i,16n,101p,724b,1194s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf/fonts/opentype/public/tex-gyre/texgyrepagella-regular.otf></us
 r/share/texmf/fonts/opentype/public/tex-gyre/texgyrepagella-bold.otf></usr/share
@@ -2943,10 +2999,10 @@ mf/fonts/opentype/public/tex-gyre-math/texgyrepagella-math.otf></usr/share/texmf
 /fonts/opentype/public/tex-gyre/texgyrepagella-italic.otf></usr/share/texmf/font
 s/opentype/public/tex-gyre/texgyrepagella-bold.otf></usr/share/texmf/fonts/opent
 ype/public/tex-gyre/texgyrepagella-regular.otf>
-Output written on main.pdf (169 pages, 620907 bytes).
+Output written on main.pdf (175 pages, 664206 bytes).
 
-PDF statistics: 2792 PDF objects out of 2984 (max. 8388607)
- 2571 compressed objects within 26 object streams
- 1021 named destinations out of 1200 (max. 131072)
+PDF statistics: 2820 PDF objects out of 2984 (max. 8388607)
+ 2593 compressed objects within 26 object streams
+ 1027 named destinations out of 1200 (max. 131072)
  2176 words of extra memory for PDF output out of 10000 (max. 100000000)
 

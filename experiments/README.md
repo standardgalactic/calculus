@@ -1,4 +1,20 @@
+# Experiments
+
+[Restorability Boundaries](https://standardgalactic.github.io/calculus/experiments/restorability-boundaries.pdf)
+
+[Trigonometry and Transformation](https://standardgalactic.github.io/calculus/experiments/trigonometry-and-transformation.pdf)
+
+[Orthodromic Infrastructure](https://standardgalactic.github.io/calculus/experiments/orthodromic-infrastructure.pdf)
+
+![](orthodromic-blueprint.png)
+
 # rsvp-mips
+
+Capacity, Dissipation, and the Onset of Motility-Induced Phase Separation
+
+* [Prediction Before Interpretation](https://standardgalactic.github.io/calculus/experiments/prediction-before-interpretation.pdf)
+
+* [Empirical Paper](https://standardgalactic.github.io/calculus/experiments/empirical-paper.pdf)
 
 Theory-neutral ABP simulation engine and RSVP field-identification pipeline
 for motility-induced phase separation (MIPS), in support of the paper
@@ -6,7 +22,7 @@ for motility-induced phase separation (MIPS), in support of the paper
 
 ## Status: identification stage implemented and piloted — pipeline complete end to end
 
-Implemented and tested (84 tests passing). The exporter
+Implemented and tested (110 tests passing). The exporter
 (`src/rsvp_mips/exporter.py`, `ExportConfig`/`export_run`) ties
 simulation, RSA preparation, burn-in, field reconstruction, feature
 extraction, density-domain targets, and onset labeling into one
@@ -210,9 +226,343 @@ M1_parallel's Delta R^2 non-significant at both (p=0.167, n_perm=6, at
 h=0.8; p=1.0, n_perm=2 — very low power given only 2 seeds, noted
 explicitly — at h=1.8). The null persists across this coarse-graining
 check, addressing another clause of the essay's own pre-registered
-stability criterion. Still not done: a larger seed count (this pilot
-remains 5 runs at the primary bandwidth, 2-3 at the alternates) and any
-out-of-regime parameter sweep.
+stability criterion. Still not done (at the time of writing this
+paragraph): a larger seed count (this pilot remains 5 runs at the
+primary bandwidth, 2-3 at the alternates) and any out-of-regime
+parameter sweep.
+
+**Seed count extension (done):** extended the primary pilot from 5 to
+10 seeds (`scripts/extend_pilot_seeds.py`, N=200, phi=0.5, Pe=130,
+kernel_h=1.2, run in small batches to avoid the earlier
+timeout-corruption pattern — both batches completed cleanly this time).
+Added random-permutation-sampling support to both null-certification
+functions (exact enumeration is intractable at 10! = 3.6M) — backward
+compatible, verified against the existing 5-run exact tests, 2 new
+tests added (86 total project-wide).
+
+Reran the full null-certification pass on all 10 runs:
+- Residualized correlation test: 1/32 columns nominally significant
+  (phi_forward_lap2_mean, p=0.015) — exactly what's expected from
+  chance alone at alpha=0.05 across 32 tests (~1.6 expected false
+  positives), not read as a real effect.
+- Run-level permutation test: **the earlier borderline M2_parallel-like
+  result (p=0.017 at 5 runs) did NOT replicate at 10 runs — it's now
+  p=0.990 with Delta R^2 essentially 0.0000**, confirming the earlier
+  caution that it was a multiple-comparisons artifact, not a real
+  M2-specific effect. All four tests (M1_parallel, M1_forward,
+  M1_input, M2_parallel-like) are now cleanly null (p=0.990-1.000).
+
+This is the strongest version of the null result obtained so far:
+residualization, run-level permutation, coarse-graining stability
+across two alternate bandwidths, and a doubled seed count all point the
+same direction.
+
+**Out-of-regime parameter check (done):** the last remaining stability
+clause — transfer across parameter space. Exported 5 new seeds at
+Pe=200 (up from the pilot's Pe=130), same N=200/phi=0.5/kernel_h=1.2
+(`scripts/batch_export_out_of_regime.py`, batched to avoid timeout
+corruption). Null-certification came out even cleaner than the primary
+regime: **0/32 residualized columns significant** (vs. 1/32 at the
+primary regime), and all four run-level permutation tests
+non-significant with no borderline results at all (p=0.742-1.0).
+
+**Final revised claim (regression, Pe axis only):** the null holds
+across all three stability clauses tested along the Pe/coarse-graining
+axes — coarse-graining (2 bandwidths), seed count (5 vs 10), and
+activity level (Pe=130 vs Pe=200). But see the packing-fraction sweep
+immediately below, which complicates this picture along a DIFFERENT
+axis. The classification/ROC-AUC side remains untested throughout.
+
+## Packing-fraction (phi) sweep — the first genuinely mixed result
+
+Density explores a qualitatively different region of phase space than
+activity level does, so this is the strongest remaining observational
+test. Attempted a high-density point first (phi=0.55+) and found it
+infeasible: RSA initialization cannot reach the ~0.55 2D jamming limit
+for hard disks (phi=0.55 placed only 191/200 particles in 8M attempts,
+correctly raising rather than silently returning an incomplete
+configuration). **The sweep is therefore one-sided** (below the pilot's
+phi=0.5) until a compression-from-dilute initializer is built — a real,
+honestly-reported limitation, not a rounding error.
+
+Exported phi=0.35 (N=200, Pe=130, kernel_h=1.2, `scripts/batch_export_phi_sweep.py`)
+at 10 seeds (matching the rigor applied elsewhere). Result:
+
+- **Run-level permutation test (Delta R^2): completely flat.** All four
+  tests (M1_parallel, M1_forward, M1_input, M2_parallel-like) give
+  Delta R^2 = 0.0000, p = 1.000 exactly — even more null than the
+  primary regime.
+- **Residualized correlation test: 6/32 columns significant** — well
+  above the ~1.6 expected by chance at alpha=0.05 across 32 tests, and
+  NOT scattered randomly: phi_parallel_mean, phi_forward_mean, and
+  s_work_mean all show corr~+0.06 (p~0.03-0.04), and their skew
+  counterparts all show corr~-0.06 to -0.08 (p~0.01-0.04). (s_work
+  matches phi_parallel's numbers exactly, as expected from the proven
+  S_work = (v0/Dt)*Phi_parallel identity — a consistency check that this
+  pattern is real, not a fluke of independently-noisy columns.)
+
+**This is a genuine discrepancy, not smoothed over:** a weak but
+internally consistent marginal signal shows up under the more sensitive
+residualization test, but doesn't survive Lasso's regularization plus
+held-out evaluation at all. Two non-contradictory readings, both live:
+(1) capacity's mean/skew may carry a small amount of real information
+at lower density that's too weak to survive model selection with only
+10 runs' worth of power, or (2) this is where the residualization
+test's sensitivity finally exceeds what one parameter point can
+distinguish from a subtle multi-comparison artifact. **Genuinely
+unresolved** — flagged as an open question rather than resolved either
+way. This is the most scientifically interesting result of the
+observational program so far: the null is NOT uniform across all of
+parameter space in the same clean way it was across coarse-graining,
+seeds, and Pe — density specifically shows a hint of something.
+Recommended before treating this as real phi-dependence: check whether
+the same mean/skew pattern appears at additional phi values (e.g.
+phi=0.2, phi=0.45) to see if it's monotonic/systematic or a fluke of
+this one point.
+
+**Resolution (done):** exported phi=0.2 and phi=0.45 (5 seeds each,
+`scripts/batch_export_phi_sweep_extra.py`). **Neither shows the same
+mean/skew signature.** At phi=0.2, mean/skew are clearly non-significant
+(p=0.2-0.9); a different column (S_low_q) is borderline instead
+(p=0.03-0.04). At phi=0.45, essentially nothing is significant (one q90
+value sits exactly at p=0.050). This argues against systematic
+phi-dependence and toward the phi=0.35 result being an isolated,
+non-replicating anomaly rather than real density-dependent information
+content — though not with full certainty, since the neighboring points
+used 5 seeds each against phi=0.35's 10.
+
+**Overall picture from the observational program:** the regression null
+holds robustly across coarse-graining (2 bandwidths), seed count (5 vs
+10), and activity level (Pe=130 vs 200); phi=0.35 shows an isolated
+anomaly in the more sensitive residualized-correlation test that does
+not replicate at neighboring densities and never translates into any
+regression improvement; high packing fraction (phi>0.5) remains
+untestable pending a compression-from-dilute initializer (RSA hits the
+~0.55 2D jamming limit).
+
+## Classification/ROC-AUC revisited (the last untested piece)
+
+The original 5-run pilot's classification result was inconclusive
+(best branch's ROC-AUC=0.547, indistinguishable from noise at n=5).
+Built proper leave-one-run-out classification evaluation
+(`leave_one_run_out_classification`, `run_classification_comparison` in
+`identification.py`): pools held-out predictions across LOO folds
+before computing ROC-AUC/PR-AUC/Brier (a per-run AUC is unstable with
+only a handful of positive events per run), and returns `None` rather
+than a number when fewer than 5 positive examples are pooled. One real
+inconsistency was caught and fixed before running on real data: the
+interactions feature group needed the same branch-exclusion filtering
+used in regression (the "forward" branch shouldn't see
+phi_parallel-named interaction columns) — added via an explicit branch
+parameter. Validated against synthetic ground truth first (5 tests, 91
+total project-wide): an informative feature gives ROC-AUC>0.85, an
+uninformative one gives near-chance (0.3-0.7).
+
+**Run on the primary regime's full 10 runs** (N=200, phi=0.5, Pe=130):
+420/1510 pooled frames positive (28% base rate). ROC-AUC ~0.53-0.56
+across every branch and model level — barely above chance, but real
+(PR-AUC~0.32, modestly above the 0.28 base rate, consistent with weak
+genuine discrimination rather than noise). **M0 (baseline density
+features alone) matches or slightly beats M1/M2 in every branch** —
+capacity and dissipation features add nothing to classification either,
+exactly mirroring the regression null. This converges the two
+identification framings (regression and classification) into one
+consistent story for the primary regime.
+
+**Not yet done:** classification hasn't been stability-tested the way
+regression was — no coarse-graining, Pe, or phi variation attempted for
+classification specifically. Given regression's stability checks
+mostly confirmed rather than overturned the original finding, this is
+lower priority than it would otherwise be, but it's an open gap, not an
+assumption.
+
+**What remains genuinely untested across the whole project (as of the
+previous session's stopping point):** high packing fraction (phi>0.5,
+needs a new initializer), and the intervention/mechanistic-testing
+protocol — not yet started. This is the one method that could test a
+CAUSAL claim (does perturbing activity or dissipation directly change
+the transition probability) rather than statistical association,
+regardless of how much more observational data accumulates. Per the
+essay's own Section 4, only surviving intervention tests would upgrade
+this from "early-warning variable" language to "driver" language — no
+amount of additional regression/classification replication can do that
+on its own.
+
+## Intervention protocol (`src/rsvp_mips/intervention.py`)
+
+The mechanism: `LocalActivityPulse` (center, radius, amplitude,
+start_time, duration) — a spatially and temporally localized boost to
+propulsion speed, `v_i(t) = v0*(1+amplitude)` for particles currently
+within `radius` of `center` (periodic minimum-image distance), during
+the time window. Implemented via a new optional `v0_override` parameter
+on `step_euler_maruyama` (a per-particle array replacing the uniform
+scalar `params.v0` for one step; `None` default is fully backward
+compatible — confirmed against the existing engine test suite).
+
+**Counterfactual pairing** (`run_counterfactual_pair`): treatment
+(intervention applied) and control (no intervention) branches are
+cloned from the same starting state and run with two
+independently-instantiated RNGs seeded IDENTICALLY, so both branches
+draw the exact same random numbers at every step — common random
+numbers, the standard variance-reduction design for causal comparison
+in stochastic simulation. At amplitude=0 this guarantees
+bit-identical trajectories; tested directly (`tests/test_intervention.py`,
+9 tests) rather than assumed.
+
+**A real bug was caught before it could produce a misleading null
+result.** The first version checked the intervention time window
+against the state's ABSOLUTE simulation clock rather than time relative
+to the counterfactual run's own start — meaning for any post-burn-in
+state (state.t already at 6.0+), `intervention.start_time=0.0` was
+being compared against an absolute clock that had already passed 0.0,
+so the intervention silently never activated. Every existing test used
+a fresh state (t=0), so none of them could have caught this — the bug
+only manifested in the realistic post-burn-in case. Caught by directly
+verifying that treatment and control positions actually diverged on a
+real demo run (they didn't, at first) rather than trusting "ran without
+error, unstable=False." Fixed, and a regression test
+(`test_intervention_activates_relative_to_run_start_not_absolute_state_time`)
+now specifically exercises a state with a nonzero starting clock.
+
+**First real demonstration** (`scripts/intervention_demo.py`, primary
+regime N=200/phi=0.5/Pe=130, amplitude=2.0, radius=3.0, 2-time-unit
+pulse + 3-time-unit observation window): a real, physically sensible,
+substantial effect. Local particle count within the intervention region
+crashes from 20 (control, roughly matching treatment's pre-pulse count)
+to 2 (treatment) during the boost — consistent with known active-matter
+behavior: locally elevated propulsion increases persistence length, so
+particles leave the region faster than they arrive, depleting it rather
+than piling up. After the pulse ends, the region rebounds to 28
+particles (treatment) vs. 16 (control) three time units later — an
+overshoot past the control baseline, not just a return to it. The
+global f_dense_max indicator also ends up meaningfully different
+between branches (0.248 treatment vs. 0.148 control) — a LOCAL
+perturbation propagating into a measurable WHOLE-SYSTEM difference.
+
+**This is a mechanism demonstration, not yet the full protocol the
+design called for.** The original design specified choosing matched
+region PAIRS with similar density but different predicted capacity
+("tension"), then testing whether identical perturbations produce
+systematically different outcomes depending on that pre-intervention
+capacity reading — the actual test of whether capacity carries causal
+information. This first pass only established that the intervention
+mechanism itself works correctly and produces real, structured,
+reproducible effects at a single arbitrarily-chosen location. The
+natural next step is exactly that region-matching protocol: reconstruct
+capacity fields at the end of burn-in, select density-matched pairs
+with high vs. low capacity, and test whether the SAME perturbation
+produces systematically different post-intervention outcomes depending
+on which capacity reading the region had beforehand. That is the
+result that would actually speak to "driver" vs. "early-warning
+variable" language — this session's work built and validated the tool
+that makes it possible, not the finding itself.
+
+## Matched-region experiment (the causal test itself)
+
+Per external review's calibration: the mechanism demo showed local
+activity is causally effective and the counterfactual framework can
+resolve both immediate and delayed responses, but not that capacity
+predicts, mediates, or controls that response. Built the actual test
+(`src/rsvp_mips/matched_region.py`):
+
+- **Region characterization** (`find_region_candidates`): reconstructs
+  density and capacity fields once, then for each candidate center
+  computes local density, local capacity (Phi_parallel), local
+  polarization (|<u_i>| — polar order parameter), dense-domain
+  membership, and local density-gradient magnitude.
+- **Matching** (`match_pairs_by_density`): bins candidates by local
+  density, pairs the highest- and lowest-capacity candidate within each
+  bin, skips bins below a minimum capacity contrast. **Honest scope
+  note**: matching is on density alone. The design also specified
+  matching on polarization, cluster membership, boundary geometry, and
+  density gradient — those four are computed and recorded per candidate
+  (available for a stricter match or as regression covariates later)
+  but not yet used in the matching procedure itself.
+- **Response metrics** (`compute_response_metrics`): depletion minimum,
+  time of minimum, recovery time, overshoot magnitude (post-pulse peak
+  above control), integrated treatment-control difference over the full
+  observation window, and delayed global f_dense_max difference — a
+  trajectory of outcomes, not a single endpoint, per the design.
+
+10 new tests (110 total project-wide), including synthetic ground-truth
+checks for the matching logic (correct min/max selection within
+density bins, correct bin-respecting behavior, low-contrast bins
+correctly skipped) and the response-metrics extraction (a hand-constructed
+dip/recover/overshoot trajectory recovers the exact expected values). One
+real bug fixed before these ran: an N=2000-particle test used an
+impossible RSA packing fraction (~3.9, far above the ~0.55 2D jamming
+limit) and hung — fixed by placing particles directly for a test that
+only needed to exercise orientation averaging, not realistic packing.
+
+**First real experiment** (`scripts/matched_region_experiment.py`, same
+primary regime, one base state, one seed, 36 candidate regions → 4
+density-matched pairs with capacity contrast ≥5.0, amplitude=2.0,
+`results/matched_region_summary.png`): a genuinely mixed result, held
+to the same statistical discipline as the observational program rather
+than over-read. Local response magnitude (overshoot, integrated
+difference) shows NO consistent direction across the 4 pairs — 2 pairs
+show higher-capacity regions responding more strongly, 2 show the
+opposite. The delayed global f_dense_max difference is consistently
+negative for the high-capacity member of every pair (4/4), which is
+suggestive but this is exactly the n=4-at-one-seed regime where the
+observational program repeatedly found apparent patterns that failed to
+replicate (the M2 p=0.017 result, the phi=0.35 anomaly) — this is not
+treated as a finding, only as a reason to run more pairs and more seeds
+before concluding anything.
+
+**Interesting incidental observation**: local density and local
+capacity were consistently ANTI-correlated across the 36 candidate
+regions this run (denser regions showed lower Phi_parallel), consistent
+with the earlier finding that particle interactions suppress realized
+alignment below v0 — worth keeping in mind since it means "density-matched,
+capacity-contrasting" pairs are somewhat harder to find at the high
+end of the density range (fewer high-capacity options in dense bins).
+
+**What this experiment has NOT yet shown, stated as plainly as
+external review put it**: whether pre-intervention capacity explains
+variation in treatment effects after controlling for density. Four
+pairs at one seed cannot answer that — it can only demonstrate that the
+matching and paired-intervention pipeline produces sensible,
+non-degenerate output, ready for the statistically powered version
+(many more pairs, multiple base states/seeds, and the decisive
+analysis: regressing treatment-effect magnitude on capacity after
+controlling for density and the recorded-but-unused matching
+covariates).
+
+**Refined design for the scaled experiment (specified, not yet built)**:
+
+1. The PAIR is the basic observational unit — compute the within-pair
+   contrast (high-capacity treatment effect minus low-capacity
+   treatment effect) per pair, then pool those contrasts across seeds.
+   Do not pool individual regions.
+2. Given the density-capacity anti-correlation found in the pilot, the
+   scaled design needs explicit overlap/common-support diagnostics —
+   capacity effects should only be estimated where high- and
+   low-capacity regions exist at comparable density AND comparable
+   structural covariates. Otherwise the regression extrapolates rather
+   than compares.
+3. Choose ONE primary outcome in advance (candidates: delayed
+   integrated local-density response, or delayed global f_dense_max
+   effect — the pilot's one suggestive-but-unconfirmed pattern). Treat
+   the other response metrics as secondary/exploratory, to avoid the
+   multiple-comparisons trap this project has hit twice already (the
+   M2 p=0.017 result, the phi=0.35 anomaly — both non-replicating).
+4. The four currently-recorded-but-unused covariates (polarization,
+   dense-domain status, gradient magnitude, boundary geometry) should
+   either enter the matching distance directly or be included as
+   adjustment covariates in the post-hoc regression. Density-only
+   matching, as implemented in the pilot, is not sufficient for the
+   powered version.
+
+**Current honest checkpoint, agreed on explicitly rather than left
+implicit**: *"The matched-intervention framework is implemented and
+validated, and an initial four-pair pilot demonstrates heterogeneous
+local responses and a potentially systematic delayed global contrast.
+The pilot is underpowered and incompletely matched, so it provides no
+reliable evidence yet that capacity has causal predictive value beyond
+density and structural covariates."* This is the current stopping
+point for the causal study; the observational program (regression +
+classification) is separately mature and stable.
 
 ### Full module history (all implemented and tested)
 - Overdamped ABP dynamics via Euler-Maruyama (`src/rsvp_mips/integrator.py`)
@@ -434,4 +784,6 @@ Capacity/transport/dissipation fields will be reconstructed afterward, in a
 separate module, so the simulator can never implicitly bake in the theory
 it is meant to test.
 
+
+![](infographic.png)
 ![](project-summary.png)

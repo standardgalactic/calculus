@@ -1,0 +1,712 @@
+\contentsline {part}{I\hspace {1em}Mathematical and Architectural Foundations}{1}{part.1}%
+\contentsline {chapter}{\numberline {1}Purpose, Scope, and Semantic Discipline}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}The Blueprint as a Protocol}{3}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Normative Vocabulary}{4}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Planning Horizon}{4}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Scale of Realization}{5}{section.1.4}%
+\contentsline {chapter}{\numberline {2}The Planetary Sphere and Orthodromic Geometry}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Reference Sphere}{7}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Great Circles}{8}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Intersection of Two Orthodromes}{8}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Geodesic Distance}{9}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Distance from a Point to an Orthodrome}{10}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Arrangements of Great Circles}{13}{chapter.3}%
+\contentsline {section}{\numberline {3.1}The Orthodromic Arrangement}{13}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Edges and Cells}{14}{section.3.2}%
+\contentsline {section}{\numberline {3.3}General-Position Counts}{16}{section.3.3}%
+\contentsline {section}{\numberline {3.4}A Family with Polar Concurrence}{17}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Adding a Generic Inclined Orthodrome}{17}{section.3.5}%
+\contentsline {section}{\numberline {3.6}The Nine-Orthodrome Realization}{18}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Spherical Service Geometry}{21}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Why the Orthodromic Arrangement Is Not Sufficient}{21}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Spherical Voronoi Cells}{21}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Spherical Bisectors}{22}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Voronoi Vertices}{23}{section.4.4}%
+\contentsline {section}{\numberline {4.5}The Spherical Delaunay Complex}{24}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Euler Relations for the Spherical Delaunay Triangulation}{25}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Convex-Hull Construction of the Delaunay Complex}{27}{section.4.7}%
+\contentsline {section}{\numberline {4.8}The Orthodromic Graph and the Delaunay Graph}{28}{section.4.8}%
+\contentsline {section}{\numberline {4.9}A Spanner Interpretation}{29}{section.4.9}%
+\contentsline {section}{\numberline {4.10}Voronoi Coverage Radius}{29}{section.4.10}%
+\contentsline {section}{\numberline {4.11}Weighted Voronoi Tessellations}{30}{section.4.11}%
+\contentsline {section}{\numberline {4.12}Anisotropic and Terrain-Constrained Distance}{31}{section.4.12}%
+\contentsline {chapter}{\numberline {5}Optimization of the Inclined Orthodromes}{33}{chapter.5}%
+\contentsline {section}{\numberline {5.1}From Arbitrary Placement to Explicit Objectives}{33}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Pareto Optimality}{34}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Coverage Functional}{35}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Corridor Accessibility Functional}{35}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Symmetry Regularization}{36}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Degeneracy Penalties}{37}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Topological Stability}{37}{section.5.7}%
+\contentsline {section}{\numberline {5.8}A Constrained Variational Statement}{38}{section.5.8}%
+\contentsline {section}{\numberline {5.9}Sensitivity and Long-Horizon Robustness}{39}{section.5.9}%
+\contentsline {chapter}{\numberline {6}Primary Cells, Service Cells, and Regional Modules}{41}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Two Distinct Tessellations}{41}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Cell Area}{42}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Cell Diameter and Aspect}{43}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Centroidal Voronoi Relaxation}{43}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Delaunay Angle Quality}{44}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Delaunay Paths as Secondary Corridors}{45}{section.6.6}%
+\contentsline {section}{\numberline {6.7}Redundancy and Failure}{45}{section.6.7}%
+\contentsline {section}{\numberline {6.8}Multi-Commodity Graphs}{46}{section.6.8}%
+\contentsline {part}{II\hspace {1em}The Geometry of Infrastructure Corridors}{49}{part.2}%
+\contentsline {chapter}{\numberline {7}The Corridor as a Geometric Object}{51}{chapter.7}%
+\contentsline {section}{\numberline {7.1}From Curves to Corridors}{51}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Moving Frames Along the Corridor}{52}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Curvature of Great Circles}{54}{section.7.3}%
+\contentsline {section}{\numberline {7.4}The Corridor Tube}{55}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Subsystem Occupancy}{56}{section.7.5}%
+\contentsline {section}{\numberline {7.6}Reserved Capacity}{57}{section.7.6}%
+\contentsline {section}{\numberline {7.7}Cross-Sections}{57}{section.7.7}%
+\contentsline {chapter}{\numberline {8}Cross-Sectional Geometry}{59}{chapter.8}%
+\contentsline {section}{\numberline {8.1}The Corridor as a Finite Resource}{59}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Cross-Sectional Coordinates}{59}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Cross-Sectional Measure}{60}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Geometric Allocation}{62}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Reserved Capacity}{64}{section.8.5}%
+\contentsline {section}{\numberline {8.6}Interface Boundaries}{64}{section.8.6}%
+\contentsline {section}{\numberline {8.7}Adjacency Graph}{65}{section.8.7}%
+\contentsline {section}{\numberline {8.8}Voronoi Allocation Within the Corridor}{66}{section.8.8}%
+\contentsline {section}{\numberline {8.9}Delaunay Connectivity}{67}{section.8.9}%
+\contentsline {chapter}{\numberline {9}Hydraulic Transport}{69}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Introduction}{69}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Conservation of Mass}{69}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Incompressible Approximation}{71}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Volume Flow Rate}{72}{section.9.4}%
+\contentsline {section}{\numberline {9.5}Bernoulli's Equation}{73}{section.9.5}%
+\contentsline {section}{\numberline {9.6}Hydraulic Head}{74}{section.9.6}%
+\contentsline {section}{\numberline {9.7}Head Loss}{74}{section.9.7}%
+\contentsline {section}{\numberline {9.8}Pump Power}{75}{section.9.8}%
+\contentsline {section}{\numberline {9.9}Gravity Recovery}{76}{section.9.9}%
+\contentsline {section}{\numberline {9.10}Hydraulic Networks}{77}{section.9.10}%
+\contentsline {section}{\numberline {9.11}Incidence Matrix Formulation}{77}{section.9.11}%
+\contentsline {section}{\numberline {9.12}Optimization of Water Routing}{78}{section.9.12}%
+\contentsline {chapter}{\numberline {10}Energy Transport and Electrical Infrastructure}{79}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Introduction}{79}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Conservation of Charge}{79}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Steady-State Networks}{80}{section.10.3}%
+\contentsline {section}{\numberline {10.4}Ohm's Law}{81}{section.10.4}%
+\contentsline {section}{\numberline {10.5}Potential Equation}{81}{section.10.5}%
+\contentsline {section}{\numberline {10.6}Electrical Power}{82}{section.10.6}%
+\contentsline {section}{\numberline {10.7}Transmission Losses}{82}{section.10.7}%
+\contentsline {section}{\numberline {10.8}Electrical Graphs}{83}{section.10.8}%
+\contentsline {section}{\numberline {10.9}Incidence Matrix}{84}{section.10.9}%
+\contentsline {section}{\numberline {10.10}Electrical Resistance Optimization}{85}{section.10.10}%
+\contentsline {section}{\numberline {10.11}Hydraulic--Electrical Duality}{86}{section.10.11}%
+\contentsline {section}{\numberline {10.12}Energy Storage Along Corridors}{86}{section.10.12}%
+\contentsline {section}{\numberline {10.13}Coupling with Hydraulic Infrastructure}{87}{section.10.13}%
+\contentsline {section}{\numberline {10.14}Unified Conservation Structure}{88}{section.10.14}%
+\contentsline {chapter}{\numberline {11}Transportation Dynamics}{89}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Introduction}{89}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Traffic Density}{89}{section.11.2}%
+\contentsline {section}{\numberline {11.3}Conservation of Vehicles}{90}{section.11.3}%
+\contentsline {section}{\numberline {11.4}Fundamental Diagram}{91}{section.11.4}%
+\contentsline {section}{\numberline {11.5}The Lighthill--Whitham--Richards Equation}{92}{section.11.5}%
+\contentsline {section}{\numberline {11.6}Traffic Waves}{93}{section.11.6}%
+\contentsline {section}{\numberline {11.7}Transportation Graphs}{93}{section.11.7}%
+\contentsline {section}{\numberline {11.8}Incidence Matrix Formulation}{94}{section.11.8}%
+\contentsline {section}{\numberline {11.9}Travel Time}{95}{section.11.9}%
+\contentsline {section}{\numberline {11.10}Shortest Paths}{95}{section.11.10}%
+\contentsline {section}{\numberline {11.11}Transportation Capacity}{96}{section.11.11}%
+\contentsline {section}{\numberline {11.12}Rail Systems}{96}{section.11.12}%
+\contentsline {section}{\numberline {11.13}Freight Flow}{97}{section.11.13}%
+\contentsline {section}{\numberline {11.14}Passenger Flow}{98}{section.11.14}%
+\contentsline {section}{\numberline {11.15}Unified Transportation State}{98}{section.11.15}%
+\contentsline {section}{\numberline {11.16}Relationship to the Other Corridor Systems}{99}{section.11.16}%
+\contentsline {chapter}{\numberline {12}Unified Multi-Commodity Dynamics}{101}{chapter.12}%
+\contentsline {section}{\numberline {12.1}Introduction}{101}{section.12.1}%
+\contentsline {section}{\numberline {12.2}Commodity Space}{101}{section.12.2}%
+\contentsline {section}{\numberline {12.3}General Conservation Law}{102}{section.12.3}%
+\contentsline {section}{\numberline {12.4}Linear Coupling}{103}{section.12.4}%
+\contentsline {section}{\numberline {12.5}Interpretation of the Coupling Matrix}{103}{section.12.5}%
+\contentsline {section}{\numberline {12.6}Equilibrium States}{104}{section.12.6}%
+\contentsline {section}{\numberline {12.7}Linear Stability}{105}{section.12.7}%
+\contentsline {section}{\numberline {12.8}Infrastructure Capacity}{106}{section.12.8}%
+\contentsline {section}{\numberline {12.9}The Universal Infrastructure Equation}{107}{section.12.9}%
+\contentsline {part}{III\hspace {1em}Variational Infrastructure Theory}{109}{part.3}%
+\contentsline {chapter}{\numberline {13}Infrastructure Functionals}{111}{chapter.13}%
+\contentsline {section}{\numberline {13.1}Introduction}{111}{section.13.1}%
+\contentsline {section}{\numberline {13.2}Function Spaces}{111}{section.13.2}%
+\contentsline {section}{\numberline {13.3}Infrastructure Functionals}{112}{section.13.3}%
+\contentsline {section}{\numberline {13.4}Integral Functionals}{113}{section.13.4}%
+\contentsline {section}{\numberline {13.5}Examples}{113}{section.13.5}%
+\contentsline {section}{\numberline {13.6}The Principle of Optimal Infrastructure}{114}{section.13.6}%
+\contentsline {section}{\numberline {13.7}Variations}{114}{section.13.7}%
+\contentsline {section}{\numberline {13.8}Derivation of the Euler--Lagrange Equation}{115}{section.13.8}%
+\contentsline {section}{\numberline {13.9}Interpretation}{116}{section.13.9}%
+\contentsline {section}{\numberline {13.10}Examples}{116}{section.13.10}%
+\contentsline {section}{\numberline {13.11}Toward Multiple Objectives}{117}{section.13.11}%
+\contentsline {chapter}{\numberline {14}Multi-Objective Optimization}{119}{chapter.14}%
+\contentsline {section}{\numberline {14.1}Introduction}{119}{section.14.1}%
+\contentsline {section}{\numberline {14.2}Objective Vectors}{119}{section.14.2}%
+\contentsline {section}{\numberline {14.3}Examples}{120}{section.14.3}%
+\contentsline {section}{\numberline {14.4}Partial Ordering}{121}{section.14.4}%
+\contentsline {section}{\numberline {14.5}Weighted Scalarization}{122}{section.14.5}%
+\contentsline {section}{\numberline {14.6}Infrastructure Trade-offs}{123}{section.14.6}%
+\contentsline {section}{\numberline {14.7}Capacity as an Objective}{123}{section.14.7}%
+\contentsline {section}{\numberline {14.8}Robust Optimization}{124}{section.14.8}%
+\contentsline {section}{\numberline {14.9}Adaptive Infrastructure}{125}{section.14.9}%
+\contentsline {section}{\numberline {14.10}Discussion}{125}{section.14.10}%
+\contentsline {chapter}{\numberline {15}Convexity, Duality, and Existence}{127}{chapter.15}%
+\contentsline {section}{\numberline {15.1}Introduction}{127}{section.15.1}%
+\contentsline {section}{\numberline {15.2}Convex Sets}{127}{section.15.2}%
+\contentsline {section}{\numberline {15.3}Convex Functionals}{128}{section.15.3}%
+\contentsline {section}{\numberline {15.4}Coercivity}{129}{section.15.4}%
+\contentsline {section}{\numberline {15.5}Existence of Optimal Infrastructure}{130}{section.15.5}%
+\contentsline {section}{\numberline {15.6}Equality Constraints}{131}{section.15.6}%
+\contentsline {section}{\numberline {15.7}Lagrange Multipliers}{132}{section.15.7}%
+\contentsline {section}{\numberline {15.8}Inequality Constraints}{132}{section.15.8}%
+\contentsline {section}{\numberline {15.9}Karush--Kuhn--Tucker Conditions}{133}{section.15.9}%
+\contentsline {section}{\numberline {15.10}Sensitivity Analysis}{134}{section.15.10}%
+\contentsline {section}{\numberline {15.11}Discussion}{134}{section.15.11}%
+\contentsline {part}{IV\hspace {1em}Optimal Control and Adaptive Infrastructure}{135}{part.4}%
+\contentsline {chapter}{\numberline {16}Dynamic Infrastructure Systems}{137}{chapter.16}%
+\contentsline {section}{\numberline {16.1}Introduction}{137}{section.16.1}%
+\contentsline {section}{\numberline {16.2}Infrastructure State Space}{137}{section.16.2}%
+\contentsline {section}{\numberline {16.3}Control Variables}{139}{section.16.3}%
+\contentsline {section}{\numberline {16.4}State Equations}{139}{section.16.4}%
+\contentsline {section}{\numberline {16.5}Reachability}{140}{section.16.5}%
+\contentsline {section}{\numberline {16.6}Trajectory Optimization}{140}{section.16.6}%
+\contentsline {section}{\numberline {16.7}The Principle of Optimal Operation}{141}{section.16.7}%
+\contentsline {section}{\numberline {16.8}The Hamiltonian}{141}{section.16.8}%
+\contentsline {section}{\numberline {16.9}Pontryagin's Maximum Principle}{141}{section.16.9}%
+\contentsline {section}{\numberline {16.10}Interpretation}{142}{section.16.10}%
+\contentsline {section}{\numberline {16.11}Feedback Control}{142}{section.16.11}%
+\contentsline {section}{\numberline {16.12}Lyapunov Stability}{143}{section.16.12}%
+\contentsline {section}{\numberline {16.13}Infrastructure Resilience}{144}{section.16.13}%
+\contentsline {section}{\numberline {16.14}Time Scales}{144}{section.16.14}%
+\contentsline {section}{\numberline {16.15}Toward Predictive Control}{145}{section.16.15}%
+\contentsline {chapter}{\numberline {17}Model Predictive Control}{147}{chapter.17}%
+\contentsline {section}{\numberline {17.1}Introduction}{147}{section.17.1}%
+\contentsline {section}{\numberline {17.2}Prediction Horizon}{147}{section.17.2}%
+\contentsline {section}{\numberline {17.3}Rolling Optimization}{148}{section.17.3}%
+\contentsline {section}{\numberline {17.4}State Estimation}{148}{section.17.4}%
+\contentsline {section}{\numberline {17.5}Disturbances}{149}{section.17.5}%
+\contentsline {section}{\numberline {17.6}Constraint Satisfaction}{150}{section.17.6}%
+\contentsline {section}{\numberline {17.7}Terminal Constraints}{150}{section.17.7}%
+\contentsline {section}{\numberline {17.8}Recursive Feasibility}{151}{section.17.8}%
+\contentsline {section}{\numberline {17.9}Distributed Predictive Control}{151}{section.17.9}%
+\contentsline {section}{\numberline {17.10}Hierarchical Predictive Control}{152}{section.17.10}%
+\contentsline {section}{\numberline {17.11}Protocol Preservation}{152}{section.17.11}%
+\contentsline {section}{\numberline {17.12}Infrastructure Inertia}{153}{section.17.12}%
+\contentsline {section}{\numberline {17.13}Adaptive Capacity}{153}{section.17.13}%
+\contentsline {section}{\numberline {17.14}Discussion}{154}{section.17.14}%
+\contentsline {chapter}{\numberline {18}Multiscale Planning and Civilizational Timescales}{155}{chapter.18}%
+\contentsline {section}{\numberline {18.1}Introduction}{155}{section.18.1}%
+\contentsline {section}{\numberline {18.2}Temporal Hierarchy}{155}{section.18.2}%
+\contentsline {section}{\numberline {18.3}Nested Dynamics}{156}{section.18.3}%
+\contentsline {section}{\numberline {18.4}Slow Manifolds}{157}{section.18.4}%
+\contentsline {section}{\numberline {18.5}Infrastructure Memory}{157}{section.18.5}%
+\contentsline {section}{\numberline {18.6}Path Dependence}{158}{section.18.6}%
+\contentsline {section}{\numberline {18.7}Irreversible Investment}{159}{section.18.7}%
+\contentsline {section}{\numberline {18.8}Infrastructure Momentum}{159}{section.18.8}%
+\contentsline {section}{\numberline {18.9}Development Trajectories}{160}{section.18.9}%
+\contentsline {section}{\numberline {18.10}Generational Optimization}{161}{section.18.10}%
+\contentsline {section}{\numberline {18.11}Protocol Evolution}{161}{section.18.11}%
+\contentsline {section}{\numberline {18.12}Civilizational Continuity}{162}{section.18.12}%
+\contentsline {section}{\numberline {18.13}Discussion}{162}{section.18.13}%
+\contentsline {chapter}{\numberline {19}Resilience, Recovery, and Continuation}{165}{chapter.19}%
+\contentsline {section}{\numberline {19.1}Introduction}{165}{section.19.1}%
+\contentsline {section}{\numberline {19.2}Operational State Space}{165}{section.19.2}%
+\contentsline {section}{\numberline {19.3}Perturbations}{166}{section.19.3}%
+\contentsline {section}{\numberline {19.4}Recovery Trajectories}{167}{section.19.4}%
+\contentsline {section}{\numberline {19.5}Continuation Principle}{167}{section.19.5}%
+\contentsline {section}{\numberline {19.6}Recovery Distance}{168}{section.19.6}%
+\contentsline {section}{\numberline {19.7}Resilience Basin}{168}{section.19.7}%
+\contentsline {section}{\numberline {19.8}Graceful Degradation}{169}{section.19.8}%
+\contentsline {section}{\numberline {19.9}Critical Services}{170}{section.19.9}%
+\contentsline {section}{\numberline {19.10}Redundancy}{170}{section.19.10}%
+\contentsline {section}{\numberline {19.11}Network Connectivity}{170}{section.19.11}%
+\contentsline {section}{\numberline {19.12}Minimum Recovery Sets}{171}{section.19.12}%
+\contentsline {section}{\numberline {19.13}Recovery Scheduling}{171}{section.19.13}%
+\contentsline {section}{\numberline {19.14}Resilience Functional}{172}{section.19.14}%
+\contentsline {section}{\numberline {19.15}Discussion}{173}{section.19.15}%
+\contentsline {chapter}{\numberline {20}Topology and Geometry of Infrastructure Networks}{175}{chapter.20}%
+\contentsline {section}{\numberline {20.1}Introduction}{175}{section.20.1}%
+\contentsline {section}{\numberline {20.2}Infrastructure Graphs}{175}{section.20.2}%
+\contentsline {section}{\numberline {20.3}Paths}{176}{section.20.3}%
+\contentsline {section}{\numberline {20.4}Cycles}{177}{section.20.4}%
+\contentsline {section}{\numberline {20.5}Trees}{177}{section.20.5}%
+\contentsline {section}{\numberline {20.6}Connectivity}{178}{section.20.6}%
+\contentsline {section}{\numberline {20.7}Connected Components}{178}{section.20.7}%
+\contentsline {section}{\numberline {20.8}Edge Cuts}{178}{section.20.8}%
+\contentsline {section}{\numberline {20.9}Vertex Cuts}{179}{section.20.9}%
+\contentsline {section}{\numberline {20.10}Bridge Edges}{179}{section.20.10}%
+\contentsline {section}{\numberline {20.11}Cycle Space}{179}{section.20.11}%
+\contentsline {section}{\numberline {20.12}Incidence Matrix}{180}{section.20.12}%
+\contentsline {section}{\numberline {20.13}Graph Laplacian}{181}{section.20.13}%
+\contentsline {section}{\numberline {20.14}Algebraic Connectivity}{181}{section.20.14}%
+\contentsline {section}{\numberline {20.15}Topological Resilience}{182}{section.20.15}%
+\contentsline {section}{\numberline {20.16}Hierarchical Networks}{182}{section.20.16}%
+\contentsline {section}{\numberline {20.17}Discussion}{183}{section.20.17}%
+\contentsline {chapter}{\numberline {21}Graphs Embedded on Manifolds}{185}{chapter.21}%
+\contentsline {section}{\numberline {21.1}Introduction}{185}{section.21.1}%
+\contentsline {section}{\numberline {21.2}The Underlying Manifold}{185}{section.21.2}%
+\contentsline {section}{\numberline {21.3}Embedded Graphs}{186}{section.21.3}%
+\contentsline {section}{\numberline {21.4}Edge Length}{187}{section.21.4}%
+\contentsline {section}{\numberline {21.5}Geodesic Corridors}{187}{section.21.5}%
+\contentsline {section}{\numberline {21.6}Terrain Potential}{187}{section.21.6}%
+\contentsline {section}{\numberline {21.7}Weighted Geodesics}{188}{section.21.7}%
+\contentsline {section}{\numberline {21.8}Curvature and Routing}{188}{section.21.8}%
+\contentsline {section}{\numberline {21.9}Discrete Curvature}{188}{section.21.9}%
+\contentsline {section}{\numberline {21.10}Continuous--Discrete Coupling}{189}{section.21.10}%
+\contentsline {section}{\numberline {21.11}Energy of an Embedded Network}{189}{section.21.11}%
+\contentsline {section}{\numberline {21.12}Embedded Flow Equations}{190}{section.21.12}%
+\contentsline {section}{\numberline {21.13}Scale Separation}{190}{section.21.13}%
+\contentsline {section}{\numberline {21.14}The Embedded Network Principle}{191}{section.21.14}%
+\contentsline {section}{\numberline {21.15}Discussion}{191}{section.21.15}%
+\contentsline {part}{V\hspace {1em}Stochastic Infrastructure Theory}{193}{part.5}%
+\contentsline {chapter}{\numberline {22}Uncertainty, Random Fields, and Probabilistic Infrastructure}{195}{chapter.22}%
+\contentsline {section}{\numberline {22.1}Introduction}{195}{section.22.1}%
+\contentsline {section}{\numberline {22.2}Probability Space}{195}{section.22.2}%
+\contentsline {section}{\numberline {22.3}Random Infrastructure States}{196}{section.22.3}%
+\contentsline {section}{\numberline {22.4}Random Fields}{197}{section.22.4}%
+\contentsline {section}{\numberline {22.5}Random Demand}{197}{section.22.5}%
+\contentsline {section}{\numberline {22.6}Failure Processes}{198}{section.22.6}%
+\contentsline {section}{\numberline {22.7}Reliability}{198}{section.22.7}%
+\contentsline {section}{\numberline {22.8}Expected Cost}{199}{section.22.8}%
+\contentsline {section}{\numberline {22.9}Chance Constraints}{199}{section.22.9}%
+\contentsline {section}{\numberline {22.10}Scenario Optimization}{200}{section.22.10}%
+\contentsline {section}{\numberline {22.11}Risk Measures}{200}{section.22.11}%
+\contentsline {section}{\numberline {22.12}Stochastic Resilience}{201}{section.22.12}%
+\contentsline {section}{\numberline {22.13}Adaptive Learning}{201}{section.22.13}%
+\contentsline {section}{\numberline {22.14}The Principle of Probabilistic Sufficiency}{201}{section.22.14}%
+\contentsline {section}{\numberline {22.15}Discussion}{202}{section.22.15}%
+\contentsline {chapter}{\numberline {23}Robust Optimization and Adversarial Infrastructure}{203}{chapter.23}%
+\contentsline {section}{\numberline {23.1}Introduction}{203}{section.23.1}%
+\contentsline {section}{\numberline {23.2}Uncertainty Sets}{203}{section.23.2}%
+\contentsline {section}{\numberline {23.3}Worst-Case Optimization}{204}{section.23.3}%
+\contentsline {section}{\numberline {23.4}Minimax Interpretation}{204}{section.23.4}%
+\contentsline {section}{\numberline {23.5}Robust Feasibility}{205}{section.23.5}%
+\contentsline {section}{\numberline {23.6}Performance Regret}{205}{section.23.6}%
+\contentsline {section}{\numberline {23.7}Robust Corridor Capacity}{206}{section.23.7}%
+\contentsline {section}{\numberline {23.8}Budget Uncertainty}{206}{section.23.8}%
+\contentsline {section}{\numberline {23.9}Failure Tolerance}{207}{section.23.9}%
+\contentsline {section}{\numberline {23.10}Adversarial Routing}{208}{section.23.10}%
+\contentsline {section}{\numberline {23.11}Robustness Margin}{208}{section.23.11}%
+\contentsline {section}{\numberline {23.12}Trade-offs}{209}{section.23.12}%
+\contentsline {section}{\numberline {23.13}Adaptive Robustness}{209}{section.23.13}%
+\contentsline {section}{\numberline {23.14}Discussion}{209}{section.23.14}%
+\contentsline {chapter}{\numberline {24}A Unified Theory of Adaptive Infrastructure}{211}{chapter.24}%
+\contentsline {section}{\numberline {24.1}Introduction}{211}{section.24.1}%
+\contentsline {section}{\numberline {24.2}The Infrastructure System}{211}{section.24.2}%
+\contentsline {section}{\numberline {24.3}State Evolution}{212}{section.24.3}%
+\contentsline {section}{\numberline {24.4}Infrastructure Histories}{213}{section.24.4}%
+\contentsline {section}{\numberline {24.5}Universal Objective Functional}{213}{section.24.5}%
+\contentsline {section}{\numberline {24.6}Special Cases}{213}{section.24.6}%
+\contentsline {section}{\numberline {24.7}Infrastructure Constraints}{214}{section.24.7}%
+\contentsline {section}{\numberline {24.8}Geometry and Topology}{214}{section.24.8}%
+\contentsline {section}{\numberline {24.9}Temporal Structure}{215}{section.24.9}%
+\contentsline {section}{\numberline {24.10}Resilience}{216}{section.24.10}%
+\contentsline {section}{\numberline {24.11}Learning}{216}{section.24.11}%
+\contentsline {section}{\numberline {24.12}Adaptation}{216}{section.24.12}%
+\contentsline {section}{\numberline {24.13}Unified Optimization Principle}{217}{section.24.13}%
+\contentsline {section}{\numberline {24.14}Mathematical Interpretation}{217}{section.24.14}%
+\contentsline {section}{\numberline {24.15}Toward Infrastructure Science}{217}{section.24.15}%
+\contentsline {section}{\numberline {24.16}Concluding Remarks}{218}{section.24.16}%
+\contentsline {part}{VI\hspace {1em}Applications and Case Studies}{219}{part.6}%
+\contentsline {chapter}{\numberline {25}Electrical Power Networks}{221}{chapter.25}%
+\contentsline {section}{\numberline {25.1}Introduction}{221}{section.25.1}%
+\contentsline {section}{\numberline {25.2}Network Representation}{221}{section.25.2}%
+\contentsline {section}{\numberline {25.3}Power Balance}{222}{section.25.3}%
+\contentsline {section}{\numberline {25.4}DC Power Flow}{222}{section.25.4}%
+\contentsline {section}{\numberline {25.5}Capacity Constraints}{223}{section.25.5}%
+\contentsline {section}{\numberline {25.6}Generation Constraints}{223}{section.25.6}%
+\contentsline {section}{\numberline {25.7}Economic Dispatch}{223}{section.25.7}%
+\contentsline {section}{\numberline {25.8}Optimal Power Flow}{224}{section.25.8}%
+\contentsline {section}{\numberline {25.9}Energy Storage}{224}{section.25.9}%
+\contentsline {section}{\numberline {25.10}Renewable Generation}{225}{section.25.10}%
+\contentsline {section}{\numberline {25.11}Grid Stability}{225}{section.25.11}%
+\contentsline {section}{\numberline {25.12}Contingency Analysis}{225}{section.25.12}%
+\contentsline {section}{\numberline {25.13}Adaptive Grid Operation}{226}{section.25.13}%
+\contentsline {section}{\numberline {25.14}Infrastructure Geometry}{226}{section.25.14}%
+\contentsline {section}{\numberline {25.15}Discussion}{227}{section.25.15}%
+\contentsline {chapter}{\numberline {26}Hydraulic Networks}{229}{chapter.26}%
+\contentsline {section}{\numberline {26.1}Introduction}{229}{section.26.1}%
+\contentsline {section}{\numberline {26.2}Network Representation}{229}{section.26.2}%
+\contentsline {section}{\numberline {26.3}Mass Conservation}{230}{section.26.3}%
+\contentsline {section}{\numberline {26.4}Energy Conservation}{230}{section.26.4}%
+\contentsline {section}{\numberline {26.5}Pipe Resistance}{231}{section.26.5}%
+\contentsline {section}{\numberline {26.6}Pump Dynamics}{232}{section.26.6}%
+\contentsline {section}{\numberline {26.7}Reservoir Dynamics}{232}{section.26.7}%
+\contentsline {section}{\numberline {26.8}Pressure Constraints}{232}{section.26.8}%
+\contentsline {section}{\numberline {26.9}Leakage}{233}{section.26.9}%
+\contentsline {section}{\numberline {26.10}Optimal Pump Scheduling}{233}{section.26.10}%
+\contentsline {section}{\numberline {26.11}Water Quality}{233}{section.26.11}%
+\contentsline {section}{\numberline {26.12}Drought and Uncertainty}{234}{section.26.12}%
+\contentsline {section}{\numberline {26.13}Failure Recovery}{234}{section.26.13}%
+\contentsline {section}{\numberline {26.14}Geometry}{234}{section.26.14}%
+\contentsline {section}{\numberline {26.15}Discussion}{235}{section.26.15}%
+\contentsline {chapter}{\numberline {27}Transportation Networks}{237}{chapter.27}%
+\contentsline {section}{\numberline {27.1}Introduction}{237}{section.27.1}%
+\contentsline {section}{\numberline {27.2}Network Representation}{237}{section.27.2}%
+\contentsline {section}{\numberline {27.3}Traffic Density}{238}{section.27.3}%
+\contentsline {section}{\numberline {27.4}Conservation of Vehicles}{238}{section.27.4}%
+\contentsline {section}{\numberline {27.5}Fundamental Diagram}{239}{section.27.5}%
+\contentsline {section}{\numberline {27.6}The Lighthill--Whitham--Richards Model}{239}{section.27.6}%
+\contentsline {section}{\numberline {27.7}Node Conservation}{239}{section.27.7}%
+\contentsline {section}{\numberline {27.8}Capacity Constraints}{240}{section.27.8}%
+\contentsline {section}{\numberline {27.9}Travel Time}{240}{section.27.9}%
+\contentsline {section}{\numberline {27.10}Shortest Paths}{240}{section.27.10}%
+\contentsline {section}{\numberline {27.11}User Equilibrium}{241}{section.27.11}%
+\contentsline {section}{\numberline {27.12}System Optimum}{241}{section.27.12}%
+\contentsline {section}{\numberline {27.13}Traffic Control}{242}{section.27.13}%
+\contentsline {section}{\numberline {27.14}Public Transportation}{242}{section.27.14}%
+\contentsline {section}{\numberline {27.15}Freight Logistics}{242}{section.27.15}%
+\contentsline {section}{\numberline {27.16}Network Resilience}{243}{section.27.16}%
+\contentsline {section}{\numberline {27.17}Autonomous Transportation}{243}{section.27.17}%
+\contentsline {section}{\numberline {27.18}Discussion}{244}{section.27.18}%
+\contentsline {chapter}{\numberline {28}Communication Networks}{245}{chapter.28}%
+\contentsline {section}{\numberline {28.1}Introduction}{245}{section.28.1}%
+\contentsline {section}{\numberline {28.2}Network Representation}{245}{section.28.2}%
+\contentsline {section}{\numberline {28.3}Information Flow}{246}{section.28.3}%
+\contentsline {section}{\numberline {28.4}Bandwidth Constraints}{247}{section.28.4}%
+\contentsline {section}{\numberline {28.5}Latency}{247}{section.28.5}%
+\contentsline {section}{\numberline {28.6}Queue Dynamics}{247}{section.28.6}%
+\contentsline {section}{\numberline {28.7}Routing}{248}{section.28.7}%
+\contentsline {section}{\numberline {28.8}Network Utility Maximization}{249}{section.28.8}%
+\contentsline {section}{\numberline {28.9}Reliability}{249}{section.28.9}%
+\contentsline {section}{\numberline {28.10}Redundant Routing}{250}{section.28.10}%
+\contentsline {section}{\numberline {28.11}Wireless Networks}{250}{section.28.11}%
+\contentsline {section}{\numberline {28.12}Satellite Networks}{250}{section.28.12}%
+\contentsline {section}{\numberline {28.13}Adaptive Network Control}{250}{section.28.13}%
+\contentsline {section}{\numberline {28.14}Cyber Resilience}{251}{section.28.14}%
+\contentsline {section}{\numberline {28.15}Information Geometry}{251}{section.28.15}%
+\contentsline {section}{\numberline {28.16}Discussion}{251}{section.28.16}%
+\contentsline {chapter}{\numberline {29}Supply Chains and Logistics}{253}{chapter.29}%
+\contentsline {section}{\numberline {29.1}Introduction}{253}{section.29.1}%
+\contentsline {section}{\numberline {29.2}Network Representation}{253}{section.29.2}%
+\contentsline {section}{\numberline {29.3}Commodity Space}{254}{section.29.3}%
+\contentsline {section}{\numberline {29.4}Multi-Commodity Conservation}{254}{section.29.4}%
+\contentsline {section}{\numberline {29.5}Production}{254}{section.29.5}%
+\contentsline {section}{\numberline {29.6}Bills of Materials}{255}{section.29.6}%
+\contentsline {section}{\numberline {29.7}Inventory Dynamics}{255}{section.29.7}%
+\contentsline {section}{\numberline {29.8}Capacity Constraints}{256}{section.29.8}%
+\contentsline {section}{\numberline {29.9}Lead Times}{256}{section.29.9}%
+\contentsline {section}{\numberline {29.10}Demand Uncertainty}{257}{section.29.10}%
+\contentsline {section}{\numberline {29.11}Bullwhip Effect}{257}{section.29.11}%
+\contentsline {section}{\numberline {29.12}Facility Location}{258}{section.29.12}%
+\contentsline {section}{\numberline {29.13}Routing}{259}{section.29.13}%
+\contentsline {section}{\numberline {29.14}Integrated Logistics}{259}{section.29.14}%
+\contentsline {section}{\numberline {29.15}Resilience}{259}{section.29.15}%
+\contentsline {section}{\numberline {29.16}Discussion}{260}{section.29.16}%
+\contentsline {chapter}{\numberline {30}Integrated Infrastructure Systems}{261}{chapter.30}%
+\contentsline {section}{\numberline {30.1}Introduction}{261}{section.30.1}%
+\contentsline {section}{\numberline {30.2}Infrastructure Layers}{261}{section.30.2}%
+\contentsline {section}{\numberline {30.3}Interdependency}{262}{section.30.3}%
+\contentsline {section}{\numberline {30.4}The Supra-Graph}{262}{section.30.4}%
+\contentsline {section}{\numberline {30.5}Layer States}{263}{section.30.5}%
+\contentsline {section}{\numberline {30.6}Coupled Dynamics}{263}{section.30.6}%
+\contentsline {section}{\numberline {30.7}Dependency Matrix}{264}{section.30.7}%
+\contentsline {section}{\numberline {30.8}Failure Propagation}{264}{section.30.8}%
+\contentsline {section}{\numberline {30.9}Cascade Thresholds}{265}{section.30.9}%
+\contentsline {section}{\numberline {30.10}Resource Allocation}{265}{section.30.10}%
+\contentsline {section}{\numberline {30.11}Joint Control}{266}{section.30.11}%
+\contentsline {section}{\numberline {30.12}Shared Information}{266}{section.30.12}%
+\contentsline {section}{\numberline {30.13}Resilience of Interdependent Systems}{267}{section.30.13}%
+\contentsline {section}{\numberline {30.14}Hierarchical Coordination}{267}{section.30.14}%
+\contentsline {section}{\numberline {30.15}Digital Twins}{267}{section.30.15}%
+\contentsline {section}{\numberline {30.16}Discussion}{267}{section.30.16}%
+\contentsline {chapter}{\numberline {31}Planetary and Interplanetary Infrastructure}{269}{chapter.31}%
+\contentsline {section}{\numberline {31.1}Introduction}{269}{section.31.1}%
+\contentsline {section}{\numberline {31.2}Infrastructure Manifold}{269}{section.31.2}%
+\contentsline {section}{\numberline {31.3}Interplanetary Graph}{270}{section.31.3}%
+\contentsline {section}{\numberline {31.4}Time-Dependent Connectivity}{271}{section.31.4}%
+\contentsline {section}{\numberline {31.5}Orbital Transfer Costs}{271}{section.31.5}%
+\contentsline {section}{\numberline {31.6}Launch Windows}{272}{section.31.6}%
+\contentsline {section}{\numberline {31.7}Communication Delay}{272}{section.31.7}%
+\contentsline {section}{\numberline {31.8}Autonomous Operation}{272}{section.31.8}%
+\contentsline {section}{\numberline {31.9}In-Situ Resource Utilization}{273}{section.31.9}%
+\contentsline {section}{\numberline {31.10}Energy Networks}{273}{section.31.10}%
+\contentsline {section}{\numberline {31.11}Closed Ecological Systems}{273}{section.31.11}%
+\contentsline {section}{\numberline {31.12}Resilience}{274}{section.31.12}%
+\contentsline {section}{\numberline {31.13}Distributed Civilizations}{274}{section.31.13}%
+\contentsline {section}{\numberline {31.14}Unified Planetary Optimization}{275}{section.31.14}%
+\contentsline {section}{\numberline {31.15}Discussion}{275}{section.31.15}%
+\contentsline {section}{\numberline {31.16}Concluding Remarks}{276}{section.31.16}%
+\contentsline {part}{VII\hspace {1em}Foundations and Outlook}{277}{part.7}%
+\contentsline {chapter}{\numberline {32}Unifying Principles of Infrastructure Science}{279}{chapter.32}%
+\contentsline {section}{\numberline {32.1}Introduction}{279}{section.32.1}%
+\contentsline {section}{\numberline {32.2}Principle I: Geometry Precedes Infrastructure}{279}{section.32.2}%
+\contentsline {section}{\numberline {32.3}Principle II: Topology Determines Possibility}{279}{section.32.3}%
+\contentsline {section}{\numberline {32.4}Principle III: Conservation Governs Flow}{280}{section.32.4}%
+\contentsline {section}{\numberline {32.5}Principle IV: Capacity Limits Throughput}{280}{section.32.5}%
+\contentsline {section}{\numberline {32.6}Principle V: Optimization Allocates Scarce Resources}{280}{section.32.6}%
+\contentsline {section}{\numberline {32.7}Principle VI: Control Maintains Operation}{281}{section.32.7}%
+\contentsline {section}{\numberline {32.8}Principle VII: Uncertainty Is Fundamental}{281}{section.32.8}%
+\contentsline {section}{\numberline {32.9}Principle VIII: Resilience Preserves Continuity}{281}{section.32.9}%
+\contentsline {section}{\numberline {32.10}Principle IX: Adaptation Outperforms Prediction}{281}{section.32.10}%
+\contentsline {section}{\numberline {32.11}Principle X: Integration Creates Civilization}{282}{section.32.11}%
+\contentsline {section}{\numberline {32.12}A Unified Mathematical View}{282}{section.32.12}%
+\contentsline {section}{\numberline {32.13}Closing Perspective}{283}{section.32.13}%
+\contentsline {part}{VIII\hspace {1em}Mathematical Foundations}{285}{part.8}%
+\contentsline {chapter}{\numberline {A}Foundations of Sets and Structures}{287}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Purpose}{287}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Sets}{287}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Subsets}{287}{section.A.3}%
+\contentsline {section}{\numberline {A.4}Elementary Operations}{288}{section.A.4}%
+\contentsline {section}{\numberline {A.5}Cartesian Products}{288}{section.A.5}%
+\contentsline {section}{\numberline {A.6}Relations}{289}{section.A.6}%
+\contentsline {section}{\numberline {A.7}Equivalence Relations}{289}{section.A.7}%
+\contentsline {section}{\numberline {A.8}Partial Orders}{289}{section.A.8}%
+\contentsline {section}{\numberline {A.9}Functions}{290}{section.A.9}%
+\contentsline {section}{\numberline {A.10}Injective, Surjective, and Bijective Maps}{290}{section.A.10}%
+\contentsline {section}{\numberline {A.11}Composition}{290}{section.A.11}%
+\contentsline {section}{\numberline {A.12}Inverse Functions}{291}{section.A.12}%
+\contentsline {section}{\numberline {A.13}Families of Sets}{291}{section.A.13}%
+\contentsline {section}{\numberline {A.14}Sequences}{292}{section.A.14}%
+\contentsline {section}{\numberline {A.15}Metric Spaces}{292}{section.A.15}%
+\contentsline {section}{\numberline {A.16}Topological Spaces}{292}{section.A.16}%
+\contentsline {section}{\numberline {A.17}Conclusion}{293}{section.A.17}%
+\contentsline {section}{\numberline {A.18}Functions Between Structured Sets}{293}{section.A.18}%
+\contentsline {section}{\numberline {A.19}Commutative Diagrams}{293}{section.A.19}%
+\contentsline {section}{\numberline {A.20}Products and Projections}{294}{section.A.20}%
+\contentsline {section}{\numberline {A.21}Quotient Sets}{295}{section.A.21}%
+\contentsline {section}{\numberline {A.22}Cardinality}{295}{section.A.22}%
+\contentsline {section}{\numberline {A.23}Power Sets}{296}{section.A.23}%
+\contentsline {section}{\numberline {A.24}Fixed Points}{297}{section.A.24}%
+\contentsline {section}{\numberline {A.25}Directed Systems}{297}{section.A.25}%
+\contentsline {section}{\numberline {A.26}Universal Mathematical Language}{298}{section.A.26}%
+\contentsline {section}{\numberline {A.27}Algebraic Structures}{298}{section.A.27}%
+\contentsline {subsection}{\numberline {A.27.1}Semigroups}{298}{subsection.A.27.1}%
+\contentsline {subsection}{\numberline {A.27.2}Monoids}{299}{subsection.A.27.2}%
+\contentsline {subsection}{\numberline {A.27.3}Groups}{299}{subsection.A.27.3}%
+\contentsline {subsection}{\numberline {A.27.4}Abelian Groups}{300}{subsection.A.27.4}%
+\contentsline {section}{\numberline {A.28}Rings}{300}{section.A.28}%
+\contentsline {section}{\numberline {A.29}Fields}{301}{section.A.29}%
+\contentsline {section}{\numberline {A.30}Vector Spaces}{301}{section.A.30}%
+\contentsline {section}{\numberline {A.31}Linear Independence}{301}{section.A.31}%
+\contentsline {section}{\numberline {A.32}Bases}{302}{section.A.32}%
+\contentsline {section}{\numberline {A.33}Linear Transformations}{303}{section.A.33}%
+\contentsline {section}{\numberline {A.34}Kernel and Image}{303}{section.A.34}%
+\contentsline {section}{\numberline {A.35}Mathematical Hierarchy}{304}{section.A.35}%
+\contentsline {chapter}{\numberline {B}Linear Algebra and Tensor Analysis}{305}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Purpose}{305}{section.B.1}%
+\contentsline {section}{\numberline {B.2}Vector Spaces}{305}{section.B.2}%
+\contentsline {section}{\numberline {B.3}Subspaces}{306}{section.B.3}%
+\contentsline {section}{\numberline {B.4}Span}{306}{section.B.4}%
+\contentsline {section}{\numberline {B.5}Basis and Dimension}{307}{section.B.5}%
+\contentsline {section}{\numberline {B.6}Coordinates}{307}{section.B.6}%
+\contentsline {section}{\numberline {B.7}Matrices}{308}{section.B.7}%
+\contentsline {section}{\numberline {B.8}Matrix Operations}{308}{section.B.8}%
+\contentsline {section}{\numberline {B.9}Inverse Matrices}{308}{section.B.9}%
+\contentsline {section}{\numberline {B.10}Rank}{308}{section.B.10}%
+\contentsline {section}{\numberline {B.11}Eigenvalues}{309}{section.B.11}%
+\contentsline {section}{\numberline {B.12}Diagonalization}{309}{section.B.12}%
+\contentsline {section}{\numberline {B.13}Symmetric Matrices}{310}{section.B.13}%
+\contentsline {section}{\numberline {B.14}Inner Products}{310}{section.B.14}%
+\contentsline {section}{\numberline {B.15}Norms}{310}{section.B.15}%
+\contentsline {section}{\numberline {B.16}Orthogonal Projections}{310}{section.B.16}%
+\contentsline {section}{\numberline {B.17}Singular Value Decomposition}{311}{section.B.17}%
+\contentsline {section}{\numberline {B.18}Positive Definite Matrices}{311}{section.B.18}%
+\contentsline {section}{\numberline {B.19}Tensor Products}{312}{section.B.19}%
+\contentsline {section}{\numberline {B.20}Tensor Notation}{312}{section.B.20}%
+\contentsline {section}{\numberline {B.21}Concluding Remarks}{312}{section.B.21}%
+\contentsline {section}{\numberline {B.22}Matrix Norms}{313}{section.B.22}%
+\contentsline {section}{\numberline {B.23}Operator Norms}{313}{section.B.23}%
+\contentsline {section}{\numberline {B.24}Orthogonal Matrices}{314}{section.B.24}%
+\contentsline {section}{\numberline {B.25}Projection Matrices}{314}{section.B.25}%
+\contentsline {section}{\numberline {B.26}Quadratic Forms}{315}{section.B.26}%
+\contentsline {section}{\numberline {B.27}Least-Squares Problems}{316}{section.B.27}%
+\contentsline {section}{\numberline {B.28}Moore--Penrose Pseudoinverse}{316}{section.B.28}%
+\contentsline {section}{\numberline {B.29}Block Matrices}{316}{section.B.29}%
+\contentsline {section}{\numberline {B.30}Kronecker Product}{317}{section.B.30}%
+\contentsline {section}{\numberline {B.31}Matrix Exponentials}{317}{section.B.31}%
+\contentsline {section}{\numberline {B.32}Jordan Canonical Form}{317}{section.B.32}%
+\contentsline {section}{\numberline {B.33}Spectral Radius}{318}{section.B.33}%
+\contentsline {section}{\numberline {B.34}Condition Numbers}{318}{section.B.34}%
+\contentsline {section}{\numberline {B.35}Perron--Frobenius Theory}{318}{section.B.35}%
+\contentsline {section}{\numberline {B.36}Summary}{319}{section.B.36}%
+\contentsline {chapter}{\numberline {C}Differential Geometry}{321}{appendix.C}%
+\contentsline {section}{\numberline {C.1}Purpose}{321}{section.C.1}%
+\contentsline {section}{\numberline {C.2}Smooth Manifolds}{321}{section.C.2}%
+\contentsline {section}{\numberline {C.3}Charts}{322}{section.C.3}%
+\contentsline {section}{\numberline {C.4}Atlases}{322}{section.C.4}%
+\contentsline {section}{\numberline {C.5}Smooth Maps}{323}{section.C.5}%
+\contentsline {section}{\numberline {C.6}Curves}{323}{section.C.6}%
+\contentsline {section}{\numberline {C.7}Tangent Vectors}{324}{section.C.7}%
+\contentsline {section}{\numberline {C.8}The Tangent Bundle}{324}{section.C.8}%
+\contentsline {section}{\numberline {C.9}Vector Fields}{324}{section.C.9}%
+\contentsline {section}{\numberline {C.10}Differential of a Map}{325}{section.C.10}%
+\contentsline {section}{\numberline {C.11}Cotangent Spaces}{325}{section.C.11}%
+\contentsline {section}{\numberline {C.12}Differential Forms}{325}{section.C.12}%
+\contentsline {section}{\numberline {C.13}Exterior Derivative}{326}{section.C.13}%
+\contentsline {section}{\numberline {C.14}Pullbacks}{326}{section.C.14}%
+\contentsline {section}{\numberline {C.15}Pushforwards}{327}{section.C.15}%
+\contentsline {section}{\numberline {C.16}Summary}{327}{section.C.16}%
+\contentsline {section}{\numberline {C.17}Riemannian Metrics}{327}{section.C.17}%
+\contentsline {section}{\numberline {C.18}Metric Components}{328}{section.C.18}%
+\contentsline {section}{\numberline {C.19}Length of Curves}{328}{section.C.19}%
+\contentsline {section}{\numberline {C.20}Distance}{329}{section.C.20}%
+\contentsline {section}{\numberline {C.21}Examples}{329}{section.C.21}%
+\contentsline {section}{\numberline {C.22}Covariant Derivatives}{329}{section.C.22}%
+\contentsline {section}{\numberline {C.23}Christoffel Symbols}{330}{section.C.23}%
+\contentsline {section}{\numberline {C.24}Parallel Transport}{331}{section.C.24}%
+\contentsline {section}{\numberline {C.25}Geodesics}{331}{section.C.25}%
+\contentsline {section}{\numberline {C.26}Geodesic Interpretation}{332}{section.C.26}%
+\contentsline {section}{\numberline {C.27}Curvature}{332}{section.C.27}%
+\contentsline {section}{\numberline {C.28}The Riemann Curvature Tensor}{332}{section.C.28}%
+\contentsline {section}{\numberline {C.29}Coordinate Representation}{333}{section.C.29}%
+\contentsline {section}{\numberline {C.30}Symmetries of the Curvature Tensor}{333}{section.C.30}%
+\contentsline {section}{\numberline {C.31}Ricci Curvature}{333}{section.C.31}%
+\contentsline {section}{\numberline {C.32}Scalar Curvature}{334}{section.C.32}%
+\contentsline {section}{\numberline {C.33}Sectional Curvature}{334}{section.C.33}%
+\contentsline {section}{\numberline {C.34}Gaussian Curvature}{334}{section.C.34}%
+\contentsline {section}{\numberline {C.35}Geodesic Deviation}{335}{section.C.35}%
+\contentsline {section}{\numberline {C.36}Flat Manifolds}{335}{section.C.36}%
+\contentsline {section}{\numberline {C.37}Spaces of Constant Curvature}{335}{section.C.37}%
+\contentsline {section}{\numberline {C.38}Applications to Infrastructure}{336}{section.C.38}%
+\contentsline {section}{\numberline {C.39}Summary}{336}{section.C.39}%
+\contentsline {section}{\numberline {C.40}Lie Derivatives}{336}{section.C.40}%
+\contentsline {section}{\numberline {C.41}Flows of Vector Fields}{336}{section.C.41}%
+\contentsline {section}{\numberline {C.42}Lie Derivative of Functions}{337}{section.C.42}%
+\contentsline {section}{\numberline {C.43}Lie Brackets}{338}{section.C.43}%
+\contentsline {section}{\numberline {C.44}Lie Derivative of Vector Fields}{338}{section.C.44}%
+\contentsline {section}{\numberline {C.45}Lie Derivative of Tensor Fields}{338}{section.C.45}%
+\contentsline {section}{\numberline {C.46}Killing Vector Fields}{339}{section.C.46}%
+\contentsline {section}{\numberline {C.47}Differential Forms Revisited}{339}{section.C.47}%
+\contentsline {section}{\numberline {C.48}The Wedge Product}{340}{section.C.48}%
+\contentsline {section}{\numberline {C.49}Exterior Calculus}{341}{section.C.49}%
+\contentsline {section}{\numberline {C.50}Interior Product}{341}{section.C.50}%
+\contentsline {section}{\numberline {C.51}Cartan's Magic Formula}{341}{section.C.51}%
+\contentsline {section}{\numberline {C.52}Orientation}{342}{section.C.52}%
+\contentsline {section}{\numberline {C.53}Volume Forms}{342}{section.C.53}%
+\contentsline {section}{\numberline {C.54}Integration of Differential Forms}{342}{section.C.54}%
+\contentsline {section}{\numberline {C.55}Change of Variables}{343}{section.C.55}%
+\contentsline {section}{\numberline {C.56}Summary}{343}{section.C.56}%
+\contentsline {section}{\numberline {C.57}Generalized Stokes' Theorem}{343}{section.C.57}%
+\contentsline {section}{\numberline {C.58}Classical Special Cases}{344}{section.C.58}%
+\contentsline {subsection}{\numberline {C.58.1}Fundamental Theorem of Calculus}{344}{subsection.C.58.1}%
+\contentsline {subsection}{\numberline {C.58.2}Green's Theorem}{344}{subsection.C.58.2}%
+\contentsline {subsection}{\numberline {C.58.3}Stokes' Curl Theorem}{345}{subsection.C.58.3}%
+\contentsline {subsection}{\numberline {C.58.4}Divergence Theorem}{345}{subsection.C.58.4}%
+\contentsline {section}{\numberline {C.59}Conservation Laws}{345}{section.C.59}%
+\contentsline {section}{\numberline {C.60}Applications to Infrastructure}{346}{section.C.60}%
+\contentsline {section}{\numberline {C.61}The Hodge Star Operator}{346}{section.C.61}%
+\contentsline {section}{\numberline {C.62}The Codifferential}{346}{section.C.62}%
+\contentsline {section}{\numberline {C.63}The Laplace--Beltrami Operator}{347}{section.C.63}%
+\contentsline {section}{\numberline {C.64}Harmonic Forms}{347}{section.C.64}%
+\contentsline {section}{\numberline {C.65}de Rham Cohomology}{347}{section.C.65}%
+\contentsline {section}{\numberline {C.66}Hodge Decomposition}{348}{section.C.66}%
+\contentsline {section}{\numberline {C.67}Concluding Remarks}{348}{section.C.67}%
+\contentsline {chapter}{\numberline {D}Variational Calculus}{349}{appendix.D}%
+\contentsline {section}{\numberline {D.1}Purpose}{349}{section.D.1}%
+\contentsline {section}{\numberline {D.2}Functionals}{349}{section.D.2}%
+\contentsline {section}{\numberline {D.3}Admissible Functions}{350}{section.D.3}%
+\contentsline {section}{\numberline {D.4}Variations}{350}{section.D.4}%
+\contentsline {section}{\numberline {D.5}First Variation}{351}{section.D.5}%
+\contentsline {section}{\numberline {D.6}Derivation of the Euler--Lagrange Equation}{351}{section.D.6}%
+\contentsline {section}{\numberline {D.7}Multiple Variables}{352}{section.D.7}%
+\contentsline {section}{\numberline {D.8}Several Independent Variables}{353}{section.D.8}%
+\contentsline {section}{\numberline {D.9}Natural Boundary Conditions}{353}{section.D.9}%
+\contentsline {section}{\numberline {D.10}Summary}{353}{section.D.10}%
+\contentsline {section}{\numberline {D.11}Constrained Variational Problems}{353}{section.D.11}%
+\contentsline {section}{\numberline {D.12}Lagrange Multipliers}{354}{section.D.12}%
+\contentsline {section}{\numberline {D.13}Isoperimetric Problems}{355}{section.D.13}%
+\contentsline {section}{\numberline {D.14}Integral Constraints}{355}{section.D.14}%
+\contentsline {section}{\numberline {D.15}Variational Principles in Mechanics}{356}{section.D.15}%
+\contentsline {section}{\numberline {D.16}Conservation Laws}{356}{section.D.16}%
+\contentsline {section}{\numberline {D.17}Noether's Theorem}{357}{section.D.17}%
+\contentsline {section}{\numberline {D.18}Hamiltonian Formulation}{357}{section.D.18}%
+\contentsline {section}{\numberline {D.19}Canonical Transformations}{358}{section.D.19}%
+\contentsline {section}{\numberline {D.20}Variational Inequalities}{358}{section.D.20}%
+\contentsline {section}{\numberline {D.21}Existence of Minimizers}{359}{section.D.21}%
+\contentsline {section}{\numberline {D.22}Summary}{359}{section.D.22}%
+\contentsline {chapter}{\numberline {E}Optimal Control Theory}{361}{appendix.E}%
+\contentsline {section}{\numberline {E.1}Purpose}{361}{section.E.1}%
+\contentsline {section}{\numberline {E.2}Control Systems}{361}{section.E.2}%
+\contentsline {section}{\numberline {E.3}Admissible Controls}{362}{section.E.3}%
+\contentsline {section}{\numberline {E.4}Performance Functionals}{362}{section.E.4}%
+\contentsline {section}{\numberline {E.5}The Hamiltonian}{363}{section.E.5}%
+\contentsline {section}{\numberline {E.6}Pontryagin's Maximum Principle}{363}{section.E.6}%
+\contentsline {section}{\numberline {E.7}Boundary Conditions}{364}{section.E.7}%
+\contentsline {section}{\numberline {E.8}Linear Quadratic Regulator}{364}{section.E.8}%
+\contentsline {section}{\numberline {E.9}Optimal Feedback}{365}{section.E.9}%
+\contentsline {section}{\numberline {E.10}The Riccati Equation}{365}{section.E.10}%
+\contentsline {section}{\numberline {E.11}Dynamic Programming}{366}{section.E.11}%
+\contentsline {section}{\numberline {E.12}The Value Function}{366}{section.E.12}%
+\contentsline {section}{\numberline {E.13}Hamilton--Jacobi--Bellman Equation}{366}{section.E.13}%
+\contentsline {section}{\numberline {E.14}Comparison of Approaches}{366}{section.E.14}%
+\contentsline {section}{\numberline {E.15}Discrete-Time Optimal Control}{367}{section.E.15}%
+\contentsline {section}{\numberline {E.16}Model Predictive Control}{367}{section.E.16}%
+\contentsline {section}{\numberline {E.17}State Constraints}{368}{section.E.17}%
+\contentsline {section}{\numberline {E.18}Control Constraints}{368}{section.E.18}%
+\contentsline {section}{\numberline {E.19}Stochastic Optimal Control}{369}{section.E.19}%
+\contentsline {section}{\numberline {E.20}Robust Control}{369}{section.E.20}%
+\contentsline {section}{\numberline {E.21}Distributed Control}{370}{section.E.21}%
+\contentsline {section}{\numberline {E.22}Numerical Solution Methods}{370}{section.E.22}%
+\contentsline {section}{\numberline {E.23}Applications to Infrastructure}{371}{section.E.23}%
+\contentsline {section}{\numberline {E.24}Concluding Remarks}{371}{section.E.24}%
+\contentsline {chapter}{\numberline {F}Functional Analysis}{373}{appendix.F}%
+\contentsline {section}{\numberline {F.1}Purpose}{373}{section.F.1}%
+\contentsline {section}{\numberline {F.2}Normed Vector Spaces}{373}{section.F.2}%
+\contentsline {section}{\numberline {F.3}Examples}{374}{section.F.3}%
+\contentsline {section}{\numberline {F.4}Banach Spaces}{374}{section.F.4}%
+\contentsline {section}{\numberline {F.5}Hilbert Spaces}{375}{section.F.5}%
+\contentsline {section}{\numberline {F.6}Examples of Hilbert Spaces}{375}{section.F.6}%
+\contentsline {section}{\numberline {F.7}Convergence}{375}{section.F.7}%
+\contentsline {section}{\numberline {F.8}Weak Convergence}{376}{section.F.8}%
+\contentsline {section}{\numberline {F.9}Linear Operators}{376}{section.F.9}%
+\contentsline {section}{\numberline {F.10}Bounded Operators}{377}{section.F.10}%
+\contentsline {section}{\numberline {F.11}Operator Norm}{377}{section.F.11}%
+\contentsline {section}{\numberline {F.12}Dual Spaces}{377}{section.F.12}%
+\contentsline {section}{\numberline {F.13}The Riesz Representation Theorem}{378}{section.F.13}%
+\contentsline {section}{\numberline {F.14}Orthogonal Complements}{378}{section.F.14}%
+\contentsline {section}{\numberline {F.15}Projection Theorem}{378}{section.F.15}%
+\contentsline {section}{\numberline {F.16}Summary}{379}{section.F.16}%
+\contentsline {section}{\numberline {F.17}Compact Operators}{379}{section.F.17}%
+\contentsline {section}{\numberline {F.18}The Spectrum of an Operator}{379}{section.F.18}%
+\contentsline {section}{\numberline {F.19}Self-Adjoint Operators}{380}{section.F.19}%
+\contentsline {section}{\numberline {F.20}Compactness}{381}{section.F.20}%
+\contentsline {section}{\numberline {F.21}Weak Compactness}{381}{section.F.21}%
+\contentsline {section}{\numberline {F.22}Reflexive Spaces}{381}{section.F.22}%
+\contentsline {section}{\numberline {F.23}Sobolev Spaces}{382}{section.F.23}%
+\contentsline {section}{\numberline {F.24}Weak Derivatives}{382}{section.F.24}%
+\contentsline {section}{\numberline {F.25}Weak Solutions}{383}{section.F.25}%
+\contentsline {section}{\numberline {F.26}The Lax--Milgram Theorem}{383}{section.F.26}%
+\contentsline {section}{\numberline {F.27}The Hahn--Banach Theorem}{384}{section.F.27}%
+\contentsline {section}{\numberline {F.28}Applications}{384}{section.F.28}%
+\contentsline {section}{\numberline {F.29}Concluding Remarks}{385}{section.F.29}%
+\contentsline {chapter}{\numberline {G}Partial Differential Equations}{387}{appendix.G}%
+\contentsline {section}{\numberline {G.1}Purpose}{387}{section.G.1}%
+\contentsline {section}{\numberline {G.2}Partial Derivatives}{387}{section.G.2}%
+\contentsline {section}{\numberline {G.3}General Form of a PDE}{388}{section.G.3}%
+\contentsline {section}{\numberline {G.4}Linear and Nonlinear Equations}{388}{section.G.4}%
+\contentsline {section}{\numberline {G.5}Order}{388}{section.G.5}%
+\contentsline {section}{\numberline {G.6}Classification of Second-Order PDEs}{389}{section.G.6}%
+\contentsline {section}{\numberline {G.7}Boundary Conditions}{389}{section.G.7}%
+\contentsline {section}{\numberline {G.8}Initial Conditions}{390}{section.G.8}%
+\contentsline {section}{\numberline {G.9}The Laplace Equation}{390}{section.G.9}%
+\contentsline {section}{\numberline {G.10}The Poisson Equation}{390}{section.G.10}%
+\contentsline {section}{\numberline {G.11}The Heat Equation}{391}{section.G.11}%
+\contentsline {section}{\numberline {G.12}The Wave Equation}{391}{section.G.12}%
+\contentsline {section}{\numberline {G.13}Summary}{391}{section.G.13}%
+\contentsline {section}{\numberline {G.14}Conservation Laws}{392}{section.G.14}%
+\contentsline {section}{\numberline {G.15}The Continuity Equation}{392}{section.G.15}%
+\contentsline {section}{\numberline {G.16}Advection--Diffusion Equation}{393}{section.G.16}%
+\contentsline {section}{\numberline {G.17}Reaction--Diffusion Equations}{393}{section.G.17}%
+\contentsline {section}{\numberline {G.18}Systems of Partial Differential Equations}{394}{section.G.18}%
+\contentsline {section}{\numberline {G.19}Weak Formulation}{394}{section.G.19}%
+\contentsline {section}{\numberline {G.20}Existence and Uniqueness}{395}{section.G.20}%
+\contentsline {section}{\numberline {G.21}Maximum Principles}{395}{section.G.21}%
+\contentsline {section}{\numberline {G.22}Energy Methods}{395}{section.G.22}%
+\contentsline {section}{\numberline {G.23}Finite Difference Methods}{396}{section.G.23}%
+\contentsline {section}{\numberline {G.24}Finite Element Methods}{396}{section.G.24}%
+\contentsline {section}{\numberline {G.25}Finite Volume Methods}{397}{section.G.25}%
+\contentsline {section}{\numberline {G.26}Applications to Infrastructure}{397}{section.G.26}%
+\contentsline {section}{\numberline {G.27}Concluding Remarks}{398}{section.G.27}%
+\contentsline {chapter}{\numberline {H}Probability and Stochastic Processes}{399}{appendix.H}%
+\contentsline {section}{\numberline {H.1}Purpose}{399}{section.H.1}%
+\contentsline {section}{\numberline {H.2}Probability Spaces}{399}{section.H.2}%
+\contentsline {section}{\numberline {H.3}Events}{400}{section.H.3}%
+\contentsline {section}{\numberline {H.4}Conditional Probability}{400}{section.H.4}%
+\contentsline {section}{\numberline {H.5}Bayes' Theorem}{401}{section.H.5}%
+\contentsline {section}{\numberline {H.6}Random Variables}{401}{section.H.6}%
+\contentsline {section}{\numberline {H.7}Probability Distributions}{401}{section.H.7}%
+\contentsline {section}{\numberline {H.8}Expectation}{402}{section.H.8}%
+\contentsline {section}{\numberline {H.9}Variance}{402}{section.H.9}%
+\contentsline {section}{\numberline {H.10}Covariance}{402}{section.H.10}%
+\contentsline {section}{\numberline {H.11}Correlation}{403}{section.H.11}%
+\contentsline {section}{\numberline {H.12}Important Probability Distributions}{403}{section.H.12}%
+\contentsline {section}{\numberline {H.13}The Gaussian Distribution}{403}{section.H.13}%
+\contentsline {section}{\numberline {H.14}Independence}{404}{section.H.14}%
