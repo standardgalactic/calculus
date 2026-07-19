@@ -90,18 +90,16 @@
 \begin{abstract}
 \noindent
 Karl Fant's two books---\textit{Logically Determined Design} (2005)
-and \textit{Computer Science Reconsidered} (2007)---attack a single
-problem from two directions, one practical and one theoretical. The
-first begins in hardware: a Boolean logic expression, Fant shows, is
-expressionally incomplete without the coordinating mathematician who
-interprets it. He proposes \emph{Null Convention Logic}, in which
-completeness relationships encoded in the logic itself restore the
-missing coordination so that wavefronts flow spontaneously from
-expression to expression without any external scheduler. The second
-provides the theoretical derivation that justifies this solution, and
-in doing so generalizes it: computer science, Fant argues, has
-inherited the wrong foundational concept (the algorithm) from
-mathematics and needs instead a theory of process expression---a
+and \textit{Computer Science Reconsidered} (2007)---pursue a single
+philosophical project from two directions. The first begins in hardware:
+a Boolean logic expression, Fant shows, is expressionally incomplete
+without the coordinating mathematician who interprets it. He proposes
+\emph{Null Convention Logic}, in which completeness relationships
+encoded in the logic itself restore the missing coordination so that
+wavefronts flow spontaneously from expression to expression without any
+external scheduler. The second generalizes this discovery: computer
+science has inherited the wrong foundational concept (the algorithm)
+from mathematics and needs instead a theory of process expression---a
 theory of how processes can be expressed so as to coordinate their own
 realization. Together, these books define what this essay calls
 \emph{flow computing}: a paradigm in which computation is organized
@@ -123,10 +121,7 @@ that the application-centered desktop is, structurally, the
 mathematician's pencil: an external coordinator whose elimination is
 not a regression to arcane complexity but a recovery of the
 expressional completeness that the logic was always capable of
-providing. This distinction has implications not only for
-productivity but also for maintaining autonomous computational
-environments in increasingly adversarial software ecosystems, a
-theme the essay returns to in its final section.
+providing.
 \end{abstract}
 
 \vspace{1.0em}
@@ -187,93 +182,27 @@ concurrently---but its logical behavior is fully trustworthy, understood
 expression by expression, neighborhood by neighborhood, as a tapestry
 woven of overlapping behavior boundaries.
 
-One consequence of this arrangement is easy to pass over but worth
-making explicit, since it is among the strongest technical results
-in LDD rather than an analogy this essay is importing. Because
-completion is expressed logically rather than temporally, the
-partitioning of a computation becomes a design decision rather than
-a semantic one. Fant shows that a combinational expression may be
-partitioned at arbitrary ranks by extending each operator's
-completeness condition with an additional acknowledge input,
-effectively transforming any chosen rank into a registration
-boundary. A single partition yields a wide combinational stage;
-partitioning every rank yields a deeply pipelined realization.
-Since the completeness relations themselves remain unchanged
-throughout, these implementations differ in latency and throughput
-rather than in logical meaning: the same logically determined
-expression can be realized as something closer to a parallel
-circuit or as something closer to a sequential pipeline, purely as
-a matter of where registration boundaries are inserted.
-
-This has a philosophical consequence the essay will return to.
-Sequential and parallel execution are ordinarily treated as
-fundamentally different computational models, each demanding its
-own analysis, its own correctness arguments, its own performance
-reasoning. Fant's construction suggests something subtler:
-sequentiality and parallelism are alternative partitions of the
-same completion graph. The primitive object is not a sequential
-program or a parallel program; it is a completion dependency
-network, and a ``sequential'' or ``parallel'' realization is simply
-a choice of where that network is cut into registration stages. If
-that is right, then execution order was never the primitive
-concept it is usually taken to be---it is a property of a
-particular partitioning of something more fundamental, which is
-completion itself.
-
-The significance of this result extends beyond circuit
-implementation. If a logically determined expression may be
-realized as either a wide parallel network or a deeply sequential
-pipeline without altering its logical content, then execution
-order is not the fundamental semantic object. The invariant
-resides instead in the completion relationships that organize the
-computation. The remainder of this essay does not seek to
-establish this conclusion through additional analogies. Rather, it
-examines several independent traditions that have arrived at
-related organizational intuitions from different starting points,
-illustrating the broader applicability of the distinction between
-execution-centered and completion-centered views of computation.
-
-Logically Determined Design stands as a complete work in its own
-right. It presents Null Convention Logic as a practical and
-technical solution to the problem of mathematicianless
-enlivenment, showing how completion relationships encoded within
-the logic itself eliminate the need for an external coordinator.
-Nothing in the book is left dangling, awaiting a sequel; the
-missing mathematician has already been restored to the logic by
-the time LDD is finished.
-
-Two years later, \textit{Computer Science Reconsidered} (2007)
-returns to the same problem from a different direction. Rather
-than extending LDD as a sequel, it develops the theoretical
-foundations that Fant argues justify NCL in the first place---by
-his own account, CSR ``provides the theoretical derivation for
-Null Convention Logic,'' work he describes as separate from, and
-in service of justifying, what LDD had already presented. That derivation proceeds by way of a broader
-reconsideration of computer science as the science of process
-expression rather than algorithm execution: the discipline
-inherited the algorithm from mathematics---a formalism built for
-the mathematician's question (\emph{what can be computed?})---and
-mistook it for the foundational concept for its own question
-(\emph{how can processes be expressed?}). The algorithm, like a
-Boolean expression without coordination, requires an external
+Two years later, \textit{Computer Science Reconsidered} (2007) extends
+this insight to its full generality. The missing mathematician is not
+only a problem in hardware design. It is a problem in computer science
+at large: the discipline inherited the algorithm from mathematics---a
+formalism built for the mathematician's question (\emph{what can be
+computed?})---and mistook it for the foundational concept for its own
+question (\emph{how can processes be expressed?}). The algorithm, like
+a Boolean expression without coordination, requires an external
 controller: a sequencer that instantiates and uninstantiates each
-operation in turn. Sequential expression cannot spontaneously
-flow. It requires a mathematician. In providing the theoretical
-account that justifies NCL, CSR naturally generalizes beyond
-asynchronous hardware to a wider conception of invocation and
-process organization: the restoration of the missing coordination
-behavior at the level of computing-in-general is what Fant calls
-the Invocation Model, in which processes invoke themselves when
-their prerequisites form a resolvable name.
+operation in turn. Sequential expression cannot spontaneously flow.
+It requires a mathematician. The restoration of the missing coordination
+behavior at the level of computing-in-general is what Fant calls the
+Invocation Model: processes that invoke themselves when their
+prerequisites form a resolvable name.
 
-This essay takes Fant's two books---not as a hardware volume
-followed by its software generalization, but as two complementary
-attacks on the same missing-mathematician problem, one practical
-and one theoretical---as the foundation for a claim about personal
-computing: that the application-centered desktop is, structurally,
-the mathematician's pencil, and that Unix pipelines are the closest
-thing personal computing has produced to a logically determined
-system at the scale of knowledge work.
+This essay takes Fant's dual project---the hardware argument of LDD
+and the theoretical argument of CSR---as the foundation for a claim
+about personal computing: that the application-centered desktop is,
+structurally, the mathematician's pencil, and that Unix pipelines are
+the closest thing personal computing has produced to a logically
+determined system at the scale of knowledge work.
 
 % ============================================================
 \section{From State Transitions to Wavefronts}
@@ -467,52 +396,6 @@ relationships. The workflow is logically determined when those
 relationships, rather than any external scheduler's decisions, govern
 what runs when.
 
-\subsection{A Parallel from Reactive Programming}
-
-This emphasis on computation as the propagation of dependencies
-rather than the execution of instructions has appeared
-independently in other traditions. Erik Meijer, in his work on
-Reactive Extensions (Rx) and in essays such as ``Your Mouse Is a
-Database,''\footnote{Erik Meijer, ``Your Mouse Is a Database,''
-\textit{Communications of the ACM} 55, no.\ 5 (2012): 66--73.} has
-argued that a wide range of interactive and asynchronous
-systems---mouse movements, sensor readings, service calls, UI
-events---are better modeled as \emph{observable streams} than as
-sequences of isolated function calls: a computation subscribes to
-a source and reacts as new values arrive, rather than being
-invoked once against a fixed input. Functional-reactive
-programming, dataflow systems, spreadsheets, and event-stream
-architectures share this premise: change propagates through a
-network of dependencies, and a cell, node, or subscriber updates
-because an upstream value became available, not because a
-scheduler decided its turn had come.
-
-Meijer's primitive and Fant's are not the same. Fant's invocation
-model is grounded in completion: a process fires because its
-prerequisites have become \emph{whole}, and the NULL wavefront
-that follows marks that episode as closed before the next begins.
-Rx's observable model is grounded in an open-ended stream of
-discrete values with no NULL-like closing event required between
-them; a subscriber may react to a value now and another one later
-with no completion boundary separating the two, and the sequence
-itself may never terminate. The two frameworks also arose for
-different reasons: Fant's from a critique of clocked digital
-logic, Meijer's from the practical problem of composing
-asynchronous, event-driven software without callback-based
-control flow. Neither should be read as evidence for the other.
-
-What is nonetheless worth noting is the shared rejection: both
-frameworks abandon the picture of computation as a centrally
-orchestrated sequence of instructions, in favor of a picture in
-which local update rules, triggered by the arrival or completion
-of upstream values, are sufficient to produce coherent global
-behavior without an external coordinator dictating the order of
-operations. That two frameworks built for different purposes, in
-different eras and communities, converge on rejecting the same
-thing---the scheduler as a necessary ingredient of computation---is
-some evidence that the rejection is not idiosyncratic to either
-one.
-
 % ============================================================
 \section{Unix Pipelines as Logically Determined Workflows}
 % ============================================================
@@ -558,53 +441,26 @@ boundary.
 No mathematician coordinates the pipeline. The coordination is in the
 structure.
 
-\subsection{Text as a Convention Approximating NULL}
+\subsection{Text as the NULL Convention of Software}
 
 Fant's NCL requires a universal data representation that can
 distinguish between a complete data value and the absence of data
 (NULL). Without this distinction, a logic function cannot determine
 whether all its inputs have arrived; it cannot form the completeness
-criterion. Crucially, NCL enforces this distinction formally: every
-signal is dual-rail encoded, so that DATA and NULL are structurally
-guaranteed to be exclusive and unambiguous states of the circuit
-itself. A gate cannot mistake one for the other.
+criterion.
 
-Unix pipelines solve an analogous problem with text streams, but
-the solution is a convention rather than a formal guarantee. There
-is no single, universally enforced NULL state in Unix; instead,
-completion is communicated through a family of practical devices
-that have accumulated over decades of engineering practice:
-end-of-file, process exit status, a closed file descriptor, an
-empty file, a null-terminated string, a blank line used as a
-record separator, an HTTP status code, a sentinel value agreed
-upon by convention between two specific programs. Each of these
-functions as a NULL-like event in its own local context---it
-signals that a logical unit of work is complete---but none of
-them is guaranteed by the representation itself the way NCL's
-dual-rail encoding is guaranteed by the circuit. A program that
-forgets to check an exit status, or that treats an empty line as
-data rather than as a separator, has not violated a law of
-physics; it has merely broken a convention that the rest of the
-ecosystem happens to honor.
+Unix pipelines solve an analogous problem with text streams. Text is
+the universal representation that allows any program to couple with
+any other. End-of-stream is the NULL equivalent: it signals that the
+presenting boundary has completed and the receiving boundary can
+finalize its own computation.
 
-This is not a coincidence of terminology, and it does not
-undermine the parallel; if anything, it sharpens it. Both NCL and
-Unix pipelines solve the mathematicianless enlivenment problem at
-their respective levels of abstraction, encoding the coordination
-information into the representation itself rather than requiring
-an external agent to supply it. But they solve it at different
-levels of rigor. NCL is a \emph{formally enforced} completion
-protocol: the hardware cannot represent an ambiguous state. Unix
-is a \emph{practically robust} completion protocol: the ecosystem
-of tools has converged, through decades of accumulated
-convention, on a family of signals that work well enough, most of
-the time, without anything in the architecture that forbids their
-misuse. This is precisely the same distinction this essay draws
-elsewhere between formal admissibility and practical
-admissibility---and it is why Unix pipelines are described
-throughout this essay as an \emph{approximation} of Fant's
-logically determined workflow rather than an implementation of
-it.
+This is not a coincidence of terminology. It reflects a deep
+structural parallel. Both NCL and Unix pipelines solve the
+mathematicianless enlivenment problem at their respective levels of
+abstraction: both encode the coordination information into the
+representation itself rather than requiring an external agent to
+supply it.
 
 \subsection{The Process Network as a Tapestry of Completion Neighborhoods}
 
@@ -1884,97 +1740,6 @@ cycles become series of discrete wavefront propagations rather than
 continuous control processes. The missing mathematician does not
 return.
 
-\subsection{The Mechanism: Residue as a Modifier of Invocation
-Conditions}
-
-The distinction between first- and second-order flow computing is
-not merely that the second involves a loop while the first does
-not; Section~7.1 already showed that a loop, properly understood,
-is a sequence of discrete completion-governed invocations rather
-than a return of continuous control. The real distinction is
-structural: in first-order flow computing, the invocation
-conditions themselves---which process fires next, and on what
-input---are fixed in advance by the topology of the pipeline. In
-second-order flow computing, the invocation conditions are
-themselves a function of accumulated residue, and can therefore
-change from one pass through the cycle to the next.
-
-This is easiest to see by contrasting a static branch with a
-residue-conditioned one. A static branch is still first-order flow
-computing, even though it involves a conditional:
-\[
-A \to B \to
-\begin{cases}
-C & \text{if exit}(B) = 0 \\
-D & \text{otherwise}
-\end{cases}
-\]
-The condition here is a fixed property of the topology---it was
-written into the pipeline once, by a human or a script, and does
-not change as the pipeline runs repeatedly. Second-order flow
-computing instead makes the condition itself a residue-dependent
-quantity:
-\[
-A \to B \to C \to \text{residue}_n \to \big(\text{route}(\text{residue}_n) : A \to \{B, B', B''\}\big)
-\]
-Here the invocation that fires on the next pass---which variant of
-$B$ is invoked, or with what parameters---is not fixed by the
-pipeline's author but determined by inspecting what has
-accumulated. The topology of the network, in other words, is
-itself part of what evolves under completion-governed dynamics,
-rather than being external to them.
-
-Consider a concrete instance from software engineering: a
-continuous-integration harness that, on a test failure, does not
-simply report the failure but consults a residue store of prior
-bug reports and their eventual resolutions. If the failure's
-signature (stack trace, affected module, failing assertion)
-resembles a past incident whose residue shows it was resolved by
-a particular engineer or a particular class of fix, the harness
-routes the failure report to that engineer, or applies a
-previously successful automated patch pattern, rather than
-following a single static escalation path. The invocation
-path---who or what gets invoked next---is determined by the
-accumulated residue of prior completions, not by a rule written
-once at pipeline-construction time. Nothing in this arrangement
-requires a central controller watching the whole history; the
-routing decision is a local completion-governed process, applied
-each time a new failure wavefront arrives, that happens to consult
-memory rather than a fixed table.
-
-The same mechanism appears, at different timescales, across the
-domains this essay has already touched on. In scientific inquiry,
-an anomalous experimental result (residue) does not merely
-terminate the current experiment; it conditions which hypothesis
-is tested next, effectively rewriting the topology of the inquiry
-process for its next pass. In AI-assisted writing---the regime
-most directly relevant to the composition of this essay---a
-critique of a draft is residue that conditions not just the
-content of the next revision but which \emph{kind} of revision is
-attempted: a critique flagging weak evidentiary support routes to
-a research-and-citation pass, while a critique flagging unclear
-structure routes to a reorganization pass. The critique does not
-merely supply new input to a fixed revision function; it selects,
-by its content, which revision function is invoked. In
-organizational learning, a postmortem document is residue that
-conditions which review gates are added to future deployments,
-altering the topology of the deployment pipeline itself for
-subsequent runs.
-
-In each case, the pattern is the same: a completion event deposits
-residue; the residue is inspected, not by an external supervisor
-but by the next local invocation in the chain; and the inspection
-determines which branch of the process network fires next. This is
-what distinguishes second-order flow computing from an ordinary
-conditional branch. A conditional branch selects among
-pre-specified paths using the current input. Second-order flow
-computing selects among paths using the \emph{accumulated history}
-of prior completions---and, critically, can grow new paths that
-were not anticipated by the original topology, as residue
-accumulates in ways the pipeline's original author did not
-foresee. The ecology does not merely execute; it learns its own
-shape.
-
 \subsection{A Note on Cloud Orchestration}
 
 This analysis has direct implications for how modern distributed
@@ -2181,121 +1946,6 @@ constructing Markov-like separators between computational
 episodes---boundaries that distinguish what must be known
 from what can be safely ignored, at every scale from logic
 gates to knowledge pipelines.
-
-\subsection{Thermodynamic Computing: A Structurally Related
-Development}
-
-Fant developed NCL to solve a problem in digital circuit design:
-how to restore expressional completeness to a Boolean logic
-network without appeal to an external clock or coordinator. His
-solution was to encode coordination in the logic itself, so that
-computation proceeds as the propagation of a wavefront rather
-than as a sequence of externally scheduled state transitions.
-It is worth noting, without overstating the connection, that a
-structurally adjacent move has recently been made from an
-entirely different direction: not digital logic seeking to
-eliminate an external clock, but analog and statistical physics
-seeking to eliminate an external error-correction regime.
-
-Reporting on the nascent field of thermodynamic computing, Ball
-(2026) describes two architectures that map, at the level of
-mathematical structure if not motivation, onto the distinction
-this essay draws between state-centered and wavefront-centered
-computation.\footnote{Philip Ball, ``Thermodynamic Computers Go
-With the (Energy) Flow,'' \textit{Quanta Magazine}, July 15,
-2026.} \emph{Equilibrium} thermodynamic computing encodes a
-problem into an energy landscape whose minima represent
-admissible solutions; the system is released and left to settle,
-and the answer is read off once it has relaxed. \emph{Nonequilibrium}
-thermodynamic computing instead encodes the computation into a
-stochastic trajectory sustained by continuous energy flow, in
-which the trajectory itself---not any terminal state---carries
-the result. Although developed independently and for different
-reasons, this distinction bears a structural resemblance to the
-separation this essay draws between admissible configuration
-spaces and continuation dynamics: one mode of computation is
-characterized by convergence toward a constrained manifold, the
-other by computation performed \emph{as} an evolving trajectory
-through state space. The resemblance is mathematical, not
-conceptual identity; the two research programs do not share a
-theoretical vocabulary and should not be read as making the same
-claim.
-
-More directly relevant to the wavefront argument is what these
-architectures do with noise. A conventional digital gate is
-engineered to operate at energies far above the thermal
-fluctuations of its environment precisely so that noise cannot
-masquerade as a completed signal; the clock exists, in part, to
-give transient hazards time to settle before they are sampled.
-Thermodynamic computers invert this relationship. Random thermal
-fluctuations are not suppressed but used to explore a
-configuration space, with the system's own physics performing
-part of the computation for free. This is a structurally similar
-inversion to the one Fant makes at the logical level---one
-concerns noise versus error correction, the other concerns
-clocks versus local completion, and the two should be read as
-analogous rather than identical---but both replace an external
-authority that manages timing or fidelity with a local mechanism
-whose proper behavior is a structural consequence of its own
-dynamics rather than of supervision. Whitelam's simulated
-denoising circuit, which reconstructs a corrupted image by
-letting connection strengths relax toward the configuration that
-makes the image most likely, resembles a constrained wavefront
-relaxing toward a locally admissible configuration: structure
-emerging from the settling of a locally governed process rather
-than from any global instruction sequence.
-
-Some caution is warranted before extending this further.
-Whitelam offers the striking claim that ``nature uses Langevin
-computers programmed by evolution''---a much stronger claim than
-most physicists would have advanced a few years ago, and one
-that Kaneko, in the same article, meets with explicit reservation
-about whether it constitutes a genuine explanatory framework for
-biological computation or merely a suggestive analogy. This essay
-takes no position on that question. What it notes is narrower:
-several independent lines of contemporary work---active
-inference, diffusion models, analog and neuromorphic hardware,
-reservoir computing, morphological computation, and now
-thermodynamic computing---share a common intuition that efficient
-computation often consists of shaping a dynamical system so that
-its own physical evolution performs inference or optimization,
-rather than forcing physical substrates to imitate an idealized
-sequence of discrete symbolic operations. Although these fields
-differ substantially in objectives, assumptions, and mathematical
-machinery, many increasingly rely on continuous dynamical
-systems, stochastic differential equations, and constrained
-energy landscapes as primary computational objects rather than
-treating them merely as implementation details beneath discrete
-algorithms. None of these fields
-are converging on a single formalism, and thermodynamic computing
-in particular remains, in its own literature's words, at a stage
-comparable to small-scale quantum computing in the 1990s: a proof
-of principle rather than a settled architecture. That direction
-of the shift is broadly consistent with the direction this essay
-has been arguing for: treating physical dynamics as primary and
-symbolic computation as one important realization of a more
-general process organization, argued here from the vantage point
-of a Unix pipeline rather than a resistor-inductor-capacitor
-network. That two such different starting points arrive at
-structurally similar distinctions is, at minimum, evidence that
-the wavefront-over-clock intuition is not an idiosyncrasy of
-Fant's circuit design or of this essay's extension of it.
-
-Put plainly: Fant arrives at this principle through asynchronous
-logic design; Unix arrives at it through software composition;
-thermodynamic computing arrives at it through statistical
-mechanics; active inference arrives at it through variational
-physics; diffusion models arrive at it through stochastic
-dynamics; reservoir computing arrives at it through nonlinear
-dynamical systems; morphological computation arrives at it
-through biomechanics. None of these is the same theory, and this
-essay does not claim otherwise. But each is, in its own domain,
-moving away from the metaphor of computation as a centrally
-orchestrated sequence of discrete symbolic operations and toward
-computation as the controlled evolution of a constrained
-dynamical system. Flow computing, on this reading, is not an
-isolated philosophical proposal but one route among several
-currently being cut toward the same clearing.
 
 % ============================================================
 \section{Toward a Theory of Flow Computing}
@@ -2588,126 +2238,6 @@ hygiene: a set of practices for maintaining the integrity of
 your own process ecology's Markov boundary structure in an
 environment that has been engineered to dissolve it.
 
-The same pressure operates one level down, at the level of
-infrastructure rather than attention. Section~7's note on cloud
-orchestration observed that much distributed computing
-infrastructure reintroduces a supervisory mathematician---
-schedulers, orchestrators, controller loops---above process
-networks that could, in principle, coordinate themselves locally.
-The consumer analogue of that observation is the
-subscription-gated, telemetry-reporting application: a piece of
-software whose completion behavior is not fully local to the
-practitioner's machine but depends on a remote service that can
-be modified, rate-limited, or withdrawn without the practitioner's
-consent. A pipeline built from small, local utilities---text
-streams, local models, a local version-control history---does not
-eliminate every external dependency, but it does keep the
-completion-governing logic on the practitioner's own machine,
-where its behavior can be inspected, and its continued operation
-does not depend on a remote party's continued cooperation. This is
-not a claim that any particular vendor intends harm; it is a
-structural observation about where the coordinating authority
-resides, and the same logic this essay has applied to clocks,
-schedulers, and engagement loops applies here: coordination that
-is external and opaque is harder to trust than coordination that
-is local and inspectable, regardless of the coordinator's
-intentions.
-
-% ============================================================
-\section{Completion Before Computation}
-% ============================================================
-
-It is worth pausing, before closing, to name explicitly what the
-preceding sections have been demonstrating rather than asserting.
-The recurring hook of this essay has been a resemblance---Unix
-pipelines resemble NCL circuits, personal workflows resemble
-process ecologies, an engagement-optimized platform resembles a
-malicious external mathematician. Resemblance is a useful way to
-introduce an idea, but it is not, by itself, the idea. Stated
-plainly, the claim underneath all of these resemblances is this:
-\emph{completion is a more primitive organizational concept than
-execution.}
-
-Classical computer science begins with execution. A program is a
-sequence of instructions; a process is that sequence being carried
-out; correctness is defined relative to what the sequence
-computes when run to completion. Scheduling, state, and control
-flow are all elaborations built on top of the prior assumption
-that execution---something happening, in order, under the
-direction of an interpreter---is the basic unit of computational
-existence.
-
-Flow computing begins somewhere else. It begins with the
-observation that a process cannot be said to have executed at all
-until something has been completed---until a wavefront has fully
-propagated, until an invocation's prerequisites have been
-satisfied, until a NULL boundary has closed off one episode from
-the next. On this view, execution is not the primitive; it is
-what a completion-governed system looks like from the outside,
-after the fact, to an observer who is not attending to how the
-completion was reached. Scheduling is one way of guaranteeing that
-completions happen in a usable order; it is not the thing that
-makes completion possible. An algorithm is one way of expressing a
-completion structure explicitly enough that a mathematician can
-carry it out by hand; it is not the only way, and, as Fant argues,
-not even the most natural one at the level of a logic gate.
-
-The clearest technical grounding for this claim, rather than its
-clearest illustration, was given already in Section~1: Fant's
-demonstration that a combinational expression can be partitioned
-at any rank into a registration boundary, yielding at one extreme
-a wide parallel circuit and at the other a deeply pipelined
-sequential one, without altering the completeness relations that
-define the expression's logical meaning. That result only makes
-sense if sequential and parallel execution are not two different
-kinds of computation but two different partitions of one
-computation---the completion dependency network---cut at
-different points. If execution order were primitive, no such
-free re-partitioning would be available: changing from parallel
-to sequential would have to change what is being computed, not
-merely how long it takes. That it does not is the essay's
-strongest piece of evidence, independent of any comparison to
-Unix, thermodynamics, or reactive programming, that completion
-rather than execution order is the more fundamental object.
-
-This reordering is what gives the essay's recurring vocabulary its
-apparent redundancy across scales, which is not redundancy so much
-as the same structure recurring because it is, in fact, the same
-structure:
-\[
-\text{completion} \;\to\; \text{invocation} \;\to\; \text{wavefront}
-\;\to\; \text{process} \;\to\; \text{pipeline} \;\to\; \text{workflow}
-\;\to\; \text{ecology}
-\]
-Completion is the event: something has finished. Invocation is
-what a completion licenses: a new process becomes eligible to
-begin. A wavefront is invocation in motion: a completion
-propagating outward, licensing further completions downstream. A
-process is a bounded unit of wavefront propagation with its own
-completion boundary. A pipeline is a chain of processes coupled by
-completion events rather than by a controller. A workflow is a
-pipeline inhabited and extended by a practitioner over time. An
-ecology is a workflow whose own topology has become subject to
-revision by the residue it accumulates---the second-order case
-developed in Section~7. Each term in this hierarchy is what the
-one before it looks like once it is composed, extended, or
-inhabited; none of them is executed by anything standing outside
-the hierarchy.
-
-Under this reading, execution, scheduling, and the algorithm are
-not rejected; they are relocated. They become special cases of
-completion-governed organization---the case where an external
-coordinator has been introduced to manage completions that could,
-in principle, have managed themselves, whether because the
-substrate makes self-management prohibitively difficult (early
-digital logic, before Fant), because the tooling has not yet made
-local completion visible (the application-centered desktop, before
-a process ecology), or because an external party has an interest
-in preventing self-management (the adversarial platforms discussed
-above). The mathematician was never wrong to exist; he was only
-ever a workaround for coordination that the expression itself had
-not yet been given the means to perform.
-
 Karl Fant posed the problem of mathematicianless enlivenment in the
 context of electronic circuits. His solution---Null Convention Logic,
 completion-governed coupling, wavefront propagation---is a solution
@@ -2778,13 +2308,5 @@ Sons, 2005).
 \noindent Karl M.\ Fant, \textit{Computer Science Reconsidered: The
 Invocation Model of Process Expression} (Hoboken, NJ: John Wiley \&
 Sons, 2007).
-
-\smallskip
-\noindent Philip Ball, ``Thermodynamic Computers Go With the
-(Energy) Flow,'' \textit{Quanta Magazine}, July 15, 2026.
-
-\smallskip
-\noindent Erik Meijer, ``Your Mouse Is a Database,''
-\textit{Communications of the ACM} 55, no.\ 5 (2012): 66--73.
 
 \end{document}
