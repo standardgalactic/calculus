@@ -1,0 +1,79 @@
+"""
+Builds the nine-orthodrome cubic-symmetric arrangement in Blender.
+
+Run inside Blender's Scripting tab (Blender 4.x/5.x). Each of the nine
+great circles is placed by rotating a unit circle's default normal (+Z)
+directly onto its target plane normal via a single minimal-rotation
+quaternion -- no manual rotate/paste steps, so there's no place for a
+stray drag value (like the 31.573 rad line in the earlier history) to
+introduce drift. Every circle lands on its target normal to floating
+point precision.
+
+Convention: Z is the polar axis (matches the monograph's parameterization,
+n_i = (cos(beta)cos(lambda), cos(beta)sin(lambda), sin(beta))).
+"""
+
+import bpy
+import mathutils
+import math
+
+# --- clear the scene -------------------------------------------------
+bpy.ops.object.select_all(action='SELECT')
+bpy.ops.object.delete(use_global=False)
+
+# --- the nine target plane normals (paper convention, Z = pole) ------
+# 5 fixed reference orthodromes + 4 flexible (cubic-symmetric) orthodromes
+TARGETS = {
+    "equator":       (0, 0, 1),   # n1
+    "meridian_lam0":  (1, 0, 0),   # n2
+    "meridian_lam90": (0, 1, 0),   # n3
+    "meridian_xy":    (1, 1, 0),   # n4  (x = y)
+    "meridian_x-y":   (-1, 1, 0),  # n5  (x = -y)
+    "flex_x-z":       (1, 0, -1),  # n6  (x = z)
+    "flex_x+z":       (1, 0, 1),   # n7  (x = -z)
+    "flex_y-z":       (0, 1, -1),  # n8  (y = z)
+    "flex_y+z":       (0, 1, 1),   # n9  (y = -z)
+}
+
+RADIUS = 1.0
+
+
+def rotation_to(normal: mathutils.Vector) -> mathutils.Quaternion:
+    """Minimal rotation quaternion mapping +Z onto `normal`."""
+    z = mathutils.Vector((0, 0, 1))
+    normal = normal.normalized()
+    if (normal - z).length < 1e-9:
+        return mathutils.Quaternion((1, 0, 0), 0.0)
+    if (normal + z).length < 1e-9:
+        # antipodal: any perpendicular axis works, use X
+        return mathutils.Quaternion((1, 0, 0), math.pi)
+    axis = z.cross(normal).normalized()
+    angle = z.angle(normal)
+    return mathutils.Quaternion(axis, angle)
+
+
+created = []
+for name, n in TARGETS.items():
+    bpy.ops.mesh.primitive_circle_add(
+        radius=RADIUS, location=(0, 0, 0), fill_type='NOTHING'
+    )
+    obj = bpy.context.object
+    obj.name = name
+    obj.rotation_mode = 'QUATERNION'
+    obj.rotation_quaternion = rotation_to(mathutils.Vector(n))
+    created.append(obj)
+
+# --- select all nine and export ---------------------------------------
+bpy.ops.object.select_all(action='DESELECT')
+for obj in created:
+    obj.select_set(True)
+bpy.context.view_layer.objects.active = created[0]
+
+export_path = bpy.path.abspath("//tetraorthodrome_exact.obj")
+try:
+    bpy.ops.wm.obj_export(filepath=export_path, export_selected_objects=True)
+except AttributeError:
+    # fallback for older Blender versions with the legacy exporter
+    bpy.ops.export_scene.obj(filepath=export_path, use_selection=True)
+
+print(f"Exported exact nine-orthodrome arrangement to {export_path}")

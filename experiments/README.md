@@ -5,6 +5,9 @@
 [Trigonometry and Transformation](https://standardgalactic.github.io/calculus/experiments/trigonometry-and-transformation.pdf)
 
 [Orthodromic Infrastructure](https://standardgalactic.github.io/calculus/experiments/orthodromic-infrastructure.pdf)
+<!--
+* [Prototype](https://standardgalactic.github.io/calculus/experiments/) — *Playable Demo*
+-->
 
 ![](orthodromic-blueprint.png)
 

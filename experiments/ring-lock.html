@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Orthodromic Worlds — Ring Lock</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+  :root{
+    --bg:#070a10;
+    --panel:#0d1420;
+    --panel-line:#1c2836;
+    --teal:#2fd0da;
+    --teal-dim:#164a4f;
+    --gold:#e8b34a;
+    --gold-dim:#5c4620;
+    --red:#e5495f;
+    --red-dim:#4d1e26;
+    --ice:#eef3f6;
+    --muted:#6b7a89;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0; padding:0; background:var(--bg); color:var(--ice);
+    font-family:'Space Grotesk', system-ui, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body{
+    display:flex; justify-content:center; padding:28px 16px 48px;
+  }
+  .stage{
+    width:100%; max-width:420px;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--muted); margin:0 0 4px;
+  }
+  h1{
+    font-size:20px; font-weight:600; margin:0 0 18px; letter-spacing:0.01em;
+  }
+  .levels{
+    display:flex; gap:8px; margin-bottom:16px;
+  }
+  .levels button{
+    flex:1; padding:8px 0; background:var(--panel); border:1px solid var(--panel-line);
+    border-radius:6px; color:var(--muted); font-family:'JetBrains Mono', monospace;
+    font-size:12px; cursor:pointer; transition:border-color .15s, color .15s;
+  }
+  .levels button.active{
+    border-color:var(--teal); color:var(--teal);
+  }
+  .panel{
+    background:var(--panel); border:1px solid var(--panel-line); border-radius:12px;
+    padding:16px; margin-bottom:14px;
+  }
+  canvas{ display:block; width:100%; height:auto; touch-action:none; cursor:pointer; }
+  .readout{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:'JetBrains Mono', monospace; margin-top:10px;
+  }
+  .readout .beta{ font-size:26px; font-weight:500; color:var(--ice); }
+  .readout .sub{ font-size:12px; color:var(--muted); text-align:right; line-height:1.5; }
+  .hint{
+    font-size:12px; color:var(--muted); text-align:center; margin-top:6px;
+  }
+  .result{
+    min-height:74px; border-radius:12px; padding:14px 16px; margin-bottom:14px;
+    display:flex; flex-direction:column; gap:4px; justify-content:center;
+    border:1px solid var(--panel-line); background:var(--panel);
+    transition:border-color .2s, background .2s;
+  }
+  .result.locked{ border-color:var(--gold); background:linear-gradient(180deg, rgba(232,179,74,0.08), var(--panel)); }
+  .result.collapse{ border-color:var(--red); background:linear-gradient(180deg, rgba(229,73,95,0.08), var(--panel)); }
+  .result .status{
+    font-family:'JetBrains Mono', monospace; font-size:13px; letter-spacing:0.06em;
+    text-transform:uppercase; font-weight:700;
+  }
+  .result.locked .status{ color:var(--gold); }
+  .result.collapse .status{ color:var(--red); }
+  .result.idle .status{ color:var(--muted); }
+  .result .detail{ font-size:13px; color:var(--muted); font-family:'JetBrains Mono', monospace; }
+  .actions{ display:flex; gap:10px; }
+  .actions button{
+    flex:1; padding:12px 0; border-radius:8px; border:none; cursor:pointer;
+    font-family:'Space Grotesk', sans-serif; font-size:14px; font-weight:600;
+    background:var(--teal); color:#04252a; transition:transform .1s, opacity .1s;
+  }
+  .actions button:active{ transform:scale(0.98); }
+  .actions button.secondary{
+    background:transparent; border:1px solid var(--panel-line); color:var(--ice);
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <p class="eyebrow">Orthodromic Worlds &middot; prototype</p>
+  <h1>Ring lock — orthodrome n6 / n7</h1>
+
+  <div class="levels" id="levels"></div>
+
+  <div class="panel">
+    <canvas id="sphere" width="760" height="520"></canvas>
+  </div>
+
+  <div class="panel">
+    <canvas id="dial" width="760" height="300"></canvas>
+    <div class="readout">
+      <div class="beta"><span id="beta-val">0.0</span>&deg;</div>
+      <div class="sub">
+        &delta; to equator&nbsp;<span id="delta-eq">90.0</span>&deg;<br>
+        &delta; to meridian&nbsp;<span id="delta-me">0.0</span>&deg;
+      </div>
+    </div>
+    <p class="hint">Tap the dial or press lock to stop the sweep</p>
+  </div>
+
+  <div class="result idle" id="result">
+    <div class="status" id="status">Awaiting tap</div>
+    <div class="detail" id="detail">Sweeping &beta; from &minus;80&deg; to 80&deg;</div>
+  </div>
+
+  <div class="actions">
+    <button id="lockBtn">Lock</button>
+    <button class="secondary" id="resetBtn">Reset</button>
+  </div>
+</div>
+
+<script>
+const LEVELS = [
+  { name: 'L1', omega: 1.1, amp: 78, eps: 6.0,  collapseHalf: 7.0 },
+  { name: 'L2', omega: 1.7, amp: 82, eps: 4.0,  collapseHalf: 5.0 },
+  { name: 'L3', omega: 2.4, amp: 85, eps: 2.25, collapseHalf: 3.5 },
+];
+let levelIdx = 0;
+
+function normal(betaDeg, lambdaDeg){
+  const b = betaDeg*Math.PI/180, l = lambdaDeg*Math.PI/180;
+  return [Math.cos(b)*Math.cos(l), Math.cos(b)*Math.sin(l), Math.sin(b)];
+}
+function dot(a,b){ return a[0]*b[0]+a[1]*b[1]+a[2]*b[2]; }
+function deltaDeg(a,b){
+  return Math.acos(Math.min(1, Math.max(-1, Math.abs(dot(a,b))))) * 180/Math.PI;
+}
+
+const N1 = [0,0,1];   // equator
+const N2 = [1,0,0];   // meridian, lambda = 0
+
+function classify(betaDeg, level){
+  const n = normal(betaDeg, 0);
+  const dEq = deltaDeg(n, N1);
+  const dMe = deltaDeg(n, N2);
+  const nearMerid = Math.abs(betaDeg) <= level.collapseHalf;
+  const nearEquatorEdge = Math.abs(Math.abs(betaDeg) - 90) <= level.collapseHalf;
+  if (nearMerid || nearEquatorEdge) return { zone:'collapse', dEq, dMe, target:null };
+  if (Math.abs(betaDeg - 45) <= level.eps) return { zone:'lock', dEq, dMe, target:'n7 (x = -z plane)' };
+  if (Math.abs(betaDeg + 45) <= level.eps) return { zone:'lock', dEq, dMe, target:'n6 (x = z plane)' };
+  return { zone:'sweep', dEq, dMe, target:null };
+}
+
+const CAM_TILT = 22 * Math.PI/180;
+
+function basisFor(n){
+  let arb = Math.abs(n[2]) < 0.9 ? [0,0,1] : [1,0,0];
+  let u = cross(arb, n); u = normalize(u);
+  let v = cross(n, u);
+  return [u, v];
+}
+function cross(a,b){ return [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]]; }
+function normalize(a){ const m=Math.hypot(a[0],a[1],a[2])||1; return [a[0]/m,a[1]/m,a[2]/m]; }
+
+function circlePoints(n, segs){
+  const [u,v] = basisFor(n);
+  const pts = [];
+  for (let i=0;i<=segs;i++){
+    const t = i/segs*Math.PI*2;
+    const ct = Math.cos(t), st = Math.sin(t);
+    const x = ct*u[0] + st*v[0];
+    const y = ct*u[1] + st*v[1];
+    const z = ct*u[2] + st*v[2];
+    const ry = y*Math.cos(CAM_TILT) - z*Math.sin(CAM_TILT);
+    const rz = y*Math.sin(CAM_TILT) + z*Math.cos(CAM_TILT);
+    pts.push([x, ry, rz]);
+  }
+  return pts;
+}
+
+function drawCircle(ctx, cx, cy, R, n, color, lw){
+  const pts = circlePoints(n, 96);
+  for (let i=0;i<pts.length-1;i++){
+    const a = pts[i], b = pts[i+1];
+    const frontA = a[2] >= 0, frontB = b[2] >= 0;
+    const op = (frontA && frontB) ? 1.0 : ((!frontA && !frontB) ? 0.28 : 0.6);
+    ctx.strokeStyle = color;
+    ctx.globalAlpha = op;
+    ctx.lineWidth = lw;
+    ctx.beginPath();
+    ctx.moveTo(cx + a[0]*R, cy - a[1]*R);
+    ctx.lineTo(cx + b[0]*R, cy - b[1]*R);
+    ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+}
+
+const sphereCanvas = document.getElementById('sphere');
+const sctx = sphereCanvas.getContext('2d');
+const dialCanvas = document.getElementById('dial');
+const dctx = dialCanvas.getContext('2d');
+
+let running = true;
+let startT = performance.now();
+let frozenBeta = null;
+let lastState = null;
+
+function currentBeta(nowMs, level){
+  if (frozenBeta !== null) return frozenBeta;
+  const tSec = (nowMs - startT) / 1000;
+  return level.amp * Math.sin(level.omega * tSec);
+}
+
+function zoneColor(zone){
+  if (zone === 'lock') return getComputedStyle(document.documentElement).getPropertyValue('--gold').trim();
+  if (zone === 'collapse') return getComputedStyle(document.documentElement).getPropertyValue('--red').trim();
+  return getComputedStyle(document.documentElement).getPropertyValue('--teal').trim();
+}
+
+function renderSphere(state){
+  const W = sphereCanvas.width, H = sphereCanvas.height;
+  sctx.clearRect(0,0,W,H);
+  const cx = W/2, cy = H/2 + 20, R = 210;
+
+  sctx.strokeStyle = '#1c2836';
+  sctx.lineWidth = 1;
+  sctx.beginPath();
+  sctx.ellipse(cx, cy, R, R, 0, 0, Math.PI*2);
+  sctx.stroke();
+
+  drawCircle(sctx, cx, cy, R, N1, '#164a4f', 1.4);
+  drawCircle(sctx, cx, cy, R, N2, '#164a4f', 1.4);
+
+  const n = normal(state.beta, 0);
+  const col = zoneColor(state.zone);
+  drawCircle(sctx, cx, cy, R, n, col, 3.2);
+
+  sctx.fillStyle = '#6b7a89';
+  sctx.font = '11px JetBrains Mono, monospace';
+  sctx.fillText('equator + meridian (fixed)', cx - R, cy + R + 26);
+}
+
+function renderDial(state, level){
+  const W = dialCanvas.width, H = dialCanvas.height;
+  dctx.clearRect(0,0,W,H);
+  const cx = W/2, cy = H - 20, R = 260;
+
+  const toScreenAngle = (beta) => (90 - beta) * Math.PI/180;
+
+  function arc(betaFrom, betaTo, color, lw, alpha){
+    dctx.strokeStyle = color; dctx.globalAlpha = alpha; dctx.lineWidth = lw;
+    dctx.beginPath();
+    dctx.arc(cx, cy, R, toScreenAngle(betaTo), toScreenAngle(betaFrom));
+    dctx.stroke();
+    dctx.globalAlpha = 1;
+  }
+
+  arc(-90, 90, '#1c2836', 14, 1);
+  arc(-level.collapseHalf, level.collapseHalf, '#e5495f', 14, 0.55);
+  arc(90-level.collapseHalf, 90, '#e5495f', 14, 0.55);
+  arc(-90, -90+level.collapseHalf, '#e5495f', 14, 0.55);
+  arc(45-level.eps, 45+level.eps, '#e8b34a', 14, 0.85);
+  arc(-45-level.eps, -45+level.eps, '#e8b34a', 14, 0.85);
+
+  dctx.fillStyle = '#6b7a89';
+  dctx.font = '11px JetBrains Mono, monospace';
+  [-90,-45,0,45,90].forEach(b=>{
+    const ang = toScreenAngle(b);
+    const tx = cx + Math.cos(ang)*(R+22);
+    const ty = cy - Math.sin(ang)*(R+22);
+    dctx.textAlign = 'center';
+    dctx.fillText(b+'\u00B0', tx, ty);
+  });
+
+  const ang = toScreenAngle(state.beta);
+  const nx = cx + Math.cos(ang)*R, ny = cy - Math.sin(ang)*R;
+  dctx.strokeStyle = zoneColor(state.zone);
+  dctx.lineWidth = 3;
+  dctx.beginPath();
+  dctx.moveTo(cx, cy);
+  dctx.lineTo(nx, ny);
+  dctx.stroke();
+  dctx.fillStyle = zoneColor(state.zone);
+  dctx.beginPath();
+  dctx.arc(nx, ny, 6, 0, Math.PI*2);
+  dctx.fill();
+}
+
+function updateReadout(state){
+  document.getElementById('beta-val').textContent = state.beta.toFixed(1);
+  document.getElementById('delta-eq').textContent = state.dEq.toFixed(1);
+  document.getElementById('delta-me').textContent = state.dMe.toFixed(1);
+}
+
+function setResultUI(state){
+  const box = document.getElementById('result');
+  const status = document.getElementById('status');
+  const detail = document.getElementById('detail');
+  box.classList.remove('locked','collapse','idle');
+  if (frozenBeta === null){
+    box.classList.add('idle');
+    status.textContent = 'Sweeping';
+    detail.textContent = `\u03B2 oscillating \u00B1${LEVELS[levelIdx].amp}\u00B0`;
+    return;
+  }
+  if (state.zone === 'lock'){
+    box.classList.add('locked');
+    status.textContent = 'Locked';
+    detail.textContent = `${state.target} \u00B7 \u03B2=${state.beta.toFixed(2)}\u00B0 \u00B7 \u03B4=45.00\u00B0 from equator`;
+  } else if (state.zone === 'collapse'){
+    box.classList.add('collapse');
+    status.textContent = 'Collapse';
+    detail.textContent = `Coincides with fixed orthodrome \u00B7 \u03B2=${state.beta.toFixed(2)}\u00B0`;
+  } else {
+    box.classList.add('idle');
+    status.textContent = 'Miss';
+    detail.textContent = `\u03B2=${state.beta.toFixed(2)}\u00B0 \u00B7 nearest lock \u0394=${Math.min(Math.abs(state.beta-45),Math.abs(state.beta+45)).toFixed(2)}\u00B0`;
+  }
+}
+
+function frame(now){
+  const level = LEVELS[levelIdx];
+  const beta = currentBeta(now, level);
+  const cls = classify(beta, level);
+  lastState = { beta, ...cls };
+  renderSphere(lastState);
+  renderDial(lastState, level);
+  updateReadout(lastState);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+function toggleLock(){
+  if (frozenBeta === null){
+    frozenBeta = lastState.beta;
+  } else {
+    frozenBeta = null;
+    startT = performance.now();
+  }
+  setResultUI(lastState);
+}
+
+document.getElementById('lockBtn').addEventListener('click', toggleLock);
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  frozenBeta = null;
+  startT = performance.now();
+  setResultUI({});
+});
+sphereCanvas.addEventListener('pointerdown', toggleLock);
+dialCanvas.addEventListener('pointerdown', toggleLock);
+
+const levelsDiv = document.getElementById('levels');
+LEVELS.forEach((lv, i)=>{
+  const b = document.createElement('button');
+  b.textContent = lv.name;
+  if (i===0) b.classList.add('active');
+  b.addEventListener('click', ()=>{
+    levelIdx = i;
+    frozenBeta = null;
+    startT = performance.now();
+    [...levelsDiv.children].forEach(c=>c.classList.remove('active'));
+    b.classList.add('active');
+    setResultUI({});
+  });
+  levelsDiv.appendChild(b);
+});
+setResultUI({});
+</script>
+</body>
+</html>
