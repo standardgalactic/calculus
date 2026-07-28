@@ -1,0 +1,177 @@
+\chapter{Bistochastic Matrices and the Birkhoff Polytope}
+\label{ch:birkhoff}
+
+\section{Bistochasticity}
+
+A stochastic map $M$ (Chapter~\ref{ch:simplex}) is \emph{bistochastic} (doubly
+stochastic) if, in addition to column sums, its row sums also equal one:
+\begin{equation}
+B_{ij} \ge 0, \qquad \sum_i B_{ij} = 1, \qquad \sum_j B_{ij} = 1.
+\end{equation}
+Write $\mathrm{DS}(n)$ for the set of $n \times n$ bistochastic matrices. Row
+normalization is the additional admissibility constraint motivating this
+chapter: a bistochastic map sends the uniform distribution to itself, and (as
+Theorem~\ref{thm:birkhoff-vonneumann} below shows) is built entirely from
+maps that merely relabel alternatives.
+
+\section{The Birkhoff Polytope}
+
+Bistochastic matrices have long been treated as the natural probabilistic
+analogue of reversible transformations: permutations are the only
+transformations on a finite set that never lose distinguishability, and a
+bistochastic matrix is, by the theorem below, always assembled from a mixture
+of them. That association motivates why this particular restriction of
+$\mathrm{DS}(n)$ — not some other subset — is the one worth naming and
+studying before narrowing the admissible class further.
+
+\begin{definition}
+A \emph{permutation matrix} $P_\sigma$, for $\sigma \in S_n$, has
+$(P_\sigma)_{ij} = \delta_{i,\sigma(j)}$. Every permutation matrix is
+bistochastic.
+\end{definition}
+
+\begin{theorem}[Birkhoff--von Neumann]
+\label{thm:birkhoff-vonneumann}
+\index{Birkhoff--von Neumann (theorem)}
+$\mathrm{DS}(n)$ is a convex polytope (the \emph{Birkhoff polytope}) whose
+extreme points are exactly the $n!$ permutation matrices. Consequently every
+$B \in \mathrm{DS}(n)$ can be written as a convex combination
+\begin{equation}
+B = \sum_{\sigma \in S_n} c_\sigma P_\sigma, \qquad c_\sigma \ge 0, \qquad
+\sum_\sigma c_\sigma = 1,
+\end{equation}
+though not, in general, uniquely.
+\end{theorem}
+
+\begin{proof}
+$\mathrm{DS}(n)$ is defined by finitely many linear equalities (row/column
+sums) and inequalities ($B_{ij}\ge0$) in a bounded region of $\R^{n^2}$, hence
+is a convex polytope.
+
+\emph{Permutation matrices are extreme.} Suppose $P_\sigma = \tfrac12(M_1+M_2)$
+for $M_1,M_2 \in \mathrm{DS}(n)$. Wherever $(P_\sigma)_{ij}=0$, nonnegativity of
+$M_1,M_2$ forces $(M_1)_{ij}=(M_2)_{ij}=0$. Wherever $(P_\sigma)_{ij}=1$, each
+row of $M_1$ (resp.\ $M_2$) sums to $1$ with all entries $\ge0$, so
+$(M_1)_{ij}\le1$ and likewise for $M_2$; averaging to $1$ with both terms
+$\le1$ forces $(M_1)_{ij}=(M_2)_{ij}=1$. Hence $M_1=M_2=P_\sigma$.
+
+\emph{Every extreme point is a permutation matrix.} Let $B \in \mathrm{DS}(n)$
+be arbitrary and not a permutation matrix, and let $G_B$ be the bipartite
+support graph on row-vertices and column-vertices with an edge $(i,j)$
+whenever $B_{ij}>0$. Every vertex of $G_B$ has degree $\ge1$ (each row/column
+sums to $1>0$), and since $B$ is not a permutation matrix, some vertex has
+degree $\ge2$. A finite graph with a vertex of degree $\ge2$ and no vertex of
+degree $0$ contains a cycle; since $G_B$ is bipartite, this cycle has even
+length and alternates rows and columns,
+\begin{equation}
+i_1,\ j_1,\ i_2,\ j_2,\ \dots,\ i_k,\ j_k,\ i_1, \qquad
+B_{i_l j_l} > 0, \quad B_{i_{l+1} j_l} > 0.
+\end{equation}
+Let $\varepsilon > 0$ be smaller than every entry of $B$ along the cycle, and
+define $\Delta$ by alternating $+\varepsilon,-\varepsilon$ along the cycle
+edges (zero elsewhere). Because the pattern alternates sign around a closed
+cycle, every row and column sum of $\Delta$ is zero, so $B \pm \Delta$ are
+again nonnegative (by choice of $\varepsilon$) with the same row and column
+sums as $B$: both lie in $\mathrm{DS}(n)$. Since $B = \tfrac12\big[(B+\Delta) +
+(B-\Delta)\big]$ and $\Delta \neq 0$, $B$ is not extreme. Contrapositively,
+every extreme point is a permutation matrix.
+
+The final claim (every $B \in \mathrm{DS}(n)$ is a convex combination of
+extreme points) is the Krein--Milman property of a finite-dimensional compact
+convex set applied to the polytope $\mathrm{DS}(n)$.
+\end{proof}
+
+\begin{remark}
+Theorem~\ref{thm:birkhoff-vonneumann} already illustrates the book's recurring
+pattern: a physically motivated constraint (bistochasticity) carves out a
+polytope whose extreme structure (permutations) is exactly the reversible,
+information-preserving special case, with everything else in the polytope
+representable as a mixture of reversible maps. This is the classical precursor
+to the much sharper restriction imposed by orthostochasticity and
+unistochasticity in Chapter~\ref{ch:unistochastic}, where the analogous extreme
+structure is no longer merely a finite set of permutations but a continuum
+requiring genuine geometric (and, past $n=2$, non-convex) analysis.
+\end{remark}
+
+\section{Majorization}
+
+Bistochastic maps have a further characterization in terms of \emph{mixing}:
+applying one can only make a distribution more uniform, never less.
+
+\begin{definition}[Majorization]
+For $p, q \in \Delta_{n-1}$, write $q \prec p$ (``$q$ is majorized by $p$'')
+if, after sorting both in decreasing order,
+\begin{equation}
+\sum_{i=1}^k q_i^{\downarrow} \le \sum_{i=1}^k p_i^{\downarrow} \qquad \text{for
+every } k = 1,\dots,n-1
+\end{equation}
+(with equality automatic at $k=n$).
+\end{definition}
+
+\begin{theorem}[Hardy--Littlewood--P\'olya]
+\label{thm:hlp}
+\index{Hardy--Littlewood--P\'olya (theorem)}
+$q \prec p$ if and only if $q = Bp$ for some $B \in \mathrm{DS}(n)$.
+\end{theorem}
+
+\begin{proof}
+($\Leftarrow$) Suppose $q = Bp$ for $B \in \mathrm{DS}(n)$. Fix $k \in
+\{1,\dots,n\}$ and let $S$ be \emph{any} set of $k$ indices. Then
+\begin{equation}
+\sum_{i \in S} q_i = \sum_{i \in S} \sum_j B_{ij} p_j = \sum_j w_j p_j,
+\qquad w_j := \sum_{i \in S} B_{ij} \in [0,1], \qquad \sum_j w_j = k,
+\end{equation}
+the last equality because each column of $B$ sums to $1$ and $|S|=k$. Among
+all weight vectors $w$ with entries in $[0,1]$ summing to $k$, $\sum_j w_j p_j$
+is maximized by placing weight $1$ on the $k$ largest entries of $p$ (an
+elementary rearrangement argument), giving
+\begin{equation}
+\sum_{i \in S} q_i \le \sum_{i=1}^k p_i^\downarrow
+\end{equation}
+for every $S$ of size $k$; in particular for $S$ the indices of the $k$
+largest entries of $q$, this is exactly $\sum_{i=1}^k q_i^\downarrow \le
+\sum_{i=1}^k p_i^\downarrow$. Since $k$ was arbitrary, $q \prec p$.
+
+($\Rightarrow$) Suppose $q \prec p$. A \emph{$T$-transform} on indices
+$(i,j)$ with parameter $t \in [0,1]$ is the bistochastic matrix
+$T = I - t(e_i-e_j)(e_i-e_j)^\top$, a convex combination $t\,P_{(ij)} +
+(1-t)\,I$ of the identity and the transposition $(i\,j)$; applying it moves
+mass between coordinates $i,j$ while preserving their sum, replacing $(p_i,
+p_j)$ by a pair strictly between them. The classical construction (Muirhead)
+produces $q$ from $p$ by a finite sequence of such transfers, each moving
+mass from a coordinate where $p$ (or its current partially-transformed image)
+exceeds the corresponding partial sums of $q$ to one where it falls short,
+terminating once all partial-sum inequalities defining $q \prec p$ are
+saturated. Each $T$-transform lies in $\mathrm{DS}(n)$, and $\mathrm{DS}(n)$
+is closed under matrix multiplication (row/column sums of $1$ and
+nonnegativity are both preserved by composing two such maps), so the composite
+$B = T_m \cdots T_1$ of the finitely many transforms used again lies in
+$\mathrm{DS}(n)$, and $q = Bp$ by construction.
+\end{proof}
+
+\begin{corollary}[Entropy is not decreased by mixing]
+\label{cor:entropy-increase}
+\index{Entropy is not decreased by mixing (corollary)}
+If $q = Bp$ for $B \in \mathrm{DS}(n)$, then $H(q) \ge H(p)$, where $H(p) =
+-\sum_i p_i \log p_i$ is the Shannon entropy.
+\end{corollary}
+
+\begin{remark}
+Corollary~\ref{cor:entropy-increase} follows from Theorem~\ref{thm:hlp} together
+with the Schur-concavity of $H$: entropy increase under bistochastic evolution
+is a \emph{structural} consequence of majorization geometry, not a
+thermodynamic postulate added on top of the probabilistic framework. This is
+the classical, pre-quantum ancestor of the entropy behavior discussed later
+under coarse-graining and decoherence.
+\end{remark}
+
+\begin{ledgerentry}[End of Chapter~\ref{ch:birkhoff}]
+\textbf{Established:} bistochastic matrices form a polytope generated by
+permutations (Theorem~\ref{thm:birkhoff-vonneumann}); bistochastic evolution is
+exactly majorization-compatible evolution (Theorem~\ref{thm:hlp}), and cannot
+decrease Shannon entropy (Corollary~\ref{cor:entropy-increase}).\\
+\textbf{Not yet established:} any restriction singling out orthostochastic or
+unistochastic matrices within $\mathrm{DS}(n)$ — that restriction, and its
+non-convex geometry for $n \ge 3$, is the subject of
+Chapter~\ref{ch:unistochastic}.
+\end{ledgerentry}

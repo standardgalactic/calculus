@@ -1,0 +1,190 @@
+\chapter{The Triangle-Gluing Theorem and the Real MUB Obstruction}
+\label{ch:real-mub-obstruction}
+
+\section{Exact Closure Upstairs}
+
+Represent each of the three contexts $Z,X,Y$ by a real angle: fix $a_Z = 0$ by
+an overall choice of coordinates (always available, and immaterial to any
+observable transition matrix), and write $a_X = \alpha$, $a_Y = \beta$ for
+real numbers. With $L_{AB} := R(a_B - a_A)$ as in
+Chapter~\ref{ch:context-graphs},
+\begin{equation}
+L_{ZX} L_{XY} L_{YZ} = R(\alpha) R(\beta-\alpha) R(-\beta) = R(0) = I
+\label{eq:exact-closure-explicit}
+\end{equation}
+exactly, with no quotient or approximation: this is the additive law for
+rotation angles, true for \emph{every} choice of $\alpha,\beta \in \R$.
+
+\section{The Fibre of the Probability Projection}
+
+For a labeled real angle $a$, the diagonal transition probability relative to
+the fixed reference at angle $0$ is $t(a) = \cos^2 a$, and the canonical
+unsigned observable is $\theta(a) := \min\big(\arccos\sqrt{t(a)},\ \pi/2 -
+\arccos\sqrt{t(a)}\big) \in [0,\pi/4]$, invariant under the label-swap gauge
+of \S\ref{sec:gauge-single-frame}. Restrict attention to $\alpha,\beta \in
+[0,\pi/2]$, where $\arccos\sqrt{\cos^2\theta} = \theta$ identically, so
+$\theta(\alpha)=\alpha$ before folding and $\theta_{ZX} := \theta(\alpha)$,
+$\theta_{ZY} := \theta(\beta)$ may be taken as the raw angles themselves on
+this range.
+
+\begin{lemma}[Closed-form composition identity]
+\label{lem:closed-form}
+\index{Closed-form composition identity (lemma)}
+For $\theta_1,\theta_2 \in [0,\pi/2]$,
+\begin{equation}
+1 - \cos^2\theta_1 - \cos^2\theta_2 + 2\cos^2\theta_1\cos^2\theta_2 \pm
+2\sqrt{\cos^2\theta_1\cos^2\theta_2\sin^2\theta_1\sin^2\theta_2} \ =\
+\cos^2(\theta_1 \mp \theta_2).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Expand $\cos^2(\theta_1-\theta_2) = (\cos\theta_1\cos\theta_2 +
+\sin\theta_1\sin\theta_2)^2 = \cos^2\theta_1\cos^2\theta_2 +
+\sin^2\theta_1\sin^2\theta_2 + 2\sin\theta_1\cos\theta_1\sin\theta_2\cos\theta_2$.
+Since $\theta_1,\theta_2 \in [0,\pi/2]$, $\sin\theta_i,\cos\theta_i \ge 0$, so
+$\sin\theta_i\cos\theta_i = \sqrt{\cos^2\theta_i\sin^2\theta_i}$, and
+$\sin^2\theta_1\sin^2\theta_2 = (1-\cos^2\theta_1)(1-\cos^2\theta_2)$; expanding
+the latter and collecting terms gives the stated identity with the $+$ sign,
+matching $\cos^2(\theta_1-\theta_2)$. The $-$ sign case follows identically
+using $\cos^2(\theta_1+\theta_2) = (\cos\theta_1\cos\theta_2 -
+\sin\theta_1\sin\theta_2)^2$.
+\end{proof}
+
+Writing $t_i = \cos^2\theta_i$, Lemma~\ref{lem:closed-form} says exactly that
+$\cos^2(\beta-\alpha)$, computed from $t_{ZX}=\cos^2\alpha$ and
+$t_{ZY}=\cos^2\beta$ alone, is not single-valued: it is one of the two roots
+\begin{equation}
+t_{XY} \in \big\{\, \cos^2(\theta_{ZX}-\theta_{ZY}),\ \cos^2(\theta_{ZX}+\theta_{ZY})
+\,\big\}
+\end{equation}
+according to the (unobservable) relative sign of $\sin\alpha$ and $\sin\beta$.
+This is the precise fibre statement in place of the earlier proof sketch: the
+projection loses exactly one bit — a relative sign — beyond the diagonal
+probabilities $t_{ZX}, t_{ZY}$ themselves.
+
+\section{Descent: the Triangle-Gluing Theorem}
+
+\begin{theorem}[Triangle gluing in $\R^2$]
+\label{thm:triangle-gluing}
+\index{Triangle gluing in R2 (theorem)}
+Let $\theta_{ZX},\theta_{ZY},\theta_{XY} \in [0,\pi/4]$ be the canonical
+unsigned transition angles of three pairwise $2\times2$ bistochastic matrices
+on contexts $Z,X,Y$. A real assignment of frames to $Z,X,Y$ jointly realizing
+all three exists if and only if
+\begin{equation}
+\theta_{XY} \equiv \pm\theta_{ZX} \pm \theta_{ZY} \pmod{\pi/2}
+\label{eq:triangle-gluing-relation}
+\end{equation}
+for some choice of signs.
+\end{theorem}
+
+\begin{proof}
+($\Rightarrow$, necessity.) Immediate from \eqref{eq:exact-closure-explicit}
+and Lemma~\ref{lem:closed-form}: any real realization has $\theta_{XY}$ equal,
+before its own canonical folding, to $\theta_{ZX}\pm\theta_{ZY}$ for one of the
+two signs; folding to $[0,\pi/4]$ turns equality into the congruence
+\eqref{eq:triangle-gluing-relation}.
+
+($\Leftarrow$, sufficiency.) Suppose \eqref{eq:triangle-gluing-relation} holds
+for some choice of signs. Fix $a_Z = 0$, $a_X = \theta_{ZX}$, and
+\begin{equation}
+a_Y = \begin{cases} \theta_{ZY} & \text{if the relation holds with } \theta_{XY}
+\equiv \theta_{ZX} - \theta_{ZY} \pmod{\pi/2}, \\ -\theta_{ZY} & \text{if it
+holds with } \theta_{XY} \equiv \theta_{ZX} + \theta_{ZY} \pmod{\pi/2}. \end{cases}
+\end{equation}
+By construction $\cos^2 a_X = \cos^2\theta_{ZX}$ and $\cos^2 a_Y =
+\cos^2(\pm\theta_{ZY}) = \cos^2\theta_{ZY}$, reproducing $B_{ZX}$ and $B_{ZY}$
+exactly; and $a_Y - a_X$ equals $-(\theta_{ZX}+\theta_{ZY})$ or
+$\theta_{ZY}-\theta_{ZX}$ respectively, whose canonical fold is $\theta_{XY}$
+by hypothesis, reproducing $B_{XY}$. This exhibits an explicit real frame
+assignment realizing all three matrices.
+\end{proof}
+
+\begin{remark}
+This theorem is the general statement; mutual unbiasedness is the sharpest
+special case, not the only one. But "sharpest" should not be read as
+"rare": for \emph{independently and continuously distributed} edge angles,
+realizability itself is the exceptional condition. Fixing any two of the
+three angles, Theorem~\ref{thm:triangle-gluing} shows the third is
+constrained to one of at most two specific values out of the continuum
+$[0,\pi/4]$ — a codimension-one condition. If all three angles are drawn
+independently from a continuous distribution, the probability of hitting
+that condition exactly is zero. Realizability is not generic; it is the
+non-generic, measure-zero case, true for every graph containing a cycle,
+not a special feature of the MUB point. What is special about mutual
+unbiasedness is symmetry, not scarcity: it is the unique maximally
+symmetric point at which the (already generic) failure occurs, not the
+rare exception to an otherwise generic success.
+\end{remark}
+
+\section{The Mutually Unbiased Corollary}
+\label{sec:mub-corollary}
+
+\begin{corollary}[Real MUB obstruction, $d=2$]
+\label{cor:real-mub}
+\index{Real MUB obstruction, d=2 (corollary)}
+There do not exist three pairwise mutually unbiased orthonormal bases of $\R^2$.
+\end{corollary}
+
+\begin{proof}
+Set $\theta_{ZX} = \theta_{ZY} = \theta_{XY} = \pi/4$ (mutual unbiasedness).
+Theorem~\ref{thm:triangle-gluing} requires $\pi/4 \equiv \pm\pi/4 \pm \pi/4
+\pmod{\pi/2}$. The right-hand side takes only the values $0$ or $\pi/2$, both
+$\equiv 0 \pmod{\pi/2}$, never $\pi/4$. Contradiction. (Equivalently, via
+Lemma~\ref{lem:closed-form} directly: with $\theta_1=\theta_2=\pi/4$,
+$\cos^2(\theta_1\mp\theta_2) \in \{\cos^2 0,\ \cos^2(\pi/2)\} = \{1,0\}$, never
+$\cos^2(\pi/4) = 1/2$.)
+\end{proof}
+
+\begin{scopebox}
+\scopetitle{}This rules out $\R^2$ for one specific configuration — three
+mutually unbiased contexts — not for real-valued physics in general. It
+does not show $\R$ fails whenever a cycle is present (most cycle data
+\emph{is} real-realizable; \S\ref{sec:mub-corollary}'s remark below makes
+this explicit), and it does not rule out an enlarged real state space or
+a quaternionic alternative, both explicitly untouched here (this
+chapter's own closing ledger says so). Treat "real numbers cannot do
+this" as scoped to this exact triangle, this exact dimension, this exact
+data — not as a general verdict on $\R$.
+\end{scopebox}
+
+\begin{remark}
+Corollary~\ref{cor:real-mub} is the $d=2$ specialization of the general real-MUB
+bound $N_{\R}(d) \le \lfloor d/2 \rfloor + 1$ of Boykin, Sitharam, Tarifi, and
+Wocjan~\cite{boykin}. The bound is not new; what the reconstruction contributes
+is the interpretation: every edge of the context triangle is individually
+orthostochastically admissible, yet the triangle as a whole has no realization in
+$\R^2$, while $\C^2$ realizes all three simultaneously via
+\begin{equation}
+Z = \left\{\binom{1}{0}, \binom{0}{1}\right\}, \quad
+X = \tfrac{1}{\sqrt2}\left\{\binom{1}{1}, \binom{1}{-1}\right\}, \quad
+Y = \tfrac{1}{\sqrt2}\left\{\binom{1}{i}, \binom{1}{-i}\right\}.
+\end{equation}
+\end{remark}
+
+\begin{ledgerentry}[End of Part I, single-system results]
+\textbf{Established:} edgewise real admissibility does not imply global real
+admissibility (Theorem~\ref{thm:triangle-gluing}, proved in both directions:
+necessity from the closed-form fibre identity of
+Lemma~\ref{lem:closed-form}, sufficiency by explicit construction); the
+mutually unbiased triple is the maximally inconsistent case
+(Corollary~\ref{cor:real-mub}); this rules out $\R^2$ as a global lift for
+three pairwise-MUB contexts without invoking composite systems.\\
+\textbf{Not established:} that quantum mechanics must be complex in general;
+enlarged real state spaces and quaternionic alternatives remain untouched by this
+argument. The uniqueness question is deferred to Part II (composite systems,
+local tomography).
+\end{ledgerentry}
+
+\begin{remark}[A connection noticed, not pursued]
+The cycle-based obstruction of this chapter has the flavor of an early,
+primitive version of holonomy — a closed loop carrying information no
+single edge does, the same shape as Berry phase or a $\Z_2$-valued
+cocycle failing to trivialize. This book does not develop that connection:
+Part IV pursued higher-dimensional and quaternionic witnesses instead of a
+Berry-phase chapter, so the analogy above should be read as exactly that
+— an analogy noticed in passing, not a bundle/cocycle formulation worked
+out rigorously anywhere in this book. It is recorded here as a genuine
+open direction rather than silently dropped.
+\end{remark}

@@ -1,0 +1,159 @@
+\chapter{Composite Systems and Local Tomography}
+\label{ch:local-tomography}
+
+Part I's two axes — compositional sufficiency (Chapter~\ref{ch:composition})
+and global realizability (Chapters~\ref{ch:context-graphs}--\ref{ch:real-mub-obstruction})
+— both concern a \emph{single} system observed through different contexts or
+composed sequentially with itself. This chapter opens the third axis: given
+two \emph{separate} systems, individually admissible in the sense of Part I,
+how must their joint description compose?
+
+\section{The Composition Problem}
+
+Let systems $A,B$ have individual state spaces of dimension $d_A,d_B$
+respectively (each already subject to the admissibility constraints of
+Chapters~\ref{ch:simplex}--\ref{ch:unistochastic}). Operational independence
+means: $A$ and $B$ can be prepared and measured separately, and a joint
+preparation of both is a legitimate object of study without presupposing in
+advance what mathematical structure describes it. The question this chapter
+asks is deliberately neutral:
+\begin{equation}
+\boxed{\text{How must independently accessible systems compose?}}
+\end{equation}
+rather than assuming a complex tensor product from the outset and asking only
+whether it is consistent.
+
+\section{\texorpdfstring{$\mathbb F$}{F}-Hermitian State Spaces}
+
+For each candidate scalar field $\mathbb F \in \{\R,\C,\Hset\}$, a natural
+(not yet composite) state space for a $d$-dimensional system is the space of
+$\mathbb F$-Hermitian $d\times d$ matrices $\rho$ (density operators
+$\rho\ge0$, $\operatorname{tr}\rho=1$ living inside this linear space), where
+$\mathbb F$-Hermitian means $\rho^\dagger=\rho$ with the conjugate taken in
+$\mathbb F$.
+
+\begin{proposition}[Dimension of the Hermitian state space]
+\label{prop:hermitian-dimension}
+\index{Dimension of the Hermitian state space (proposition)}
+The real vector space of $\mathbb F$-Hermitian $d\times d$ matrices has
+dimension
+\begin{equation}
+\beta_\R(d) = \frac{d(d+1)}{2}, \qquad
+\beta_\C(d) = d^2, \qquad
+\beta_\Hset(d) = d(2d-1).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+In each case, Hermiticity forces the diagonal entries to be real (a
+self-conjugate element of $\R,\C,\Hset$ is real), contributing $d$ real
+parameters, while each of the $d(d-1)/2$ upper-triangular off-diagonal entries
+is an unconstrained element of $\mathbb F$ (the lower triangle being
+determined by conjugating the upper), contributing $\dim_\R(\mathbb F)$ real
+parameters each: $1$ for $\R$, $2$ for $\C$, $4$ for $\Hset$. Summing,
+\begin{equation}
+\beta_\R(d) = d + 1\cdot\tfrac{d(d-1)}{2} = \tfrac{d(d+1)}{2}, \qquad
+\beta_\C(d) = d + 2\cdot\tfrac{d(d-1)}{2} = d^2, \qquad
+\beta_\Hset(d) = d + 4\cdot\tfrac{d(d-1)}{2} = d(2d-1).
+\end{equation}
+\end{proof}
+
+\section{Local Tomography}
+
+\begin{definition}[Local tomography, dimension-counting form]
+A scalar field $\mathbb F$ satisfies \emph{local tomography} if, for every
+$d_A,d_B$, the Hermitian state space of the composite system has dimension
+equal to the product of the local dimensions:
+\begin{equation}
+\beta_{\mathbb F}(d_A d_B) = \beta_{\mathbb F}(d_A)\, \beta_{\mathbb F}(d_B).
+\end{equation}
+Informally: the joint state is exactly as informative as a tomographically
+complete set of \emph{local} measurements on each subsystem, with no
+additional holistic parameters and no missing ones.
+\end{definition}
+
+\begin{theorem}[Local tomography selects $\C$]
+\label{thm:local-tomography}
+\index{Local tomography selects C (theorem)}
+For all $d_A,d_B \ge 2$:
+\begin{equation}
+\beta_\C(d_Ad_B) - \beta_\C(d_A)\beta_\C(d_B) = 0,
+\end{equation}
+\begin{equation}
+\beta_\R(d_Ad_B) - \beta_\R(d_A)\beta_\R(d_B) = \frac{d_Ad_B(d_A-1)(d_B-1)}{4} > 0,
+\end{equation}
+\begin{equation}
+\beta_\Hset(d_Ad_B) - \beta_\Hset(d_A)\beta_\Hset(d_B) = -2\,d_Ad_B(d_A-1)(d_B-1) < 0.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Direct substitution of Proposition~\ref{prop:hermitian-dimension} into each
+difference, using $d_Ad_B - d_A - d_B + 1 = (d_A-1)(d_B-1)$:
+\begin{align}
+\beta_\C(d_Ad_B) - \beta_\C(d_A)\beta_\C(d_B) &= (d_Ad_B)^2 - d_A^2 d_B^2 = 0,\\
+\beta_\R(d_Ad_B) - \beta_\R(d_A)\beta_\R(d_B) &= \frac{d_Ad_B(d_Ad_B+1)}{2} -
+\frac{d_A(d_A+1)}{2}\cdot\frac{d_B(d_B+1)}{2} = \frac{d_Ad_B(d_A-1)(d_B-1)}{4},\\
+\beta_\Hset(d_Ad_B) - \beta_\Hset(d_A)\beta_\Hset(d_B) &= d_Ad_B(2d_Ad_B-1) -
+d_A(2d_A-1)d_B(2d_B-1) = -2d_Ad_B(d_A-1)(d_B-1).
+\end{align}
+For $d_A,d_B \ge 2$, $(d_A-1)(d_B-1) > 0$, giving the stated signs.
+\end{proof}
+
+\begin{remark}
+The mismatch is not a boundary artifact of small dimensions: it grows without
+bound as $d_A,d_B$ increase, in opposite directions for $\R$ and $\Hset$. Real
+composite systems always carry \emph{more} joint parameters than local
+tomography predicts (extra, non-locally-accessible correlational structure);
+quaternionic composite systems always carry \emph{fewer} (the naive product
+construction is already overdetermined, consistent with the well-known
+difficulty of defining a well-behaved tensor product for quaternionic Hilbert
+spaces at all). Complex Hermitian state spaces are the unique case among the
+three where the identity holds exactly, for every pair of dimensions.
+\end{remark}
+
+\begin{scopebox}
+\scopetitle{}"Unique" above means unique \emph{among $\R,\C,\Hset$, under
+this specific dimension-counting test, using the ordinary Kronecker
+product}. It is not a claim that $\C$ is the only conceivable scalar
+structure for physics, and it is not unconditional: local tomography
+itself is an \emph{assumed} principle this chapter tests rather than
+derives (this chapter's closing ledger says so explicitly), and
+Chapter~\ref{ch:final-audit}'s \S\ref{sec:recent-literature} discusses
+published work in which changing the composition rule (not the scalar
+field) lets a real theory pass an equivalent test. Read this theorem as
+"\emph{given} local tomography and the Kronecker product, $\C$ is the
+unique fixed point" — every word of that qualification is load-bearing.
+\end{scopebox}
+
+\begin{example}[$d_A=d_B=2$]
+Two real "qubits": $\beta_\R(4)=10$ vs.\ $\beta_\R(2)^2=9$ — one real parameter
+of the joint two-qubit state is invisible to any local tomography scheme.
+Two quaternionic "qubits": $\beta_\Hset(4)=28$ vs.\ $\beta_\Hset(2)^2=36$ — the
+naive quaternionic product already overcounts by eight real parameters before
+any physical constraint is imposed. Two ordinary qubits: $\beta_\C(4)=16 =
+\beta_\C(2)^2$ exactly.
+\end{example}
+
+\begin{ledgerentry}[Scope of this chapter]
+\textbf{Established:} local tomography, precisely defined as a
+dimension-counting identity on Hermitian state spaces, holds identically for
+$\C$ and fails identically (in opposite directions) for $\R$ and $\Hset$, for
+every pair of dimensions $d_A,d_B \ge 2$
+(Theorem~\ref{thm:local-tomography}). This argument is not original to this
+book; it is the classical parameter-counting characterization due to
+Araki~\cite{araki1980}, sharpened by Wootters and later incorporated into
+Hardy's axiomatic reconstruction of quantum theory~\cite{hardy2001}.\\
+\textbf{Not established:} that local tomography is itself \emph{forced} by
+anything proved in Part I — it is introduced here as an additional principle
+under test, in keeping with the book's assumption-ledger methodology, not as
+a consequence of the single-system results. Nor does dimension-counting alone
+establish the full tensor-product structure, the Born rule for composite
+measurements, or entanglement; it constrains the \emph{dimension} of the
+composite state space and no more. What Part I's cycle obstruction
+(Chapter~\ref{ch:real-mub-obstruction}) and this chapter's local-tomography
+argument have in common — ruling out $\R$ — arise by entirely different
+mechanisms (contextual gluing around a cycle vs.\ parameter counting across a
+tensor product) and should be credited as independent lines of evidence, not
+conflated into one argument.
+\end{ledgerentry}

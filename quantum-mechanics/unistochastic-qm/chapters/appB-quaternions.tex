@@ -1,0 +1,165 @@
+\chapter{Quaternionic Preliminaries}
+\label{app:quaternions}
+
+Chapters~\ref{ch:quaternionic} and~\ref{ch:quaternionic-mub} used
+quaternionic matrix algebra without formally collecting its conventions in
+one place. This appendix does so, stating precisely the facts those
+chapters relied on — including the two that are \emph{not} true by naive
+analogy with the complex case, which is exactly where the earlier chapters
+found real difficulty.
+
+\section{The Quaternion Algebra}
+
+A quaternion is $q = a+bi+cj+dk$ with $a,b,c,d\in\R$ and $i^2=j^2=k^2=
+ijk=-1$. Quaternion multiplication is associative but not commutative
+($ij=k \ne -k = ji$). The conjugate is $\bar q = a-bi-cj-dk$, and the norm
+is $|q|^2 = q\bar q = a^2+b^2+c^2+d^2 \in \R_{\ge0}$. Every nonzero
+quaternion has a multiplicative inverse $q^{-1}=\bar q/|q|^2$ — the norm's
+multiplicativity, $|pq|=|p||q|$, is what makes $\Hset$ a genuine division
+algebra, not merely a ring. The group
+of unit quaternions ($|q|=1$) is denoted $\mathrm{Sp}(1)$; it is a
+three-real-dimensional Lie group, isomorphic to $SU(2)$, in contrast to
+the complex case's one-dimensional $U(1)$.
+
+\begin{fact}[Frobenius' theorem]
+$\R$, $\C$, and $\Hset$ are the only finite-dimensional associative
+division algebras over $\R$. Relaxing associativity admits exactly one
+further case, the octonions $\mathbb O$ (not used anywhere in this book).
+\end{fact}
+
+\begin{fact}[Scalar--vector decomposition]
+\label{fact:scalar-vector}
+Writing $q=(r,\mathbf v)$ with $r\in\R$ and $\mathbf v\in\R^3$ (identifying
+$bi+cj+dk$ with $(b,c,d)$), quaternion multiplication becomes
+\begin{equation}
+(r_1,\mathbf v_1)(r_2,\mathbf v_2) = \big(r_1r_2 - \mathbf v_1\cdot\mathbf
+v_2,\ \ r_1\mathbf v_2+r_2\mathbf v_1+\mathbf v_1\times\mathbf v_2\big),
+\end{equation}
+verified directly by expanding both sides in $i,j,k$. The familiar dot and
+cross products of $\R^3$ are not independent constructions; they are the
+symmetric and antisymmetric parts of a single quaternion product.
+\end{fact}
+
+\section{Unit Quaternions and Rotations}
+
+\begin{fact}[The rotation formula]
+\label{fact:rotation-formula}
+For a unit vector $\mathbf n\in\R^3$ and angle $\theta$, let $q =
+\cos\theta + \mathbf n\sin\theta \in \mathrm{Sp}(1)$ (using
+Fact~\ref{fact:scalar-vector}'s identification). For a pure-vector
+quaternion $v=(0,\mathbf v)$, $v \mapsto qvq^{-1}$ rotates $\mathbf v$
+about axis $\mathbf n$ by angle $2\theta$.
+\end{fact}
+
+This was checked computationally (not merely cited): for $\mathbf n$ the
+$z$-axis and $\theta=\pi/6$, $qvq^{-1}$ applied to the unit vector along
+$x$ reproduces the standard $60^\circ$ rotation about $z$ exactly.
+
+\begin{fact}[$\mathrm{Sp}(1)$ double-covers $SO(3)$]
+The map $q \mapsto (\mathbf v \mapsto qvq^{-1})$ sends $\mathrm{Sp}(1) \cong
+SU(2) \cong S^3$ onto $SO(3)$, two-to-one: $q$ and $-q$ act identically on
+every vector, since $(-q)v(-q)^{-1} = qvq^{-1}$. This is the same
+$\mathrm{Sp}(1)$ that appeared as the local phase group in
+Chapter~\ref{ch:quaternionic-mub}, and the same double-cover structure
+underlies the $720^\circ$ return of spin-$\tfrac12$ systems in ordinary
+quantum mechanics — a fact this book does not derive or otherwise depend
+on, recorded here only because the same group appeared for an unrelated
+reason (MUB counting) and the coincidence is worth naming.
+\end{fact}
+
+\section{The Clifford Algebra Correspondence}
+
+\begin{fact}
+\label{fact:clifford}
+$\Hset$ is isomorphic to the even subalgebra of the Clifford algebra of
+$\R^3$: $\Hset \cong Cl^+_{3,0}(\R)$. Under this isomorphism the basis
+elements $i,j,k$ correspond to the three coordinate bivectors $e_2e_3,
+e_3e_1, e_1e_2$ — oriented coordinate planes, not an extra spatial
+direction. This is standard material in geometric (Clifford) algebra,
+not a claim original to this book.
+\end{fact}
+
+\begin{remark}
+Fact~\ref{fact:clifford} reframes what "imaginary" means for quaternions:
+$i,j,k$ generate rotations in the $yz$, $zx$, $xy$ planes respectively,
+and quaternion multiplication is fundamentally about composing such
+rotations rather than an extension of ordinary arithmetic by a mysterious
+extra unit. This is consistent with, and gives a coordinate-free gloss on,
+Chapter~\ref{ch:amplitwist}'s identification of the complex unit with the
+generator of a plane rotation ($J = R(\pi/2)$): the quaternionic case is
+the same idea with three independent planes instead of one.
+\end{remark}
+
+\section{Quaternionic Matrices}
+
+A quaternionic $n\times n$ matrix $M$ has entries in $\Hset$; matrix
+multiplication is defined exactly as over a commutative ring, and remains
+associative (inherited from associativity of quaternion multiplication)
+though the entries do not commute. The conjugate transpose is
+$M^\dagger_{ij} := \overline{M_{ji}}$; $M$ is Hermitian if $M^\dagger=M$,
+which forces every diagonal entry to be real (a self-conjugate quaternion
+is real). $M$ is unitary if $M^\dagger M = I$.
+
+\begin{fact}[Associativity suffices for graph propagation]
+Every argument in Chapter~\ref{ch:context-graphs}--
+\ref{ch:minimal-witnesses} building a global frame from local transitions
+(tree propagation, cycle closure) uses only associativity of matrix
+multiplication together with the existence and well-definedness of
+$\pi(L)_{ij} := |L_{ij}|^2_\Hset = L_{ij}\overline{L_{ij}}$. Neither
+requires commutativity, so these arguments transport to $\Hset$ unchanged
+(Chapter~\ref{ch:quaternionic}, Proposition~\ref{prop:h-generalizes}).
+\end{fact}
+
+\section{Two Traps}
+
+\begin{fact}[Trace is not cyclic]
+\label{fact:trace-noncyclic}
+For general quaternionic matrices $A,B$, $\operatorname{Tr}(AB) \ne
+\operatorname{Tr}(BA)$ — verified directly by example in
+Chapter~\ref{ch:quaternionic-mub}. This is the genuine obstruction to a
+naive generalization of complex trace-based arguments, not the
+$\mathrm{Sp}(1)$-versus-$U(1)$ phase freedom originally suspected to be the
+difficulty (Chapter~\ref{ch:quaternionic}'s closing remark).
+\end{fact}
+
+\begin{fact}[The real part is cyclic]
+\label{fact:trace-real-cyclic}
+Despite Fact~\ref{fact:trace-noncyclic}, $\operatorname{Re}[\operatorname{Tr}
+(AB)] = \operatorname{Re}[\operatorname{Tr}(BA)]$ always. This makes
+$\langle A,B\rangle_\Hset := \operatorname{Re}[\operatorname{Tr}(A^\dagger
+B)]$ the correct symmetric real inner product on the space of
+quaternionic matrices, and it is this inner product — not the raw
+quaternionic trace — that the orthogonality argument underlying
+Theorem~\ref{thm:h-mub-bound} depends on
+(Proposition~\ref{prop:h-real-part}).
+\end{fact}
+
+\begin{fact}[Projectors are $\mathrm{Sp}(1)$-phase-invariant]
+For a unit quaternion $q$ and a normalized $|e\rangle \in \Hset^d$,
+$(|e\rangle q)(|e\rangle q)^\dagger = |e\rangle\langle e|$: the rank-one
+projector built from a state vector does not depend on which unit
+quaternion represents its ray, exactly as the complex case's $U(1)$ phase
+drops out of $|\psi\rangle\langle\psi|$. Consequently the extra two real
+dimensions of $\mathrm{Sp}(1)$ freedom (compared to $U(1)$) contribute
+nothing to the space spanned by one orthonormal basis's traceless
+projectors, which remains $(d-1)$-dimensional exactly as in the complex
+case (Proposition~\ref{prop:h-di-1}). This was the concern flagged when
+Chapter~\ref{ch:quaternionic} was first written; it resolves harmlessly,
+and the genuine difficulty was Fact~\ref{fact:trace-noncyclic} instead.
+\end{fact}
+
+\section{Summary Table}
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+& Complex ($\C$) & Quaternionic ($\Hset$) \\
+\midrule
+Local phase group & $U(1)$, 1 real dim. & $\mathrm{Sp}(1)$, 3 real dim. \\
+Matrix multiplication & associative, commutative & associative, non-commutative \\
+Trace cyclicity & $\operatorname{Tr}(AB)=\operatorname{Tr}(BA)$ & fails; $\operatorname{Re}[\operatorname{Tr}(AB)]=\operatorname{Re}[\operatorname{Tr}(BA)]$ only \\
+$\beta_{\mathbb F}(d)$ & $d^2$ & $d(2d-1)$ \\
+MUB bound & $d+1$ & $2d+1$ (Theorem~\ref{thm:h-mub-bound}) \\
+\bottomrule
+\end{tabular}
+\end{center}

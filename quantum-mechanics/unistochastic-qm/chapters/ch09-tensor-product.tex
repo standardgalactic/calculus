@@ -1,0 +1,144 @@
+\chapter{The Tensor Product as the Forced Composition Rule}
+\label{ch:tensor-product}
+
+Chapter~\ref{ch:local-tomography} showed that the \emph{dimensions} of
+composite and product Hermitian state spaces match exactly for $\C$ and fail
+to match for $\R,\Hset$. That leaves open whether the composite operator
+space for $\C$ is actually \emph{spanned} by products of local operators —
+i.e.\ whether the tensor product construction is not merely dimensionally
+consistent but the concrete realization of local tomography. This chapter
+proves that it is, and exhibits explicitly what goes missing for $\R$.
+
+\section{Local Bases and Their Products}
+
+Fix an $\R$-basis $\{\sigma_i\}_{i=1}^{\beta_\C(d)}$ of the space of
+$d\times d$ complex Hermitian matrices $\mathrm{Herm}_\C(d)$ (e.g.\ the
+identity together with the generalized Gell-Mann matrices). For a Hermitian
+$X$, $X = \tfrac12(X+X^\dagger) $ trivially, so every complex $d\times d$
+matrix decomposes uniquely as $H_1 + iH_2$ with $H_1,H_2 \in
+\mathrm{Herm}_\C(d)$; consequently $\{\sigma_i\}$, an $\R$-basis of
+$\mathrm{Herm}_\C(d)$, is also a $\C$-basis of the full matrix algebra
+$M_d(\C)$.
+
+\begin{theorem}[Tensor products of local bases span the composite]
+\label{thm:tensor-spans}
+\index{Tensor products of local bases span the composite (theorem)}
+Let $\{\sigma_i\}_{i=1}^{d_A^2}$, $\{\tau_j\}_{j=1}^{d_B^2}$ be $\R$-bases of
+$\mathrm{Herm}_\C(d_A)$, $\mathrm{Herm}_\C(d_B)$. Then $\{\sigma_i \otimes
+\tau_j\}$ is an $\R$-basis of $\mathrm{Herm}_\C(d_Ad_B)$.
+\end{theorem}
+
+\begin{proof}
+Each $\sigma_i\otimes\tau_j$ is Hermitian, since $(\sigma_i\otimes\tau_j)^\dagger
+= \sigma_i^\dagger \otimes \tau_j^\dagger = \sigma_i\otimes\tau_j$. By the
+preceding remark, $\{\sigma_i\}$ and $\{\tau_j\}$ are $\C$-bases of
+$M_{d_A}(\C)$ and $M_{d_B}(\C)$ respectively; since $M_{d_A}(\C)\otimes_\C
+M_{d_B}(\C) \cong M_{d_Ad_B}(\C)$ via the Kronecker product (a standard fact
+about matrix algebras), $\{\sigma_i\otimes\tau_j\}$ is a $\C$-basis of
+$M_{d_Ad_B}(\C)$: in particular $\C$-linearly independent, hence also
+$\R$-linearly independent (an $\R$-linear dependence is a special case of a
+$\C$-linear one). This gives $d_A^2 d_B^2 = \beta_\C(d_Ad_B)$
+(Theorem~\ref{thm:local-tomography}) $\R$-linearly independent Hermitian
+elements inside the real vector space $\mathrm{Herm}_\C(d_Ad_B)$, which has
+exactly that real dimension; they therefore form a basis.
+\end{proof}
+
+\begin{remark}
+This upgrades Chapter~\ref{ch:local-tomography}'s dimension count to a
+concrete claim: for $\C$, \emph{every} composite observable is a real-linear
+combination of tensor products of local observables. Local tomography for
+$\C$ is not a coincidence of arithmetic; the tensor product construction is
+its literal witness.
+\end{remark}
+
+\section{What Goes Missing for \texorpdfstring{$\R$}{R}: an Explicit Example}
+
+The same construction over $\R$ shows exactly where local tomography fails.
+Take $d_A=d_B=2$. A real basis of $\mathrm{Herm}_\R(2)$ (real symmetric
+$2\times2$ matrices) is $\{I,X,Z\}$ with $X=\begin{psmallmatrix}0&1\\1&0
+\end{psmallmatrix}$, $Z=\begin{psmallmatrix}1&0\\0&-1\end{psmallmatrix}$ —
+only $3 = \beta_\R(2)$ elements, since the fourth generator needed to span
+all of $M_2(\R)$,
+\begin{equation}
+J = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix},
+\end{equation}
+is \emph{antisymmetric} ($J^\top=-J$), not a valid local observable over
+$\R$. (Chapter~\ref{ch:amplitwist} gives $J$'s full elementary derivation as
+the generator of quarter-turns and shows it is, identically, the real
+matrix representing $i$ throughout this book and in the recent literature
+discussed in Chapter~\ref{ch:final-audit}.)
+
+\begin{remark}
+$J$ should not be confused with the complex Pauli matrix $\sigma_y =
+\begin{psmallmatrix}0&-i\\i&0\end{psmallmatrix}$, which \emph{is} Hermitian
+over $\C$ and belongs to $\mathrm{Herm}_\C(2)$. $J$ is the real,
+scalar-stripped matrix $-i\sigma_y$; it is a perfectly good real
+\emph{antisymmetric} matrix, just not a real \emph{symmetric} one, and
+therefore not itself an admissible local observable in the real theory of
+Chapter~\ref{ch:local-tomography}.
+\end{remark}
+
+\begin{proposition}
+\label{prop:JJ-missing}
+The nine products $\{I,X,Z\}\otimes\{I,X,Z\}$ are linearly independent
+elements of $\mathrm{Herm}_\R(4)$, but do not span it: $J\otimes J$ is
+symmetric,
+\begin{equation}
+(J\otimes J)^\top = J^\top \otimes J^\top = (-J)\otimes(-J) = J\otimes J,
+\end{equation}
+hence lies in $\mathrm{Herm}_\R(4)$, and is linearly independent of the nine
+products above.
+\end{proposition}
+
+\begin{proof}
+Linear independence of the nine products, and of $J\otimes J$ from them,
+follows because $\{I,X,Z,J\}$ is a full basis of $M_2(\R)$ (dimension $4 =
+2^2$), so $\{I,X,Z,J\}\otimes\{I,X,Z,J\}$ (sixteen elements) is a basis of
+$M_4(\R)$ (dimension $16=4^2$) by the same Kronecker-product-of-bases fact
+used in Theorem~\ref{thm:tensor-spans}; $J\otimes J$ is one of these sixteen
+basis elements, hence independent of the other fifteen, in particular the
+nine drawn only from $\{I,X,Z\}\otimes\{I,X,Z\}$.
+\end{proof}
+
+\begin{remark}
+This is the exact real tenth dimension counted abstractly in
+Theorem~\ref{thm:local-tomography} ($\beta_\R(4)=10$ vs.\ $\beta_\R(2)^2=9$),
+now identified concretely. $J$ is not a locally realizable real observable —
+it is antisymmetric — yet $J\otimes J$ \emph{is} a legitimate real symmetric
+observable on the composite system, invisible to any measurement scheme built
+only from products of local real observables. Real composite systems carry a
+genuinely nonlocal degree of freedom built from two individually-inadmissible
+local generators whose product happens to be admissible; this is the concrete
+mechanism behind Chapter~\ref{ch:local-tomography}'s abstract dimension
+mismatch, not merely a restatement of it.
+\end{remark}
+
+\begin{remark}[Quaternionic overcompleteness]
+The mirror phenomenon occurs for $\Hset$, in the opposite direction: the
+analogous product basis is \emph{overcomplete}
+($\beta_\Hset(d_A)\beta_\Hset(d_B) > \beta_\Hset(d_Ad_B)$ for $d_A,d_B\ge2$,
+Theorem~\ref{thm:local-tomography}), so the products $\{\sigma_i\otimes
+\tau_j\}$ must satisfy nontrivial linear relations rather than failing to
+span. This is consistent with the well-documented difficulty of defining a
+well-behaved, associative tensor product for quaternionic Hilbert
+spaces~\cite{adler1995}; this book does not attempt to resolve that
+difficulty, only to note that it is exactly where the dimension count
+predicts trouble.
+\end{remark}
+
+\begin{ledgerentry}[End of Chapter~\ref{ch:tensor-product}]
+\textbf{Established:} for $\C$, tensor products of local Hermitian bases do
+not merely match the composite dimension but literally span the composite
+Hermitian operator space (Theorem~\ref{thm:tensor-spans}); for $\R$, the
+missing dimension is identified concretely as spanned by $J\otimes J$, a
+product of two locally-inadmissible generators
+(Proposition~\ref{prop:JJ-missing}).\\
+\textbf{Not established:} the positivity cone, normalization, or Born-rule
+structure of the composite state space — this chapter concerns only the
+ambient \emph{linear} space of Hermitian operators, which observables and
+states must live inside but does not by itself determine which elements are
+valid (positive, normalized) states. Entanglement, the tensor-product Born
+rule $p_i = \operatorname{tr}(\rho E_i)$ for composite measurements, and the
+partial trace remain to be established in later chapters of the recovery
+layer.
+\end{ledgerentry}

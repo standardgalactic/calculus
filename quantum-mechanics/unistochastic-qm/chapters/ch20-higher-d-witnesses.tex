@@ -1,0 +1,147 @@
+\chapter{Minimal Witnesses in Higher Dimensions}
+\label{ch:higher-d-witnesses}
+
+Parts I through III extended the reconstruction toward standard quantum
+mechanics, chapter by chapter, until Chapter~\ref{ch:final-audit} closed that
+arc. This part does something different: it no longer moves toward recovering
+more of the textbook formalism, but stress-tests what has already been built,
+asking how far the same admissibility machinery pushes on its own terms.
+The governing questions become "how little is actually enough?" and "where
+does this specific reconstruction genuinely run out?" — a research programme
+extending the argument, not an appendix collecting loose ends.
+
+Chapter~\ref{ch:minimal-witnesses} left open what $m_\beta(\R,\C;d)$ is for
+$d\ge3$, noting that Chapter~\ref{ch:unistochastic}'s $n\ge3$ incompleteness
+theorem gives a single-matrix separation whose relation to the graph-level
+minimal witness was unresolved. This chapter resolves it — and the answer
+inverts the $d=2$ picture rather than extending it.
+
+\begin{theorem}[Collapse of the minimal witness for $d\ge3$]
+\label{thm:higher-d-collapse}
+\index{Collapse of the minimal witness for d>=3 (theorem)}
+For every $d \ge 3$, $m_\beta(\R,\C;d) = 0$: a single edge, carrying no
+cycle at all, already witnesses $\mathcal R_\R(G,d) \subsetneq \mathcal
+R_\C(G,d)$. This is conditional on nothing beyond
+Definitions~\ref{def:realizability-space}--\ref{def:minimal-witness} as
+already stated; no new assumption is introduced.
+\end{theorem}
+
+\begin{proof}
+Let $P_2$ be the two-vertex, one-edge graph ($\beta_1(P_2) = 1-2+1 = 0$).
+By Theorem~\ref{thm:n3incompleteness} (the $n\ge3$ incompleteness theorem),
+there is a unistochastic $\Gamma \in \mathrm{US}(3)\setminus\mathrm{OS}(3)$
+— the modulus-square of the $3\times3$ DFT matrix. Label the single edge of
+$P_2$ with $\Gamma$. Since $\Gamma \notin \mathrm{OS}(3)$, no real frame
+assignment reproduces it: this edge-labeling is not in $\mathcal R_\R(P_2,3)$
+(indeed it fails even edgewise real-admissibility, and by
+Proposition~\ref{prop:tree-no-constraint} — global realizability on a tree
+is equivalent to edgewise admissibility — failing the latter is exactly
+failing the former). Since $\Gamma \in \mathrm{US}(3)$ by construction, it
+\emph{is} realizable over $\C$: the labeling is in $\mathcal R_\C(P_2,3)$.
+Hence $P_2$ is a witness with $\beta_1(P_2)=0$, giving $m_\beta(\R,\C;3)
+\le 0$, and $\beta_1(G)\ge0$ for every graph, so $m_\beta(\R,\C;3)=0$
+exactly. The same $\Gamma$, embedded as one edge of any tree on $d=3$
+contexts for $d\ge3$ (padding the unused dimensions trivially), gives the
+identical argument for every $d\ge3$.
+\end{proof}
+
+\begin{remark}[Why this inverts, rather than extends, the $d=2$ result]
+Chapter~\ref{ch:minimal-witnesses}'s proof that $m_\beta(\R,\C;2)\ge1$ used
+Proposition~\ref{prop:tree-no-constraint} together with a fact specific to
+$d=2$: $\mathrm{US}(2)=\mathrm{OS}(2)$ (Theorem~\ref{thm:n2degeneracy}), so
+every edge individually admissible over $\C$ at $d=2$ is automatically
+admissible over $\R$ too, and no tree can separate the fields. That
+equality is exactly what Theorem~\ref{thm:n3incompleteness} shows fails at
+$d=3$. The $d=2$ case is the exceptional one: cycles are needed there
+\emph{because} single edges cannot yet distinguish the fields. From $d=3$
+onward, single edges already can, and the graph-theoretic machinery of
+Chapters~\ref{ch:context-graphs}--\ref{ch:minimal-witnesses} — cycle rank,
+spanning trees, the triangle-gluing theorem — is not needed to separate
+$\R$ from $\C$ at all. It remains exactly what is needed for the sharper,
+narrower question that motivated it: whether \emph{individually admissible}
+data (data that passes every edge test) can still fail to glue globally.
+That question is nontrivial at every $d\ge2$, and is not addressed by
+Theorem~\ref{thm:higher-d-collapse}.
+\end{remark}
+
+\begin{remark}[What Theorem~\ref{thm:higher-d-collapse} does not say]
+\label{rem:minimum-not-classification}
+Theorem~\ref{thm:higher-d-collapse} establishes a statement about a
+\emph{minimum}:
+\begin{equation}
+\min\{\text{witness size}\} = \begin{cases} 3, & d=2, \\ 1, & d \ge 3.
+\end{cases}
+\end{equation}
+It does not establish that graph-theoretic gluing obstructions disappear
+for $d\ge3$, and should not be read that way. The question left open is
+whether there exist \emph{edgewise-admissible} labelings on cyclic graphs
+— data that individually passes every single-edge test, so that no
+Theorem~\ref{thm:higher-d-collapse}-style witness is available — that
+nevertheless fail to admit a global realization, generalizing the $d=2$
+MUB triangle phenomenon of Chapter~\ref{ch:real-mub-obstruction} to
+$d\ge3$. This is a logically independent question from the one this
+chapter answers: the cheaper single-edge obstruction found here does not
+preclude a separate, more expensive cycle-level obstruction also existing
+alongside it. If future work shows no such edgewise-admissible-but-
+globally-inadmissible examples exist at $d\ge3$, Theorem
+\ref{thm:higher-d-collapse} would then collapse the entire obstruction
+theory to single-edge tests. If such examples are found instead, the
+theory acquires two independent layers — local (single-edge) and global
+(cycle-gluing) obstructions — the way many areas of mathematics
+distinguish satisfying every local constraint from admitting a global
+solution. Neither possibility is resolved here.
+\end{remark}
+
+\begin{ledgerentry}[End of Chapter~\ref{ch:higher-d-witnesses}]
+\textbf{Established:} $m_\beta(\R,\C;d)=0$ for all $d\ge3$
+(Theorem~\ref{thm:higher-d-collapse}), resolving Chapter
+\ref{ch:minimal-witnesses}'s first open question; the reason is identified
+precisely as the failure of $\mathrm{US}(d)=\mathrm{OS}(d)$ beyond $d=2$,
+not a new phenomenon requiring new machinery.\\
+\textbf{Not established:} anything about $m_\beta(\C,\Hset;d)$ (quaternionic
+separation, Chapter~\ref{ch:minimal-witnesses}'s second open question,
+addressed only partially in Chapter~\ref{ch:quaternionic}); the
+density-threshold question, still untouched (Chapter
+\ref{ch:minimal-witnesses}'s fourth open question resolves neither here nor
+in Chapter~\ref{ch:forbidden-subgraph}, which settles the forbidden-subgraph
+question at $d=2$ but not the density question at any $d$). The cycle-based
+machinery of Chapters~\ref{ch:context-graphs}--\ref{ch:minimal-witnesses}
+remains the right tool for the gluing question it was built for, and this
+chapter's result should not be read as making that machinery unnecessary —
+only as showing it answers a different, narrower question than "does $\R$
+ever fail," which single edges already settle from $d=3$ on (see
+Remark~\ref{rem:minimum-not-classification} above for exactly what remains
+open about that narrower question).
+\end{ledgerentry}
+
+\begin{remark}[Two distinct hazards, not one]
+This chapter and Chapter~\ref{ch:final-audit}'s discussion of recent
+real-valued quantum mechanics literature share a family resemblance worth
+naming precisely rather than merging. Both are cases where something that
+looked like a fundamental obstruction turned out to be contingent — but on
+different kinds of contingency, and the difference matters for what a
+reader should check.
+
+The 2025--2026 papers concern \emph{representation-dependence}: the
+Kronecker product and Hoffreumon and Woods' $\otimes_r$ both describe the
+identical physical composition, and the apparent obstruction to real
+quantum theory belonged to a choice of notation, not to the physics. The
+diagnostic is recoordinatization: does the obstruction survive a change of
+representation for the \emph{same} object?
+
+Theorem~\ref{thm:higher-d-collapse} concerns a different hazard: a
+\emph{low-dimensional coincidence}. $\mathrm{US}(2)=\mathrm{OS}(2)$ is not
+a notational artifact of how $2\times2$ matrices happen to be written; it
+is a true, dimension-specific fact that is simply false one dimension
+higher. No change of representation at $d=2$ would have revealed this —
+the only diagnostic is varying the parameter ($d$) and recomputing, which
+is a genuinely different check than asking whether a result survives
+recoordinatization.
+
+Both hazards share a single moral — a pattern that holds in a special case
+can masquerade as the general rule if the special case is never
+stress-tested against the parameter, or representation, that made it
+special — but the stress test differs by hazard, and treating them as
+interchangeable would leave a reader checking only one of the two ways a
+result can be an artifact rather than a fact.
+\end{remark}

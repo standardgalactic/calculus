@@ -1,0 +1,975 @@
+If you take three different measurements of a single quantum particle and you chain them together so that they loop back to your starting point, the universe will hand you a mathematical receipt proving that the numbers you learned in grade school literally do not exist.
+Yeah, it's a genuinely staggering realization when you really sit with it.
+I mean, I'm not being metaphorical here.
+The physical universe actively rejects the basic real numbers that we use to, you know, balance our checkbooks or measure a piece of wood.
+Right, because we're so used to the idea that physics is built on top of math.
+Like, we assume math is just this passive language we use to describe a reality that is already sitting there fully formed.
+Yeah, like it's just a tape measure.
+Exactly.
+But when you look closely at quantum mechanics, the relationship is almost inverted.
+The math isn't just describing reality.
+The structural logic of the math is actively forcing reality to behave in ways that seem, well, utterly bizarre to human intuition.
+And that is exactly what we're getting into today.
+Welcome to the Deep Dive.
+Whether you're cramming for a quantum information theory exam or you're just driving to work and feeling insanely curious about the actual fundamental fabric of reality, you are in the right place.
+You really are.
+Today, our mission is to explore a mind-bending 2026 manuscript by an independent researcher named Flyxion.
+It's titled, Quantum Mechanics from Admissible Probabilistic Composition.
+And the core premise is going to completely flip everything you know about physics upside down.
+It really is, because the premise asks a profoundly simple question.
+It asks, what if quantum mechanics isn't just a bizarre set of magical, arbitrary rules handed down by a quirky universe?
+What if it's actually the only mathematically logical way to process probabilities and process missing information without creating literal logical paradoxes?
+I love this, because whenever you take a physics class, they usually just drop these massive, heavy equations on you.
+You know, they say, here is the Schwerdinger equation.
+Here is the Born rule.
+Just memorize them.
+Don't ask why.
+Oh, absolutely.
+Shut up and calculate, right?
+That's the classic joke.
+Exactly.
+But this manuscript absolutely refuses to do that.
+We are going to rebuild quantum mechanics from the ground up, starting from absolute scratch, using just a stack of Flyxion's chapters.
+And we're going to translate these incredibly dense matrix calculations into massive aha moments for you.
+No drowning in unexplained jargon today.
+We are going to figure out why the universe uses complex numbers, how entanglement might just be an illusion based on the math you choose, and why probability loops shatter reality.
+And the methodological commitment of this manuscript is, well, it's what makes it so powerful.
+It strictly enforces a rule, constraint before content.
+Meaning what? Practically.
+Meaning we are not going to assign any physical meaning to things like energy or momentum or even particles until the pure mathematics explicitly demands it.
+We strip away the physical assumptions completely.
+So we're just examining the skeletal logic underneath.
+Exactly. And doing that challenges our most basic assumptions about what a, you know, a quantum state actually is in the first place.
+So let's start right at the foundation.
+Before we can talk about quantum weirdness, we have to define what normal, boring, classical probability looks like.
+We need a baseline to understand exactly what rules quantum mechanics will eventually break.
+That's a great place to start.
+So let's look at the probability simplex that's introduced in the first couple of chapters.
+If I have a system, say a dice or a coin or just a state of knowledge about something, how does the math actually define that?
+Well, at its most basic classical level, a state of knowledge about any system is really just a list of probabilities for different distinguishable alternatives.
+Okay. Like a 50% chance of heads, 50% chance of tails.
+Right. And mathematically, these probabilities are bound by two extremely rigid rules.
+First, they have to be non-negative. You know, you can't have a negative 20% chance of a coin landing on heads.
+Yeah, that makes total sense. Negative probability is nonsense in the classical world.
+Exactly. And second, they have to sum to exactly one because, well, something has to happen.
+If you add up the probabilities of all the possible mutually exclusive outcomes, you must get 100%.
+A value of one.
+Right. And this collection of valid probability lists forms a geometric shape called a simplex.
+Okay. So a state of knowledge is basically just a list of numbers adding up to one.
+But things change, right? Things move.
+If I want to transition from one state of knowledge to another, say I shake a box with a marble in it, how do we map that transition?
+So we use what are called stochastic maps. You can think of these essentially as matrices, you know, grids of numbers where every column sums to one.
+They represent transition weights. So if you are in state A, the matrix tells you the exact probability of moving to state B or C and so on.
+But the geometry of the space gets incredibly interesting when you want to make these transitions reversible.
+Reversible meaning I can undo the shake.
+Right. To do that, the matrix must be bistochastic, meaning both the columns and the rows sum to one.
+Hold on. Let me make sure I'm visualizing this for everyone listening.
+A regular stochastic map is just moving forward in time.
+But a bistochastic map means you have a perfectly balanced system where you aren't losing the total probability weight in any direction.
+Precisely. You could, in theory, trace your steps backward.
+Okay, I follow you.
+And this leads us to a foundational piece of math called the Burkhoff von Neumann theorem.
+It states that the set of all these bistochastic matrices forms a very specific geometric space.
+And that's the Burkhoff polytope.
+That's the Burkhoff polytope.
+Yeah.
+You can visualize this polytope as a, like, a multidimensional jewel.
+And the extreme corners, the sharp vertices of this jewel, are perfect deterministic permutations.
+Like shuffling a deck of cards perfectly.
+If I do a perfect Ferro shuffle, I am completely rearranging the deck, but I haven't lost any cards.
+And no card is in a weird state of superposition.
+Right.
+Every single card just moved to a new, exact, 100% certain position.
+Exactly.
+Permutation matrices are the extreme, reversible, information-preserving special cases.
+There were the sharp quarters of the jewel.
+But most of the space inside this mathematical jewel isn't perfectly deterministic like that.
+What is it then?
+The interior is made of convex mixtures of those permutations.
+And when you start mixing these pure states together, a mathematical concept called majorization,
+you trigger another crucial theorem.
+The Hardy Littlewood-Polya theorem.
+Yes.
+Which says what, exactly?
+It proves that mathematically, the act of mixing these states structurally forces entropy to increase.
+Okay, wait.
+I need an analogy for majorization and entropy increasing.
+Because convex mixtures in a polytope is, uh, it's a bit dense.
+Fair enough.
+Let's think of classical probability, like mixing different colors of paint.
+You start with pure colors in distinct buckets.
+Those are your extreme corners, your deterministic permutations, right?
+Right.
+I like where this is going.
+So red is in bucket one.
+Blue is in bucket two.
+If I mix them together, I get purple.
+I can easily predict the resulting color.
+But if I just hand you a bucket of purple paint, you cannot unmix it to find the exact original shades of red and blue that I started with.
+You're stuck with the purple.
+Exactly.
+It is an information loss machine.
+That lost information is what we call entropy increasing, right?
+That is a brilliant analogy.
+Yes.
+And the profound takeaway here is that this Shannon entropy increase, this loss of information, isn't some extra physical law of thermodynamics that Flyxion had to invent or assume.
+It's just math.
+It is a structural consequence of the geometry of majorization itself.
+It is baked directly into the pure math of classical probability.
+But if I'm playing devil's advocate here, and I know some of you listening are probably thinking this too, isn't this just classical physics?
+We're talking about paint mixing and shuffling cards and basic entropy.
+We promised a deep dive into quantum mechanics.
+Where does the quantum stuff actually come in?
+The quantum stuff comes in precisely because this classical foundation is so airtight.
+Flyxion doesn't just invent quantum weirdness out of thin air.
+Remember, the rule is constraint before content.
+Right.
+We've established that classical probability works perfectly for a single static picture or a simple shuffle.
+The crack in reality, the actual quantum leap, happens when we try to figure out how these probabilities compose sequentially.
+Sequentially. Like doing one thing and then doing another.
+Exactly.
+What happens when we chain transitions together using the actual underlying mechanics of waves?
+Ah.
+Okay.
+So if classical probability works, why change it?
+Because in the real world, things interfere with each other.
+This is where we look at composing transitions using amplitudes instead of bare probabilities.
+Exactly.
+In classical probability, we compose transitions at the probability level.
+You multiply the chances together.
+But quantum mechanics, as we've observed in the real world in labs, composes at the amplitude level.
+So you manipulate the amplitudes first.
+Yes.
+You manipulate the amplitudes and then you square the final amplitude to get the probability we actually observe.
+And we need to explain why that matters to the math.
+Because if I take two probabilities, say A and B, and I just add them, it's just A plus B.
+But I take two amplitudes, A and B, add them together, and then square them to get the probability of basic algebra.
+Algebra tells us that A plus B all squared is not just A squared plus B squared.
+Nope.
+You get this extra piece.
+Plus 2AB.
+And that plus 2AB is literally everything.
+That is the cross term.
+That cross term represents interference.
+Because amplitudes can be negative.
+That 2AB term can be negative.
+Which means two probabilities can actually cancel each other out.
+That is quantum interference.
+When you use classical probability level composition, you completely destroy and discard those cross terms.
+You're throwing away the interference.
+So to keep those cross terms, to allow for interference, we need a mathematical lift to handle the amplitudes underneath the probabilities.
+And this introduces us to two massive classes of matrices in the manuscript.
+Yes, the two main contenders.
+We have orthostochastic matrices, which are built using strictly real numbers, just normal numbers.
+And we have unistochastic matrices, which are built using complex numbers, numbers involving the imaginary unit, the square root of negative 1.
+Correct.
+The manuscript starts by testing the simplest possible system, a 2 by 2 level, meaning a system with just two possible outcomes, say a coin flip or a single quibit measuring spin up or spin down.
+We call this n equals 2.
+Okay, n equals 2.
+And at n equals 2, the manuscript proves the degeneracy theorem.
+At this specific dimension, real numbers and complex numbers are mathematically identical in their ability to realize these transitions.
+You literally cannot tell the difference.
+So a 2 by 2 real orthogonal matrix handles the interference and the probabilities perfectly.
+It handles it flawlessly.
+Okay, so if I live in a universe where everything only ever has two outcomes, real numbers work just fine.
+I don't need to imagine your numbers at all.
+But, and this is a big but, the universe obviously has more than two outcomes.
+What happens when we hit n equals 3?
+A 3 outcome system.
+This is where real numbers fail completely and spectacularly.
+And Flyxion proves this.
+Yes.
+The manuscript uses a specific transition matrix as a test case.
+It's called the 3 by 3 discrete Fourier transform, or DFT, matrix.
+It is a completely valid, coherent transition where every single outcome probability is exactly one-third.
+Okay, let's break down exactly why real numbers choke on this.
+To get a probability of one-third everywhere using only real numbers, we have to remember the rule.
+Probability is amplitude squared.
+So, what real number, when squared, equals exactly one-third?
+Well, it has to be either positive 1 over the square root of 3 or negative 1 over the square root of 3.
+Right.
+Those are the only two real numbers that square to exactly one-third.
+So, to build this 3 by 3 matrix using only real numbers, every single entry in that 9 square grid must be one of those two specific values.
+Okay, so it's doable so far.
+But furthermore, because this represents a reversible, information-preserving transition like our perfect shuffle from earlier,
+the math dictates that the rows must be orthogonal to each other.
+And orthogonal here means what, physically?
+It means they are perfectly independent, non-overlapping states.
+Mathematically, it means if you take the dot product of any two rows, meaning you multiply their corresponding entries together and add them up,
+the result must be exactly zero.
+So, we are mathematically forced into a very tight corner here.
+We need a 3 by 3 grid of essentially positive and negative ones.
+If we pull out that scaling factor of 1 over root 3, where every row's dot product with every other row cancels out to zero.
+In math, this is called a Hadamard matrix.
+Exactly.
+We need a 3 by 3 real Hadamard matrix to make this perfectly valid one-third probability state exist using real numbers.
+But here is the brutal truth of the math, and it is a hard, impassable mathematical wall.
+Pay it on me.
+You can program a computer to exhaustively check every single possible sign combination for a 3 by 3 matrix.
+There are 2 to the 9th power possibilities, so 512 total combinations.
+It's not that many.
+It's not.
+And if you check all 512, you will find that a 3 by 3 Hadamard matrix literally does not exist.
+Wait, it just, it doesn't exist.
+Like, not at all.
+It does not exist.
+Right.
+The math proves they only exist for dimensions of 1, 2, and multiples of 4.
+There is no 3 by 3 real matrix that can perform this job.
+It is mathematically impossible.
+It's like trying to build a perfect enclosed triangle out of square Lego blocks.
+At a certain point, no matter how clever you are, the 2D real number pieces you have in your hand simply cannot physically snap together to form the 3D geometry the universe is asking for.
+The pegs and holes just do not align.
+That's a great way to picture it.
+And this is a profound proof.
+It shows that complex numbers aren't just a neat trick.
+They aren't just a mathematical convenience that physicists use because they're lazy or want to look smart.
+Right.
+They are structurally necessary for any system where n is 3 or greater.
+The math is literally screaming at us that the real number line is simply too narrow to hold the information required to move between these three states coherently.
+We must have complex amplitudes to make the math work or the universe breaks.
+My mind is already melting, but the crazy part is we are just getting started on this deep dive because that was just for a single transition in a 3 outcome system.
+Let's retreat back to safety for a moment.
+What if we stick to n equals 2?
+We just established that for 2 outcomes, real numbers do work perfectly, right?
+They do.
+So what happens if we take these perfectly valid, saved 2 by 2 real number transitions and chain them together into a loop?
+This is a brilliant and honestly devious shift in the manuscript.
+We move from looking at a single edge, a single transition, to a context graph.
+Imagine a triangle made of three different measurement contexts.
+Let's call them z, x, and y.
+Okay, so three different ways to measure our 2 outcome system, a range and a sequence that loops back on itself.
+So it goes z to x, x to y, and y back to z.
+Right, and if you track the exact angles of these transitions in the underlying state space,
+they obey a strict geometric rule called the triangle gluing theorem.
+Because it's a closed loop, if you travel from z to x, then x to y, and finally y back to z,
+the exact closure demands they multiply to the identity.
+Meaning, if I walk around a triangle and end up on the exact same footprint where I started,
+facing the exact same direction, I haven't changed.
+The net movement is zero.
+Yeah.
+That sounds totally logical.
+It is logical for exact angles, but remember, in quantum mechanics, we don't observe the exact underlying angles.
+We only observe the probabilities.
+Wow.
+And the projection from those exact angles down to probabilities destroys a crucial piece of information.
+Specifically, it destroys a relative sine bit.
+How so? Walk me through that. I want to make sure I'm picturing this right.
+Sure. The transition probability between two states is given by the cosine squared of the angle between them.
+But when you square the cosine, you strip away the sine of the angle itself.
+You lose the directionality.
+You know the distance, but you don't know if it was a positive turn or a negative turn.
+Okay, I see.
+So I know how far apart things are, but I've lost the GPS coordinates of how they are oriented relative to each other.
+So what happens when we try to close the loop using only these probabilities?
+That is where the paradox hits. And the sharpest example Fleschen gives is the mutually unbiased basis, or MUB corollary.
+Let's say you try to make these three bases mutually unbiased.
+And in plain English, that means what?
+It means the transition probability between any two of them is exactly one half.
+Geometrically, that translates to a 45 degree angle, or pi over 4.
+Okay, so z is 45 degrees from x, x is 45 degrees from y, and y is 45 degrees from z.
+Right. But if you try to build that specific loop using strictly real numbers in a two-dimensional space, you run into a brick wall.
+The math of real numbers demands that for the triangle to close and equal the identity, pi over 4 must algebraically equal either 0 or pi over 2.
+Which is a complete, unadulterated logical contradiction.
+45 degrees does not equal 0 degrees, and it does not equal 90 degrees.
+This is the Escher staircase.
+If you've ever seen that M.C. Escher drawing where the monks are walking up the stairs forever,
+every individual step, every individual transition between two monks looks perfectly flat, normal, and mathematically valid.
+But when you pull back and look at the whole loop, the geometry is a paradox.
+It cannot exist in real space.
+That is a phenomenal visual, and if we connect this to the bigger picture, this failure is entirely distinct from the 3x3 failure we talked about earlier.
+How so?
+Well, the 3x3 DFT matrix was a local failure. A single matrix couldn't be built.
+But this triangle paradox is a global topological failure.
+Topological meaning it's about the shape of the connections.
+Exactly. In graph theory, we talk about the betty number, specifically betty number 1, or beta 1.
+Okay, you're going to have to translate betty number into English for me and the listeners.
+Of course. Think of it as simply counting the number of holes or independent cycles in a network.
+A straight line has a betty number of 0, but a triangle, because it forms one closed loop, has a betty number of beta 1 equals 1.
+Okay, got it.
+The manuscript proves unequivocally that local admissibility, meaning each individual step being mathematically valid on its own, does not guarantee global realizability.
+The whole universe has to make sense all at once, and when you introduce a cycle in real numbers, even for simple two-outcome systems, it doesn't make sense.
+The universe simply rejects real numbers in a loop.
+So to recap where we are, real numbers fail to handle three outcomes locally, and they fail to handle two outcomes if those outcomes form a closed loop.
+That is wild. We are being dragged, kicking, and screaming into the complex number field.
+We really are, and that forces us to look beyond single, isolated systems, because quantum mechanics is famous for how multiple systems interact.
+Entanglement, spooky action at a distance. How does the pure math dictate that two independent systems should compose?
+This takes us right into chapter 8, which explores composite systems and local tomography.
+We need to test our three main mathematical contenders, or three scalar fields, to see who survives system composition.
+So we have real numbers, complex numbers, and quaternionic numbers.
+Right. And to test them, we apply a principle called local tomography.
+This isn't a complex physical law. It's an operational idea.
+It basically states that the joint state of two systems should be exactly as informative as the product of the local measurements.
+Meaning, if I measure my particle in my lab, and you measure your particle in your lab, and we get together and combine our data, we should have the complete 100% picture of the joint system.
+There shouldn't be any missing dimensions of information hiding in the shadows, nor should there be extra redundant dimensions muddying the waters.
+Precisely. To test this, the manuscript uses a dimension counting argument, which it credits to the physicists Araki and Hardy.
+Let's do the math slowly. Let's combine two two-dimensional systems, two qubits.
+All right, I have a qubit. You have a qubit. Let's count dimensions.
+The number of parameters needed to fully describe a state depends on the math field you use.
+Let's start with complex numbers, since that's what textbook quantum mechanics uses.
+Combining two complex qubits means multiplying their local dimensions, so 2 squared times 2 squared.
+Which is 4 times 4, so 16 parameters.
+That equals 16 parameters.
+Now, if you separately count the parameters required to build a joint, complex, 4x4 density matrix from scratch, it is exactly 16.
+It matches perfectly.
+Local knowledge multiplied equals global knowledge.
+Okay, so complex numbers pass the test. What about quaternions?
+For anyone listening who might not know, quaternions are like complex numbers on steroids.
+Instead of just one imaginary number i, they have i, j, and k.
+Right, they're more complex.
+For quaternionic numbers, the local dimensions are larger.
+If you multiply them together locally, you would require 36 parameters to describe the joint system based on that local knowledge.
+Okay, 36.
+But, if you look at the actual parameters of a joint quaternionic system of that exact size, it only has 28 parameters.
+36 is greater than 28.
+So the naive product overcounts by 8.
+It assumes the universe has 36 dials to turn, but the actual math only gives you 28.
+It's too restrictive, too rigidly connected.
+Exactly. It's overdetermined.
+Now, let's look at real numbers.
+The math field we evolved to understand and use every day.
+If you combine two real qubits, the product of their local parameters is 3 times 3, which is 9.
+Okay, 9 parameters, if I just multiply our local observations.
+But a joint 4x4 real density matrix actually requires 10 parameters to be fully described.
+9 is strictly less than 10.
+The product undercounts by 1.
+There is a hidden 10th dimension.
+Look, I want to make sure I grasp the gravity of this.
+Let's use an analogy.
+Imagine you and I are two detectives trying to solve a murder case, and we are each interrogating a different suspect in completely separate rooms.
+Okay, I'm with you.
+In the complex universe, if we come together and share our notes, we have the whole 16-piece puzzle.
+It just works.
+In the quaternionic universe, we share our notes and realize our facts contradict each other.
+It's a mess.
+Yes, and in the real universe.
+In the real universe, even if we share absolutely everything we observed in our interrogation rooms, there is a secret 10th clue, a 10th dimension of the crime that neither of us could see locally.
+It only exists in the space between the suspects, and we can only see it if we somehow magically merged our brains together into a single global entity.
+That is exactly what the math means.
+That missing 10th dimension in real quantum mechanics isn't a rounding error.
+It means real composite systems carry extra correlational structure that simply cannot be seen by local observers.
+Wow.
+Complex numbers are the unique Goldilocks field.
+Not too big, not too small.
+They are the only field where local and global dimensions match identically.
+But the manuscript doesn't just point at the missing 10th dimension in real numbers and walk away.
+It actually hunts it down.
+It puts a magnifying glass on it.
+Which brings us to a massive revelation in chapters 9 through 12.
+What exactly is this secret dimension hiding in the real number blind spot?
+Mathematically, this missing real direction is identified as a matrix called J tensor J.
+Let's untack that.
+What is J?
+J is the anti-symmetric quarter-turn matrix.
+It represents a strict 90-degree rotation.
+Now, in real numbers, it is not a valid observable on its own because it is anti-symmetric.
+It doesn't have real eigenvalues.
+But when you tensor it with itself, when you multiply it across the two systems to get J tensor J, the result suddenly becomes symmetric.
+And therefore, it is a valid composite observable.
+So locally it's invisible, but globally it pops into existence.
+Exactly.
+Chapter 10 bounds this invisible state to a physical parameter.
+Let's call it C.
+And the math dictates that C can slide anywhere between negative 1 and 1.
+The state of this system is defined as a mixture of the identity matrix, which is just random noise, and this J tensor J term weighted by the parameter C.
+Okay.
+So we have a valid state.
+Now, going back to our detectives, what happens if one detective drops off the case?
+We use something called the partial trace, right?
+Explain what the partial trace is doing for us here.
+The partial trace is simply the mathematical operation you use when you want to ignore one part of a composite system and just look at the other.
+You trace over or average out the information of the system you don't care about.
+So if I have an entangled pair of particles and one flies off to Mars, I do a partial trace on the Mars particle so I can just calculate what I have in my lab on Earth.
+Precisely.
+And Chapter 11 proves a concept it calls marginal invisibility.
+If you take the partial trace of this specific state, if you look at just one subsystem locally, this entire J tensor J direction vanishes completely.
+It just disappears.
+Both individual subsystems look like maximally mixed noise.
+They look completely random and completely independent of whatever the parameter C happens to be.
+So to a local observer, this state looks incredibly boring.
+Just pure, uncorrelated static.
+You'd never know there was a hidden structure connecting them.
+But then we hit the massive paradigm shift in Chapter 12.
+We zoom out.
+We look at the global state again.
+And we ask a simple question.
+Is this state entangled?
+And the answer is breathtaking.
+If Kili C is anything other than exactly zero, the state is provably entangled in real quantum mechanics.
+The math shows you cannot build this state simply by mixing independent local states.
+The correlation is inherently holistic.
+Okay, that makes sense.
+Yeah.
+It has a hidden tenth dimension, so it's entangled.
+But wait, this is the part that made me literally drop the manuscript when I read it.
+Yes, prepare yourself.
+If you look at the exact same mathematical state, the exact same matrix grid of numbers,
+but you allow yourself to use complex quantum mechanics to analyze it, it is completely separable.
+It is not entangled at all across its entire range of C.
+This raises a profoundly important question for physics.
+Is entanglement an objective physical reality of the particle out there in the universe?
+Or is it merely an artifact of the math we are using to describe it?
+The source material proves that separability is field relative.
+It is not intrinsic to the state itself.
+You are telling me entanglement changes based on the math I choose to use.
+It's like looking at one of those magic eye posters from the 90s.
+Oh, I love this comparison.
+If I wear red-tinted glasses and those glasses represent real quantum mechanics,
+I look at the poster and I see a 3D dinosaur popping out of me.
+That 3D structure is the entanglement.
+But if I take off the red glasses and put on blue-tinted glasses representing complex quantum mechanics,
+I look at the exact same poster, and it's just random flat dots.
+Separable noise.
+The poster didn't change.
+The physical matrix on the paper didn't change.
+My lens did.
+That is exactly what the math dictates, and your analogy captures the mechanism perfectly.
+What is local and what is non-local depends entirely on the scalar field permitted by your theory.
+But why?
+Why does complex QM see it as separable?
+Because complex QM has a richer set of local states.
+It actually has access to that J matrix locally, disguised as the imaginary number I.
+Because it has more local building blocks,
+it can build this joint state out of purely local pieces.
+Real QM lacks those local pieces, so it views the joint state as irreducibly holistic.
+It views it as entangled.
+It just, it breaks my brain in the best possible way.
+The idea that entanglement might just be a symptom of using restricted math.
+But okay, let's step back, take a breath.
+We found that the complex field is required to make probability loops work,
+and to make local tomography work without inventing hidden dimensions.
+But we still haven't established the actual famous rules of textbook quantum mechanics,
+the stuff you learned in Physics 101.
+Right, the equations everyone actually uses.
+Exactly.
+How does this book derive those heavy equations without just assuming them?
+This takes us into part three of the manuscript, chapters 13 through 16.
+It is essentially a rigorous assumption audit.
+Flyxion tracks exactly what the math earns versus what it assumes.
+It completely refuses to just hand-wave the physics into existence.
+Let's look at chapter 14, which derives the famous Born rule.
+For you listening, the Born rule is the central decree of quantum mechanics.
+It says that the probability of finding a particle in a certain spot
+equals the absolute value of its amplitude squared.
+It's the bridge between the quantum wave and the classical measurement.
+How does Flyxion derive this without just dropping it from the sky?
+It derives it by making only one new operational assumption,
+and it's a very logical one.
+It assumes pure states as frame-completable vectors.
+Okay, break that down for me.
+What does preparing a pure state mean operationally in this context?
+It assumes that preparing a pure state,
+say, filtering a beam of light so all the photons are polarized exactly vertically,
+is operationally equivalent to selecting one specific column
+of an admissible measurement context.
+So you're basically isolating one possibility.
+Right. You are isolating one specific clean vector
+from a full, mutually exclusive set of possibilities.
+Once you grant that single operational assumption,
+the Born rule isn't a mystery anymore.
+It mathematically falls out of the unestochastic matrix algebra
+we did back in chapter 3.
+The squaring of the amplitude is geometrically forced.
+That is deeply satisfying.
+Just pure math enforcing the rule.
+Yeah.
+And then chapter 15 builds the operational bridge,
+showing that observables must be Hermitian matrices.
+Yes.
+In quantum mechanics, an observable is anything you can actually measure,
+like position or momentum.
+The math dictates these must be Hermitian matrices.
+And are Hermitian matrices.
+It's a special complex matrix that is equal to its own conjugate transpose.
+But physically, why do we care?
+We care because the eigenvalues of a Hermitian matrix,
+the actual numbers you get when you do the math,
+are always strictly real numbers.
+Which is exactly what we need.
+Because when I measure the momentum of a particle,
+a readout on my screen has to be a real number.
+My radar gun doesn't say the car is going 50 plus 3i miles per hour.
+It just says 50.
+The math forces the matrix to be Hermitian,
+to guarantee real world readouts.
+It's not just thrown in as a postulate.
+It's an unavoidable mathematical consequence
+of demanding that real valued outcomes match our probability rules.
+And the absolute crown jewel of this section is chapter 16,
+which derives the Schrodinger equation.
+Now, to get dynamics, to get movement through time,
+you do need an assumption.
+The only assumption needed here is continuous reversible time evolution.
+Let's explain what that implies.
+Continuous means time flows smoothly,
+not in jagged, discrete, blocky jumps.
+Reversible means that in a perfectly closed system,
+information isn't lost.
+You could, theoretically, run the mathematical tape backward
+and figure out exactly where the particle started.
+So if I have smooth reversible time,
+how did that give me Schrodinger's complex equation?
+It relies on a branch of math
+dealing with matrix ordinary differential equations, or OEs.
+If you apply basic finite dimensional matrix ODE math
+to a continuous reversible evolution,
+you're mathematically forced to define a generator for that evolution.
+Or a generator.
+Right. And because the evolution must preserve probabilities,
+it must remain unitary,
+the generator of that evolution must be a Hermitian matrix.
+Let's call that generator H.
+Okay, I'm with you. H is our Hermitian generator.
+And if you write out the group law
+for how this state evolves smoothly over time,
+a specific differential equation naturally emerges.
+The derivative of the state with respect to time
+multiplied by the imaginary unit I equals H times the state.
+Which is literally the Schrodinger equation.
+I H bar D over DT of PI equals HPSI.
+This is wild.
+It's like realizing the rules of chess
+aren't just arbitrarily invented by some guy in a pub,
+but they are the literal, objective,
+only possible way a board of 64 squares
+can operate without breaking logic.
+We didn't assume Schrodinger's equation.
+We just assumed continuous time
+and the pure math built Schrodinger's equation.
+Right, and the book is incredibly honest here in its audit.
+It doesn't claim to magically prove
+that the generator H is physical energy
+or that the scaling constant H bar
+is actually Planck's constant from physics.
+It just gives you the skeleton.
+Yes.
+It proves the structure of the equation
+is mathematically inevitable.
+The physics, the mass, the energy,
+the specific forces
+is just filling in the physical blanks
+of a pre-existing mathematical skeleton.
+Okay, so we've derived textbook quantum mechanics
+from pure logic and complex numbers.
+Case closed, right?
+Complex numbers win.
+Real numbers are a dead end.
+But this is where the deep dive takes a massive swerve.
+The twist in the third act?
+Exactly.
+Just when we think complex numbers have won outright,
+the manuscript throws a massive curveball
+in chapters 18 and 19.
+It brings up cutting-edge physics literature
+from 2025 and 2026.
+Yes, specifically papers by Hofferman and Woods
+and Barrios-Hita et al.
+These recent papers mathematically prove
+that real-valued quantum mechanics
+can actually work
+and it can reproduce
+all complex predictions perfectly.
+Wait.
+Stop the tape.
+We just spent the last 45 minutes
+explicitly proving that real numbers fail.
+The 3x3 DFT matrix,
+the Escher staircase triangle,
+the missing 10th dimension.
+How can you now tell me real QM works?
+To understand this,
+we have to look at a subtle
+but absolutely vital distinction.
+Representation versus structure.
+The way we usually combine systems in math,
+the way we built that 10th dimension earlier,
+is by using the Kronecker product.
+It's the standard way
+to multiply matrices together.
+But the Kronecker product
+is just a mathematical convention.
+It's a choice of how to represent the combination.
+Okay, I'm listening.
+I feel like I'm being tricked by math again.
+Well, we have to ask
+what a complex number actually is.
+Chapter 19 introduces a concept
+popularized by Tristan Needham
+called the amplitwist.
+When you multiply a state
+by a complex number,
+you are doing two geometric operations simultaneously.
+You are scaling the amplitude,
+stretching it,
+and you are rotating it,
+or twisting it,
+in a plane.
+Scaling and twisting.
+The amplitwist.
+That matrix J we kept talking about,
+the missing real dimension,
+the anti-symmetric matrix,
+it is mathematically
+just a quarter turn rotation,
+R of pi over 2.
+It is the imaginary number I.
+It is literally just the concept
+of a 90-degree twist,
+but written out as a real 2x2 matrix
+instead of the single complex letter.
+Wait, so a complex number
+is just a 2D real matrix
+wearing a trench coat?
+Essentially, yes.
+Now, here is where the breakdown happened
+in our earlier test.
+When you combine systems
+using standard math,
+the traditional tensor product
+forces you to decide
+which local subsystem
+carries the global phase,
+the rotation.
+It forces one particle
+to quote-unquote
+hold the twist.
+This creates a redundancy,
+an artificial rigidity.
+And if we fix that redundancy...
+If you quotient out
+that gauge redundancy,
+which is a fancy mathematical way
+of saying you redistribute the phase
+across the whole tensor product
+so it doesn't matter who holds it,
+the ambiguity changes.
+The obstruction we found earlier
+wasn't in the physics
+of the universe,
+it was an artifact
+of our clumsy notation.
+Oh my god.
+It's exactly like looking
+at a Mercator projection map
+of the Earth.
+If you look at a standard classroom map,
+Greenland looks absolutely massive,
+almost as big
+as the entire continent of Africa.
+But that distortion
+is an artifact of the map,
+not the actual planet.
+You took a 3D globe
+and forced it onto a 2D grid,
+and the math of that projection
+created a fake, giant Greenland.
+Complex numbers might just be
+the easiest, cleanest,
+most natural globe to read,
+while real numbers require
+a super-convoluted,
+highly distorted,
+quotiented map
+to show the exact same Earth
+without breaking.
+That analogy is flawless.
+What's fascinating here
+is that the math confirms this.
+Complex numbers
+are an incredibly efficient
+bookkeeping device
+for handling this
+simultaneous rotation
+and scaling
+without creating
+fake topological holes.
+But,
+and this is a massive but,
+the deep dive
+asks a critical,
+unresolved question here.
+Which is?
+Does this new,
+highly convoluted,
+real tensor product,
+this fixed map,
+actually survive
+the local tomography tests
+we did earlier?
+Can it actually describe
+a joint state
+using only local measurements
+without inventing
+new, weird rules?
+The book leaves that
+explicitly unresolved.
+So it's still a mystery.
+It is.
+It proves that real QM
+can mimic complex QM
+if you drastically change
+the rules of how things compose,
+but it doesn't prove
+that this new rule
+of composition
+is forced by the same
+elegant, pure logic
+we started with.
+Wow.
+So complex numbers
+might not be magic,
+they might just be
+the universe's best shorthand.
+But we have one last stop
+on this journey.
+We've talked a lot
+about dimensions
+and graph structures
+and cycles.
+If we pull back
+to the big picture
+of these context graphs
+and probability loops,
+I want to know
+exactly when reality breaks.
+Is it a gradual fade
+into quantum weirdness
+as things get more complex
+or is it a sudden snap?
+This is directly addressed
+in chapter 20
+and chapter 23.
+Let's look at what
+Flyxion calls
+minimal witnesses
+in higher dimensions.
+Back in our two
+outcome systems,
+you know,
+d equals 2,
+we established
+we needed a triangle,
+a closed loop,
+to break real QM.
+Right.
+The Betty numbered
+beta 1 had to be 1.
+Exactly.
+But chapter 20 proves
+that if you move
+to a system
+with three or more outcomes,
+d greater than
+or equal to 3,
+the minimal witness
+collapses to a single edge.
+Meaning beta 1 equals 0.
+You don't even need cycles
+to break real quantum
+mechanics anymore.
+A single transition,
+like that 3x3 DFT matrix
+we talked about an hour ago,
+is enough to instantly
+demand complex numbers.
+Yes.
+But chapter 23
+asks the density question
+specifically for d equals 2
+where single edges are safe.
+It asks,
+is there an erides
+reni threshold?
+What is that?
+I haven't heard that term.
+In graph theory,
+it's a critical density
+where the behavior
+of a network
+suddenly and drastically changes.
+Think of how water
+gradually cools down,
+but then at exactly
+zero degrees,
+it suddenly phase changes
+into solid ice.
+Oh, okay.
+Do these probability graphs
+gradually become harder
+to realize with real numbers
+as you randomly add
+more and more connections?
+And what is the result?
+Does it bend before it breaks?
+The result is terrifyingly sharp.
+There is no gradual transition.
+Under independent
+continuous edge measures,
+meaning if you randomly assign
+valid probabilities
+to the connections,
+the very moment a graph
+has even one single cycle.
+The moment it loops.
+The moment beta 1
+is greater than
+or equal to 1,
+the probability
+of that entire network
+working with real numbers
+drops to exactly zero.
+It is measure zero.
+Wait, wait.
+So it's not like a bridge
+groaning under the weight
+of traffic,
+gradually bowing
+until it finally collapses.
+You're saying the bridge
+is structurally flawless,
+mathematically perfect
+in real numbers,
+right up until you connect
+the very last bolt
+that forms a closed loop,
+and then the entire thing
+instantly vaporizes
+into mathematical impossibility.
+Precisely.
+It is what mathematicians
+call a co-dimension 1 event.
+Wait, co-dimension 1?
+What does that actually mean visually?
+Imagine a massive
+three-dimensional room.
+A co-dimension 1 object
+is a two-dimensional plane,
+like a sheet of paper,
+infinitely thin,
+cutting through that room.
+It has zero volume
+compared to the room itself.
+If you throw a dart
+completely randomly
+into that room,
+the mathematical probability
+of the tip of the dart
+hitting that incredibly thin plane
+is precisely zero.
+So a universe governed
+by real numbers
+is that infinitely thin
+sheet of paper,
+and the space
+of all possible quantum states
+is the massive room.
+The moment you close a loop,
+you realize you are in the room,
+not on the paper.
+Exactly.
+It is not an asymptotic limit
+where things just get
+harder to calculate.
+The threshold of impossibility
+is crossed completely
+at the very first cycle.
+It proves that realizability
+over real numbers
+is not generic.
+It is the ultimate rare exception.
+The moment you close
+a loop of information,
+real numbers evaporate.
+This has been
+an absolute journey
+to try and summarize
+what we've just done.
+We started with
+bare classical probabilities,
+a simple mixing of paint.
+Yeah.
+We saw how linking
+those probabilities
+in cycles
+created geometrical paradoxes
+like the Escher staircase
+of the triangle gluing theorem.
+We mathematically proved
+that entanglement
+isn't necessarily
+an intrinsic physical property
+of a particle,
+but might actually be relative
+to the math you used
+to describe it.
+The magic eye poster.
+Right.
+We derived the famous
+Schrodinger equation
+not from assuming
+physical energy exists,
+but from pure logic
+and continuous reversible time.
+And we realized
+that complex numbers
+might just be nature's
+most efficient bookkeeping tool
+for a universe made of
+twisting scaling probabilities.
+It strips quantum mechanics
+of its arbitrary mystique.
+It takes away the feeling
+that the universe
+is just mocking us
+with weird rules
+and replaces it
+with something even more profound.
+Structural inevitability.
+Quantum mechanics
+is simply the only way
+the puddle pieces fit together.
+Which leaves us
+with a final,
+very provocative thought.
+Right.
+If you are listening to this,
+I want you to seriously
+ponder this
+as you go about your day.
+We've just spent
+this entire deep dive
+seeing how almost
+all of quantum mechanics
+can be derived
+as a forced requirement
+of processing
+missing information
+without creating
+logical contradictions.
+So does the wave function
+actually exist out there
+in the physical world?
+That's the million dollar question.
+Is there a physical
+undulating wave
+of energy guiding particles?
+Or is the universe
+entirely made of pure math
+and information?
+And quantum mechanics
+is just the only possible software
+our brains
+and our instruments can use
+to render a reality
+where we don't have
+all the facts.
+Is the physical world
+just the gears we can't see?
+And quantum mechanics
+is just the inevitable blur
+of the machinery.
+Think about it.
+We'll catch you
+on the next deep dive.
+We'll catch you
+in the next video.

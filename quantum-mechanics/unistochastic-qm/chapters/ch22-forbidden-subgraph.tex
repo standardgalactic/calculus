@@ -1,0 +1,144 @@
+\chapter{The Forbidden Subgraph, Resolved at \texorpdfstring{$d=2$}{d=2}}
+\label{ch:forbidden-subgraph}
+
+Chapter~\ref{ch:minimal-witnesses}'s third open question asked for a finite
+family of forbidden context subgraphs characterizing real-realizability.
+This chapter answers it completely at $d=2$: the forbidden family has
+exactly one member, a bare cycle, and the characterization is that $G$ is
+always real-realizable if and only if $G$ is a forest.
+
+\section{Subdivision Preserves the Obstruction}
+
+\begin{lemma}[Subdivision lemma]
+\label{lem:subdivision}
+\index{Subdivision lemma (lemma)}
+Let $G'$ be obtained from a context graph $G$ by subdividing an edge
+$(u,v)$ — replacing it with a path $u,w_1,\dots,w_k,v$ through new
+vertices — and labeling every new edge with canonical angle $0$. Then $G$
+is realizable with $(u,v)$ labeled $\theta$, together with the rest of
+$G$'s labeling, if and only if $G'$ is realizable with the same labeling
+on the unchanged edges and every subdivision edge labeled $0$.
+\end{lemma}
+
+\begin{proof}
+A canonical angle of $0$ on an edge $(w_{i-1},w_i)$ is achieved exactly by
+the real frame choice $a_{w_i} = a_{w_{i-1}}$ (one valid branch of the
+fibre described in \S\ref{sec:gauge-single-frame}). Propagating this
+choice along the entire subdivision path forces $a_v = a_u$ exactly,
+identically to what a direct edge $(u,v)$ with canonical angle $0$ would
+force. For any \emph{other} target angle $\theta$ on the original edge
+$(u,v)$, choose instead $a_{w_1}=\cdots=a_{w_k}=a_u$ (still trivial edges)
+and require $a_v - a_u$ to realize $\theta$ exactly as in the unsubdivided
+graph — the trivial path contributes nothing to the relationship between
+$a_u$ and $a_v$, so realizability of $G$ with $(u,v)=\theta$ and
+realizability of $G'$ with the subdivision (trivial edges) plus $(u,v)$'s
+role now played by the path's endpoints are the same condition on the same
+free parameters $\{a_x\}_{x\in V(G)}$, with the new vertices'
+angles pinned to $a_u$ and contributing no additional freedom or
+constraint.
+\end{proof}
+
+\begin{corollary}[Every cycle length inherits the triangle obstruction]
+\label{cor:cycle-inherits}
+\index{Every cycle length inherits the triangle obstruction (corollary)}
+For every $n\ge3$, there is an assignment of canonical angles to the edges
+of the $n$-cycle $C_n$, individually admissible on every edge, that is not
+globally real-realizable.
+\end{corollary}
+
+\begin{proof}
+$C_n$ is a subdivision of $C_3$ for every $n\ge3$ (subdivide $n-3$ of the
+triangle's edges, distributed arbitrarily, to reach length $n$). Apply
+Lemma~\ref{lem:subdivision} to the mutually-unbiased triangle labeling of
+Corollary~\ref{cor:real-mub} (canonical angle $\pi/4$ on all three original
+edges), labeling every subdivision edge $0$: by
+Corollary~\ref{cor:real-mub} the triangle labeling is unrealizable, so by
+the lemma the resulting $C_n$ labeling is unrealizable too.
+\end{proof}
+
+This was checked computationally before being stated as a corollary: exact
+branch-search confirmed the induced labeling is realizable on
+neither $C_4$ nor $C_5$ (zero solutions found over all $4^3=64$ and
+$4^4=256$ branch combinations respectively), while a control labeling
+differing only in the closing edge (replacing the inherited $\pi/4$ with
+the trivially-realizable $0$) is realizable on both.
+
+\section{The Forbidden Subgraph Theorem}
+
+\begin{theorem}[Forbidden subgraph, $d=2$]
+\label{thm:forbidden-subgraph}
+\index{Forbidden subgraph, d=2 (theorem)}
+$\mathcal R_\R(G,2) = \mathcal D(G,2)$ (every individually admissible
+edge-labeling of $G$ is globally real-realizable) if and only if $G$ is a
+forest.
+\end{theorem}
+
+\begin{proof}
+($\Leftarrow$) If $G$ is a forest, apply
+Proposition~\ref{prop:tree-no-constraint} to each connected component: any
+individually admissible labeling extends to a global real frame assignment
+on each tree, hence on all of $G$.
+
+($\Rightarrow$) If $G$ is not a forest, $G$ contains a cycle (a graph with
+$|E|\ge|V|$ on some connected component must contain one, since a forest
+has at most $|V|-1$ edges per component); let $C_n$, $n\ge3$, be that
+cycle, viewed as a subgraph of $G$. Apply
+Corollary~\ref{cor:cycle-inherits} to label $C_n$'s edges with an
+individually-admissible, globally-unrealizable pattern, and label every
+edge of $G$ outside $C_n$ with canonical angle $0$ (trivially admissible).
+The resulting labeling of all of $G$ is individually admissible on every
+edge; it cannot be globally realized, since any global realization would
+in particular realize $C_n$'s edges, contradicting
+Corollary~\ref{cor:cycle-inherits}. Hence $\mathcal D(G,2) \not\subseteq
+\mathcal R_\R(G,2)$.
+\end{proof}
+
+\begin{remark}
+This is the forbidden-subgraph family in its simplest possible form: a
+single forbidden pattern, "any cycle," rather than a genuinely infinite or
+complicated family. Equivalently: $\mathcal F = \{C_3, C_4, C_5,\dots\}$
+works, but by Corollary~\ref{cor:cycle-inherits} it can be stated purely
+topologically as $\mathcal F = \{\text{any cycle}\}$, i.e.\ $G$ is
+forbidden-subgraph-free exactly when $\beta_1(G)=0$.
+\end{remark}
+
+\section{Contrast with \texorpdfstring{$d\ge3$}{d>=3}}
+
+\begin{remark}
+
+Theorem~\ref{thm:forbidden-subgraph} is specific to $d=2$, and for the same
+reason Chapter~\ref{ch:higher-d-witnesses}'s collapse was specific to
+$d\ge3$: the proof's forward direction rests on
+Proposition~\ref{prop:tree-no-constraint} making trees exactly safe, which
+in turn requires that individually-admissible edge data always extends —
+true at $d=2$ only because $\mathrm{US}(2)=\mathrm{OS}(2)$
+(Theorem~\ref{thm:n2degeneracy}) makes edgewise admissibility the same
+condition over $\R$ and $\C$. At $d\ge3$, Chapter
+\ref{ch:higher-d-witnesses} showed a single edge (a tree with one edge,
+$\beta_1=0$) can already carry data admissible over $\C$ but not $\R$
+(Theorem~\ref{thm:n3incompleteness}'s DFT example). So at $d\ge3$, the
+topological condition "$G$ is a forest" is \emph{not} sufficient for
+$\mathcal R_\R(G,d)=\mathcal D(G,d)$ — trees can already fail, so the
+$d=2$ forbidden-subgraph theorem does not generalize by simply keeping the
+same statement. What replaces it at $d\ge3$ is not a purely topological
+condition at all, but the data-dependent single-edge obstruction of
+Chapter~\ref{ch:higher-d-witnesses}: the relevant "forbidden pattern"
+becomes a specific matrix (or class of matrices, per
+Chapter~\ref{ch:unistochastic}'s open question about whether every
+non-orthostochastic unistochastic matrix fails for the same reason), not a
+graph shape.
+\end{remark}
+
+\begin{ledgerentry}[End of Chapter~\ref{ch:forbidden-subgraph}]
+\textbf{Established:} the forbidden-subgraph question of
+Chapter~\ref{ch:minimal-witnesses} is fully resolved at $d=2$
+(Theorem~\ref{thm:forbidden-subgraph}): $G$ is always real-realizable if
+and only if it is a forest, via a subdivision lemma proved algebraically
+and cross-checked computationally at two cycle lengths.\\
+\textbf{Not established:} any analogous purely topological
+characterization at $d\ge3$, where the obstruction is data-dependent even
+on trees (Chapter~\ref{ch:higher-d-witnesses}); the density-threshold
+question of Chapter~\ref{ch:minimal-witnesses} remains entirely untouched
+and would require a probability measure on edge-label data this book still
+has not defined.
+\end{ledgerentry}

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QUANTUM OSCILLOSCOPE</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{
+  width:100%;height:100%;
+  background:#000;
+  font-family:monospace;
+  color:#00ff41;
+  overflow:hidden;
+  touch-action:manipulation;
+}
+body{
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:900;
+  background:radial-gradient(ellipse at center,transparent 54%,rgba(0,0,0,.72) 100%);
+}
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:901;
+  background:repeating-linear-gradient(
+    to bottom,rgba(0,0,0,.22) 0px,rgba(0,0,0,.22) 1px,
+    transparent 1px,transparent 3px);
+}
+#screen{
+  position:fixed;inset:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  will-change:transform;
+}
+#title{
+  position:fixed;top:16px;left:0;right:0;
+  text-align:center;
+  font-size:9px;letter-spacing:.20em;text-transform:uppercase;
+  color:rgba(0,255,65,.55);z-index:100;
+}
+#tracks{
+  position:fixed;top:38px;left:0;right:0;
+  display:flex;justify-content:center;gap:10px;flex-wrap:wrap;
+  z-index:100;padding:0 8px;
+}
+#tracks button{
+  background:none;border:none;
+  border-bottom:1px solid rgba(0,255,65,.20);
+  color:rgba(0,255,65,.35);
+  font-family:monospace;font-size:7px;
+  letter-spacing:.12em;padding:2px 5px;
+  cursor:pointer;transition:all .2s;
+}
+#tracks button.active{
+  color:rgba(0,255,65,.88);
+  border-bottom-color:rgba(0,255,65,.70);
+  text-shadow:0 0 8px rgba(0,255,65,.5);
+}
+#clock{
+  position:fixed;top:16px;right:14px;
+  font-size:7px;letter-spacing:.10em;
+  color:rgba(0,255,65,.20);z-index:100;
+}
+canvas{
+  display:block;
+  width:min(400px,84vw);
+  height:min(400px,84vw);
+  cursor:pointer;
+  position:relative;z-index:10;
+}
+#status{
+  position:fixed;bottom:46px;left:0;right:0;
+  text-align:center;font-size:7px;letter-spacing:.18em;
+  color:rgba(0,255,65,.18);z-index:100;
+}
+#subs{
+  position:fixed;bottom:12px;
+  left:50%;transform:translateX(-50%);
+  width:min(600px,90vw);
+  min-height:2em;text-align:center;
+  font-size:11px;line-height:1.5;
+  color:rgba(0,255,65,.62);
+  letter-spacing:.02em;font-style:italic;
+  z-index:100;
+}
+#glitch-band{
+  position:fixed;left:0;right:0;height:2px;
+  background:rgba(0,255,65,.50);
+  pointer-events:none;z-index:902;display:none;
+  box-shadow:0 0 5px #00ff41;
+}
+#mode-label{
+  position:fixed;bottom:62px;right:14px;
+  font-size:6px;letter-spacing:.12em;
+  color:rgba(0,255,65,.18);z-index:100;
+}
+</style>
+</head>
+<body>
+<div id="screen">
+  <div id="title">—</div>
+  <div id="tracks"></div>
+  <span id="clock">00:00</span>
+  <canvas id="viz"></canvas>
+  <div id="status">[ click · play / pause ]</div>
+  <div id="mode-label"></div>
+  <div id="subs"></div>
+</div>
+<div id="glitch-band"></div>
+<audio id="audio"></audio>
+
+<script>
+const tracks = [
+  {
+    file:"Why_the_Universe_Rejects_Real_Numbers.mp3",
+    vtt:"Why_the_Universe_Rejects_Real_Numbers.vtt",
+    label:"REALS",
+    title:"WHY THE UNIVERSE REJECTS REAL NUMBERS",
+    mode:"reals"
+  },
+  {
+    file:"Why_Geometry_Demands_a_Quantum_Universe.mp3",
+    vtt:"Why_Geometry_Demands_a_Quantum_Universe.vtt",
+    label:"GEOMETRY",
+    title:"WHY GEOMETRY DEMANDS A QUANTUM UNIVERSE",
+    mode:"geometry"
+  },
+  {
+    file:"The_century-old_quantum_math_typo.mp3",
+    vtt:"The_century-old_quantum_math_typo.vtt",
+    label:"TYPO",
+    title:"THE CENTURY-OLD QUANTUM MATH TYPO",
+    mode:"typo"
+  },
+  {
+    file:"Is_quantum_entanglement_a_mathematical_illusion.mp3",
+    vtt:"Is_quantum_entanglement_a_mathematical_illusion.vtt",
+    label:"ENTANGLE",
+    title:"IS QUANTUM ENTANGLEMENT A MATHEMATICAL ILLUSION",
+    mode:"entangle"
+  },
+  {
+    file:"How_Media_Quines_Stop_Specification_Drift.mp3",
+    vtt:"How_Media_Quines_Stop_Specification_Drift.vtt",
+    label:"QUINES",
+    title:"HOW MEDIA QUINES STOP SPECIFICATION DRIFT",
+    mode:"quines"
+  }
+];
+
+let trackIndex=0, mode=tracks[0].mode;
+
+const audio      = document.getElementById("audio");
+const subsEl     = document.getElementById("subs");
+const titleEl    = document.getElementById("title");
+const clockEl    = document.getElementById("clock");
+const screen     = document.getElementById("screen");
+const glitchBand = document.getElementById("glitch-band");
+const trackBtns  = document.getElementById("tracks");
+const modeLabel  = document.getElementById("mode-label");
+
+let audioCtx, analyser, freqData, timeData;
+
+function initAudio(){
+  if(audioCtx) return;
+  audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+  analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 2048;
+  analyser.smoothingTimeConstant = .86;
+  freqData = new Uint8Array(analyser.frequencyBinCount);
+  timeData = new Uint8Array(analyser.fftSize);
+  const src = audioCtx.createMediaElementSource(audio);
+  src.connect(analyser);
+  analyser.connect(audioCtx.destination);
+}
+
+tracks.forEach((t,i)=>{
+  const btn=document.createElement("button");
+  btn.textContent=t.label;
+  btn.onclick=e=>{
+    e.stopPropagation();
+    initAudio();
+    loadTrack(i,true);
+  };
+  trackBtns.appendChild(btn);
+});
+
+function updateButtons(){
+  [...trackBtns.querySelectorAll("button")]
+    .forEach((b,i)=>b.classList.toggle("active",i===trackIndex));
+}
+
+function attachTrack(){
+  const t=audio.textTracks[0];
+  if(!t) return;
+  t.mode="hidden";
+  t.oncuechange=()=>{
+    const c=t.activeCues[0];
+    subsEl.textContent=c?c.text:"";
+  };
+}
+
+function loadTrack(i,autoplay=false){
+  trackIndex=((i%tracks.length)+tracks.length)%tracks.length;
+  const t=tracks[trackIndex];
+  mode=t.mode;
+  titleEl.textContent=t.title;
+  modeLabel.textContent=`MODE:${mode.toUpperCase()}`;
+  audio.src=t.file;
+  audio.innerHTML=`<track kind="captions" src="${t.vtt}" default>`;
+  audio.load();
+  audio.addEventListener("loadedmetadata",attachTrack,{once:true});
+  updateButtons();
+  // reset per-mode state
+  if(mode==="reals")    resetReals();
+  if(mode==="typo")     resetTypo();
+  if(mode==="entangle") resetEntangle();
+  if(mode==="quines")   resetQuines();
+  if(autoplay) audioCtx.resume().then(()=>audio.play());
+}
+
+audio.addEventListener("ended",()=>loadTrack(trackIndex+1,true));
+
+document.getElementById("viz").addEventListener("click",()=>{
+  initAudio();
+  audioCtx.resume().then(()=>{
+    if(!audio.src||audio.src===location.href){
+      loadTrack(0,true);
+    } else if(audio.paused) audio.play();
+    else audio.pause();
+  });
+});
+
+audio.ontimeupdate=()=>{
+  const t=audio.currentTime|0;
+  clockEl.textContent=
+    `${String(t/60|0).padStart(2,"0")}:${String(t%60).padStart(2,"0")}`;
+};
+
+/* canvas */
+const canvas=document.getElementById("viz");
+const ctx=canvas.getContext("2d");
+const SZ=512;
+canvas.width=canvas.height=SZ;
+const cx=SZ/2,cy=SZ/2;
+
+let frame=0,bass=0,mid=0,high=0,vol=0,entropy=0;
+
+function updateEnergy(){
+  if(!analyser)return;
+  analyser.getByteFrequencyData(freqData);
+  analyser.getByteTimeDomainData(timeData);
+  let b=0,m=0,h=0,v=0;
+  for(let i=0;i<40;i++)b+=freqData[i];
+  for(let i=40;i<180;i++)m+=freqData[i];
+  for(let i=180;i<freqData.length;i++)h+=freqData[i];
+  for(let i=0;i<freqData.length;i++)v+=freqData[i];
+  bass+=(b/(40*255)-bass)*.08;
+  mid +=(m/(140*255)-mid)*.06;
+  high+=(h/((freqData.length-180)*255)-high)*.05;
+  vol +=(v/(freqData.length*255)-vol)*.07;
+  let sum=0,ent=0;
+  for(let i=0;i<freqData.length;i++)sum+=freqData[i];
+  if(sum>0){
+    for(let i=0;i<freqData.length;i++){
+      const p=freqData[i]/sum;if(p>0)ent-=p*Math.log2(p);
+    }
+    ent/=Math.log2(freqData.length);
+  }
+  entropy+=(ent-entropy)*.04;
+}
+
+/* glitch */
+let glitchActive=false,glitchTimer=0,glitchType=0,lastGlitch=0;
+function maybeGlitch(){
+  if(glitchActive||!analyser)return;
+  if(entropy<.68&&vol<.46)return;
+  if(frame-lastGlitch<110)return;
+  if(Math.random()>.013)return;
+  glitchActive=true;glitchTimer=0;
+  glitchType=Math.random()<.55?0:1;
+  lastGlitch=frame;
+}
+function applyGlitch(){
+  if(!glitchActive){screen.style.transform="";glitchBand.style.display="none";return;}
+  glitchTimer++;
+  const dur=glitchType===0?20:9;
+  if(glitchType===0){
+    const d=1-glitchTimer/dur;
+    screen.style.transform=
+      `translate(${(Math.random()-.5)*7*d}px,${(Math.random()-.5)*2*d}px)`;
+    glitchBand.style.display="none";
+  }else{
+    glitchBand.style.display="block";
+    glitchBand.style.top=`${(glitchTimer/dur)*108-4}%`;
+    glitchBand.style.opacity=`${1-glitchTimer/dur}`;
+    screen.style.transform="";
+  }
+  if(glitchTimer>=dur){
+    glitchActive=false;screen.style.transform="";glitchBand.style.display="none";
+  }
+}
+
+/* shared lissajous primitive */
+function lis(ox,oy,rx,ry,lagFrac,alpha,lw,buf){
+  const B=buf||timeData;
+  if(!B)return;
+  const N=B.length,lag=Math.floor(N*lagFrac)&~1;
+  ctx.beginPath();
+  for(let i=0;i<N;i+=2){
+    const a=(B[i]-128)/128,b=(B[(i+lag)%N]-128)/128;
+    if(i===0)ctx.moveTo(ox+a*rx,oy+b*ry);
+    else ctx.lineTo(ox+a*rx,oy+b*ry);
+  }
+  ctx.strokeStyle=`rgba(0,255,65,${alpha})`;
+  ctx.lineWidth=lw||1;ctx.lineCap="round";
+  ctx.shadowBlur=alpha>.40?8:2;ctx.shadowColor="#00ff41";
+  ctx.stroke();ctx.shadowBlur=0;
+}
+
+/* ══════════════════════════════════════════════
+   MODE 1 — REAL NUMBERS REJECTED
+   Irrational ratio φ = (1+√5)/2 ≈ 1.618...
+   The lissajous can NEVER close — it fills the
+   plane densely but never repeats. The universe
+   rejects this: only rational (quantized) ratios
+   produce closed, physical orbits.
+   A faint target circle shows where closure
+   would be — the trace always misses it.
+══════════════════════════════════════════════ */
+
+const PHI = (1+Math.sqrt(5))/2; // ≈ 1.6180...
+let realsT = 0;
+
+function resetReals(){ realsT=0; }
+
+function drawReals(){
+  if(!analyser)return;
+  realsT += .0014 + vol*.001;
+  const N=timeData.length;
+
+  // irrational parametric trace — never closes
+  // X driven at frequency 1, Y at frequency PHI
+  ctx.beginPath();
+  for(let i=0;i<N;i+=2){
+    const t=realsT+i/N*Math.PI*2*14; // 14 full cycles visible
+    const a=(timeData[i]-128)/128;
+    const b=(timeData[Math.floor(i*PHI)%N]-128)/128;
+    const x=cx+Math.cos(t)*SZ*.28*a + Math.sin(t*PHI)*SZ*.04;
+    const y=cy+Math.sin(t*PHI)*SZ*.28*b + Math.cos(t)*SZ*.04;
+    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  }
+  ctx.strokeStyle=`rgba(0,255,65,${.42+mid*.15})`;
+  ctx.lineWidth=1.1+bass*.5;
+  ctx.shadowBlur=5+bass*8;ctx.shadowColor="#00ff41";
+  ctx.stroke();ctx.shadowBlur=0;
+
+  // ghost of the rational approximation — what a quantum orbit looks like
+  // 5:3 ratio (close to PHI but rational, so it closes)
+  const lag53=Math.floor(N*(3/5*.5))&~1;
+  ctx.beginPath();
+  for(let i=0;i<N;i+=2){
+    const a=(timeData[i]-128)/128,b=(timeData[(i+lag53)%N]-128)/128;
+    if(i===0)ctx.moveTo(cx+a*SZ*.25,cy+b*SZ*.25);
+    else ctx.lineTo(cx+a*SZ*.25,cy+b*SZ*.25);
+  }
+  ctx.strokeStyle="rgba(0,255,65,.08)";
+  ctx.lineWidth=.7;ctx.stroke();
+
+  // closure target — the circle the irrational trace never hits
+  ctx.beginPath();
+  ctx.arc(cx,cy,SZ*.27,0,Math.PI*2);
+  ctx.strokeStyle="rgba(0,255,65,.04)";
+  ctx.lineWidth=1;
+  ctx.setLineDash([1,8]);ctx.stroke();ctx.setLineDash([]);
+
+  // label
+  ctx.font="7px monospace";ctx.fillStyle="rgba(0,255,65,.22)";
+  ctx.fillText(`φ = ${PHI.toFixed(8)}…`,8,SZ-8);
+}
+
+/* ══════════════════════════════════════════════
+   MODE 2 — GEOMETRY DEMANDS QUANTIZATION
+   Only integer ratios produce stable closed orbits.
+   Four lissajous at quantized ratios: 1:1, 2:1,
+   3:2, 4:3. Each nested inside the other.
+   Non-integer ratios are simply absent — forbidden
+   by the geometry. The discreteness is structural.
+══════════════════════════════════════════════ */
+
+const QUANTUM_RATIOS = [
+  {nx:1,ny:1,phi:.00,r:.26,lw:1.6,a:.50},
+  {nx:2,ny:1,phi:.25,r:.21,lw:1.2,a:.35},
+  {nx:3,ny:2,phi:.50,r:.17,lw:1.0,a:.25},
+  {nx:4,ny:3,phi:.75,r:.14,lw:.8, a:.16},
+];
+let geoT=0;
+
+function drawGeometry(){
+  if(!analyser)return;
+  geoT+=.0010+bass*.0006;
+  const N=timeData.length;
+
+  QUANTUM_RATIOS.forEach((q,qi)=>{
+    ctx.beginPath();
+    for(let i=0;i<N;i+=2){
+      const t=geoT+i/N*Math.PI*2*q.nx;
+      const a=(timeData[i]-128)/128;
+      const lag=Math.floor(N*q.phi)&~1;
+      const b=(timeData[(i+lag)%N]-128)/128;
+      // parametric: x=sin(nx·t)·signal, y=sin(ny·t+φ)·signal
+      const x=cx+Math.sin(q.nx*t)*SZ*q.r*(1+a*.35);
+      const y=cy+Math.sin(q.ny*t+q.phi*Math.PI)*SZ*q.r*(1+b*.35);
+      if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle=`rgba(0,255,65,${q.a+mid*.08})`;
+    ctx.lineWidth=q.lw+bass*.3;
+    ctx.shadowBlur=qi===0?6+bass*8:0;ctx.shadowColor="#00ff41";
+    ctx.stroke();ctx.shadowBlur=0;
+  });
+
+  // quantization labels — the allowed ratios only
+  ctx.font="6px monospace";ctx.fillStyle="rgba(0,255,65,.22)";
+  ctx.fillText("1:1",cx+SZ*.24,cy);
+  ctx.fillText("2:1",cx+SZ*.18,cy-SZ*.04);
+  ctx.fillText("3:2",cx+SZ*.14,cy+SZ*.02);
+  ctx.fillText("4:3",cx+SZ*.11,cy-SZ*.02);
+}
+
+/* ══════════════════════════════════════════════
+   MODE 3 — THE TYPO
+   A standard 3:2 lissajous starts clean.
+   A corrupted term (the typo) seeds itself as a
+   small additive perturbation with a slightly wrong
+   frequency. Over time it propagates through the
+   trace — not replacing it but distorting it
+   progressively. The original shape is still
+   recognisable but increasingly wrong.
+══════════════════════════════════════════════ */
+
+let typoMag=0, typoPhase=0, typoFreq=0;
+
+function resetTypo(){
+  typoMag=0;typoPhase=0;
+  // the typo: a slightly irrational perturbation frequency
+  typoFreq=3.0 + .07 + Math.random()*.04; // should be exactly 3 — it isn't
+}
+
+function drawTypo(){
+  if(!analyser)return;
+  typoPhase+=.0018+mid*.001;
+  // typo grows slowly — it compounds
+  typoMag+=.00018+vol*.00012;
+  typoMag=Math.min(typoMag,0.72);
+
+  const N=timeData.length;
+  const lag32=Math.floor(N*.25)&~1; // 3:2 lag
+
+  // clean substrate — what it should be
+  lis(cx,cy,SZ*.24,SZ*.24,0.25,.14,.7);
+
+  // corrupted trace — typo term added
+  ctx.beginPath();
+  for(let i=0;i<N;i+=2){
+    const t=typoPhase+i/N*Math.PI*2*3;
+    const a=(timeData[i]-128)/128;
+    const b=(timeData[(i+lag32)%N]-128)/128;
+    // correct terms
+    let x=cx+Math.sin(3*t)*SZ*.24*(1+a*.4);
+    let y=cy+Math.sin(2*t+.25*Math.PI)*SZ*.24*(1+b*.4);
+    // typo term — wrong frequency, growing magnitude
+    x+=Math.sin(typoFreq*t+typoMag)*SZ*typoMag*.35;
+    y+=Math.cos(typoFreq*t*1.03)*SZ*typoMag*.28;
+    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  }
+  ctx.strokeStyle=`rgba(0,255,65,${.52+mid*.16})`;
+  ctx.lineWidth=1.2+bass*.4;
+  ctx.shadowBlur=5+bass*8;ctx.shadowColor="#00ff41";
+  ctx.stroke();ctx.shadowBlur=0;
+
+  // typo magnitude bar
+  const bx=8,by=SZ-12,bw=SZ*.40;
+  ctx.fillStyle="rgba(0,255,65,.06)";ctx.fillRect(bx,by,bw,3);
+  ctx.fillStyle=`rgba(0,255,65,${.25+typoMag*.3})`;
+  ctx.fillRect(bx,by,bw*typoMag,3);
+  ctx.font="6px monospace";ctx.fillStyle="rgba(0,255,65,.22)";
+  ctx.fillText(`ERR: ${typoMag.toFixed(4)}`,bx,by-3);
+}
+
+/* ══════════════════════════════════════════════
+   MODE 4 — ENTANGLEMENT ILLUSION
+   Two lissajous appear correlated — they mirror
+   each other's moves. But both are driven from
+   the same source signal with a shared hidden lag.
+   A "reveal" button (bass spike) momentarily shows
+   the shared source: correlation collapses to
+   identity. The entanglement was the lag, not
+   a physical link.
+══════════════════════════════════════════════ */
+
+let entReveal=0; // 0=correlated appearance  1=source revealed
+
+function resetEntangle(){ entReveal=0; }
+
+function drawEntangle(){
+  if(!analyser)return;
+
+  // shared hidden lag — the "hidden variable"
+  const N=timeData.length;
+  const hiddenLag=Math.floor(N*.22)&~1;
+
+  // reveal on bass spike
+  if(bass>.24) entReveal=Math.min(1,entReveal+.06);
+  else         entReveal=Math.max(0,entReveal-.012);
+
+  // particle A — left lissajous
+  const lagA=Math.floor(N*(.25+entReveal*.10))&~1;
+  ctx.beginPath();
+  for(let i=0;i<N;i+=2){
+    const a=(timeData[i]-128)/128,b=(timeData[(i+lagA)%N]-128)/128;
+    if(i===0)ctx.moveTo(cx-SZ*.14+a*SZ*.16,cy+b*SZ*.16);
+    else ctx.lineTo(cx-SZ*.14+a*SZ*.16,cy+b*SZ*.16);
+  }
+  ctx.strokeStyle=`rgba(0,255,65,${.48+mid*.15})`;
+  ctx.lineWidth=1.2+bass*.4;
+  ctx.shadowBlur=6;ctx.shadowColor="#00ff41";
+  ctx.stroke();ctx.shadowBlur=0;
+
+  // particle B — right lissajous, appears mirrored
+  const lagB=Math.floor(N*(.25-entReveal*.10))&~1;
+  ctx.beginPath();
+  for(let i=0;i<N;i+=2){
+    const a=(timeData[i]-128)/128,b=(timeData[(i+lagB)%N]-128)/128;
+    // mirror X: the appearance of opposite spin
+    if(i===0)ctx.moveTo(cx+SZ*.14-a*SZ*.16,cy+b*SZ*.16);
+    else ctx.lineTo(cx+SZ*.14-a*SZ*.16,cy+b*SZ*.16);
+  }
+  ctx.strokeStyle=`rgba(0,255,65,${.48+mid*.15})`;
+  ctx.lineWidth=1.2+bass*.4;
+  ctx.shadowBlur=6;ctx.shadowColor="#00ff41";
+  ctx.stroke();ctx.shadowBlur=0;
+
+  // hidden source — revealed when entReveal is high
+  if(entReveal>.08){
+    lis(cx,cy,SZ*.22,SZ*.22,.25,entReveal*.35,1.4);
+    ctx.font="7px monospace";
+    ctx.fillStyle=`rgba(0,255,65,${entReveal*.45})`;
+    ctx.textAlign="center";
+    ctx.fillText("SHARED SOURCE",cx,cy+SZ*.30);
+    ctx.textAlign="left";
+  }
+
+  // connection thread — appears correlated, reveals shared origin
+  ctx.beginPath();
+  ctx.moveTo(cx-SZ*.14,cy);ctx.lineTo(cx+SZ*.14,cy);
+  ctx.strokeStyle=`rgba(0,255,65,${.04+entReveal*.14})`;
+  ctx.lineWidth=.7;
+  ctx.setLineDash([2,8]);ctx.stroke();ctx.setLineDash([]);
+
+  // labels
+  ctx.font="7px monospace";ctx.fillStyle="rgba(0,255,65,.25)";
+  ctx.fillText("A",cx-SZ*.18,cy-SZ*.18);
+  ctx.fillText("B",cx+SZ*.14,cy-SZ*.18);
+}
+
+/* ══════════════════════════════════════════════
+   MODE 5 — MEDIA QUINES
+   A lissajous that periodically snapshots itself
+   and redraws from its own snapshot (generation N).
+   Each generation is a quine attempt. A faithful
+   quine reproduces exactly; drift accumulates if
+   the reproduction is imperfect.
+   The current generation glows; past generations
+   are shown as fading layers.
+══════════════════════════════════════════════ */
+
+const QUINE_GENS=6;
+const quineBufs=[]; // each is a saved timeData snapshot
+let quineTimer=0;
+const QUINE_PERIOD=180; // frames between generations
+let driftMag=0;
+
+function resetQuines(){
+  quineBufs.length=0;
+  quineTimer=0;
+  driftMag=0;
+}
+
+function drawQuines(){
+  if(!analyser)return;
+
+  quineTimer++;
+  // spawn new generation
+  if(quineTimer%QUINE_PERIOD===0){
+    const snap=new Uint8Array(timeData);
+    // introduce small drift in reproduction
+    const driftRate=.008+vol*.006;
+    for(let i=0;i<snap.length;i++){
+      snap[i]=Math.max(0,Math.min(255,
+        snap[i]+(Math.random()-.5)*driftRate*30|0));
+    }
+    quineBufs.push(snap);
+    if(quineBufs.length>QUINE_GENS)quineBufs.shift();
+    driftMag=Math.min(1,driftMag+driftRate*8);
+  }
+
+  // draw past generations — fading layers (the genealogy)
+  quineBufs.forEach((buf,gi)=>{
+    const age=gi/Math.max(quineBufs.length-1,1);
+    const alpha=.04+age*.10;
+    const r=SZ*(.18+age*.08);
+    const lag=Math.floor(buf.length*(.25+gi*.015))&~1;
+    ctx.beginPath();
+    for(let i=0;i<buf.length;i+=2){
+      const a=(buf[i]-128)/128,b=(buf[(i+lag)%buf.length]-128)/128;
+      if(i===0)ctx.moveTo(cx+a*r,cy+b*r);
+      else ctx.lineTo(cx+a*r,cy+b*r);
+    }
+    ctx.strokeStyle=`rgba(0,255,65,${alpha})`;
+    ctx.lineWidth=.6+age*.4;ctx.stroke();
+  });
+
+  // current live generation — bright
+  lis(cx,cy,SZ*.28,SZ*.28,.25,.52+mid*.18,1.4);
+
+  // drift indicator
+  const bx=8,by=SZ-12,bw=SZ*.38;
+  ctx.fillStyle="rgba(0,255,65,.06)";ctx.fillRect(bx,by,bw,3);
+  ctx.fillStyle=`rgba(0,255,65,${.20+driftMag*.25})`;
+  ctx.fillRect(bx,by,bw*driftMag,3);
+  ctx.font="6px monospace";ctx.fillStyle="rgba(0,255,65,.22)";
+  ctx.fillText(`DRIFT: ${driftMag.toFixed(3)}  GEN: ${quineBufs.length}`,bx,by-3);
+
+  // quine self-reference marker — the trace pointing at itself
+  const phase=quineTimer*.012;
+  const mx=cx+Math.cos(phase)*SZ*.30;
+  const my=cy+Math.sin(phase)*SZ*.30;
+  ctx.beginPath();ctx.arc(mx,my,3,0,Math.PI*2);
+  ctx.fillStyle=`rgba(0,255,65,${.25+bass*.3})`;
+  ctx.fill();
+}
+
+/* main loop */
+function draw(){
+  frame++;
+  updateEnergy();
+  maybeGlitch();
+  applyGlitch();
+
+  // phosphor persistence
+  ctx.fillStyle="rgba(0,0,0,.14)";
+  ctx.fillRect(0,0,SZ,SZ);
+
+  if(analyser){
+    if(mode==="reals")    drawReals();
+    else if(mode==="geometry") drawGeometry();
+    else if(mode==="typo")     drawTypo();
+    else if(mode==="entangle") drawEntangle();
+    else if(mode==="quines")   drawQuines();
+  } else {
+    // idle
+    ctx.beginPath();
+    ctx.arc(cx,cy,3+Math.sin(frame*.04)*1.5,0,Math.PI*2);
+    ctx.fillStyle="rgba(0,255,65,.18)";ctx.fill();
+  }
+
+  requestAnimationFrame(draw);
+}
+
+resetTypo();
+loadTrack(0,false);
+draw();
+</script>
+</body>
+</html>

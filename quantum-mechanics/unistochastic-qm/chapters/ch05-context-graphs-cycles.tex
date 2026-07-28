@@ -1,0 +1,259 @@
+\chapter{Context Graphs and Cycle Consistency}
+\label{ch:context-graphs}
+
+Chapter~\ref{ch:composition} asked whether projecting before composing
+preserves the composition law for a fixed pair of lifts. This chapter asks a
+different question entirely: given several \emph{independently observed}
+transitions between measurement contexts, can they all have come from one
+consistent global assignment of frames? The first question is about a
+single, chosen composition; the second is about whether many separately
+admissible observations are mutually compatible at all. Nothing about
+Chapter~\ref{ch:composition}'s obstruction is assumed or needed here.
+
+\section{Measurement Contexts as Vertices, Transitions as Edges}
+
+Let $G = (V, E)$ be a graph whose vertices are measurement contexts (orthonormal
+bases) and whose edges carry observed transition-probability matrices $B_e$. We
+distinguish four increasingly demanding notions of admissibility over a field
+$\mathbb F \in \{\R, \C, \Hset\}$:
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+vertex data & a context, prior to any transition data \\
+edge admissibility & $B_e$ individually lies in the $\mathbb F$-admissible set \\
+path composition & sequential lifts compose (Chapter~\ref{ch:composition}) \\
+cycle consistency & lifts around a closed loop compose to the identity \\
+global realizability & a single assignment of frames realizes every edge at once \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{definition}[Edgewise vs.\ global $\mathbb F$-admissibility]
+Write $\mathcal A_{\mathbb F}(e)$ for the set of edges individually admitting an
+$\mathbb F$-lift, and $\mathcal A_{\mathbb F}(G)$ for the set of context graphs
+admitting a \emph{single} assignment of frames to vertices realizing every edge
+simultaneously.
+\end{definition}
+
+\section{Exact Closure and Its Failure Under Projection}
+
+For exact frame-to-frame transformations $L_{AB}$ around a triangle of contexts
+$Z, X, Y$,
+\begin{equation}
+L_{ZX} L_{XY} L_{YZ} = I.
+\label{eq:exact-closure}
+\end{equation}
+Applying the probability projection $\pi(L) = |L|^{\circ 2}$ destroys the
+information needed to express the corresponding closure condition: there is in
+general no relation
+\begin{equation}
+B_{ZX} B_{XY} B_{YZ} = I
+\end{equation}
+satisfied by the observed transition matrices alone.
+
+\begin{ledgerentry}
+Equation~\eqref{eq:exact-closure} projecting to no corresponding closure relation
+on the observed $B$'s is the central fact of this chapter: exact composition has
+an identity that probability-level projection does not preserve.
+\end{ledgerentry}
+
+\section{Gauge Bookkeeping for a Single Real Frame}
+\label{sec:gauge-single-frame}
+
+Before turning to cycles and global consistency, it is worth asking a more
+basic question about a single edge: recall $\theta \in [0,\pi/4]$ from
+Chapter~\ref{ch:unistochastic}, the canonical unsigned transition angle
+between two real two-dimensional contexts. Two very different things
+compress a raw frame angle $\alpha$ down to this domain, and confusing them
+would understate what $\pi$ (the probability projection) actually costs: one
+is harmless relabeling, the other is a genuine, single-edge loss of
+information that happens \emph{before} any cycle or composition enters the
+picture. Separating them precisely is the point of this section.
+
+\begin{proposition}[Gauge versus projection loss in the fundamental domain]
+\label{prop:gauge-vs-loss}
+\index{Gauge versus projection loss in the fundamental domain (proposition)}
+The canonical unsigned transition angle $\theta \in [0,\pi/4]$ arises from composing
+two identifications of \emph{different character}, not one redundancy in
+disguise:
+\begin{enumerate}
+\item[(i)] \textbf{Gauge (label swap).} $\alpha \sim \alpha + \pi/2$. This
+identifies the \emph{same} pair of lines with the labels "$+$" and "$-$"
+exchanged: explicitly $e_+(\alpha+\pi/2) = e_-(\alpha)$ up to sign. Nothing
+physical changes; only $B_{11} \mapsto 1 - B_{11}$.
+\item[(ii)] \textbf{Projection loss, not gauge.} $\alpha \sim \pi - \alpha$.
+Here $e_+(\pi-\alpha) \neq \pm e_+(\alpha)$ for generic $\alpha$: these are
+\emph{genuinely different} lines. Yet $B_{11}(\alpha) = B_{11}(\pi-\alpha)$
+identically, since $\cos^2\alpha = \cos^2(\pi-\alpha)$. The map $\pi$ destroys
+the distinction between these two physically distinct contexts already at the
+level of a single edge, prior to any composition or cycle.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Verification]
+Take $\alpha = \pi/6$. Direct computation gives $B_{11}(\pi/6) = 3/4$,
+$B_{11}(\pi/6+\pi/2) = 1/4$ (confirming (i), $t \mapsto 1-t$), and
+$B_{11}(\pi-\pi/6) = 3/4$ while $e_+(\pi-\pi/6) \neq \pm e_+(\pi/6)$ (confirming
+(ii): identical observable, distinct context). Composing (i) and (ii) generates
+the four generic images $\{\alpha,\ \pi/2+\alpha,\ \pi-\alpha,\ \pi/2-\alpha\}$
+of a representative $\alpha$, an order-4 group consistent with the $[0,\pi/4]$
+fundamental domain.
+\end{proof}
+
+\begin{remark}
+This confirms the framing above precisely: part (ii) is a \emph{single}-edge
+loss of information under $\pi$, independent of anything about cycles or
+global consistency. The cycle-consistency obstruction of
+\S\ref{ch:real-mub-obstruction} is therefore an \emph{additional},
+qualitatively different failure (inability to glue) stacked on top of this more
+basic single-edge failure (inability to invert $\pi$). The two should not be
+conflated: the $\pm$ signs in the triangle-gluing relation
+(Theorem~\ref{thm:triangle-gluing}) track both ambiguities at once, which is
+why four sign combinations appear rather than two.
+\end{remark}
+
+\section{Global Gauge for a Context Graph}
+
+A gauge decision at one vertex acts on every edge incident to it: for allowed
+representative changes $g_A$ at each vertex,
+\begin{equation}
+L_{AB} \mapsto g_A^{-1} L_{AB} g_B.
+\end{equation}
+Consequently a triangle of contexts is not three independent two-basis problems;
+signs cannot be chosen edge by edge. Fixing $\alpha_Z = 0$, $\alpha_X = \alpha$,
+$\alpha_Y = \beta$, the exact relative angles obey
+\begin{equation}
+\Delta_{ZX} + \Delta_{XY} + \Delta_{YZ} = 0 \pmod{2\pi},
+\end{equation}
+which projects, after probability observation $\Delta \mapsto \cos^2\Delta$, to
+the weaker triangle-gluing relation of the next section.
+
+\section{Spanning Trees, Cycle Rank, and General Realizability}
+\label{sec:spanning-trees}
+
+The triangle of Chapter~\ref{ch:real-mub-obstruction} is the smallest instance
+of a general phenomenon, worth isolating for its own sake before specializing
+back to $n=3$ contexts.
+
+\begin{definition}[Context graph]
+A \emph{context graph} is a connected graph $G=(V,E)$ whose vertices are
+measurement contexts and whose edges $e=(A,B)$ each carry an observed
+bistochastic matrix $B_e$. Its \emph{cycle rank} (first Betti number) is
+\begin{equation}
+\beta_1(G) = |E| - |V| + 1.
+\end{equation}
+\end{definition}
+
+A spanning tree $T \subseteq E$ has $|T| = |V|-1$ edges and $\beta_1(T) = 0$;
+each additional edge beyond a spanning tree closes exactly one independent
+cycle, so $\beta_1(G)$ counts the non-tree edges of any fixed spanning tree.
+
+\begin{proposition}[Trees carry no independent constraint]
+\label{prop:tree-no-constraint}
+\index{Trees carry no independent constraint (proposition)}
+Let $T=(V,E_T)$ be a tree, each edge individually $\mathbb F$-admissible (some
+lift exists reproducing $B_e$). Then a global frame assignment reproducing
+every edge of $T$ simultaneously always exists.
+\end{proposition}
+
+\begin{proof}
+Fix a root $r \in V$ and $F_r := I$. $T$ has a unique path from $r$ to any
+other vertex $v$; choose, for each tree edge, any one admissible lift, and
+propagate $F_v := F_u L_{uv}$ along that unique path. Since the path to each
+vertex is unique (this is exactly what makes $T$ a tree), no two propagation
+routes can disagree, and by construction $F_A^{-1}F_B = L_{AB}$ reproduces
+$B_e$ on every tree edge.
+\end{proof}
+
+\begin{theorem}[Graph realizability criterion]
+\label{thm:graph-realizability}
+\index{Graph realizability criterion (theorem)}
+Let $G=(V,E)$ be a context graph and $T$ a spanning tree. $G$ is globally
+$\mathbb F$-realizable (some assignment of vertex frames reproduces every edge
+of $E$) if and only if there is a choice of admissible lifts on the tree edges
+of $T$ such that the resulting frame assignment (Proposition
+\ref{prop:tree-no-constraint}) \emph{also} reproduces $B_e$ on every non-tree
+edge $e \in E \setminus T$.
+
+Equivalently: global realizability holds iff there exists a \emph{single}
+compatible choice of lifts on a spanning tree for which \emph{every} non-tree
+edge simultaneously satisfies its induced fundamental-cycle closure condition.
+The existential quantifier ranges over one shared tree-lift choice, not over
+each non-tree edge separately — this is the content of the theorem, not a
+footnote to it.
+\end{theorem}
+
+\begin{proof}
+($\Leftarrow$) The constructed frame assignment reproduces every tree edge by
+Proposition~\ref{prop:tree-no-constraint} and every non-tree edge by
+hypothesis, hence every edge of $E$.
+
+($\Rightarrow$) If some global frame assignment $\{F_A\}$ reproduces every
+edge of $E$, its restriction to $T$ is in particular a choice of admissible
+tree-edge lifts ($L_{AB} := F_A^{-1}F_B$ for $(A,B) \in T$ reproduces $B_e$ by
+hypothesis), and propagating from that choice reconstructs exactly $\{F_A\}$
+(by uniqueness of tree paths), which by hypothesis already matches every
+non-tree edge.
+\end{proof}
+
+The theorem is existential rather than constructive: it characterizes
+\emph{when} a compatible assignment exists without prescribing a unique one
+or a search procedure for finding it. Multiple tree-lift choices can succeed
+simultaneously (Chapter~\ref{ch:real-mub-obstruction}'s explicit real
+solutions to the triangle-gluing relation are one instance), and nothing
+here selects among them.
+
+\begin{remark}
+Theorem~\ref{thm:graph-realizability} reduces global realizability to exactly
+$\beta_1(G)$ simultaneous consistency checks — one per non-tree edge, all
+against the \emph{same} tree-lift choice, not checked independently of one
+another. This is a genuine constraint when $\beta_1(G) \ge 2$: passing each
+non-tree check in isolation, for possibly different tree-lift choices, does
+not suffice: it must be a single choice of tree lifts that satisfies every
+non-tree edge at once.
+\end{remark}
+
+\begin{corollary}
+\label{cor:triangle-minimal}
+$\beta_1(K_3) = 3-3+1 = 1$: the triangle of
+Chapter~\ref{ch:real-mub-obstruction} is the minimal context graph possessing
+a nontrivial cycle constraint, and Theorem~\ref{thm:triangle-gluing} is the
+$\beta_1=1$ case of Theorem~\ref{thm:graph-realizability} (spanning tree
+$\{ZX,ZY\}$, single non-tree edge $XY$).
+\end{corollary}
+
+\begin{remark}[Two independent axes, not one ladder]
+\label{rem:two-axes}
+Theorem~\ref{thm:graph-realizability} should not be read as one more rung on a
+single vertex$\to$edge$\to$path$\to$cycle$\to$global hierarchy. Part I
+actually establishes two \emph{logically independent} questions, and
+collapsing them into one ordered scale obscures that independence.
+
+\emph{Compositional sufficiency} (Chapter~\ref{ch:composition}) asks whether
+projected data retains enough information to predict sequential composition:
+$\pi(L_2L_1) \overset{?}{=} \pi(L_2)\pi(L_1)$. This question is already
+meaningful on a bare open path — no cycle, and in particular no closed loop
+in a context graph, is required to ask or answer it. It measures information
+lost by projection, full stop.
+
+\emph{Global realizability} (this chapter and Chapter~\ref{ch:real-mub-obstruction})
+asks whether independently specified, individually admissible edge data
+$\{B_e\}$ on a context graph admits one simultaneous vertex-frame assignment
+reproducing all of it at once. This is where trees, non-tree edges, and
+$\beta_1(G)$ belong, and it is silent on whether any particular composition of
+chosen lifts is faithful.
+
+The MUB triangle fails the second test; the interference calculation of
+Chapter~\ref{ch:composition} demonstrates failure of the first. Nothing forces
+these into a common scale. An assumption's contribution to the reconstruction
+is better recorded as a pair
+\begin{equation}
+Q(A) = \big(Q_{\mathrm{comp}}(A),\ Q_{\mathrm{glob}}(A)\big)
+\end{equation}
+— what it contributes to compositional recovery, and separately what it
+contributes to global realizability — rather than a single numerical "depth."
+Part II introduces a third, independent axis in the same spirit: \emph{system
+composition} (does an individually admissible state space for each of several
+systems compose into an admissible joint state space?), which is neither
+sequential composition along a path nor contextual gluing around a cycle.
+\end{remark}

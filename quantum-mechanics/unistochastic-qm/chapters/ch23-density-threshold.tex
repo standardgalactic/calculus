@@ -1,0 +1,110 @@
+\chapter{The Density Question, Resolved Sharply}
+\label{ch:density}
+
+Chapter~\ref{ch:minimal-witnesses}'s fourth open question asked whether,
+for a random context graph, the probability that admissible edge data
+requires $\C$ approaches $1$ as edge density increases — an
+Erd\H{o}s--R\'enyi-style asymptotic threshold, explicitly flagged there as
+needing a probability measure on edge-label data this book had not yet
+defined. This chapter defines that measure and answers the question, but
+the answer is sharper than the question anticipated: there is no
+asymptotic threshold to find, because the threshold is already crossed at
+the first cycle.
+
+\section{A Natural Measure, and a Correction}
+
+\begin{definition}[Independent continuous edge measure]
+\label{def:edge-measure}
+\index{Independent continuous edge measure (definition)}
+For a context graph $G$ at $d=2$, equip each edge with an independent
+$\mathrm{Uniform}[0,\pi/4]$ distribution over its canonical angle,
+independently across edges.
+\end{definition}
+
+This is the natural candidate the question calls for: no correlation
+between edges is assumed, and no edge value is privileged.
+
+Before proceeding, a claim made in passing in
+Chapter~\ref{ch:real-mub-obstruction} needs correcting. That chapter's
+discussion of the triangle-gluing theorem stated that "generic triples of
+edge angles do admit real joint realizations." Checked directly against
+Definition~\ref{def:edge-measure}, this is false, and has been corrected
+at the point it was made (Chapter~\ref{ch:real-mub-obstruction}'s remark
+following Theorem~\ref{thm:triangle-gluing}): realizability is not the
+generic case. It is the exception.
+
+\section{The Sharp Result}
+
+\begin{theorem}[Realizability is measure-zero once $\beta_1(G)\ge1$]
+\label{thm:density-sharp}
+\index{Realizability is measure-zero once beta1(G)>=1 (theorem)}
+For any context graph $G$ with $\beta_1(G)\ge1$, under
+Definition~\ref{def:edge-measure}, $\Pr[\text{edge data is globally
+real-realizable}] = 0$.
+\end{theorem}
+
+\begin{proof}
+Fix a spanning tree $T$ and the $\beta_1(G)$ non-tree edges. By Theorem
+\ref{thm:graph-realizability}, global realizability requires a single
+choice of tree-edge lifts under which \emph{every} non-tree edge matches
+its target angle. For fixed tree-edge angles, each non-tree edge's target
+must equal one of finitely many values determined by the tree data
+(Theorem~\ref{thm:triangle-gluing} for each fundamental cycle) — a
+codimension-one condition on that edge's independently-drawn value. With
+$\beta_1(G)$ non-tree edges drawn independently, satisfying all
+$\beta_1(G)\ge1$ such conditions simultaneously is a codimension-$\beta_1(G)$
+event under a continuous product measure, hence has probability zero.
+\end{proof}
+
+This was verified computationally before being stated as a theorem, at
+two different values of $\beta_1$: $0.05\%$ of $2{,}000{,}000$ fully
+independent triangle trials matched realizability within a generous
+numerical tolerance of $10^{-4}$ (consistent with probability exactly
+zero as the tolerance shrinks), and $0$ of $200{,}000$ trials matched on
+$K_4$ ($\beta_1=3$), the higher codimension making the event
+correspondingly harder to hit even at finite tolerance.
+
+\section{Why This Is Not an Erd\H{o}s--R\'enyi Threshold}
+
+The question as posed in Chapter~\ref{ch:minimal-witnesses} anticipated an
+asymptotic phenomenon: a critical edge density below which real
+realizability is typical and above which it is not, in the manner of the
+giant-component threshold. Theorem~\ref{thm:density-sharp} shows this
+picture does not apply. There is no gradual transition and no critical
+density to locate: the moment a graph contains even one cycle
+($\beta_1(G)=1$, the minimal case, achieved by a bare triangle), generic
+edge data already fails to realize over $\R$ with probability one. Adding
+further edges (increasing $\beta_1(G)$ further) does not create a
+threshold that was previously absent; it was already crossed.
+
+\begin{remark}
+This should be read alongside Chapter~\ref{ch:higher-d-witnesses}'s
+inversion result in the same spirit: an intuition imported from a
+different context (the Erd\H{o}s--R\'enyi threshold, or "higher
+dimension means larger witnesses") turns out not to describe what
+actually happens here, and the correction is sharper and more interesting
+than the naive expectation. Where Chapter~\ref{ch:higher-d-witnesses}
+found the minimal witness \emph{shrinks} rather than grows with dimension,
+this chapter finds the density threshold \emph{degenerates to a single
+point} ($\beta_1=1$) rather than sweeping out a nontrivial range.
+\end{remark}
+
+\begin{ledgerentry}[End of Chapter~\ref{ch:density}]
+\textbf{Established:} the density-threshold question of Chapter
+\ref{ch:minimal-witnesses} is resolved (Theorem~\ref{thm:density-sharp}):
+under the natural independent-continuous edge measure, real realizability
+has probability zero for every graph with $\beta_1(G)\ge1$, not an
+asymptotic phenomenon requiring a critical density. A false claim in
+Chapter~\ref{ch:real-mub-obstruction} ("generic triples do admit real
+realizations") is corrected at its source as part of this resolution.\\
+\textbf{Not established:} anything about non-continuous or correlated
+measures on edge data, which might in principle behave differently (e.g.\
+a measure concentrated on real-derived triples would trivially give
+probability one, the opposite regime); anything about $d\ge3$, where
+Theorem~\ref{thm:density-sharp}'s proof — via the fundamental-cycle
+characterization of Theorem~\ref{thm:graph-realizability} — still applies
+verbatim to the graph-level obstruction, but where Chapter
+\ref{ch:higher-d-witnesses}'s cheaper single-edge obstruction is a
+separate phenomenon this chapter's measure has not been extended to
+analyze.
+\end{ledgerentry}

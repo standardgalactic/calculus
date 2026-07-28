@@ -1,0 +1,85 @@
+\chapter{Notation and Conventions}
+\label{app:notation}
+
+This appendix collects, in one place, notation used repeatedly across the
+book without being redefined at each occurrence. It introduces nothing
+new; every item below is defined at its first occurrence in the main text,
+cross-referenced here for convenience.
+
+\section{Number Systems}
+\begin{itemize}
+\item[] $\R \subset \C \subset \Hset$: real numbers, complex numbers,
+quaternions, in the inclusions used throughout Part II onward
+(Chapter~\ref{ch:quaternionic}, Proposition~\ref{prop:c-subset-h}).
+\item[] $\mathbb F$: a generic placeholder for one of $\R,\C,\Hset$, used
+whenever a definition or theorem is stated uniformly across all three.
+\end{itemize}
+
+\section{Matrix Classes}
+\begin{itemize}
+\item[] $\mathrm{DS}(n)$: $n\times n$ doubly (bi-)stochastic matrices —
+nonnegative entries, all row and column sums equal to $1$
+(Chapter~\ref{ch:birkhoff}).
+\item[] $\mathrm{OS}(n)$, $\mathrm{US}(n)$: orthostochastic and
+unistochastic matrices — $B_{ij}=O_{ij}^2$ for real orthogonal $O$, or
+$B_{ij}=|U_{ij}|^2$ for unitary $U$, respectively
+(Chapter~\ref{ch:unistochastic}). $\mathrm{OS}(n) \subseteq
+\mathrm{US}(n) \subseteq \mathrm{DS}(n)$ always; equality of the first two
+holds only at $n=2$ (Theorem~\ref{thm:n2degeneracy}) and fails from $n=3$
+on (Theorem~\ref{thm:n3incompleteness}).
+\item[] $\mathrm{Herm}_d(\mathbb F)$: $d\times d$ Hermitian matrices over
+$\mathbb F$ (symmetric for $\R$, conjugate-symmetric for $\C$,
+quaternionic-conjugate-symmetric for $\Hset$); $\beta_{\mathbb F}(d) :=
+\dim_\R \mathrm{Herm}_d(\mathbb F)$, with $\beta_\R(d)=d(d+1)/2$,
+$\beta_\C(d)=d^2$, $\beta_\Hset(d)=d(2d-1)$
+(Chapter~\ref{ch:local-tomography}, Proposition~\ref{prop:hermitian-dimension}).
+\item[] $\mathcal D_d(\mathbb F)$: the physical state space, positive
+semidefinite trace-one elements of $\mathrm{Herm}_d(\mathbb F)$
+(Chapter~\ref{ch:positivity}).
+\end{itemize}
+
+\section{The Canonical Angle (Real \texorpdfstring{$2\times2$}{2x2} Case)}
+\begin{itemize}
+\item[] $\theta \in [0,\pi/4]$: the canonical unsigned transition angle
+between two real two-dimensional contexts, defined via
+$B(\theta)_{ii}=\cos^2\theta$, unique after quotienting the gauge and
+projection-loss identifications of \S\ref{sec:gauge-single-frame}
+(Proposition~\ref{prop:gauge-vs-loss}).
+\item[] $J = \begin{psmallmatrix}0&-1\\1&0\end{psmallmatrix}$: the
+antisymmetric quarter-turn generator, $J^2=-I$, the real matrix
+representing $i$ throughout Chapters~\ref{ch:tensor-product}--
+\ref{ch:entanglement} and Chapter~\ref{ch:amplitwist}; identical to the
+real representation of $i$ used independently by
+Hoffreumon and Woods~\cite{hoffreumon-woods-2025}
+(Chapter~\ref{ch:final-audit}, \S\ref{sec:recent-literature}).
+\end{itemize}
+
+\section{Context Graphs}
+\begin{itemize}
+\item[] $G=(V,E)$: a context graph, vertices are measurement contexts,
+edges carry observed bistochastic transition data
+(Chapter~\ref{ch:context-graphs}).
+\item[] $\beta_1(G) = |E|-|V|+1$: the cycle rank (first Betti number) of a
+connected graph $G$; $\beta_1(G)=0$ iff $G$ is a tree
+(\S\ref{sec:spanning-trees}).
+\item[] $\mathcal R_{\mathbb F}(G,d)$: the realizability space, edge-labelings
+of $G$ admitting a global $\mathbb F$-frame assignment
+(Definition~\ref{def:realizability-space}).
+\item[] $m_\beta(\mathbb F,\mathbb F';d)$: the minimal witness, the smallest
+$\beta_1(G)$ over graphs $G$ separating $\mathcal R_{\mathbb F}(G,d)
+\subsetneq \mathcal R_{\mathbb F'}(G,d)$ (Definition~\ref{def:minimal-witness}).
+\end{itemize}
+
+\section{Recurring Abbreviations}
+\begin{itemize}
+\item[] QT: quantum theory in the ordinary complex-Hilbert-space sense
+(the target of the recovery layer, Part III).
+\item[] RNQT: real-number quantum theory, the term used by
+Hoffreumon and Woods~\cite{hoffreumon-woods-2025} for their construction
+(Chapter~\ref{ch:final-audit}).
+\item[] POVM: positive operator-valued measure, $\{E_i\}$ with $0\preceq
+E_i\preceq I$, $\sum_i E_i=I$ (Chapter~\ref{ch:povm}).
+\item[] [D], [R], [A], [U]: the four-category audit tags of
+Chapter~\ref{ch:final-audit} — derived, equivalent reformulation,
+independently assumed, unresolved.
+\end{itemize}

@@ -1,0 +1,133 @@
+\chapter{Observables and Spectral Decomposition}
+\label{ch:observables}
+
+Chapter~\ref{ch:born-rule} established probabilities for a fixed orthonormal
+context, $p_i=\operatorname{tr}(\rho P_i)$ with $P_i=|e_i\rangle\langle e_i|$.
+This chapter asks what an \emph{observable} is, and why Hermitian operators
+are the right general class — not by declaration, but via an explicit
+operational bridge. The route runs in two steps: first widen the rank-one
+projectors of Chapter~\ref{ch:born-rule} to allow coarser, physically
+realistic measurements with grouped outcomes, then ask what it means to
+attach a numerical value to each outcome of such a measurement. That second
+step is where Hermitian operators enter — as a consequence of the
+attachment, not as a new ingredient assumed alongside it.
+
+\section{Sharp Measurements and Coarse-Grained Outcomes}
+
+\begin{definition}[Sharp measurement]
+\label{def:sharp-measurement}
+\index{Sharp measurement (definition)}
+A \emph{sharp measurement} is a family of mutually orthogonal projectors
+$\{P_a\}$ with $\sum_a P_a = I$ ($P_aP_b=\delta_{ab}P_a$), representing
+mutually exclusive, jointly exhaustive outcomes.
+\end{definition}
+
+Chapter~\ref{ch:born-rule} proved $p_i=\operatorname{tr}(\rho P_i)$ only for
+\emph{rank-one} $P_i$ (a full orthonormal basis). The extension to
+Definition~\ref{def:sharp-measurement}'s coarser projectors costs nothing new:
+
+\begin{proposition}[Coarse-grained Born rule]
+\label{prop:coarse-born}
+\index{Coarse-grained Born rule (proposition)}
+For a sharp measurement $\{P_a\}$ where each $P_a$ is a sum of rank-one basis
+projectors, $P_a = \sum_{i\in S_a} P_i$ for disjoint index sets $S_a$
+partitioning $\{1,\dots,d\}$, $\operatorname{tr}(\rho P_a) = \sum_{i\in S_a}
+p_i$.
+\end{proposition}
+
+\begin{proof}
+Immediate from linearity of trace and Theorem~\ref{thm:density-born}.
+\end{proof}
+
+\section{The Operational Bridge}
+
+\begin{definition}[Observable]
+\label{def:observable}
+\index{Observable (definition)}
+Given a sharp measurement $\{P_a\}$ and a real value $a$ assigned to each
+outcome, the corresponding \emph{observable} is
+\begin{equation}
+A = \sum_a a\, P_a.
+\end{equation}
+\end{definition}
+
+Since each $P_a$ is Hermitian and $a\in\R$, $A$ is Hermitian. This is one
+direction of the bridge: packaging a real-labeled sharp measurement produces
+a Hermitian operator, by construction, not by postulate.
+
+\begin{theorem}[Spectral theorem, cited]
+\label{thm:spectral}
+\index{Spectral theorem, cited (theorem)}
+Every Hermitian operator $A$ on a finite-dimensional complex Hilbert space
+admits a decomposition $A = \sum_a a P_a$ with real $a$ and mutually
+orthogonal projectors $P_a$ summing to $I$.
+\end{theorem}
+
+This is a classical result of linear algebra, entirely independent of this
+book's reconstruction, and is not re-derived here; it is cited exactly as
+Chapters~\ref{ch:birkhoff} and~\ref{ch:local-tomography} cited
+Birkhoff--von Neumann's antecedents and Araki's parameter-counting argument.
+What Theorem~\ref{thm:spectral} supplies is the \emph{converse} of
+Definition~\ref{def:observable}: every Hermitian $A$ unpacks into exactly the
+kind of real-labeled sharp measurement the definition packages.
+
+\begin{remark}
+\label{rem:real-labels-assumption}
+The bridge is therefore an equivalence, not a declaration: real-valued sharp
+projective measurements and Hermitian operators are the same data, related by
+Definition~\ref{def:observable} in one direction and
+Theorem~\ref{thm:spectral} in the other. "Observables are Hermitian" is the
+statement of this equivalence, not an independent postulate layered on top of
+the state-space structure of Parts I--II. But the equivalence has a hidden
+cost worth naming rather than absorbing silently: it holds only because
+Definition~\ref{def:observable} already assumed outcomes are labeled by
+\emph{real} numbers. Nothing established so far forces this — it is a
+modeling choice (numerical outcomes are what get recorded, compared, and
+averaged), consistent with the book's discipline of not letting assumptions
+go unmarked. Complex or otherwise non-real labelings are mathematically
+available and simply produce non-Hermitian (but still well-defined)
+operators; the restriction to real labels is what makes $A$ Hermitian, not a
+fact independently established about the physical world.
+\end{remark}
+
+\section{The Eigenvalue Rule as a Corollary}
+
+\begin{proposition}[Eigenvalue rule]
+\label{prop:eigenvalue-rule}
+\index{Eigenvalue rule (proposition)}
+If $A|\psi\rangle = a|\psi\rangle$ for normalized $|\psi\rangle$, then
+$\Pr(a\mid\psi) = 1$.
+\end{proposition}
+
+\begin{proof}
+$A|\psi\rangle=a|\psi\rangle$ places $|\psi\rangle$ in the $a$-eigenspace,
+which is exactly the range of the spectral projector $P_a$
+(Theorem~\ref{thm:spectral}); since $|\psi\rangle$ is normalized and lies
+entirely in that eigenspace, $P_a|\psi\rangle = |\psi\rangle$. By
+Theorem~\ref{thm:pure-state-born} (equivalently
+Proposition~\ref{prop:coarse-born} applied to a pure state),
+$\Pr(a\mid\psi) = \langle\psi|P_a|\psi\rangle = \langle\psi|\psi\rangle = 1$.
+\end{proof}
+
+No new probability postulate was needed to get here. "An eigenstate returns
+its eigenvalue with certainty" — a rule ordinarily stated as its own
+axiom — turns out to be a corollary of Chapter~\ref{ch:born-rule}'s
+already-proved Born rule, once Definition~\ref{def:observable} pins down
+what "the eigenvalue" means operationally: nothing more than which spectral
+projector a given state happens to lie inside.
+
+\begin{ledgerentry}[End of Chapter~\ref{ch:observables}]
+\textbf{Established:} an operational equivalence between real-valued sharp
+projective measurements and Hermitian operators
+(Definition~\ref{def:observable}, Theorem~\ref{thm:spectral}); the
+eigenvalue rule as a corollary of Chapter~\ref{ch:born-rule}'s Born rule, not
+an independent postulate (Proposition~\ref{prop:eigenvalue-rule}).\\
+\textbf{Not established:} why outcome labels must be real (flagged explicitly
+as an assumption, not derived, Remark~\ref{rem:real-labels-assumption}); the
+spectral theorem itself is cited from classical linear algebra, not proved
+within this book's reconstruction; compatible observables, simultaneous
+diagonalization, and commutators are untouched; the status of general
+(non-Hermitian, non-normal) operators is not addressed. Continuous dynamics
+— how observables and states evolve in time — is the subject of the next
+chapter.
+\end{ledgerentry}

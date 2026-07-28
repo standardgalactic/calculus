@@ -1,0 +1,2927 @@
+WEBVTT
+
+00:00.000 --> 00:15.680
+If you take three different measurements of a single quantum particle and you chain them together so that they loop back to your starting point, the universe will hand you a mathematical receipt proving that the numbers you learned in grade school literally do not exist.
+
+00:15.820 --> 00:20.000
+Yeah, it's a genuinely staggering realization when you really sit with it.
+
+00:20.040 --> 00:21.300
+I mean, I'm not being metaphorical here.
+
+00:21.300 --> 00:30.100
+The physical universe actively rejects the basic real numbers that we use to, you know, balance our checkbooks or measure a piece of wood.
+
+00:30.380 --> 00:34.940
+Right, because we're so used to the idea that physics is built on top of math.
+
+00:35.220 --> 00:41.320
+Like, we assume math is just this passive language we use to describe a reality that is already sitting there fully formed.
+
+00:41.440 --> 00:42.840
+Yeah, like it's just a tape measure.
+
+00:42.940 --> 00:43.280
+Exactly.
+
+00:43.540 --> 00:47.400
+But when you look closely at quantum mechanics, the relationship is almost inverted.
+
+00:47.400 --> 00:49.900
+The math isn't just describing reality.
+
+00:50.060 --> 00:58.120
+The structural logic of the math is actively forcing reality to behave in ways that seem, well, utterly bizarre to human intuition.
+
+00:58.420 --> 01:01.300
+And that is exactly what we're getting into today.
+
+01:01.800 --> 01:02.940
+Welcome to the Deep Dive.
+
+01:03.400 --> 01:15.300
+Whether you're cramming for a quantum information theory exam or you're just driving to work and feeling insanely curious about the actual fundamental fabric of reality, you are in the right place.
+
+01:15.440 --> 01:16.500
+You really are.
+
+01:16.500 --> 01:23.660
+Today, our mission is to explore a mind-bending 2026 manuscript by an independent researcher named Flyxion.
+
+01:24.220 --> 01:29.800
+It's titled, Quantum Mechanics from Admissible Probabilistic Composition.
+
+01:30.620 --> 01:35.640
+And the core premise is going to completely flip everything you know about physics upside down.
+
+01:35.840 --> 01:39.000
+It really is, because the premise asks a profoundly simple question.
+
+01:39.580 --> 01:45.820
+It asks, what if quantum mechanics isn't just a bizarre set of magical, arbitrary rules handed down by a quirky universe?
+
+01:45.820 --> 01:54.820
+What if it's actually the only mathematically logical way to process probabilities and process missing information without creating literal logical paradoxes?
+
+01:54.820 --> 01:59.980
+I love this, because whenever you take a physics class, they usually just drop these massive, heavy equations on you.
+
+02:00.300 --> 02:02.100
+You know, they say, here is the Schwerdinger equation.
+
+02:02.420 --> 02:03.460
+Here is the Born rule.
+
+02:03.800 --> 02:04.720
+Just memorize them.
+
+02:04.820 --> 02:05.500
+Don't ask why.
+
+02:05.820 --> 02:06.500
+Oh, absolutely.
+
+02:06.820 --> 02:08.040
+Shut up and calculate, right?
+
+02:08.340 --> 02:09.520
+That's the classic joke.
+
+02:09.560 --> 02:09.900
+Exactly.
+
+02:10.300 --> 02:13.440
+But this manuscript absolutely refuses to do that.
+
+02:13.440 --> 02:21.200
+We are going to rebuild quantum mechanics from the ground up, starting from absolute scratch, using just a stack of Flyxion's chapters.
+
+02:21.560 --> 02:29.620
+And we're going to translate these incredibly dense matrix calculations into massive aha moments for you.
+
+02:30.140 --> 02:32.320
+No drowning in unexplained jargon today.
+
+02:32.600 --> 02:42.580
+We are going to figure out why the universe uses complex numbers, how entanglement might just be an illusion based on the math you choose, and why probability loops shatter reality.
+
+02:42.580 --> 02:47.520
+And the methodological commitment of this manuscript is, well, it's what makes it so powerful.
+
+02:47.660 --> 02:51.680
+It strictly enforces a rule, constraint before content.
+
+02:52.000 --> 02:53.000
+Meaning what? Practically.
+
+02:53.360 --> 03:01.900
+Meaning we are not going to assign any physical meaning to things like energy or momentum or even particles until the pure mathematics explicitly demands it.
+
+03:02.000 --> 03:04.300
+We strip away the physical assumptions completely.
+
+03:04.580 --> 03:06.800
+So we're just examining the skeletal logic underneath.
+
+03:06.800 --> 03:13.400
+Exactly. And doing that challenges our most basic assumptions about what a, you know, a quantum state actually is in the first place.
+
+03:13.720 --> 03:15.160
+So let's start right at the foundation.
+
+03:15.880 --> 03:22.300
+Before we can talk about quantum weirdness, we have to define what normal, boring, classical probability looks like.
+
+03:22.840 --> 03:28.040
+We need a baseline to understand exactly what rules quantum mechanics will eventually break.
+
+03:28.240 --> 03:29.460
+That's a great place to start.
+
+03:29.460 --> 03:33.180
+So let's look at the probability simplex that's introduced in the first couple of chapters.
+
+03:33.680 --> 03:41.020
+If I have a system, say a dice or a coin or just a state of knowledge about something, how does the math actually define that?
+
+03:41.420 --> 03:50.700
+Well, at its most basic classical level, a state of knowledge about any system is really just a list of probabilities for different distinguishable alternatives.
+
+03:50.700 --> 03:54.520
+Okay. Like a 50% chance of heads, 50% chance of tails.
+
+03:54.820 --> 03:59.920
+Right. And mathematically, these probabilities are bound by two extremely rigid rules.
+
+04:00.560 --> 04:06.260
+First, they have to be non-negative. You know, you can't have a negative 20% chance of a coin landing on heads.
+
+04:06.620 --> 04:10.600
+Yeah, that makes total sense. Negative probability is nonsense in the classical world.
+
+04:10.840 --> 04:16.340
+Exactly. And second, they have to sum to exactly one because, well, something has to happen.
+
+04:16.340 --> 04:22.020
+If you add up the probabilities of all the possible mutually exclusive outcomes, you must get 100%.
+
+04:22.020 --> 04:22.980
+A value of one.
+
+04:23.060 --> 04:28.400
+Right. And this collection of valid probability lists forms a geometric shape called a simplex.
+
+04:28.560 --> 04:32.560
+Okay. So a state of knowledge is basically just a list of numbers adding up to one.
+
+04:33.060 --> 04:35.140
+But things change, right? Things move.
+
+04:35.640 --> 04:44.120
+If I want to transition from one state of knowledge to another, say I shake a box with a marble in it, how do we map that transition?
+
+04:44.120 --> 04:52.240
+So we use what are called stochastic maps. You can think of these essentially as matrices, you know, grids of numbers where every column sums to one.
+
+04:52.880 --> 05:01.840
+They represent transition weights. So if you are in state A, the matrix tells you the exact probability of moving to state B or C and so on.
+
+05:02.280 --> 05:06.920
+But the geometry of the space gets incredibly interesting when you want to make these transitions reversible.
+
+05:07.360 --> 05:09.160
+Reversible meaning I can undo the shake.
+
+05:09.160 --> 05:14.880
+Right. To do that, the matrix must be bistochastic, meaning both the columns and the rows sum to one.
+
+05:15.080 --> 05:17.840
+Hold on. Let me make sure I'm visualizing this for everyone listening.
+
+05:18.220 --> 05:21.500
+A regular stochastic map is just moving forward in time.
+
+05:21.660 --> 05:29.400
+But a bistochastic map means you have a perfectly balanced system where you aren't losing the total probability weight in any direction.
+
+05:29.660 --> 05:33.180
+Precisely. You could, in theory, trace your steps backward.
+
+05:33.180 --> 05:34.080
+Okay, I follow you.
+
+05:34.460 --> 05:39.140
+And this leads us to a foundational piece of math called the Burkhoff von Neumann theorem.
+
+05:40.100 --> 05:46.180
+It states that the set of all these bistochastic matrices forms a very specific geometric space.
+
+05:46.300 --> 05:47.460
+And that's the Burkhoff polytope.
+
+05:47.620 --> 05:48.820
+That's the Burkhoff polytope.
+
+05:48.940 --> 05:49.040
+Yeah.
+
+05:49.120 --> 05:53.160
+You can visualize this polytope as a, like, a multidimensional jewel.
+
+05:53.160 --> 06:00.640
+And the extreme corners, the sharp vertices of this jewel, are perfect deterministic permutations.
+
+06:00.900 --> 06:02.760
+Like shuffling a deck of cards perfectly.
+
+06:03.100 --> 06:07.900
+If I do a perfect Ferro shuffle, I am completely rearranging the deck, but I haven't lost any cards.
+
+06:08.080 --> 06:10.500
+And no card is in a weird state of superposition.
+
+06:10.700 --> 06:10.980
+Right.
+
+06:11.240 --> 06:14.860
+Every single card just moved to a new, exact, 100% certain position.
+
+06:15.120 --> 06:15.600
+Exactly.
+
+06:16.180 --> 06:21.300
+Permutation matrices are the extreme, reversible, information-preserving special cases.
+
+06:21.300 --> 06:23.420
+There were the sharp quarters of the jewel.
+
+06:24.040 --> 06:29.860
+But most of the space inside this mathematical jewel isn't perfectly deterministic like that.
+
+06:30.000 --> 06:30.600
+What is it then?
+
+06:30.780 --> 06:34.640
+The interior is made of convex mixtures of those permutations.
+
+06:35.020 --> 06:40.040
+And when you start mixing these pure states together, a mathematical concept called majorization,
+
+06:40.380 --> 06:42.220
+you trigger another crucial theorem.
+
+06:42.400 --> 06:43.840
+The Hardy Littlewood-Polya theorem.
+
+06:44.020 --> 06:44.380
+Yes.
+
+06:44.480 --> 06:45.520
+Which says what, exactly?
+
+06:45.520 --> 06:51.520
+It proves that mathematically, the act of mixing these states structurally forces entropy to increase.
+
+06:51.620 --> 06:52.020
+Okay, wait.
+
+06:52.340 --> 06:55.400
+I need an analogy for majorization and entropy increasing.
+
+06:55.820 --> 07:00.660
+Because convex mixtures in a polytope is, uh, it's a bit dense.
+
+07:00.920 --> 07:01.280
+Fair enough.
+
+07:01.380 --> 07:04.540
+Let's think of classical probability, like mixing different colors of paint.
+
+07:04.700 --> 07:07.220
+You start with pure colors in distinct buckets.
+
+07:07.680 --> 07:10.900
+Those are your extreme corners, your deterministic permutations, right?
+
+07:10.920 --> 07:11.080
+Right.
+
+07:11.140 --> 07:11.980
+I like where this is going.
+
+07:12.280 --> 07:13.560
+So red is in bucket one.
+
+07:13.800 --> 07:14.800
+Blue is in bucket two.
+
+07:14.800 --> 07:16.900
+If I mix them together, I get purple.
+
+07:17.360 --> 07:19.120
+I can easily predict the resulting color.
+
+07:19.460 --> 07:27.120
+But if I just hand you a bucket of purple paint, you cannot unmix it to find the exact original shades of red and blue that I started with.
+
+07:27.200 --> 07:28.140
+You're stuck with the purple.
+
+07:28.480 --> 07:28.920
+Exactly.
+
+07:29.180 --> 07:31.520
+It is an information loss machine.
+
+07:31.840 --> 07:34.860
+That lost information is what we call entropy increasing, right?
+
+07:35.120 --> 07:36.740
+That is a brilliant analogy.
+
+07:37.060 --> 07:37.400
+Yes.
+
+07:37.400 --> 07:49.560
+And the profound takeaway here is that this Shannon entropy increase, this loss of information, isn't some extra physical law of thermodynamics that Flyxion had to invent or assume.
+
+07:49.660 --> 07:50.360
+It's just math.
+
+07:50.360 --> 07:54.340
+It is a structural consequence of the geometry of majorization itself.
+
+07:54.460 --> 07:58.540
+It is baked directly into the pure math of classical probability.
+
+07:58.880 --> 08:04.540
+But if I'm playing devil's advocate here, and I know some of you listening are probably thinking this too, isn't this just classical physics?
+
+08:04.680 --> 08:07.740
+We're talking about paint mixing and shuffling cards and basic entropy.
+
+08:08.140 --> 08:10.400
+We promised a deep dive into quantum mechanics.
+
+08:10.500 --> 08:12.360
+Where does the quantum stuff actually come in?
+
+08:12.360 --> 08:17.360
+The quantum stuff comes in precisely because this classical foundation is so airtight.
+
+08:18.260 --> 08:21.360
+Flyxion doesn't just invent quantum weirdness out of thin air.
+
+08:22.040 --> 08:25.200
+Remember, the rule is constraint before content.
+
+08:25.560 --> 08:25.700
+Right.
+
+08:25.920 --> 08:31.820
+We've established that classical probability works perfectly for a single static picture or a simple shuffle.
+
+08:32.440 --> 08:40.540
+The crack in reality, the actual quantum leap, happens when we try to figure out how these probabilities compose sequentially.
+
+08:40.540 --> 08:43.340
+Sequentially. Like doing one thing and then doing another.
+
+08:43.500 --> 08:43.920
+Exactly.
+
+08:44.520 --> 08:49.920
+What happens when we chain transitions together using the actual underlying mechanics of waves?
+
+08:50.160 --> 08:50.540
+Ah.
+
+08:51.060 --> 08:51.300
+Okay.
+
+08:51.440 --> 08:54.080
+So if classical probability works, why change it?
+
+08:54.540 --> 08:57.600
+Because in the real world, things interfere with each other.
+
+08:57.960 --> 09:02.180
+This is where we look at composing transitions using amplitudes instead of bare probabilities.
+
+09:02.320 --> 09:02.760
+Exactly.
+
+09:03.020 --> 09:06.500
+In classical probability, we compose transitions at the probability level.
+
+09:06.640 --> 09:08.060
+You multiply the chances together.
+
+09:08.060 --> 09:13.340
+But quantum mechanics, as we've observed in the real world in labs, composes at the amplitude level.
+
+09:13.540 --> 09:15.300
+So you manipulate the amplitudes first.
+
+09:15.480 --> 09:15.760
+Yes.
+
+09:16.060 --> 09:21.720
+You manipulate the amplitudes and then you square the final amplitude to get the probability we actually observe.
+
+09:22.140 --> 09:24.560
+And we need to explain why that matters to the math.
+
+09:24.980 --> 09:29.500
+Because if I take two probabilities, say A and B, and I just add them, it's just A plus B.
+
+09:29.500 --> 09:36.340
+But I take two amplitudes, A and B, add them together, and then square them to get the probability of basic algebra.
+
+09:37.300 --> 09:42.640
+Algebra tells us that A plus B all squared is not just A squared plus B squared.
+
+09:42.720 --> 09:43.140
+Nope.
+
+09:43.360 --> 09:44.640
+You get this extra piece.
+
+09:44.720 --> 09:45.400
+Plus 2AB.
+
+09:45.580 --> 09:48.360
+And that plus 2AB is literally everything.
+
+09:48.520 --> 09:49.520
+That is the cross term.
+
+09:49.700 --> 09:51.840
+That cross term represents interference.
+
+09:52.180 --> 09:53.760
+Because amplitudes can be negative.
+
+09:54.080 --> 09:55.520
+That 2AB term can be negative.
+
+09:55.680 --> 09:58.720
+Which means two probabilities can actually cancel each other out.
+
+09:58.720 --> 10:00.200
+That is quantum interference.
+
+10:00.780 --> 10:06.620
+When you use classical probability level composition, you completely destroy and discard those cross terms.
+
+10:06.760 --> 10:07.960
+You're throwing away the interference.
+
+10:07.960 --> 10:15.300
+So to keep those cross terms, to allow for interference, we need a mathematical lift to handle the amplitudes underneath the probabilities.
+
+10:16.260 --> 10:20.120
+And this introduces us to two massive classes of matrices in the manuscript.
+
+10:20.420 --> 10:22.140
+Yes, the two main contenders.
+
+10:22.580 --> 10:27.740
+We have orthostochastic matrices, which are built using strictly real numbers, just normal numbers.
+
+10:27.740 --> 10:36.920
+And we have unistochastic matrices, which are built using complex numbers, numbers involving the imaginary unit, the square root of negative 1.
+
+10:37.060 --> 10:37.260
+Correct.
+
+10:37.800 --> 10:50.100
+The manuscript starts by testing the simplest possible system, a 2 by 2 level, meaning a system with just two possible outcomes, say a coin flip or a single quibit measuring spin up or spin down.
+
+10:50.100 --> 10:51.480
+We call this n equals 2.
+
+10:51.480 --> 10:52.520
+Okay, n equals 2.
+
+10:52.600 --> 10:56.100
+And at n equals 2, the manuscript proves the degeneracy theorem.
+
+10:56.620 --> 11:04.040
+At this specific dimension, real numbers and complex numbers are mathematically identical in their ability to realize these transitions.
+
+11:04.320 --> 11:05.980
+You literally cannot tell the difference.
+
+11:06.080 --> 11:10.860
+So a 2 by 2 real orthogonal matrix handles the interference and the probabilities perfectly.
+
+11:11.100 --> 11:12.340
+It handles it flawlessly.
+
+11:12.340 --> 11:17.700
+Okay, so if I live in a universe where everything only ever has two outcomes, real numbers work just fine.
+
+11:17.780 --> 11:19.100
+I don't need to imagine your numbers at all.
+
+11:19.760 --> 11:23.540
+But, and this is a big but, the universe obviously has more than two outcomes.
+
+11:23.760 --> 11:25.920
+What happens when we hit n equals 3?
+
+11:26.500 --> 11:27.720
+A 3 outcome system.
+
+11:28.080 --> 11:31.740
+This is where real numbers fail completely and spectacularly.
+
+11:31.900 --> 11:33.240
+And Flyxion proves this.
+
+11:33.600 --> 11:33.920
+Yes.
+
+11:34.240 --> 11:37.960
+The manuscript uses a specific transition matrix as a test case.
+
+11:37.960 --> 11:43.120
+It's called the 3 by 3 discrete Fourier transform, or DFT, matrix.
+
+11:43.780 --> 11:51.620
+It is a completely valid, coherent transition where every single outcome probability is exactly one-third.
+
+11:51.720 --> 11:55.000
+Okay, let's break down exactly why real numbers choke on this.
+
+11:55.580 --> 12:01.400
+To get a probability of one-third everywhere using only real numbers, we have to remember the rule.
+
+12:01.940 --> 12:03.700
+Probability is amplitude squared.
+
+12:03.700 --> 12:08.260
+So, what real number, when squared, equals exactly one-third?
+
+12:08.460 --> 12:13.700
+Well, it has to be either positive 1 over the square root of 3 or negative 1 over the square root of 3.
+
+12:13.820 --> 12:13.980
+Right.
+
+12:14.060 --> 12:16.780
+Those are the only two real numbers that square to exactly one-third.
+
+12:17.040 --> 12:25.740
+So, to build this 3 by 3 matrix using only real numbers, every single entry in that 9 square grid must be one of those two specific values.
+
+12:25.800 --> 12:27.040
+Okay, so it's doable so far.
+
+12:27.040 --> 12:33.120
+But furthermore, because this represents a reversible, information-preserving transition like our perfect shuffle from earlier,
+
+12:33.700 --> 12:36.960
+the math dictates that the rows must be orthogonal to each other.
+
+12:37.120 --> 12:39.140
+And orthogonal here means what, physically?
+
+12:39.640 --> 12:43.940
+It means they are perfectly independent, non-overlapping states.
+
+12:45.000 --> 12:52.100
+Mathematically, it means if you take the dot product of any two rows, meaning you multiply their corresponding entries together and add them up,
+
+12:52.460 --> 12:54.280
+the result must be exactly zero.
+
+12:54.280 --> 12:57.320
+So, we are mathematically forced into a very tight corner here.
+
+12:57.960 --> 13:01.960
+We need a 3 by 3 grid of essentially positive and negative ones.
+
+13:02.020 --> 13:09.780
+If we pull out that scaling factor of 1 over root 3, where every row's dot product with every other row cancels out to zero.
+
+13:10.180 --> 13:12.440
+In math, this is called a Hadamard matrix.
+
+13:12.580 --> 13:12.980
+Exactly.
+
+13:13.240 --> 13:20.660
+We need a 3 by 3 real Hadamard matrix to make this perfectly valid one-third probability state exist using real numbers.
+
+13:20.660 --> 13:26.080
+But here is the brutal truth of the math, and it is a hard, impassable mathematical wall.
+
+13:26.340 --> 13:26.820
+Pay it on me.
+
+13:27.220 --> 13:33.200
+You can program a computer to exhaustively check every single possible sign combination for a 3 by 3 matrix.
+
+13:33.560 --> 13:37.860
+There are 2 to the 9th power possibilities, so 512 total combinations.
+
+13:38.340 --> 13:39.020
+It's not that many.
+
+13:39.160 --> 13:39.620
+It's not.
+
+13:39.760 --> 13:45.380
+And if you check all 512, you will find that a 3 by 3 Hadamard matrix literally does not exist.
+
+13:45.600 --> 13:47.100
+Wait, it just, it doesn't exist.
+
+13:47.320 --> 13:48.320
+Like, not at all.
+
+13:48.320 --> 13:49.980
+It does not exist.
+
+13:50.180 --> 13:50.320
+Right.
+
+13:50.440 --> 13:54.940
+The math proves they only exist for dimensions of 1, 2, and multiples of 4.
+
+13:55.280 --> 13:58.960
+There is no 3 by 3 real matrix that can perform this job.
+
+13:59.300 --> 14:01.120
+It is mathematically impossible.
+
+14:01.480 --> 14:05.960
+It's like trying to build a perfect enclosed triangle out of square Lego blocks.
+
+14:05.960 --> 14:17.440
+At a certain point, no matter how clever you are, the 2D real number pieces you have in your hand simply cannot physically snap together to form the 3D geometry the universe is asking for.
+
+14:17.940 --> 14:19.600
+The pegs and holes just do not align.
+
+14:19.600 --> 14:20.940
+That's a great way to picture it.
+
+14:21.200 --> 14:22.520
+And this is a profound proof.
+
+14:22.680 --> 14:24.960
+It shows that complex numbers aren't just a neat trick.
+
+14:25.200 --> 14:29.320
+They aren't just a mathematical convenience that physicists use because they're lazy or want to look smart.
+
+14:29.580 --> 14:29.740
+Right.
+
+14:29.960 --> 14:33.940
+They are structurally necessary for any system where n is 3 or greater.
+
+14:33.940 --> 14:42.180
+The math is literally screaming at us that the real number line is simply too narrow to hold the information required to move between these three states coherently.
+
+14:42.580 --> 14:46.880
+We must have complex amplitudes to make the math work or the universe breaks.
+
+14:46.880 --> 14:57.420
+My mind is already melting, but the crazy part is we are just getting started on this deep dive because that was just for a single transition in a 3 outcome system.
+
+14:58.240 --> 15:00.260
+Let's retreat back to safety for a moment.
+
+15:00.580 --> 15:01.920
+What if we stick to n equals 2?
+
+15:02.220 --> 15:07.060
+We just established that for 2 outcomes, real numbers do work perfectly, right?
+
+15:07.080 --> 15:07.420
+They do.
+
+15:07.800 --> 15:14.720
+So what happens if we take these perfectly valid, saved 2 by 2 real number transitions and chain them together into a loop?
+
+15:14.720 --> 15:18.840
+This is a brilliant and honestly devious shift in the manuscript.
+
+15:19.280 --> 15:24.000
+We move from looking at a single edge, a single transition, to a context graph.
+
+15:24.380 --> 15:27.300
+Imagine a triangle made of three different measurement contexts.
+
+15:27.500 --> 15:29.500
+Let's call them z, x, and y.
+
+15:29.660 --> 15:34.500
+Okay, so three different ways to measure our 2 outcome system, a range and a sequence that loops back on itself.
+
+15:34.580 --> 15:37.140
+So it goes z to x, x to y, and y back to z.
+
+15:37.220 --> 15:41.640
+Right, and if you track the exact angles of these transitions in the underlying state space,
+
+15:41.640 --> 15:45.600
+they obey a strict geometric rule called the triangle gluing theorem.
+
+15:45.920 --> 15:50.440
+Because it's a closed loop, if you travel from z to x, then x to y, and finally y back to z,
+
+15:50.640 --> 15:53.480
+the exact closure demands they multiply to the identity.
+
+15:53.860 --> 15:59.120
+Meaning, if I walk around a triangle and end up on the exact same footprint where I started,
+
+15:59.680 --> 16:02.920
+facing the exact same direction, I haven't changed.
+
+16:03.340 --> 16:04.800
+The net movement is zero.
+
+16:05.040 --> 16:05.160
+Yeah.
+
+16:05.180 --> 16:06.320
+That sounds totally logical.
+
+16:06.320 --> 16:13.360
+It is logical for exact angles, but remember, in quantum mechanics, we don't observe the exact underlying angles.
+
+16:13.540 --> 16:15.260
+We only observe the probabilities.
+
+16:15.900 --> 16:15.940
+Wow.
+
+16:16.180 --> 16:23.020
+And the projection from those exact angles down to probabilities destroys a crucial piece of information.
+
+16:23.780 --> 16:26.260
+Specifically, it destroys a relative sine bit.
+
+16:26.860 --> 16:29.540
+How so? Walk me through that. I want to make sure I'm picturing this right.
+
+16:29.540 --> 16:35.180
+Sure. The transition probability between two states is given by the cosine squared of the angle between them.
+
+16:35.460 --> 16:38.860
+But when you square the cosine, you strip away the sine of the angle itself.
+
+16:39.060 --> 16:40.220
+You lose the directionality.
+
+16:40.360 --> 16:44.140
+You know the distance, but you don't know if it was a positive turn or a negative turn.
+
+16:44.220 --> 16:44.800
+Okay, I see.
+
+16:44.860 --> 16:51.800
+So I know how far apart things are, but I've lost the GPS coordinates of how they are oriented relative to each other.
+
+16:52.040 --> 16:55.080
+So what happens when we try to close the loop using only these probabilities?
+
+16:55.080 --> 17:02.840
+That is where the paradox hits. And the sharpest example Fleschen gives is the mutually unbiased basis, or MUB corollary.
+
+17:03.000 --> 17:06.020
+Let's say you try to make these three bases mutually unbiased.
+
+17:06.100 --> 17:07.480
+And in plain English, that means what?
+
+17:07.820 --> 17:11.740
+It means the transition probability between any two of them is exactly one half.
+
+17:12.420 --> 17:17.060
+Geometrically, that translates to a 45 degree angle, or pi over 4.
+
+17:17.180 --> 17:23.300
+Okay, so z is 45 degrees from x, x is 45 degrees from y, and y is 45 degrees from z.
+
+17:23.300 --> 17:30.780
+Right. But if you try to build that specific loop using strictly real numbers in a two-dimensional space, you run into a brick wall.
+
+17:31.340 --> 17:39.500
+The math of real numbers demands that for the triangle to close and equal the identity, pi over 4 must algebraically equal either 0 or pi over 2.
+
+17:39.680 --> 17:42.540
+Which is a complete, unadulterated logical contradiction.
+
+17:43.080 --> 17:47.000
+45 degrees does not equal 0 degrees, and it does not equal 90 degrees.
+
+17:47.000 --> 17:49.200
+This is the Escher staircase.
+
+17:49.940 --> 17:54.160
+If you've ever seen that M.C. Escher drawing where the monks are walking up the stairs forever,
+
+17:54.660 --> 18:02.160
+every individual step, every individual transition between two monks looks perfectly flat, normal, and mathematically valid.
+
+18:02.620 --> 18:07.400
+But when you pull back and look at the whole loop, the geometry is a paradox.
+
+18:08.200 --> 18:10.040
+It cannot exist in real space.
+
+18:10.040 --> 18:18.360
+That is a phenomenal visual, and if we connect this to the bigger picture, this failure is entirely distinct from the 3x3 failure we talked about earlier.
+
+18:18.520 --> 18:18.920
+How so?
+
+18:19.040 --> 18:24.280
+Well, the 3x3 DFT matrix was a local failure. A single matrix couldn't be built.
+
+18:24.760 --> 18:29.360
+But this triangle paradox is a global topological failure.
+
+18:29.780 --> 18:32.460
+Topological meaning it's about the shape of the connections.
+
+18:32.460 --> 18:39.000
+Exactly. In graph theory, we talk about the betty number, specifically betty number 1, or beta 1.
+
+18:39.080 --> 18:42.260
+Okay, you're going to have to translate betty number into English for me and the listeners.
+
+18:42.480 --> 18:47.080
+Of course. Think of it as simply counting the number of holes or independent cycles in a network.
+
+18:47.660 --> 18:55.100
+A straight line has a betty number of 0, but a triangle, because it forms one closed loop, has a betty number of beta 1 equals 1.
+
+18:55.200 --> 18:55.760
+Okay, got it.
+
+18:55.760 --> 19:06.460
+The manuscript proves unequivocally that local admissibility, meaning each individual step being mathematically valid on its own, does not guarantee global realizability.
+
+19:06.460 --> 19:14.860
+The whole universe has to make sense all at once, and when you introduce a cycle in real numbers, even for simple two-outcome systems, it doesn't make sense.
+
+19:15.360 --> 19:18.080
+The universe simply rejects real numbers in a loop.
+
+19:18.080 --> 19:27.240
+So to recap where we are, real numbers fail to handle three outcomes locally, and they fail to handle two outcomes if those outcomes form a closed loop.
+
+19:27.440 --> 19:32.240
+That is wild. We are being dragged, kicking, and screaming into the complex number field.
+
+19:32.240 --> 19:40.040
+We really are, and that forces us to look beyond single, isolated systems, because quantum mechanics is famous for how multiple systems interact.
+
+19:40.420 --> 19:47.220
+Entanglement, spooky action at a distance. How does the pure math dictate that two independent systems should compose?
+
+19:47.220 --> 19:52.260
+This takes us right into chapter 8, which explores composite systems and local tomography.
+
+19:52.260 --> 19:58.900
+We need to test our three main mathematical contenders, or three scalar fields, to see who survives system composition.
+
+19:59.180 --> 20:02.440
+So we have real numbers, complex numbers, and quaternionic numbers.
+
+20:02.540 --> 20:06.920
+Right. And to test them, we apply a principle called local tomography.
+
+20:07.520 --> 20:10.920
+This isn't a complex physical law. It's an operational idea.
+
+20:10.920 --> 20:18.400
+It basically states that the joint state of two systems should be exactly as informative as the product of the local measurements.
+
+20:18.960 --> 20:29.500
+Meaning, if I measure my particle in my lab, and you measure your particle in your lab, and we get together and combine our data, we should have the complete 100% picture of the joint system.
+
+20:30.080 --> 20:37.780
+There shouldn't be any missing dimensions of information hiding in the shadows, nor should there be extra redundant dimensions muddying the waters.
+
+20:37.780 --> 20:45.860
+Precisely. To test this, the manuscript uses a dimension counting argument, which it credits to the physicists Araki and Hardy.
+
+20:46.660 --> 20:51.400
+Let's do the math slowly. Let's combine two two-dimensional systems, two qubits.
+
+20:51.520 --> 20:54.020
+All right, I have a qubit. You have a qubit. Let's count dimensions.
+
+20:54.280 --> 20:58.480
+The number of parameters needed to fully describe a state depends on the math field you use.
+
+20:58.480 --> 21:02.540
+Let's start with complex numbers, since that's what textbook quantum mechanics uses.
+
+21:03.240 --> 21:08.440
+Combining two complex qubits means multiplying their local dimensions, so 2 squared times 2 squared.
+
+21:08.500 --> 21:10.500
+Which is 4 times 4, so 16 parameters.
+
+21:11.020 --> 21:12.760
+That equals 16 parameters.
+
+21:13.040 --> 21:20.440
+Now, if you separately count the parameters required to build a joint, complex, 4x4 density matrix from scratch, it is exactly 16.
+
+21:20.800 --> 21:21.880
+It matches perfectly.
+
+21:22.480 --> 21:25.020
+Local knowledge multiplied equals global knowledge.
+
+21:25.020 --> 21:29.560
+Okay, so complex numbers pass the test. What about quaternions?
+
+21:30.200 --> 21:34.640
+For anyone listening who might not know, quaternions are like complex numbers on steroids.
+
+21:35.100 --> 21:39.620
+Instead of just one imaginary number i, they have i, j, and k.
+
+21:39.780 --> 21:40.980
+Right, they're more complex.
+
+21:41.380 --> 21:44.060
+For quaternionic numbers, the local dimensions are larger.
+
+21:44.400 --> 21:50.440
+If you multiply them together locally, you would require 36 parameters to describe the joint system based on that local knowledge.
+
+21:50.500 --> 21:51.160
+Okay, 36.
+
+21:51.160 --> 21:57.780
+But, if you look at the actual parameters of a joint quaternionic system of that exact size, it only has 28 parameters.
+
+21:58.000 --> 21:59.460
+36 is greater than 28.
+
+21:59.720 --> 22:02.040
+So the naive product overcounts by 8.
+
+22:02.420 --> 22:06.740
+It assumes the universe has 36 dials to turn, but the actual math only gives you 28.
+
+22:06.940 --> 22:09.020
+It's too restrictive, too rigidly connected.
+
+22:09.200 --> 22:10.580
+Exactly. It's overdetermined.
+
+22:10.860 --> 22:12.300
+Now, let's look at real numbers.
+
+22:12.660 --> 22:15.440
+The math field we evolved to understand and use every day.
+
+22:15.440 --> 22:20.380
+If you combine two real qubits, the product of their local parameters is 3 times 3, which is 9.
+
+22:20.640 --> 22:24.000
+Okay, 9 parameters, if I just multiply our local observations.
+
+22:24.120 --> 22:30.020
+But a joint 4x4 real density matrix actually requires 10 parameters to be fully described.
+
+22:30.640 --> 22:32.140
+9 is strictly less than 10.
+
+22:32.380 --> 22:34.060
+The product undercounts by 1.
+
+22:34.460 --> 22:35.960
+There is a hidden 10th dimension.
+
+22:36.060 --> 22:38.520
+Look, I want to make sure I grasp the gravity of this.
+
+22:38.520 --> 22:39.440
+Let's use an analogy.
+
+22:40.140 --> 22:47.860
+Imagine you and I are two detectives trying to solve a murder case, and we are each interrogating a different suspect in completely separate rooms.
+
+22:47.940 --> 22:48.700
+Okay, I'm with you.
+
+22:48.880 --> 22:52.840
+In the complex universe, if we come together and share our notes, we have the whole 16-piece puzzle.
+
+22:53.380 --> 22:55.260
+It just works.
+
+22:56.140 --> 23:00.740
+In the quaternionic universe, we share our notes and realize our facts contradict each other.
+
+23:00.860 --> 23:01.660
+It's a mess.
+
+23:01.800 --> 23:03.600
+Yes, and in the real universe.
+
+23:03.600 --> 23:14.540
+In the real universe, even if we share absolutely everything we observed in our interrogation rooms, there is a secret 10th clue, a 10th dimension of the crime that neither of us could see locally.
+
+23:15.000 --> 23:22.920
+It only exists in the space between the suspects, and we can only see it if we somehow magically merged our brains together into a single global entity.
+
+23:23.240 --> 23:25.100
+That is exactly what the math means.
+
+23:25.600 --> 23:29.640
+That missing 10th dimension in real quantum mechanics isn't a rounding error.
+
+23:29.640 --> 23:36.580
+It means real composite systems carry extra correlational structure that simply cannot be seen by local observers.
+
+23:37.000 --> 23:37.100
+Wow.
+
+23:37.560 --> 23:40.120
+Complex numbers are the unique Goldilocks field.
+
+23:40.440 --> 23:41.840
+Not too big, not too small.
+
+23:42.260 --> 23:46.020
+They are the only field where local and global dimensions match identically.
+
+23:46.460 --> 23:50.420
+But the manuscript doesn't just point at the missing 10th dimension in real numbers and walk away.
+
+23:50.700 --> 23:52.260
+It actually hunts it down.
+
+23:52.360 --> 23:53.940
+It puts a magnifying glass on it.
+
+23:54.500 --> 23:58.380
+Which brings us to a massive revelation in chapters 9 through 12.
+
+23:58.380 --> 24:03.400
+What exactly is this secret dimension hiding in the real number blind spot?
+
+24:04.120 --> 24:08.900
+Mathematically, this missing real direction is identified as a matrix called J tensor J.
+
+24:09.140 --> 24:09.840
+Let's untack that.
+
+24:09.960 --> 24:10.480
+What is J?
+
+24:10.700 --> 24:13.280
+J is the anti-symmetric quarter-turn matrix.
+
+24:13.660 --> 24:15.760
+It represents a strict 90-degree rotation.
+
+24:16.120 --> 24:20.380
+Now, in real numbers, it is not a valid observable on its own because it is anti-symmetric.
+
+24:20.480 --> 24:21.780
+It doesn't have real eigenvalues.
+
+24:21.780 --> 24:30.100
+But when you tensor it with itself, when you multiply it across the two systems to get J tensor J, the result suddenly becomes symmetric.
+
+24:30.640 --> 24:33.860
+And therefore, it is a valid composite observable.
+
+24:34.000 --> 24:37.100
+So locally it's invisible, but globally it pops into existence.
+
+24:37.280 --> 24:37.680
+Exactly.
+
+24:37.680 --> 24:41.420
+Chapter 10 bounds this invisible state to a physical parameter.
+
+24:41.580 --> 24:42.280
+Let's call it C.
+
+24:42.540 --> 24:46.860
+And the math dictates that C can slide anywhere between negative 1 and 1.
+
+24:47.260 --> 24:57.120
+The state of this system is defined as a mixture of the identity matrix, which is just random noise, and this J tensor J term weighted by the parameter C.
+
+24:57.280 --> 24:57.520
+Okay.
+
+24:57.620 --> 24:58.560
+So we have a valid state.
+
+24:58.680 --> 25:02.780
+Now, going back to our detectives, what happens if one detective drops off the case?
+
+25:03.180 --> 25:04.900
+We use something called the partial trace, right?
+
+25:04.960 --> 25:06.760
+Explain what the partial trace is doing for us here.
+
+25:06.760 --> 25:14.120
+The partial trace is simply the mathematical operation you use when you want to ignore one part of a composite system and just look at the other.
+
+25:14.500 --> 25:18.200
+You trace over or average out the information of the system you don't care about.
+
+25:18.400 --> 25:26.160
+So if I have an entangled pair of particles and one flies off to Mars, I do a partial trace on the Mars particle so I can just calculate what I have in my lab on Earth.
+
+25:26.700 --> 25:27.140
+Precisely.
+
+25:27.140 --> 25:31.180
+And Chapter 11 proves a concept it calls marginal invisibility.
+
+25:31.680 --> 25:41.540
+If you take the partial trace of this specific state, if you look at just one subsystem locally, this entire J tensor J direction vanishes completely.
+
+25:41.620 --> 25:42.260
+It just disappears.
+
+25:42.620 --> 25:46.060
+Both individual subsystems look like maximally mixed noise.
+
+25:46.060 --> 25:51.480
+They look completely random and completely independent of whatever the parameter C happens to be.
+
+25:51.960 --> 25:55.620
+So to a local observer, this state looks incredibly boring.
+
+25:55.940 --> 25:58.200
+Just pure, uncorrelated static.
+
+25:58.560 --> 26:00.980
+You'd never know there was a hidden structure connecting them.
+
+26:01.060 --> 26:03.800
+But then we hit the massive paradigm shift in Chapter 12.
+
+26:04.040 --> 26:04.860
+We zoom out.
+
+26:04.960 --> 26:06.240
+We look at the global state again.
+
+26:06.240 --> 26:07.920
+And we ask a simple question.
+
+26:08.700 --> 26:09.960
+Is this state entangled?
+
+26:10.420 --> 26:12.000
+And the answer is breathtaking.
+
+26:12.640 --> 26:18.540
+If Kili C is anything other than exactly zero, the state is provably entangled in real quantum mechanics.
+
+26:18.820 --> 26:23.460
+The math shows you cannot build this state simply by mixing independent local states.
+
+26:23.660 --> 26:25.700
+The correlation is inherently holistic.
+
+26:26.140 --> 26:26.880
+Okay, that makes sense.
+
+26:27.000 --> 26:27.120
+Yeah.
+
+26:27.260 --> 26:29.380
+It has a hidden tenth dimension, so it's entangled.
+
+26:29.680 --> 26:33.340
+But wait, this is the part that made me literally drop the manuscript when I read it.
+
+26:33.360 --> 26:34.320
+Yes, prepare yourself.
+
+26:34.320 --> 26:41.060
+If you look at the exact same mathematical state, the exact same matrix grid of numbers,
+
+26:41.440 --> 26:47.080
+but you allow yourself to use complex quantum mechanics to analyze it, it is completely separable.
+
+26:47.240 --> 26:50.240
+It is not entangled at all across its entire range of C.
+
+26:50.420 --> 26:53.800
+This raises a profoundly important question for physics.
+
+26:54.540 --> 26:59.960
+Is entanglement an objective physical reality of the particle out there in the universe?
+
+26:59.960 --> 27:04.400
+Or is it merely an artifact of the math we are using to describe it?
+
+27:04.720 --> 27:07.740
+The source material proves that separability is field relative.
+
+27:08.300 --> 27:10.140
+It is not intrinsic to the state itself.
+
+27:10.340 --> 27:13.700
+You are telling me entanglement changes based on the math I choose to use.
+
+27:13.940 --> 27:16.760
+It's like looking at one of those magic eye posters from the 90s.
+
+27:16.780 --> 27:17.820
+Oh, I love this comparison.
+
+27:17.820 --> 27:21.580
+If I wear red-tinted glasses and those glasses represent real quantum mechanics,
+
+27:22.080 --> 27:24.960
+I look at the poster and I see a 3D dinosaur popping out of me.
+
+27:25.440 --> 27:27.220
+That 3D structure is the entanglement.
+
+27:27.820 --> 27:32.080
+But if I take off the red glasses and put on blue-tinted glasses representing complex quantum mechanics,
+
+27:32.340 --> 27:36.060
+I look at the exact same poster, and it's just random flat dots.
+
+27:36.480 --> 27:37.260
+Separable noise.
+
+27:37.620 --> 27:38.620
+The poster didn't change.
+
+27:38.820 --> 27:41.060
+The physical matrix on the paper didn't change.
+
+27:41.360 --> 27:42.100
+My lens did.
+
+27:42.100 --> 27:46.560
+That is exactly what the math dictates, and your analogy captures the mechanism perfectly.
+
+27:47.500 --> 27:52.080
+What is local and what is non-local depends entirely on the scalar field permitted by your theory.
+
+27:52.420 --> 27:53.000
+But why?
+
+27:53.320 --> 27:55.400
+Why does complex QM see it as separable?
+
+27:56.000 --> 27:59.920
+Because complex QM has a richer set of local states.
+
+28:00.300 --> 28:05.340
+It actually has access to that J matrix locally, disguised as the imaginary number I.
+
+28:05.680 --> 28:07.920
+Because it has more local building blocks,
+
+28:07.920 --> 28:11.600
+it can build this joint state out of purely local pieces.
+
+28:12.200 --> 28:17.180
+Real QM lacks those local pieces, so it views the joint state as irreducibly holistic.
+
+28:17.440 --> 28:19.060
+It views it as entangled.
+
+28:19.320 --> 28:21.880
+It just, it breaks my brain in the best possible way.
+
+28:22.440 --> 28:26.120
+The idea that entanglement might just be a symptom of using restricted math.
+
+28:26.700 --> 28:28.040
+But okay, let's step back, take a breath.
+
+28:28.440 --> 28:31.720
+We found that the complex field is required to make probability loops work,
+
+28:32.020 --> 28:35.080
+and to make local tomography work without inventing hidden dimensions.
+
+28:35.080 --> 28:39.980
+But we still haven't established the actual famous rules of textbook quantum mechanics,
+
+28:40.140 --> 28:41.880
+the stuff you learned in Physics 101.
+
+28:42.320 --> 28:44.200
+Right, the equations everyone actually uses.
+
+28:44.420 --> 28:44.840
+Exactly.
+
+28:45.260 --> 28:49.020
+How does this book derive those heavy equations without just assuming them?
+
+28:49.220 --> 28:52.980
+This takes us into part three of the manuscript, chapters 13 through 16.
+
+28:53.820 --> 28:56.740
+It is essentially a rigorous assumption audit.
+
+28:57.260 --> 29:00.540
+Flyxion tracks exactly what the math earns versus what it assumes.
+
+29:00.540 --> 29:04.900
+It completely refuses to just hand-wave the physics into existence.
+
+29:05.400 --> 29:08.640
+Let's look at chapter 14, which derives the famous Born rule.
+
+29:09.180 --> 29:12.960
+For you listening, the Born rule is the central decree of quantum mechanics.
+
+29:13.760 --> 29:17.040
+It says that the probability of finding a particle in a certain spot
+
+29:17.040 --> 29:19.940
+equals the absolute value of its amplitude squared.
+
+29:20.500 --> 29:23.460
+It's the bridge between the quantum wave and the classical measurement.
+
+29:23.980 --> 29:27.320
+How does Flyxion derive this without just dropping it from the sky?
+
+29:27.320 --> 29:30.660
+It derives it by making only one new operational assumption,
+
+29:31.140 --> 29:32.340
+and it's a very logical one.
+
+29:32.480 --> 29:35.800
+It assumes pure states as frame-completable vectors.
+
+29:36.140 --> 29:37.180
+Okay, break that down for me.
+
+29:37.340 --> 29:41.040
+What does preparing a pure state mean operationally in this context?
+
+29:41.400 --> 29:43.340
+It assumes that preparing a pure state,
+
+29:43.480 --> 29:47.280
+say, filtering a beam of light so all the photons are polarized exactly vertically,
+
+29:47.740 --> 29:51.100
+is operationally equivalent to selecting one specific column
+
+29:51.100 --> 29:53.000
+of an admissible measurement context.
+
+29:53.160 --> 29:55.440
+So you're basically isolating one possibility.
+
+29:55.440 --> 29:59.740
+Right. You are isolating one specific clean vector
+
+29:59.740 --> 30:03.460
+from a full, mutually exclusive set of possibilities.
+
+30:03.900 --> 30:06.640
+Once you grant that single operational assumption,
+
+30:07.080 --> 30:09.100
+the Born rule isn't a mystery anymore.
+
+30:09.540 --> 30:12.960
+It mathematically falls out of the unestochastic matrix algebra
+
+30:12.960 --> 30:14.280
+we did back in chapter 3.
+
+30:14.800 --> 30:17.860
+The squaring of the amplitude is geometrically forced.
+
+30:18.260 --> 30:19.560
+That is deeply satisfying.
+
+30:19.680 --> 30:21.400
+Just pure math enforcing the rule.
+
+30:21.620 --> 30:21.800
+Yeah.
+
+30:21.800 --> 30:24.660
+And then chapter 15 builds the operational bridge,
+
+30:24.980 --> 30:28.580
+showing that observables must be Hermitian matrices.
+
+30:28.820 --> 30:29.000
+Yes.
+
+30:29.180 --> 30:32.500
+In quantum mechanics, an observable is anything you can actually measure,
+
+30:32.680 --> 30:34.200
+like position or momentum.
+
+30:34.420 --> 30:36.480
+The math dictates these must be Hermitian matrices.
+
+30:36.760 --> 30:37.680
+And are Hermitian matrices.
+
+30:37.940 --> 30:42.240
+It's a special complex matrix that is equal to its own conjugate transpose.
+
+30:42.940 --> 30:44.380
+But physically, why do we care?
+
+30:44.680 --> 30:47.360
+We care because the eigenvalues of a Hermitian matrix,
+
+30:47.360 --> 30:49.520
+the actual numbers you get when you do the math,
+
+30:49.780 --> 30:51.520
+are always strictly real numbers.
+
+30:51.640 --> 30:52.920
+Which is exactly what we need.
+
+30:52.980 --> 30:54.640
+Because when I measure the momentum of a particle,
+
+30:54.780 --> 30:56.540
+a readout on my screen has to be a real number.
+
+30:56.620 --> 30:59.940
+My radar gun doesn't say the car is going 50 plus 3i miles per hour.
+
+31:00.040 --> 31:01.000
+It just says 50.
+
+31:01.220 --> 31:03.920
+The math forces the matrix to be Hermitian,
+
+31:04.280 --> 31:06.160
+to guarantee real world readouts.
+
+31:06.380 --> 31:07.960
+It's not just thrown in as a postulate.
+
+31:08.180 --> 31:10.460
+It's an unavoidable mathematical consequence
+
+31:10.460 --> 31:14.500
+of demanding that real valued outcomes match our probability rules.
+
+31:14.500 --> 31:18.000
+And the absolute crown jewel of this section is chapter 16,
+
+31:18.160 --> 31:19.820
+which derives the Schrodinger equation.
+
+31:20.760 --> 31:23.380
+Now, to get dynamics, to get movement through time,
+
+31:24.160 --> 31:25.280
+you do need an assumption.
+
+31:25.520 --> 31:29.960
+The only assumption needed here is continuous reversible time evolution.
+
+31:30.260 --> 31:31.480
+Let's explain what that implies.
+
+31:31.660 --> 31:33.580
+Continuous means time flows smoothly,
+
+31:33.860 --> 31:36.140
+not in jagged, discrete, blocky jumps.
+
+31:36.780 --> 31:40.160
+Reversible means that in a perfectly closed system,
+
+31:40.280 --> 31:41.560
+information isn't lost.
+
+31:41.560 --> 31:45.080
+You could, theoretically, run the mathematical tape backward
+
+31:45.080 --> 31:47.340
+and figure out exactly where the particle started.
+
+31:47.900 --> 31:49.780
+So if I have smooth reversible time,
+
+31:49.900 --> 31:52.720
+how did that give me Schrodinger's complex equation?
+
+31:53.000 --> 31:54.560
+It relies on a branch of math
+
+31:54.560 --> 31:58.140
+dealing with matrix ordinary differential equations, or OEs.
+
+31:58.720 --> 32:02.260
+If you apply basic finite dimensional matrix ODE math
+
+32:02.260 --> 32:04.360
+to a continuous reversible evolution,
+
+32:04.740 --> 32:08.300
+you're mathematically forced to define a generator for that evolution.
+
+32:08.520 --> 32:08.720
+Or a generator.
+
+32:08.720 --> 32:12.300
+Right. And because the evolution must preserve probabilities,
+
+32:12.880 --> 32:14.140
+it must remain unitary,
+
+32:14.560 --> 32:18.140
+the generator of that evolution must be a Hermitian matrix.
+
+32:18.440 --> 32:19.720
+Let's call that generator H.
+
+32:19.920 --> 32:22.040
+Okay, I'm with you. H is our Hermitian generator.
+
+32:22.140 --> 32:23.960
+And if you write out the group law
+
+32:23.960 --> 32:26.720
+for how this state evolves smoothly over time,
+
+32:27.060 --> 32:29.960
+a specific differential equation naturally emerges.
+
+32:30.660 --> 32:33.360
+The derivative of the state with respect to time
+
+32:33.360 --> 32:37.640
+multiplied by the imaginary unit I equals H times the state.
+
+32:37.640 --> 32:39.600
+Which is literally the Schrodinger equation.
+
+32:40.060 --> 32:44.980
+I H bar D over DT of PI equals HPSI.
+
+32:45.860 --> 32:46.780
+This is wild.
+
+32:46.980 --> 32:48.640
+It's like realizing the rules of chess
+
+32:48.640 --> 32:51.200
+aren't just arbitrarily invented by some guy in a pub,
+
+32:51.340 --> 32:53.200
+but they are the literal, objective,
+
+32:53.360 --> 32:56.260
+only possible way a board of 64 squares
+
+32:56.260 --> 32:57.840
+can operate without breaking logic.
+
+32:58.140 --> 32:59.620
+We didn't assume Schrodinger's equation.
+
+32:59.740 --> 33:01.300
+We just assumed continuous time
+
+33:01.300 --> 33:03.780
+and the pure math built Schrodinger's equation.
+
+33:03.780 --> 33:06.520
+Right, and the book is incredibly honest here in its audit.
+
+33:06.660 --> 33:08.360
+It doesn't claim to magically prove
+
+33:08.360 --> 33:10.300
+that the generator H is physical energy
+
+33:10.300 --> 33:12.400
+or that the scaling constant H bar
+
+33:12.400 --> 33:14.520
+is actually Planck's constant from physics.
+
+33:14.620 --> 33:15.580
+It just gives you the skeleton.
+
+33:15.960 --> 33:16.260
+Yes.
+
+33:16.760 --> 33:18.560
+It proves the structure of the equation
+
+33:18.560 --> 33:19.840
+is mathematically inevitable.
+
+33:20.520 --> 33:22.540
+The physics, the mass, the energy,
+
+33:22.660 --> 33:23.620
+the specific forces
+
+33:23.620 --> 33:25.880
+is just filling in the physical blanks
+
+33:25.880 --> 33:27.860
+of a pre-existing mathematical skeleton.
+
+33:28.120 --> 33:30.300
+Okay, so we've derived textbook quantum mechanics
+
+33:30.300 --> 33:32.520
+from pure logic and complex numbers.
+
+33:32.760 --> 33:33.560
+Case closed, right?
+
+33:33.860 --> 33:34.800
+Complex numbers win.
+
+33:34.960 --> 33:36.400
+Real numbers are a dead end.
+
+33:37.000 --> 33:40.800
+But this is where the deep dive takes a massive swerve.
+
+33:40.900 --> 33:42.220
+The twist in the third act?
+
+33:42.360 --> 33:42.800
+Exactly.
+
+33:43.220 --> 33:45.400
+Just when we think complex numbers have won outright,
+
+33:45.560 --> 33:47.660
+the manuscript throws a massive curveball
+
+33:47.660 --> 33:49.140
+in chapters 18 and 19.
+
+33:49.140 --> 33:51.120
+It brings up cutting-edge physics literature
+
+33:51.120 --> 33:53.140
+from 2025 and 2026.
+
+33:53.400 --> 33:56.060
+Yes, specifically papers by Hofferman and Woods
+
+33:56.060 --> 33:57.500
+and Barrios-Hita et al.
+
+33:57.500 --> 34:00.220
+These recent papers mathematically prove
+
+34:00.220 --> 34:01.660
+that real-valued quantum mechanics
+
+34:01.660 --> 34:02.600
+can actually work
+
+34:02.600 --> 34:03.580
+and it can reproduce
+
+34:03.580 --> 34:05.360
+all complex predictions perfectly.
+
+34:05.540 --> 34:05.760
+Wait.
+
+34:06.280 --> 34:07.020
+Stop the tape.
+
+34:07.220 --> 34:08.820
+We just spent the last 45 minutes
+
+34:08.820 --> 34:10.740
+explicitly proving that real numbers fail.
+
+34:11.020 --> 34:12.660
+The 3x3 DFT matrix,
+
+34:13.220 --> 34:14.520
+the Escher staircase triangle,
+
+34:14.940 --> 34:16.080
+the missing 10th dimension.
+
+34:16.080 --> 34:18.480
+How can you now tell me real QM works?
+
+34:18.820 --> 34:19.580
+To understand this,
+
+34:19.640 --> 34:20.620
+we have to look at a subtle
+
+34:20.620 --> 34:22.140
+but absolutely vital distinction.
+
+34:23.220 --> 34:24.520
+Representation versus structure.
+
+34:25.140 --> 34:27.300
+The way we usually combine systems in math,
+
+34:27.500 --> 34:29.480
+the way we built that 10th dimension earlier,
+
+34:29.680 --> 34:31.580
+is by using the Kronecker product.
+
+34:32.220 --> 34:33.380
+It's the standard way
+
+34:33.380 --> 34:34.880
+to multiply matrices together.
+
+34:35.540 --> 34:36.740
+But the Kronecker product
+
+34:36.740 --> 34:38.480
+is just a mathematical convention.
+
+34:38.920 --> 34:41.380
+It's a choice of how to represent the combination.
+
+34:41.720 --> 34:42.300
+Okay, I'm listening.
+
+34:42.700 --> 34:44.100
+I feel like I'm being tricked by math again.
+
+34:44.500 --> 34:45.620
+Well, we have to ask
+
+34:45.620 --> 34:47.240
+what a complex number actually is.
+
+34:47.500 --> 34:49.580
+Chapter 19 introduces a concept
+
+34:49.580 --> 34:51.240
+popularized by Tristan Needham
+
+34:51.240 --> 34:52.520
+called the amplitwist.
+
+34:52.520 --> 34:54.520
+When you multiply a state
+
+34:54.520 --> 34:55.640
+by a complex number,
+
+34:56.140 --> 34:58.820
+you are doing two geometric operations simultaneously.
+
+34:59.360 --> 35:00.540
+You are scaling the amplitude,
+
+35:00.720 --> 35:01.180
+stretching it,
+
+35:01.260 --> 35:02.380
+and you are rotating it,
+
+35:02.460 --> 35:03.360
+or twisting it,
+
+35:03.420 --> 35:03.860
+in a plane.
+
+35:03.940 --> 35:04.700
+Scaling and twisting.
+
+35:05.220 --> 35:05.920
+The amplitwist.
+
+35:06.180 --> 35:07.840
+That matrix J we kept talking about,
+
+35:07.940 --> 35:09.080
+the missing real dimension,
+
+35:09.240 --> 35:10.540
+the anti-symmetric matrix,
+
+35:10.740 --> 35:11.400
+it is mathematically
+
+35:11.400 --> 35:12.680
+just a quarter turn rotation,
+
+35:13.280 --> 35:14.740
+R of pi over 2.
+
+35:14.940 --> 35:16.900
+It is the imaginary number I.
+
+35:16.900 --> 35:18.680
+It is literally just the concept
+
+35:18.680 --> 35:19.920
+of a 90-degree twist,
+
+35:20.040 --> 35:22.220
+but written out as a real 2x2 matrix
+
+35:22.220 --> 35:24.220
+instead of the single complex letter.
+
+35:24.720 --> 35:25.920
+Wait, so a complex number
+
+35:25.920 --> 35:27.720
+is just a 2D real matrix
+
+35:27.720 --> 35:28.500
+wearing a trench coat?
+
+35:28.780 --> 35:29.760
+Essentially, yes.
+
+35:30.220 --> 35:32.160
+Now, here is where the breakdown happened
+
+35:32.160 --> 35:33.240
+in our earlier test.
+
+35:33.700 --> 35:35.220
+When you combine systems
+
+35:35.220 --> 35:36.440
+using standard math,
+
+35:36.880 --> 35:38.480
+the traditional tensor product
+
+35:38.480 --> 35:39.900
+forces you to decide
+
+35:39.900 --> 35:41.240
+which local subsystem
+
+35:41.240 --> 35:42.640
+carries the global phase,
+
+35:42.740 --> 35:43.360
+the rotation.
+
+35:43.840 --> 35:45.620
+It forces one particle
+
+35:45.620 --> 35:47.080
+to quote-unquote
+
+35:47.080 --> 35:48.340
+hold the twist.
+
+35:48.880 --> 35:50.360
+This creates a redundancy,
+
+35:50.620 --> 35:51.820
+an artificial rigidity.
+
+35:52.220 --> 35:54.140
+And if we fix that redundancy...
+
+35:54.140 --> 35:54.960
+If you quotient out
+
+35:54.960 --> 35:56.280
+that gauge redundancy,
+
+35:56.480 --> 35:58.000
+which is a fancy mathematical way
+
+35:58.000 --> 35:59.860
+of saying you redistribute the phase
+
+35:59.860 --> 36:01.180
+across the whole tensor product
+
+36:01.180 --> 36:02.280
+so it doesn't matter who holds it,
+
+36:02.700 --> 36:03.680
+the ambiguity changes.
+
+36:04.520 --> 36:06.320
+The obstruction we found earlier
+
+36:06.320 --> 36:07.280
+wasn't in the physics
+
+36:07.280 --> 36:07.860
+of the universe,
+
+36:08.060 --> 36:09.060
+it was an artifact
+
+36:09.060 --> 36:10.680
+of our clumsy notation.
+
+36:10.680 --> 36:11.260
+Oh my god.
+
+36:11.620 --> 36:12.740
+It's exactly like looking
+
+36:12.740 --> 36:13.960
+at a Mercator projection map
+
+36:13.960 --> 36:14.320
+of the Earth.
+
+36:14.320 --> 36:16.260
+If you look at a standard classroom map,
+
+36:16.500 --> 36:17.980
+Greenland looks absolutely massive,
+
+36:18.140 --> 36:18.700
+almost as big
+
+36:18.700 --> 36:20.180
+as the entire continent of Africa.
+
+36:20.380 --> 36:21.260
+But that distortion
+
+36:21.260 --> 36:22.780
+is an artifact of the map,
+
+36:23.060 --> 36:24.100
+not the actual planet.
+
+36:24.480 --> 36:25.620
+You took a 3D globe
+
+36:25.620 --> 36:27.540
+and forced it onto a 2D grid,
+
+36:27.760 --> 36:29.160
+and the math of that projection
+
+36:29.160 --> 36:31.320
+created a fake, giant Greenland.
+
+36:32.260 --> 36:33.580
+Complex numbers might just be
+
+36:33.580 --> 36:34.660
+the easiest, cleanest,
+
+36:34.760 --> 36:36.020
+most natural globe to read,
+
+36:36.260 --> 36:37.580
+while real numbers require
+
+36:37.580 --> 36:38.320
+a super-convoluted,
+
+36:39.220 --> 36:40.120
+highly distorted,
+
+36:40.320 --> 36:41.080
+quotiented map
+
+36:41.080 --> 36:43.040
+to show the exact same Earth
+
+36:43.040 --> 36:43.860
+without breaking.
+
+36:43.860 --> 36:45.460
+That analogy is flawless.
+
+36:46.040 --> 36:47.040
+What's fascinating here
+
+36:47.040 --> 36:48.640
+is that the math confirms this.
+
+36:49.300 --> 36:50.000
+Complex numbers
+
+36:50.000 --> 36:51.480
+are an incredibly efficient
+
+36:51.480 --> 36:52.540
+bookkeeping device
+
+36:52.540 --> 36:53.400
+for handling this
+
+36:53.400 --> 36:54.480
+simultaneous rotation
+
+36:54.480 --> 36:55.060
+and scaling
+
+36:55.060 --> 36:56.220
+without creating
+
+36:56.220 --> 36:57.580
+fake topological holes.
+
+36:57.820 --> 36:58.080
+But,
+
+36:58.480 --> 36:59.480
+and this is a massive but,
+
+36:59.900 --> 37:00.640
+the deep dive
+
+37:00.640 --> 37:01.580
+asks a critical,
+
+37:01.740 --> 37:02.840
+unresolved question here.
+
+37:02.880 --> 37:03.320
+Which is?
+
+37:03.580 --> 37:04.400
+Does this new,
+
+37:04.540 --> 37:05.480
+highly convoluted,
+
+37:05.520 --> 37:06.920
+real tensor product,
+
+37:07.060 --> 37:07.800
+this fixed map,
+
+37:08.120 --> 37:09.180
+actually survive
+
+37:09.180 --> 37:10.380
+the local tomography tests
+
+37:10.380 --> 37:11.020
+we did earlier?
+
+37:11.020 --> 37:12.420
+Can it actually describe
+
+37:12.420 --> 37:13.260
+a joint state
+
+37:13.260 --> 37:14.720
+using only local measurements
+
+37:14.720 --> 37:15.480
+without inventing
+
+37:15.480 --> 37:16.760
+new, weird rules?
+
+37:17.180 --> 37:18.160
+The book leaves that
+
+37:18.160 --> 37:19.260
+explicitly unresolved.
+
+37:19.360 --> 37:20.100
+So it's still a mystery.
+
+37:20.360 --> 37:20.780
+It is.
+
+37:21.220 --> 37:22.580
+It proves that real QM
+
+37:22.580 --> 37:24.040
+can mimic complex QM
+
+37:24.040 --> 37:25.320
+if you drastically change
+
+37:25.320 --> 37:26.940
+the rules of how things compose,
+
+37:27.280 --> 37:28.280
+but it doesn't prove
+
+37:28.280 --> 37:29.280
+that this new rule
+
+37:29.280 --> 37:29.920
+of composition
+
+37:29.920 --> 37:31.320
+is forced by the same
+
+37:31.320 --> 37:32.440
+elegant, pure logic
+
+37:32.440 --> 37:33.160
+we started with.
+
+37:33.280 --> 37:33.540
+Wow.
+
+37:33.800 --> 37:34.720
+So complex numbers
+
+37:34.720 --> 37:35.580
+might not be magic,
+
+37:35.740 --> 37:36.300
+they might just be
+
+37:36.300 --> 37:37.700
+the universe's best shorthand.
+
+37:37.700 --> 37:40.380
+But we have one last stop
+
+37:40.380 --> 37:41.080
+on this journey.
+
+37:41.460 --> 37:42.040
+We've talked a lot
+
+37:42.040 --> 37:42.720
+about dimensions
+
+37:42.720 --> 37:43.840
+and graph structures
+
+37:43.840 --> 37:44.520
+and cycles.
+
+37:44.760 --> 37:45.580
+If we pull back
+
+37:45.580 --> 37:46.440
+to the big picture
+
+37:46.440 --> 37:48.140
+of these context graphs
+
+37:48.140 --> 37:49.280
+and probability loops,
+
+37:49.680 --> 37:50.540
+I want to know
+
+37:50.540 --> 37:52.400
+exactly when reality breaks.
+
+37:52.740 --> 37:53.860
+Is it a gradual fade
+
+37:53.860 --> 37:55.040
+into quantum weirdness
+
+37:55.040 --> 37:56.280
+as things get more complex
+
+37:56.280 --> 37:57.860
+or is it a sudden snap?
+
+37:58.140 --> 37:59.380
+This is directly addressed
+
+37:59.380 --> 38:00.320
+in chapter 20
+
+38:00.320 --> 38:01.180
+and chapter 23.
+
+38:01.640 --> 38:02.320
+Let's look at what
+
+38:02.320 --> 38:03.000
+Flyxion calls
+
+38:03.000 --> 38:03.760
+minimal witnesses
+
+38:03.760 --> 38:04.760
+in higher dimensions.
+
+38:05.360 --> 38:06.240
+Back in our two
+
+38:06.240 --> 38:07.120
+outcome systems,
+
+38:07.260 --> 38:07.400
+you know,
+
+38:07.520 --> 38:08.160
+d equals 2,
+
+38:08.240 --> 38:08.700
+we established
+
+38:08.700 --> 38:09.680
+we needed a triangle,
+
+38:09.900 --> 38:10.580
+a closed loop,
+
+38:10.640 --> 38:11.920
+to break real QM.
+
+38:12.040 --> 38:12.240
+Right.
+
+38:12.340 --> 38:13.020
+The Betty numbered
+
+38:13.020 --> 38:14.480
+beta 1 had to be 1.
+
+38:14.640 --> 38:15.000
+Exactly.
+
+38:15.260 --> 38:16.480
+But chapter 20 proves
+
+38:16.480 --> 38:17.060
+that if you move
+
+38:17.060 --> 38:17.540
+to a system
+
+38:17.540 --> 38:18.880
+with three or more outcomes,
+
+38:19.060 --> 38:19.760
+d greater than
+
+38:19.760 --> 38:20.520
+or equal to 3,
+
+38:20.900 --> 38:21.820
+the minimal witness
+
+38:21.820 --> 38:23.440
+collapses to a single edge.
+
+38:23.740 --> 38:25.800
+Meaning beta 1 equals 0.
+
+38:26.280 --> 38:27.400
+You don't even need cycles
+
+38:27.400 --> 38:28.300
+to break real quantum
+
+38:28.300 --> 38:29.020
+mechanics anymore.
+
+38:29.500 --> 38:30.560
+A single transition,
+
+38:30.720 --> 38:32.340
+like that 3x3 DFT matrix
+
+38:32.340 --> 38:33.420
+we talked about an hour ago,
+
+38:33.460 --> 38:34.760
+is enough to instantly
+
+38:34.760 --> 38:36.200
+demand complex numbers.
+
+38:36.400 --> 38:36.660
+Yes.
+
+38:37.080 --> 38:38.260
+But chapter 23
+
+38:38.260 --> 38:39.920
+asks the density question
+
+38:39.920 --> 38:41.660
+specifically for d equals 2
+
+38:41.660 --> 38:43.140
+where single edges are safe.
+
+38:43.520 --> 38:44.420
+It asks,
+
+38:44.700 --> 38:45.700
+is there an erides
+
+38:45.700 --> 38:46.680
+reni threshold?
+
+38:47.260 --> 38:47.860
+What is that?
+
+38:47.940 --> 38:48.760
+I haven't heard that term.
+
+38:48.860 --> 38:49.700
+In graph theory,
+
+38:49.840 --> 38:51.060
+it's a critical density
+
+38:51.060 --> 38:51.780
+where the behavior
+
+38:51.780 --> 38:52.440
+of a network
+
+38:52.440 --> 38:54.120
+suddenly and drastically changes.
+
+38:54.780 --> 38:55.600
+Think of how water
+
+38:55.600 --> 38:56.920
+gradually cools down,
+
+38:57.020 --> 38:58.180
+but then at exactly
+
+38:58.180 --> 38:59.020
+zero degrees,
+
+38:59.200 --> 39:00.420
+it suddenly phase changes
+
+39:00.420 --> 39:01.360
+into solid ice.
+
+39:01.580 --> 39:02.200
+Oh, okay.
+
+39:02.340 --> 39:03.580
+Do these probability graphs
+
+39:03.580 --> 39:04.920
+gradually become harder
+
+39:04.920 --> 39:06.560
+to realize with real numbers
+
+39:06.560 --> 39:07.860
+as you randomly add
+
+39:07.860 --> 39:08.880
+more and more connections?
+
+39:09.080 --> 39:09.680
+And what is the result?
+
+39:09.760 --> 39:11.040
+Does it bend before it breaks?
+
+39:11.160 --> 39:13.200
+The result is terrifyingly sharp.
+
+39:13.640 --> 39:14.940
+There is no gradual transition.
+
+39:15.500 --> 39:16.180
+Under independent
+
+39:16.180 --> 39:17.600
+continuous edge measures,
+
+39:17.780 --> 39:19.520
+meaning if you randomly assign
+
+39:19.520 --> 39:20.440
+valid probabilities
+
+39:20.440 --> 39:21.260
+to the connections,
+
+39:21.780 --> 39:23.560
+the very moment a graph
+
+39:23.560 --> 39:25.500
+has even one single cycle.
+
+39:25.600 --> 39:26.440
+The moment it loops.
+
+39:26.440 --> 39:28.300
+The moment beta 1
+
+39:28.300 --> 39:29.460
+is greater than
+
+39:29.460 --> 39:30.780
+or equal to 1,
+
+39:31.340 --> 39:32.100
+the probability
+
+39:32.100 --> 39:33.360
+of that entire network
+
+39:33.360 --> 39:34.920
+working with real numbers
+
+39:34.920 --> 39:37.000
+drops to exactly zero.
+
+39:37.300 --> 39:38.400
+It is measure zero.
+
+39:38.460 --> 39:38.700
+Wait, wait.
+
+39:38.760 --> 39:39.840
+So it's not like a bridge
+
+39:39.840 --> 39:40.920
+groaning under the weight
+
+39:40.920 --> 39:41.460
+of traffic,
+
+39:41.640 --> 39:42.420
+gradually bowing
+
+39:42.420 --> 39:43.460
+until it finally collapses.
+
+39:44.060 --> 39:44.960
+You're saying the bridge
+
+39:44.960 --> 39:46.800
+is structurally flawless,
+
+39:47.280 --> 39:48.280
+mathematically perfect
+
+39:48.280 --> 39:49.320
+in real numbers,
+
+39:49.460 --> 39:50.760
+right up until you connect
+
+39:50.760 --> 39:51.800
+the very last bolt
+
+39:51.800 --> 39:52.900
+that forms a closed loop,
+
+39:53.300 --> 39:54.520
+and then the entire thing
+
+39:54.520 --> 39:55.940
+instantly vaporizes
+
+39:55.940 --> 39:57.680
+into mathematical impossibility.
+
+39:58.100 --> 39:58.540
+Precisely.
+
+39:58.940 --> 40:00.200
+It is what mathematicians
+
+40:00.200 --> 40:01.960
+call a co-dimension 1 event.
+
+40:02.100 --> 40:02.960
+Wait, co-dimension 1?
+
+40:03.000 --> 40:04.200
+What does that actually mean visually?
+
+40:04.340 --> 40:05.440
+Imagine a massive
+
+40:05.440 --> 40:06.720
+three-dimensional room.
+
+40:07.460 --> 40:08.540
+A co-dimension 1 object
+
+40:08.540 --> 40:10.100
+is a two-dimensional plane,
+
+40:10.280 --> 40:11.200
+like a sheet of paper,
+
+40:11.480 --> 40:12.320
+infinitely thin,
+
+40:12.440 --> 40:13.440
+cutting through that room.
+
+40:13.900 --> 40:15.220
+It has zero volume
+
+40:15.220 --> 40:16.480
+compared to the room itself.
+
+40:16.900 --> 40:17.800
+If you throw a dart
+
+40:17.800 --> 40:18.820
+completely randomly
+
+40:18.820 --> 40:19.580
+into that room,
+
+40:19.680 --> 40:20.840
+the mathematical probability
+
+40:20.840 --> 40:21.700
+of the tip of the dart
+
+40:21.700 --> 40:23.180
+hitting that incredibly thin plane
+
+40:23.180 --> 40:24.380
+is precisely zero.
+
+40:24.720 --> 40:25.720
+So a universe governed
+
+40:25.720 --> 40:26.800
+by real numbers
+
+40:26.800 --> 40:28.660
+is that infinitely thin
+
+40:28.660 --> 40:29.380
+sheet of paper,
+
+40:29.660 --> 40:30.540
+and the space
+
+40:30.540 --> 40:32.200
+of all possible quantum states
+
+40:32.200 --> 40:33.760
+is the massive room.
+
+40:34.240 --> 40:35.200
+The moment you close a loop,
+
+40:35.580 --> 40:36.840
+you realize you are in the room,
+
+40:37.060 --> 40:37.880
+not on the paper.
+
+40:37.880 --> 40:38.320
+Exactly.
+
+40:38.720 --> 40:40.320
+It is not an asymptotic limit
+
+40:40.320 --> 40:41.140
+where things just get
+
+40:41.140 --> 40:42.120
+harder to calculate.
+
+40:42.680 --> 40:44.340
+The threshold of impossibility
+
+40:44.340 --> 40:45.600
+is crossed completely
+
+40:45.600 --> 40:46.920
+at the very first cycle.
+
+40:47.440 --> 40:48.840
+It proves that realizability
+
+40:48.840 --> 40:49.760
+over real numbers
+
+40:49.760 --> 40:50.740
+is not generic.
+
+40:51.200 --> 40:52.940
+It is the ultimate rare exception.
+
+40:52.940 --> 40:54.480
+The moment you close
+
+40:54.480 --> 40:55.400
+a loop of information,
+
+40:55.900 --> 40:57.500
+real numbers evaporate.
+
+40:57.500 --> 40:58.420
+This has been
+
+40:58.420 --> 40:59.660
+an absolute journey
+
+40:59.660 --> 41:00.380
+to try and summarize
+
+41:00.380 --> 41:01.420
+what we've just done.
+
+41:01.540 --> 41:02.520
+We started with
+
+41:02.520 --> 41:04.280
+bare classical probabilities,
+
+41:04.560 --> 41:05.580
+a simple mixing of paint.
+
+41:05.740 --> 41:05.820
+Yeah.
+
+41:06.080 --> 41:07.420
+We saw how linking
+
+41:07.420 --> 41:08.340
+those probabilities
+
+41:08.340 --> 41:08.960
+in cycles
+
+41:08.960 --> 41:10.800
+created geometrical paradoxes
+
+41:10.800 --> 41:12.060
+like the Escher staircase
+
+41:12.060 --> 41:13.420
+of the triangle gluing theorem.
+
+41:13.820 --> 41:15.260
+We mathematically proved
+
+41:15.260 --> 41:16.280
+that entanglement
+
+41:16.280 --> 41:17.100
+isn't necessarily
+
+41:17.100 --> 41:18.660
+an intrinsic physical property
+
+41:18.660 --> 41:19.240
+of a particle,
+
+41:19.560 --> 41:20.880
+but might actually be relative
+
+41:20.880 --> 41:21.800
+to the math you used
+
+41:21.800 --> 41:22.460
+to describe it.
+
+41:22.540 --> 41:23.520
+The magic eye poster.
+
+41:23.860 --> 41:24.100
+Right.
+
+41:24.520 --> 41:25.720
+We derived the famous
+
+41:25.720 --> 41:26.660
+Schrodinger equation
+
+41:26.660 --> 41:27.920
+not from assuming
+
+41:27.920 --> 41:29.220
+physical energy exists,
+
+41:29.540 --> 41:30.800
+but from pure logic
+
+41:30.800 --> 41:32.940
+and continuous reversible time.
+
+41:33.280 --> 41:34.380
+And we realized
+
+41:34.380 --> 41:35.500
+that complex numbers
+
+41:35.500 --> 41:36.980
+might just be nature's
+
+41:36.980 --> 41:38.620
+most efficient bookkeeping tool
+
+41:38.620 --> 41:39.980
+for a universe made of
+
+41:39.980 --> 41:41.720
+twisting scaling probabilities.
+
+41:42.020 --> 41:43.200
+It strips quantum mechanics
+
+41:43.200 --> 41:44.560
+of its arbitrary mystique.
+
+41:44.800 --> 41:45.640
+It takes away the feeling
+
+41:45.640 --> 41:46.240
+that the universe
+
+41:46.240 --> 41:47.280
+is just mocking us
+
+41:47.280 --> 41:48.220
+with weird rules
+
+41:48.220 --> 41:49.160
+and replaces it
+
+41:49.160 --> 41:50.580
+with something even more profound.
+
+41:51.560 --> 41:52.760
+Structural inevitability.
+
+41:53.400 --> 41:53.960
+Quantum mechanics
+
+41:53.960 --> 41:55.360
+is simply the only way
+
+41:55.360 --> 41:56.800
+the puddle pieces fit together.
+
+41:57.040 --> 41:57.820
+Which leaves us
+
+41:57.820 --> 41:58.540
+with a final,
+
+41:58.960 --> 42:00.300
+very provocative thought.
+
+42:00.700 --> 42:00.840
+Right.
+
+42:00.860 --> 42:01.960
+If you are listening to this,
+
+42:02.040 --> 42:03.040
+I want you to seriously
+
+42:03.040 --> 42:03.720
+ponder this
+
+42:03.720 --> 42:04.680
+as you go about your day.
+
+42:04.980 --> 42:05.740
+We've just spent
+
+42:05.740 --> 42:06.900
+this entire deep dive
+
+42:06.900 --> 42:07.820
+seeing how almost
+
+42:07.820 --> 42:09.200
+all of quantum mechanics
+
+42:09.200 --> 42:10.260
+can be derived
+
+42:10.260 --> 42:11.520
+as a forced requirement
+
+42:11.520 --> 42:12.560
+of processing
+
+42:12.560 --> 42:13.440
+missing information
+
+42:13.440 --> 42:14.560
+without creating
+
+42:14.560 --> 42:15.640
+logical contradictions.
+
+42:16.100 --> 42:17.180
+So does the wave function
+
+42:17.180 --> 42:18.520
+actually exist out there
+
+42:18.520 --> 42:19.360
+in the physical world?
+
+42:19.360 --> 42:21.320
+That's the million dollar question.
+
+42:21.800 --> 42:22.720
+Is there a physical
+
+42:22.720 --> 42:23.980
+undulating wave
+
+42:23.980 --> 42:25.360
+of energy guiding particles?
+
+42:26.060 --> 42:26.960
+Or is the universe
+
+42:26.960 --> 42:28.480
+entirely made of pure math
+
+42:28.480 --> 42:29.180
+and information?
+
+42:29.620 --> 42:30.380
+And quantum mechanics
+
+42:30.380 --> 42:32.160
+is just the only possible software
+
+42:32.160 --> 42:32.780
+our brains
+
+42:32.780 --> 42:33.880
+and our instruments can use
+
+42:33.880 --> 42:35.160
+to render a reality
+
+42:35.160 --> 42:35.980
+where we don't have
+
+42:35.980 --> 42:36.560
+all the facts.
+
+42:37.040 --> 42:38.020
+Is the physical world
+
+42:38.020 --> 42:39.420
+just the gears we can't see?
+
+42:39.800 --> 42:40.520
+And quantum mechanics
+
+42:40.520 --> 42:41.740
+is just the inevitable blur
+
+42:41.740 --> 42:42.340
+of the machinery.
+
+42:43.000 --> 42:43.620
+Think about it.
+
+42:43.840 --> 42:44.400
+We'll catch you
+
+42:44.400 --> 42:45.380
+on the next deep dive.
+
+42:45.380 --> 42:59.280
+We'll catch you
+
+42:59.320 --> 43:00.900
+in the next video.
+

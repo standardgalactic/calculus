@@ -1,0 +1,170 @@
+\chapter{Separability and Entanglement}
+\label{ch:entanglement}
+
+Chapter~\ref{ch:partial-trace} left one question open deliberately: is
+$\rho(c)$, for $c\ne0$, entangled, or merely classically correlated in some
+other way invisible to marginals? This chapter answers it — and shows the
+answer depends on which scalar field is doing the composing, which is exactly
+the kind of question this book is positioned to ask.
+
+\section{Separability Relative to a Scalar Field}
+
+\begin{definition}[Separability]
+\label{def:separability}
+\index{Separability (definition)}
+Fix $\mathbb F \in \{\R,\C\}$. A state $\rho \in \mathcal D_{d_Ad_B}(\mathbb
+F)$ is \emph{$\mathbb F$-separable} if it is a convex combination of
+$\mathbb F$-product states,
+\begin{equation}
+\rho = \sum_k p_k\, \rho_A^{(k)} \otimes \rho_B^{(k)}, \qquad p_k \ge 0,\
+\sum_k p_k = 1,\qquad \rho_A^{(k)} \in \mathcal D_{d_A}(\mathbb F),\ \rho_B^{(k)}
+\in \mathcal D_{d_B}(\mathbb F).
+\end{equation}
+A state that is not $\mathbb F$-separable is \emph{$\mathbb F$-entangled}.
+\end{definition}
+
+The qualifier is essential: $\mathcal D_d(\R) \subsetneq \mathcal D_d(\C)$
+(Chapters~\ref{ch:local-tomography}--\ref{ch:positivity}), so the set of
+available local product states differs between the two theories, and
+separability is a property of a state \emph{relative to} which local states
+are admitted — not an intrinsic property of a matrix alone.
+
+\section{The \texorpdfstring{$J\otimes J$}{J⊗J} Witness Over \texorpdfstring{$\R$}{R}}
+
+\begin{lemma}
+\label{lem:trace-symmetric-antisymmetric}
+For any real symmetric $\rho_A \in \mathrm{Herm}_\R(d)$, $\operatorname{tr}(\rho_A
+J) = 0$ whenever $J^\top = -J$ is antisymmetric (same dimension).
+\end{lemma}
+
+\begin{proof}
+$\operatorname{tr}(\rho_A J) = \operatorname{tr}\big((\rho_A J)^\top\big) =
+\operatorname{tr}(J^\top \rho_A^\top) = \operatorname{tr}(-J\rho_A) =
+-\operatorname{tr}(J\rho_A) = -\operatorname{tr}(\rho_A J)$ (using
+cyclicity of trace), so $\operatorname{tr}(\rho_A J) = 0$.
+\end{proof}
+
+\begin{theorem}[Real entanglement witness]
+\label{thm:real-witness}
+\index{Real entanglement witness (theorem)}
+For every $\R$-separable two-rebit state $\rho$, $\operatorname{tr}\big[\rho\,
+(J\otimes J)\big] = 0$.
+\end{theorem}
+
+\begin{proof}
+For a product state, $\operatorname{tr}\big[(\rho_A\otimes\rho_B)(J\otimes
+J)\big] = \operatorname{tr}(\rho_A J)\,\operatorname{tr}(\rho_B J) = 0\cdot 0 =
+0$ by Lemma~\ref{lem:trace-symmetric-antisymmetric} (using the standard
+identity $\operatorname{tr}[(A\otimes B)(C\otimes D)] = \operatorname{tr}(AC)
+\operatorname{tr}(BD)$). By linearity of trace, the same holds for any convex
+combination.
+\end{proof}
+
+\begin{proposition}
+\label{prop:c-classification}
+$\operatorname{tr}\big[\rho(c)(J\otimes J)\big] = c$.
+\end{proposition}
+
+\begin{proof}
+$\operatorname{tr}\big[\rho(c)(J\otimes J)\big] = \tfrac14\big(
+\operatorname{tr}(J\otimes J) + c\,\operatorname{tr}\big[(J\otimes J)^2\big]
+\big) = \tfrac14\big(0 + c\cdot 4\big) = c$, using
+$\operatorname{tr}(J\otimes J)=0$ and $(J\otimes J)^2 = I_4$ (Chapter
+\ref{ch:tensor-product}), so $\operatorname{tr}[(J\otimes J)^2] =
+\operatorname{tr}(I_4) = 4$.
+\end{proof}
+
+\begin{corollary}
+\label{cor:real-classification}
+$\rho(c)$ is $\R$-separable if and only if $c=0$.
+\end{corollary}
+
+\begin{proof}
+If $c\ne0$, Theorem~\ref{thm:real-witness} and Proposition
+\ref{prop:c-classification} together rule out $\R$-separability. If $c=0$,
+$\rho(0) = \tfrac12I \otimes \tfrac12I$ is manifestly a real product state
+(indeed $\tfrac12I \in \mathcal D_2(\R)$), hence separable.
+\end{proof}
+
+This is the four-chapter chain complete: $J\otimes J$ appears as an extra
+basis vector invisible to local product operators (Chapter
+\ref{ch:tensor-product}), becomes a bounded physical coordinate $|c|\le1$
+under positivity (Chapter~\ref{ch:positivity}), vanishes under both
+marginals (Chapter~\ref{ch:partial-trace}), and is now shown to be exactly an
+entanglement witness: the same coefficient invisible to every local
+measurement is precisely what makes $\rho(c)$, $c\ne0$, entangled.
+
+\section{Complexification: The Same States, a Different Theory}
+
+\begin{proposition}
+\label{prop:JJ-is-sigmay}
+$J = -i\sigma_y$, so $J\otimes J = -\sigma_y\otimes\sigma_y$.
+\end{proposition}
+
+This is immediate from $\sigma_y = \begin{psmallmatrix}0&-i\\i&0
+\end{psmallmatrix}$. The point is that $J\otimes J$, unavailable as a product
+of \emph{real} local observables (Chapter~\ref{ch:tensor-product}), is
+exactly $-1$ times a product of perfectly ordinary \emph{complex} local
+observables, $\sigma_y\otimes\sigma_y$.
+
+\begin{theorem}[The same family is entirely $\C$-separable]
+\label{thm:complex-separable}
+\index{The same family is entirely C-separable (theorem)}
+$\rho(c)$ is $\C$-separable for every $c\in[-1,1]$.
+\end{theorem}
+
+\begin{proof}
+Let $|{\pm}y\rangle$ be the $\pm1$-eigenvectors of $\sigma_y$. Since $J\otimes
+J = -\sigma_y\otimes\sigma_y$, and $\sigma_y\otimes\sigma_y$ has eigenvalue
+$+1$ on $\{|{+}y,{+}y\rangle,|{-}y,{-}y\rangle\}$ and eigenvalue $-1$ on
+$\{|{+}y,{-}y\rangle,|{-}y,{+}y\rangle\}$ (products of $\sigma_y$-eigenvalues),
+direct substitution gives the exact identity
+\begin{equation}
+\rho(c) = \frac{1+c}{4}\,|{+}y,{-}y\rangle\langle{+}y,{-}y| +
+\frac{1+c}{4}\,|{-}y,{+}y\rangle\langle{-}y,{+}y| +
+\frac{1-c}{4}\,|{+}y,{+}y\rangle\langle{+}y,{+}y| +
+\frac{1-c}{4}\,|{-}y,{-}y\rangle\langle{-}y,{-}y|.
+\end{equation}
+Each term is a pure complex product state; the four weights are nonnegative
+and sum to $1$ exactly when $|c|\le1$, which always holds
+(Chapter~\ref{ch:positivity}). This exhibits $\rho(c)$ as an explicit convex
+combination of $\C$-product states for every admissible $c$.
+\end{proof}
+
+\begin{remark}
+This is stronger than a partial or asymptotic statement: the \emph{entire}
+one-parameter family that is $\R$-entangled for every $c\ne0$
+(Corollary~\ref{cor:real-classification}) is $\C$-separable across its whole
+range. Nothing about $\rho(c)$ itself changes — it is the same real $4\times4$
+matrix throughout — only the theory doing the composing. Separability is not
+an intrinsic property of a state; it is a property of a state \emph{relative
+to} the field over which local product states are admitted.
+\end{remark}
+
+\begin{scopebox}
+\scopetitle{}This is a precise claim about one family of matrices under
+Definition~\ref{def:separability}, not a general verdict that "entanglement
+isn't physically real." It does not say every entangled state in ordinary
+complex quantum mechanics becomes separable under some other field, and it
+does not say separability judgments are arbitrary or a matter of choice
+once a scalar field is fixed — within ordinary complex quantum mechanics,
+$\rho(c)$'s entanglement status (for whatever states arise there) is
+perfectly well-defined. What is field-relative is the comparison
+\emph{across} candidate theories with different admissible local product
+states, which is the question this book's Parts I--II were built to ask.
+\end{scopebox}
+
+\begin{ledgerentry}[End of Chapter~\ref{ch:entanglement}]
+\textbf{Established:} $\rho(c)$ is $\R$-entangled for every $c\ne0$, exhibited
+by the explicit witness $J\otimes J$ (Corollary~\ref{cor:real-classification});
+the identical family is $\C$-separable for every $c\in[-1,1]$, exhibited by an
+explicit four-term product-state decomposition
+(Theorem~\ref{thm:complex-separable}); separability is therefore
+field-relative, not intrinsic to a state.\\
+\textbf{Not established:} anything about entanglement in the full generality
+of $d>2$ composite systems, multipartite entanglement, entanglement measures
+or their operational meaning, or the fate of quaternionic composite states
+under this classification (the overcompleteness of Chapter
+\ref{ch:tensor-product} suggests the very notion of a $\Hset$-product state
+needs care before separability can even be defined there). These remain open.
+\end{ledgerentry}

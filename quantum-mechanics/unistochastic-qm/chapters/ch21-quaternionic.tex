@@ -1,0 +1,156 @@
+\chapter{Toward Quaternionic Separation}
+\label{ch:quaternionic}
+
+Chapter~\ref{ch:minimal-witnesses}'s second open question,
+$m_\beta(\C,\Hset;d)$, was left entirely untouched pending the
+composite-system chapters. Those chapters (Ch.~\ref{ch:local-tomography}--
+\ref{ch:entanglement}) found quaternionic composition genuinely
+obstructed — the naive product of local quaternionic Hermitian bases is
+already overcomplete (Ch.~\ref{ch:tensor-product}'s remark). This chapter
+asks a narrower question first: not composite systems, but whether the
+single-system graph-realizability machinery of
+Chapters~\ref{ch:context-graphs}--\ref{ch:minimal-witnesses} — which never
+required composing separate systems, only composing frame transitions of
+one system along a graph — extends to $\Hset$ at all.
+
+\section{What Generalizes, and Why}
+
+The graph-realizability machinery (Proposition~\ref{prop:tree-no-constraint},
+Theorem~\ref{thm:graph-realizability}) was built entirely from matrix
+\emph{multiplication} of frame transitions: $F_v := F_uL_{uv}$ propagated
+along a tree, and cycle closure $L_{A_0A_1}\cdots L_{A_{k-1}A_0}=I$ via
+telescoping. Neither proof used commutativity anywhere — only
+associativity, and the fact that $\pi(L)_{ij}$ (the modulus-squared of a
+matrix entry) is well-defined and nonnegative.
+
+\begin{proposition}[The machinery is field-agnostic]
+\label{prop:h-generalizes}
+\index{The machinery is field-agnostic (proposition)}
+Proposition~\ref{prop:tree-no-constraint} and
+Theorem~\ref{thm:graph-realizability} hold verbatim with $\R$ replaced by
+$\Hset$ throughout, where $\pi(L)_{ij} := |L_{ij}|_\Hset^2 = L_{ij}
+\overline{L_{ij}}$ (the quaternionic norm, a nonnegative real number for
+every quaternion $L_{ij} = a+bi+cj+dk$), and "unitary" means
+$L^\dagger L = I$ with $\dagger$ the quaternionic conjugate transpose.
+\end{proposition}
+
+\begin{proof}
+Quaternionic matrix multiplication is associative (inherited from
+associativity of quaternion multiplication itself) though not commutative.
+Every step of Proposition~\ref{prop:tree-no-constraint}'s proof (unique
+tree-path propagation) and Theorem~\ref{thm:graph-realizability}'s proof
+(construct from a tree-lift choice, check non-tree edges) used only
+associativity and the definition of $\pi$; neither invoked commutativity of
+matrix entries or of the underlying scalars.
+\end{proof}
+
+This was checked directly, not merely asserted: quaternionic associativity,
+a genuine quaternionic unitary matrix (via quaternionic Gram--Schmidt)
+satisfying $U^\dagger U = I$, exact cycle closure $L_{ZX}L_{XY}L_{YZ}=I$ for
+random quaternionic frames, and exact reproduction of tree-edge data under
+propagation, all confirmed numerically before this proposition was written.
+
+\section{The \texorpdfstring{$\C$--$\Hset$}{C-H} Minimal Witness Question}
+
+Definitions~\ref{def:realizability-space}--\ref{def:minimal-witness} are
+already stated for general $\mathbb F$, so $m_\beta(\C,\Hset;d)$ is
+well-posed immediately given
+Proposition~\ref{prop:h-generalizes}. Two facts constrain where a witness
+could live.
+
+\begin{proposition}[$\C \subset \Hset$ as an inclusion of admissible sets]
+\label{prop:c-subset-h}
+\index{C subset H as an inclusion of admissible sets (proposition)}
+$\mathcal R_\C(G,d) \subseteq \mathcal R_\Hset(G,d)$ for every $G,d$.
+\end{proposition}
+
+\begin{proof}
+$\C$ embeds as a subalgebra of $\Hset$ ($a+bi \hookrightarrow a+bi+0j+0k$),
+so every complex unitary matrix is a quaternionic unitary matrix with
+entries restricted to this subalgebra; any real frame assignment achieving
+a labeling over $\C$ achieves it over $\Hset$ using the identical matrices.
+\end{proof}
+
+\begin{proposition}[No single-edge witness at $d=2$]
+\label{prop:no-d2-witness}
+\index{No single-edge witness at d=2 (proposition)}
+$\mathcal R_\R(G,2) = \mathcal R_\C(G,2) = \mathcal R_\Hset(G,2)$ for every
+tree $G$; in particular $m_\beta(\C,\Hset;2) \ge 1$, if it exists at all.
+\end{proposition}
+
+\begin{proof}
+Theorem~\ref{thm:n2degeneracy} shows every $B\in\mathrm{DS}(2)$ is already
+orthostochastic: $\mathrm{OS}(2)=\mathrm{DS}(2)$. Since $\R\subset\C\subset
+\Hset$, the same real orthogonal matrix witnessing $\R$-admissibility
+witnesses $\C$- and $\Hset$-admissibility too, so all three edgewise
+admissible sets coincide at $d=2$, and by
+Proposition~\ref{prop:tree-no-constraint} (both real and quaternionic
+versions) no tree can separate any pair of the three fields at $d=2$.
+\end{proof}
+
+\section{What This Chapter Does Not Establish}
+
+Unlike Chapter~\ref{ch:higher-d-witnesses}'s resolution of the real/complex
+question at $d\ge3$, no analogous collapse is established here. That
+resolution rested on an explicit, verified single matrix
+(Theorem~\ref{thm:n3incompleteness}'s DFT-derived $\Gamma \in
+\mathrm{US}(3)\setminus\mathrm{OS}(3)$) exhibiting the separation directly.
+The analogous question for $\C$ versus $\Hset$ — does there exist, at some
+small $d$, a quaternionic-unistochastic matrix admitting no complex
+realization — has no such explicit witness in hand. Constructing one
+requires either an explicit small-dimension quaternionic unitary matrix
+whose modulus-squared provably escapes every complex realization (the
+direct analogue of the DFT construction, but genuinely harder: the
+relevant non-existence fact would concern complex, not real, matrix
+constraints, and no argument as elementary as the Hadamard-matrix
+non-existence check of Theorem~\ref{thm:n3incompleteness} is currently in
+hand), or a correct quaternionic generalization of the mutually-unbiased-
+basis counting bound that underlies Chapter~\ref{ch:real-mub-obstruction}'s
+triangle argument — and the standard derivation of that bound leans on
+structural facts about the complex traceless-Hermitian-operator space that
+do not obviously carry over: a quaternionic orthonormal basis carries
+$\mathrm{Sp}(1)$ (three real parameters) of local phase freedom per vector
+rather than the complex case's $U(1)$ (one real parameter), which changes
+the dimension count in a way this book has not worked out correctly.
+Rather than risk asserting an unverified bound, this is left as the
+precise, well-posed target for future work.
+
+\begin{remark}[The gap, isolated]
+\label{rem:gap-isolated}
+Propositions~\ref{prop:c-subset-h} and~\ref{prop:no-d2-witness} narrow
+$m_\beta(\C,\Hset;d)$, if it exists at all, to $d\ge3$. A separation at
+some such $d$ would follow from either:
+\begin{enumerate}
+\item[(i)] an explicit bistochastic matrix on some small $d\ge3$ realizable
+quaternionically but not complexly — the direct analogue of
+Theorem~\ref{thm:n3incompleteness}'s DFT construction, requiring a
+non-existence fact about complex matrices in place of that theorem's
+non-existence of a real Hadamard matrix; or
+\item[(ii)] a structural obstruction — most plausibly a corrected
+quaternionic mutually-unbiased-basis counting bound, redone from first
+principles to account for the $\mathrm{Sp}(1)$ (rather than $U(1)$) local
+phase freedom per basis vector — proving such a matrix must exist without
+exhibiting one directly, in the style of
+Chapter~\ref{ch:real-mub-obstruction}'s cycle argument.
+\end{enumerate}
+Neither is completed here. What this chapter contributes is the
+reduction: the search is not open at every $d$, only at $d\ge3$, and the
+machinery needed to verify a candidate witness, once found, is already in
+place (Proposition~\ref{prop:h-generalizes}).
+\end{remark}
+
+\begin{ledgerentry}[End of Chapter~\ref{ch:quaternionic}]
+\textbf{Established:} the graph-realizability machinery of
+Chapters~\ref{ch:context-graphs}--\ref{ch:minimal-witnesses} generalizes to
+$\Hset$ verbatim, verified computationally
+(Proposition~\ref{prop:h-generalizes}); $\mathcal R_\C \subseteq \mathcal
+R_\Hset$ always (Proposition~\ref{prop:c-subset-h}); no single-edge witness
+exists at $d=2$ for any pairing of $\R,\C,\Hset$
+(Proposition~\ref{prop:no-d2-witness}).\\
+\textbf{Not established:} $m_\beta(\C,\Hset;d)$ for any $d$ — neither an
+explicit witness nor a correct counting bound. This chapter narrows the
+search (rules out $d=2$ single edges, confirms the machinery needed to
+search $d\ge3$ is sound) without completing it. The quaternionic
+MUB-counting question, and the composite-system obstruction flagged in
+Chapter~\ref{ch:tensor-product}, remain the two live approaches.
+\end{ledgerentry}

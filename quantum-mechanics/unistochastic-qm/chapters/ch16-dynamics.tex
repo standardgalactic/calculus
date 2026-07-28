@@ -1,0 +1,118 @@
+\chapter{Unitary Dynamics and Schr\"odinger's Equation}
+\label{ch:dynamics}
+
+\section{An Explicit New Assumption: Continuous Reversible Evolution}
+
+Parts I--II established that coherent, reversible transformations between
+\emph{discrete} contexts are represented by unitary lifts
+(Chapters~\ref{ch:composition}--\ref{ch:real-mub-obstruction}). Nothing
+proved so far concerns physical \emph{time}. Connecting the two requires a
+genuinely new assumption:
+
+\begin{assumption}[Continuous reversible time evolution]
+\label{ass:continuous-evolution}
+A closed system's evolution over time is represented by a strongly
+continuous one-parameter family of unitary operators $U(t)$ satisfying
+\begin{equation}
+U(t+s) = U(t)U(s), \qquad U(0) = I.
+\end{equation}
+\end{assumption}
+
+This is not derived from the discrete admissibility framework of Parts I--II
+— it imports continuity in time as new physical content, using "unitary"
+only because Parts I--II already established unitary operators as the
+coherent lifts of admissible transformations. The group law itself is the
+same composition law studied throughout the book (Chapter
+\ref{ch:context-graphs}'s exact closure, Chapter~\ref{ch:composition}'s
+composition rule), now imposed on a continuous parameter rather than a
+discrete sequence of contexts.
+
+\section{The Generator Theorem}
+
+In finite dimension, Assumption~\ref{ass:continuous-evolution} has an
+elementary consequence — no need for the general (infinite-dimensional)
+machinery of Stone's theorem.
+
+\begin{theorem}[Finite-dimensional generator theorem]
+\label{thm:generator}
+\index{Finite-dimensional generator theorem (theorem)}
+Given Assumption~\ref{ass:continuous-evolution} with $U(t)$ differentiable at
+$t=0$, there is a Hermitian operator $H$ and real constant $\hbar$ such that
+\begin{equation}
+U(t) = e^{-itH/\hbar}.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Let $K := \frac{d}{dt}U(t)\big|_{t=0}$. Differentiating $U(t+s)=U(t)U(s)$
+with respect to $s$ at $s=0$ gives $\frac{d}{dt}U(t) = U(t)K$, a linear ODE
+with solution $U(t) = e^{Kt}$ (using $U(0)=I$). Differentiating
+$U(t)^\dagger U(t) = I$ at $t=0$ gives $K^\dagger + K = 0$, i.e.\ $K$ is
+anti-Hermitian, so $K = -iH/\hbar$ for some Hermitian $H$ and real scale
+$\hbar$ (any decomposition of an anti-Hermitian operator as $-i$ times a
+Hermitian one, with the scale factor absorbed into $H$ or left explicit as
+$\hbar$).
+\end{proof}
+
+\begin{remark}
+This is genuinely elementary — a finite-dimensional linear ODE argument, not
+an import of Stone's theorem (which handles the harder infinite-dimensional
+case this book's finite-$d$ scope does not need). The differentiability
+assumed at $t=0$ is itself part of Assumption~\ref{ass:continuous-evolution}'s
+content; strong continuity alone, without differentiability, requires the
+fuller argument this book does not attempt.
+\end{remark}
+
+\section{Schr\"odinger's Equation}
+
+\begin{corollary}[Schr\"odinger's equation]
+\label{cor:schrodinger}
+\index{Schr\"odinger's equation (corollary)}
+Writing $|\psi(t)\rangle := U(t)|\psi(0)\rangle$,
+\begin{equation}
+i\hbar\,\frac{d}{dt}|\psi(t)\rangle = H|\psi(t)\rangle.
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+$\frac{d}{dt}|\psi(t)\rangle = \frac{d}{dt}U(t)|\psi(0)\rangle = -\tfrac{i}{
+\hbar}H\,U(t)|\psi(0)\rangle = -\tfrac{i}{\hbar}H|\psi(t)\rangle$, using
+Theorem~\ref{thm:generator} and $\frac{d}{dt}e^{-itH/\hbar} = -\tfrac{i}{
+\hbar}H\,e^{-itH/\hbar}$ (differentiating the matrix exponential). Multiplying
+by $i\hbar$ gives the stated equation.
+\end{proof}
+
+\begin{remark}
+Schr\"odinger's equation is, on this route, the infinitesimal form of the
+composition law of Assumption~\ref{ass:continuous-evolution} — not an
+independent postulate stacked on top of the state-space structure recovered
+in Chapters~\ref{ch:born-rule}--\ref{ch:observables}.
+\end{remark}
+
+\section{What \texorpdfstring{$H$}{H} Is Not (Yet)}
+
+Theorem~\ref{thm:generator} produces \emph{a} Hermitian generator and \emph{a}
+real scale $\hbar$. It does not say that $H$ is energy, nor that $\hbar$ is
+Planck's constant. Those identifications are additional physical input —
+typically made via correspondence with classical Hamiltonian mechanics (the
+generator of time translation is identified with energy through Noether's
+theorem or the classical Hamiltonian's role as generator of time evolution in
+the classical limit) — and are not established by anything in this chapter.
+The generator theorem gives the \emph{form} $i\hbar\,d_t|\psi\rangle =
+H|\psi\rangle$; it does not by itself explain why the object called $H$
+deserves to be called energy.
+
+\begin{ledgerentry}[End of Chapter~\ref{ch:dynamics}]
+\textbf{Established:} given Assumption~\ref{ass:continuous-evolution} (stated
+explicitly as new, not derived), the finite-dimensional generator theorem
+(Theorem~\ref{thm:generator}) and Schr\"odinger's equation as its
+infinitesimal form (Corollary~\ref{cor:schrodinger}), via an elementary
+matrix-ODE argument rather than the general Stone's theorem.\\
+\textbf{Not established:} that physical time evolution actually satisfies
+Assumption~\ref{ass:continuous-evolution} — this is imported, not derived
+from Parts I--II's discrete admissibility framework; that the generator $H$
+is energy or that $\hbar$ is Planck's constant, both of which require
+additional physical identification not attempted here; anything about
+open-system or non-unitary dynamics, which would require the channel/Kraus
+formalism this book has not developed.
+\end{ledgerentry}

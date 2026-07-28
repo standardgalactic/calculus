@@ -1,0 +1,286 @@
+\documentclass[11pt]{book}
+
+% ---------------------------------------------------------------
+% Fonts (engine-agnostic via fontspec; compile with LuaLaTeX)
+% ---------------------------------------------------------------
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Pagella}
+% unicode-math would give a closer text/math match but its dependency
+% lualatex-math is not present in this build environment; mathpazo is the
+% standard NFSS-based Palatino-compatible math companion and needs no
+% CTAN fetch.
+\usepackage{mathpazo}
+
+% ---------------------------------------------------------------
+% Core packages
+% ---------------------------------------------------------------
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{physics}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[capitalize]{cleveref}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{makeidx}
+\makeindex
+\usepackage{xcolor}
+\usepackage{mdframed}
+
+% A visually distinct callout for explicit misreading warnings -- used at
+% every point in the book where a result could plausibly be compressed into
+% an unconditional claim it does not make. Deliberately styled differently
+% from ordinary remarks so it survives skimming.
+\newmdenv[
+  linecolor=black,
+  linewidth=0.75pt,
+  backgroundcolor=black!5,
+  leftmargin=0pt,
+  rightmargin=0pt,
+  innertopmargin=6pt,
+  innerbottommargin=6pt,
+  innerleftmargin=8pt,
+  innerrightmargin=8pt,
+  skipabove=10pt,
+  skipbelow=10pt
+]{scopebox}
+\newcommand{\scopetitle}[1]{{\bfseries Scope. }#1}
+
+% ---------------------------------------------------------------
+% Theorem environments
+% ---------------------------------------------------------------
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{fact}[theorem]{Fact}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% Assumption-ledger environment: tracks what a chapter has and has not established
+\newtheorem{ledgerentry}[theorem]{Ledger}
+
+% ---------------------------------------------------------------
+% Custom commands
+% ---------------------------------------------------------------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Hset}{\mathbb{H}} % quaternions, to avoid clash with Hilbert space H
+\newcommand{\Hil}{\mathcal{H}} % Hilbert space
+% \dd is provided by the physics package; not redefined here
+
+% ---------------------------------------------------------------
+% Title matter
+% No exact publication date on the title page (month/year or year only)
+% ---------------------------------------------------------------
+\title{Quantum Mechanics from Admissible Probabilistic Composition\\
+\large A Reconstruction via Unistochastic Matrices}
+\author{Flyxion\\ \textit{Independent Researcher}}
+\date{2026}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+
+\tableofcontents
+
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+\begin{scopebox}
+\scopetitle{}This book does \emph{not} conclude that complex numbers are
+metaphysically necessary, uniquely forced, or the only mathematics
+capable of describing quantum phenomena. Every result ruling out $\R$ does
+so \emph{conditional on stated assumptions} — a specific admissibility
+constraint (Chapters~\ref{ch:context-graphs}--\ref{ch:real-mub-obstruction}),
+or an explicitly adopted principle such as local tomography
+(Chapter~\ref{ch:local-tomography}, itself flagged throughout as
+\emph{assumed}, not derived). Chapter~\ref{ch:final-audit} collects every
+such assumption in one place, exactly four of them, and
+Chapter~\ref{ch:final-audit}'s \S\ref{sec:recent-literature} and
+Chapter~\ref{ch:amplitwist} discuss published 2025--2026 work showing that
+changing the assumption about how systems compose reproduces every quantum
+prediction using only real numbers. A reader who takes away "this book
+proves the universe requires complex numbers" has taken away a claim this
+book explicitly argues against.
+\end{scopebox}
+
+This book asks how much of quantum mechanics can be recovered from
+constraints on admissible probabilistic transformations, rather than
+introduced by postulate. The starting point is elementary: a transition
+matrix built from squared amplitudes, $B_{ij}=|U_{ij}|^2$, is the
+\emph{unistochastic} object at the center of Życzkowski, Kuś, Słomczyński,
+and Sommers's~\cite{zyczkowski2003} work and of Barandes's
+stochastic--quantum correspondence~\cite{barandes}. The question this
+book pursues is what happens if that object is treated not as a curiosity
+about quantum probability, but as the thing to be explained: under what
+admissibility constraints on probabilistic data does a coherent unitary lift
+become necessary, and how much of the standard formalism follows once it
+does?
+
+Two methodological commitments run through every chapter.
+
+\paragraph{Reconstruction versus recovery.} A \emph{reconstruction} claim is
+proved from constraints already established earlier in this book. A
+\emph{recovery} claim shows that a reconstructed structure reproduces
+standard quantum mechanics, checked directly against
+Sakurai--Napolitano's~\cite{sakurainapolitano} \textit{Modern Quantum
+Mechanics} and Gross's~\cite{gross} \textit{Advanced Quantum Mechanics}
+lecture notes. (The older Sakurai \textit{Advanced Quantum
+Mechanics}~\cite{sakurai} was part of the originally intended reference
+corpus but survives only as a scanned, non-text-searchable copy; it is
+listed for completeness but was not directly quotable, and no claim in
+this book depends on it.) The two are never allowed
+to blur into each other: a result that merely matches the textbook formalism
+is not thereby derived, and a result derived from this book's admissibility
+logic is not thereby the same claim as its textbook counterpart until the
+match is checked explicitly.
+
+\paragraph{The assumption ledger.} Each chapter closes with a boxed ledger
+stating plainly what was established and what was not — including, where
+relevant, exactly which new physical or operational assumption a result
+costs. This is not a stylistic tic. Fifty-some pages into a successful
+reconstruction it becomes easy to feel that quantum mechanics has been
+derived outright; Chapter~\ref{ch:assumption-audit} and
+Chapter~\ref{ch:final-audit} exist specifically to check that feeling against
+the record, and the per-chapter ledgers are what make that final audit
+possible to write honestly rather than from memory.
+
+\bigskip
+
+The book has three parts. Part I asks why bare probability data is
+insufficient on its own — first sequentially (composing transformations loses
+information under projection) and then contextually (three individually
+admissible measurement contexts can fail to admit any single real
+realization at once, the sharpest form of which is a minimal graph-theoretic
+witness, the triangle). Part II asks what composing separate systems, rather
+than composing or contextualizing a single one, forces and distinguishes
+among candidate scalar fields — real, complex, quaternionic — culminating in
+a single matrix whose entanglement status depends on which field is doing the
+composing. Part III returns to the standard formalism and asks how much of
+it can be recovered from what Parts I and II established, closing with an
+explicit accounting of every assumption the recovery required.
+
+Four such assumptions appear in the whole book, no more and no fewer, and
+they are collected in one place in Chapter~\ref{ch:final-audit}. The reader
+who wants to know exactly what standard quantum mechanics cost, on this
+route, need only turn there.
+
+One methodological habit recurs often enough to name here rather than leave
+implicit: whenever an object in this book appears indispensable — a
+particular matrix representation, a particular composition rule, a
+particular coordinatization — the question asked is always whether it is a
+genuine admissibility constraint or merely one convenient way of writing a
+deeper invariant structure. Complex numbers themselves are not exempt from
+this question; nor is the specific Kronecker-product convention used to
+combine systems throughout Parts I and II
+(\S\ref{sec:recent-literature} returns to this point directly, in light of
+recent literature showing that composition, not the scalar field alone,
+carries much of the weight usually attributed to $i$ itself). A
+representation earns its place by what it lets the reader compute or check —
+not by familiarity, and not by having no visible alternative.
+
+\mainmatter
+
+\part{Single-System Foundations}
+\input{chapters/ch01-probability-simplex}
+\input{chapters/ch02-bistochastic-birkhoff}
+\input{chapters/ch03-orthostochastic-unistochastic}
+\input{chapters/ch04-composition-obstruction}
+\input{chapters/ch05-context-graphs-cycles}
+\input{chapters/ch06-real-mub-obstruction}
+
+\part{Composite Systems and the Scalar Field}
+\input{chapters/ch07-minimal-witnesses}
+\input{chapters/ch08-local-tomography}
+\input{chapters/ch09-tensor-product}
+\input{chapters/ch10-positivity}
+\input{chapters/ch11-partial-trace}
+\input{chapters/ch12-entanglement}
+% further chapters TBD: multipartite entanglement, entanglement measures
+
+\part{Recovered Structure}
+\input{chapters/ch13-assumption-audit}
+\input{chapters/ch14-born-rule}
+\input{chapters/ch15-observables}
+\input{chapters/ch16-dynamics}
+\input{chapters/ch17-povm-dilation}
+\input{chapters/ch18-final-audit}
+\input{chapters/ch19-amplitwist}
+% Part III complete. Part IV decision pending: Berry phase/holonomy,
+% spin/symmetry, multipartite entanglement, or higher-d/quaternionic
+% minimal witnesses.
+
+\part{Deepening the Reconstruction}
+\input{chapters/ch20-higher-d-witnesses}
+\input{chapters/ch21-quaternionic}
+\input{chapters/ch22-forbidden-subgraph}
+\input{chapters/ch23-density-threshold}
+\input{chapters/ch24-quaternionic-mub}
+% Part IV nearing a natural stopping point given book length. Remaining
+% open: explicit quaternionic MUB construction exceeding d+1; translation
+% to a graph-realizability witness.
+
+\appendix
+\input{chapters/appA-notation}
+\input{chapters/appB-quaternions}
+
+\begin{thebibliography}{99}
+
+\bibitem{sakurainapolitano}
+J.~J.~Sakurai and J.~Napolitano, \textit{Modern Quantum Mechanics}, 3rd ed. Cambridge University Press.
+
+\bibitem{sakurai}
+J.~J.~Sakurai, \textit{Advanced Quantum Mechanics}. Addison-Wesley.
+
+\bibitem{gross}
+D.~Gross, \textit{Advanced Quantum Mechanics --- Lecture Notes}. University of Cologne.
+
+\bibitem{boykin}
+P.~O.~Boykin, M.~Sitharam, M.~Tarifi, and P.~Wocjan, ``Real Mutually Unbiased Bases,'' arXiv:quant-ph/0502024.
+
+\bibitem{barandes}
+J.~A.~Barandes, ``The Stochastic-Quantum Correspondence,'' arXiv:2302.10778.
+
+\bibitem{araki1980}
+H.~Araki, ``On a Characterization of the State Space of Quantum Mechanics,'' Communications in Mathematical Physics 75, 1--24 (1980).
+
+\bibitem{hardy2001}
+L.~Hardy, ``Quantum Theory From Five Reasonable Axioms,'' arXiv:quant-ph/0101012.
+
+\bibitem{adler1995}
+S.~L.~Adler, \textit{Quaternionic Quantum Mechanics and Quantum Fields}. Oxford University Press, 1995.
+
+\bibitem{renou2021}
+M.-O.~Renou, D.~Trillo, M.~Weilenmann, T.~P.~Le, A.~Tavakoli, N.~Gisin, A.~Ac\'in, and M.~Navascu\'es, ``Quantum theory based on real numbers can be experimentally falsified,'' Nature 600, 625--629 (2021).
+
+\bibitem{hoffreumon-woods-2025}
+T.~Hoffreumon and M.~P.~Woods, ``Quantum theory does not need complex numbers,'' arXiv:2504.02808 (2025).
+
+\bibitem{barrios-hita-2026}
+P.~Barrios Hita, A.~Trushechkin, H.~Kampermann, M.~Epping, and D.~Bru\ss, ``Quantum Mechanics Based on Real Numbers: A Consistent Description,'' Phys.\ Rev.\ Lett.\ 136, 240202 (2026).
+
+\bibitem{needham1997}
+T.~Needham, \textit{Visual Complex Analysis}. Clarendon Press / Oxford University Press, 1997.
+
+\bibitem{zyczkowski2003}
+K.~Życzkowski, M.~Kuś, W.~Słomczyński, and H.-J.~Sommers, ``Random unistochastic matrices,'' J.\ Phys.\ A: Math.\ Gen.\ 36, 3425--3450 (2003).
+
+\end{thebibliography}
+
+\printindex
+
+\end{document}

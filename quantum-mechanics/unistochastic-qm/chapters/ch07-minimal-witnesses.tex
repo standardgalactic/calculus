@@ -1,0 +1,132 @@
+\chapter{Minimal Witnesses and the Extremal Reformulation}
+\label{ch:minimal-witnesses}
+
+Every chapter so far has deliberately stayed within a single system, observed
+through different contexts or composed sequentially with itself — no two
+separate systems have appeared together anywhere in Part I. That was not an
+oversight; it isolates what a single system's admissibility structure can and
+cannot decide before asking the different, genuinely new question this part
+takes up: what happens when independently prepared systems are combined? The
+assumptions introduced from here on (Chapter~\ref{ch:local-tomography}'s local
+tomography, most prominently) answer that new question — they do not patch
+or strengthen anything left unresolved in Part I.
+
+Part I answers, for a specific example, the question of \emph{whether} edgewise
+real-admissible data can fail to be globally real-realizable. This chapter
+reformulates that question in extremal terms: not merely whether a failure
+occurs, but what the \emph{smallest} structure exhibiting it looks like — and
+uses that reformulation to state precisely what Part II must still establish.
+
+\section{Realizability Spaces}
+
+\begin{definition}[Realizability space]
+\label{def:realizability-space}
+\index{Realizability space (definition)}
+Fix a context graph $G=(V,E)$, a local dimension $d$ (each vertex a
+$d$-outcome context), and a scalar field $\mathbb F \in \{\R,\C,\Hset\}$. Let
+$\mathcal D(G,d)$ be the space of edge-labelings $\{B_e\}_{e\in E}$ by
+$d\times d$ bistochastic matrices. The \emph{realizability space}
+\begin{equation}
+\mathcal R_{\mathbb F}(G,d) \subseteq \mathcal D(G,d)
+\end{equation}
+is the subset of edge-labelings admitting a global assignment of vertex frames
+over $\mathbb F$ reproducing every $B_e$ simultaneously (Theorem
+\ref{thm:graph-realizability}).
+\end{definition}
+
+Since $\R \subset \C \subset \Hset$ as scalar extensions with matching
+inclusions of admissible lifts, $\mathcal R_{\R}(G,d) \subseteq \mathcal
+R_{\C}(G,d) \subseteq \mathcal R_{\Hset}(G,d)$ for every $G,d$.
+
+\section{Minimal Witnesses}
+
+\begin{definition}[Minimal witness]
+\label{def:minimal-witness}
+\index{Minimal witness (definition)}
+For fields $\mathbb F \subsetneq \mathbb F'$ and dimension $d$, a
+\emph{witness} is a context graph $G$ with $\mathcal R_{\mathbb F}(G,d)
+\subsetneq \mathcal R_{\mathbb F'}(G,d)$. Define
+\begin{equation}
+m_\beta(\mathbb F,\mathbb F';d) := \min\{\, \beta_1(G) : G \text{ is a witness} \,\}.
+\end{equation}
+\end{definition}
+
+\begin{theorem}[The $d=2$ real/complex minimal witness]
+\label{thm:minimal-witness-d2}
+\index{The d=2 real/complex minimal witness (theorem)}
+$m_\beta(\R,\C;2) = 1$, achieved by $G=K_3$.
+\end{theorem}
+
+\begin{proof}
+$\beta_1(G)=0$ (any tree) gives $\mathcal R_\R(T,2) = \mathcal R_\C(T,2)$
+directly from Proposition~\ref{prop:tree-no-constraint}: any individually
+admissible edge data on a tree is realizable over $\R$ (hence trivially over
+$\C$ too), so no tree separates the two fields, and $m_\beta \ge 1$. The
+mutually-unbiased edge-labeling of Chapter~\ref{ch:real-mub-obstruction} lies
+in $\mathcal R_\C(K_3,2) \setminus \mathcal R_\R(K_3,2)$ by
+Corollary~\ref{cor:real-mub}, so $K_3$ (with $\beta_1(K_3)=1$) is a witness,
+giving $m_\beta(\R,\C;2) \le 1$.
+\end{proof}
+
+\begin{remark}
+This is exactly Corollary~\ref{cor:triangle-minimal} restated in extremal
+language: the triangle is not merely \emph{a} convenient example, it is
+provably the smallest possible one, in the cycle-rank sense, for $d=2$.
+Theorem~\ref{thm:minimal-witness-d2} is what Part I actually establishes; the
+questions below are what it does \emph{not} establish, and are stated as open
+directions rather than results.
+\end{remark}
+
+\section{Open Extremal Questions}
+\label{sec:open-extremal}
+
+The following questions are natural given Definitions
+\ref{def:realizability-space}--\ref{def:minimal-witness}, but nothing proved
+so far in this book answers them. They are recorded here as a research
+programme, not as claims.
+
+\begin{itemize}
+\item[] \textbf{Higher-dimensional minimal witnesses.} What is
+$m_\beta(\R,\C;d)$ for $d \ge 3$? Chapter~\ref{ch:unistochastic}'s $n\ge3$
+incompleteness theorem gives a \emph{single-edge} ($\beta_1$ undefined,
+since it concerns one bistochastic matrix rather than a graph) separation at
+$d=3$ via the DFT example; whether this induces a graph-level minimal witness
+smaller than, equal to, or larger than the $d=2$ value $1$ is open.
+
+\item[] \textbf{Quaternionic separation.} $m_\beta(\C,\Hset;d)$ is entirely
+unaddressed by anything proved in this book. The composite-system chapters
+that follow are the natural place to make first contact with it, but no claim
+is made here about where or whether such a witness exists at small $\beta_1$.
+
+\item[] \textbf{Forbidden-subgraph characterization.} Is there a finite family
+$\mathcal F$ of forbidden context subgraphs such that $\mathcal R_\R(G,d) =
+\mathcal D(G,d)$ (no separation at all) if and only if $G$ contains no member
+of $\mathcal F$? This is a genuine open combinatorial question; nothing here
+establishes even that such a finite family exists.
+
+\item[] \textbf{Density thresholds.} Given a random context graph model, does
+the probability that a uniformly random admissible edge-labeling requires
+$\C$ (or $\Hset$) rather than $\R$ approach $1$ as edge density increases,
+in the manner of an Erd\H{o}s--R\'enyi threshold? This requires specifying a
+probability measure on $\mathcal D(G,d)$ that has not been defined anywhere in
+this book, and the analogy to random-graph phase transitions should not be
+overstated: an Erd\H{o}s--R\'enyi threshold concerns the asymptotic
+\emph{graph} structure as edge probability varies, whereas this question, if
+posed precisely, would concern a measure on the \emph{edge-label} data on a
+fixed or growing graph — a different (if analogous) kind of threshold
+question, not a restatement of the classical one.
+\end{itemize}
+
+\begin{ledgerentry}[Opening of Part II]
+\textbf{Established:} the realizability-space and minimal-witness vocabulary
+(Definitions~\ref{def:realizability-space}--\ref{def:minimal-witness}) is
+well-posed, and $m_\beta(\R,\C;2)=1$ exactly, with $K_3$ as the minimal
+witness (Theorem~\ref{thm:minimal-witness-d2}), reformulating Part I's central
+result in extremal terms without adding new mathematical content.\\
+\textbf{Not established:} every question in \S\ref{sec:open-extremal} —
+higher-$d$ minimal witnesses, any quaternionic separation, forbidden-subgraph
+characterizations, and density thresholds all remain open. Part II's
+composite-system chapters address a related but distinct question (system
+composition, the third axis of the book's architecture) and should not be
+read as resolving these extremal questions in passing.
+\end{ledgerentry}

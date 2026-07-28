@@ -1,0 +1,251 @@
+\chapter{Final Audit: What This Book Actually Established}
+\label{ch:final-audit}
+
+This chapter derives nothing. Chapter~\ref{ch:assumption-audit} took a
+snapshot after Part II; this chapter classifies the \emph{entire} book,
+statement by statement, into four categories:
+
+\begin{description}
+\item[{[D] Derived}] — proved within this book's reconstruction, from
+admissibility constraints already established, with no new physical
+assumption.
+\item[{[R] Equivalent reformulation}] — restates an earlier result in
+different language; adds no independent content.
+\item[{[A] Independently assumed}] — a genuine physical or operational
+principle introduced because the admissibility logic alone did not force
+it, flagged explicitly at the point of introduction.
+\item[{[U] Unresolved}] — an open question this book raises but does not
+answer.
+\end{description}
+
+The purpose is falsifiability about the book's own achievement: a reader
+should be able to check every claim's category against where it was proved,
+assumed, or left open, rather than take "quantum mechanics has been
+reconstructed" on faith.
+
+\section{Single-System Foundations (Part I)}
+
+\begin{itemize}
+\item[{[D]}] Probability simplex, stochastic maps, deterministic maps as
+extreme points (Ch.~\ref{ch:simplex}).
+\item[{[D]}] Birkhoff--von Neumann theorem; Hardy--Littlewood--P\'olya
+majorization; entropy non-decrease as a structural corollary
+(Ch.~\ref{ch:birkhoff}).
+\item[{[D]}] $n=2$ orthostochastic/unistochastic degeneracy; $n=3$
+incompleteness via the Hadamard-matrix obstruction (Ch.~\ref{ch:unistochastic}).
+\item[{[D]}] Probability-level composition is not a homomorphism of $\pi$
+(Ch.~\ref{ch:composition}).
+\item[{[U]}] Whether interference alone selects $\C$ over $\R$ — explicitly
+answered \emph{no} within Ch.~\ref{ch:composition} itself; resolved (as a
+negative result) rather than left open.
+\item[{[D]}] Exact frame closure around a cycle; the general graph
+realizability theorem (spanning tree + fundamental-cycle checks)
+(Ch.~\ref{ch:context-graphs}).
+\item[{[D]}] Triangle-gluing theorem and the real-MUB corollary
+(Ch.~\ref{ch:real-mub-obstruction}) — the single-system obstruction to $\R^2$,
+independent of composite systems.
+\item[{[U]}] Whether every non-orthostochastic unistochastic matrix fails to
+be orthostochastic for the \emph{same} structural reason as the $n=3$ DFT
+example, or whether distinct mechanisms are at play in general
+(Ch.~\ref{ch:unistochastic}).
+\end{itemize}
+
+\section{System Composition (Part II)}
+
+\begin{itemize}
+\item[{[R]}] Minimal-witness reformulation, $m_\beta(\R,\C;2)=1$ at $K_3$
+(Ch.~\ref{ch:minimal-witnesses}) — restates Ch.~\ref{ch:real-mub-obstruction}
+in extremal language.
+\item[{[U]}] Higher-$d$ minimal witnesses; any quaternionic minimal witness;
+forbidden-subgraph characterizations; density thresholds
+(Ch.~\ref{ch:minimal-witnesses}, \S\ref{sec:open-extremal}) — an explicit
+research programme, not results.
+\item[{[A]}] Local tomography, as a principle imposed and tested rather than
+derived from Part I (Ch.~\ref{ch:local-tomography}).
+\item[{[D]}] The dimension identity distinguishing $\R,\C,\Hset$ under local
+tomography, given that principle (Ch.~\ref{ch:local-tomography}).
+\item[{[D]}] Tensor products of local bases span the composite space for
+$\C$; the concrete missing $\R$ direction $J\otimes J$
+(Ch.~\ref{ch:tensor-product}).
+\item[{[D]}] Positivity derived operationally from nonnegative test
+probabilities; the $|c|\le1$ bound (Ch.~\ref{ch:positivity}).
+\item[{[D]}] Partial trace defined and shown to reproduce local statistics;
+$J\otimes J$ invisible to both marginals (Ch.~\ref{ch:partial-trace}).
+\item[{[D]}] Field-relative separability: the $J\otimes J$ witness for $\R$;
+the explicit $\C$-separable decomposition for the entire range
+(Ch.~\ref{ch:entanglement}).
+\item[{[U]}] Multipartite entanglement, entanglement measures, $d>2$
+composite systems in general; what "separable" even means for $\Hset$, given
+Ch.~\ref{ch:tensor-product}'s overcompleteness (Ch.~\ref{ch:entanglement}).
+\end{itemize}
+
+\section{Recovered Formalism (Part III)}
+
+\begin{itemize}
+\item[{[D]}] General-$d$ context-transition identity (Prop.
+\ref{prop:general-context-transition}) — a new, easy generalization of the
+real 2D case, not previously written down explicitly.
+\item[{[A]}] Pure states as frame-completable vectors (Assumption
+\ref{ass:frame-completion}, Ch.~\ref{ch:born-rule}) — a genuine new
+operational assumption identifying "a state" with a distinguished frame
+coordinate.
+\item[{[D]}] Pure-state Born rule, given that assumption; density-operator
+Born rule, at no further cost beyond Part II's mixture structure
+(Ch.~\ref{ch:born-rule}).
+\item[{[D]}] The Hermitian/real-sharp-measurement equivalence (one direction
+by construction, the other by the cited spectral theorem); the eigenvalue
+rule as a corollary (Ch.~\ref{ch:observables}).
+\item[{[A]}] Real-valued outcome labels (Remark~\ref{rem:real-labels-assumption})
+— flagged explicitly as a modeling choice, not derived.
+\item[{[U]}] The spectral theorem itself — cited from classical linear
+algebra, not proved within this book's reconstruction
+(Ch.~\ref{ch:observables}). Compatible observables and commutators.
+\item[{[A]}] Continuous reversible time evolution as a strongly continuous
+unitary group (Assumption~\ref{ass:continuous-evolution},
+Ch.~\ref{ch:dynamics}) — imported, not derived from Parts I--II's discrete
+framework.
+\item[{[D]}] The finite-dimensional generator theorem and Schr\"odinger's
+equation as its derivative, given that assumption (Ch.~\ref{ch:dynamics}).
+\item[{[U]}] That the generator $H$ is energy, or that $\hbar$ is Planck's
+constant — flagged explicitly as requiring additional physical
+identification not attempted (Ch.~\ref{ch:dynamics}). Open-system/non-unitary
+dynamics and the Kraus formalism.
+\item[{[D]}] Naimark dilation for finite POVMs, proved constructively
+(Ch.~\ref{ch:povm}).
+\item[{[U]}] Continuum-outcome POVMs; uniqueness or physical distinguishedness
+of a given dilation; instruments and post-measurement state updates
+(Ch.~\ref{ch:povm}).
+\end{itemize}
+
+\section{A Note on Recent Literature: Representation Versus Structure}
+\label{sec:recent-literature}
+
+Two papers appearing during the writing of this book bear directly on the
+Kronecker-product convention used throughout Chapters~\ref{ch:local-tomography}
+and~\ref{ch:tensor-product}, and are worth citing precisely rather than
+leaving this book silent about.
+
+Hoffreumon and Woods~\cite{hoffreumon-woods-2025} construct a real-number
+quantum theory reproducing every prediction of standard complex quantum
+theory, responding to the 2021 falsification argument of Renou et
+al.~\cite{renou2021}. Their construction replaces the Kronecker product with
+an alternative representation $\otimes_r$ of the \emph{abstract} tensor
+product, satisfying $\Gamma(H \otimes L) = \Gamma(H) \otimes_r \Gamma(L)$ for
+a realification map $\Gamma$ decomposing a Hermitian matrix $H = H^{\mathrm{
+Sy}} + iH^{\mathrm{An}}$ into real symmetric and antisymmetric parts. The
+real matrix standing in for $i$ in their construction is
+\begin{equation}
+J = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix},
+\end{equation}
+identical to the $J$ of Chapters~\ref{ch:tensor-product}--\ref{ch:entanglement}.
+Barrios Hita, Trushechkin, Kampermann, Epping, and Bru\ss~\cite{barrios-hita-2026}
+reach the same empirical conclusion via a different construction, quotienting
+the ordinary real tensor product by the phase-redistribution redundancy
+$i|\psi_A\rangle \otimes (-i)|\psi_B\rangle = |\psi_A\rangle\otimes
+|\psi_B\rangle$ carries in the complex theory.
+
+\begin{remark}[What changes, and what does not]
+Both papers confirm that the Kronecker product is one admissible matrix
+representation of composition, selected by convention rather than forced by
+locality or linearity alone — precisely the distinction this book's
+admissibility methodology asks about everywhere else, and had not asked about
+here. Chapters~\ref{ch:local-tomography} and~\ref{ch:tensor-product} used the
+Kronecker product throughout without flagging it as a choice; every claim
+proved there remains correct \emph{for that representation}, but the audit
+should not be read as having shown Kronecker composition to be the unique or
+necessary choice.
+
+This point is older than either paper, and worth stating precisely rather
+than leaving implicit. That a complex number is equivalent to a real
+$2\times2$ rotation-scaling matrix, $a+bi \leftrightarrow \begin{psmallmatrix}
+a&-b\\b&a\end{psmallmatrix}$ — Needham's \emph{amplitwist}: multiplication
+by $z=re^{i\theta}$ as simultaneous scaling by $r$ and rotation by
+$\theta$~\cite{needham1997} — has nothing to do with quantum mechanics and
+predates these papers by decades. What is genuinely new in
+Hoffreumon--Woods and Barrios Hita et al.\ is not this realification (classical),
+but the demonstration that a full \emph{multipartite} composition law can be
+built on top of it while preserving locality and reproducing every quantum
+prediction — a nontrivial claim about composition, not merely a restatement
+of the classical fact that $i$ is a rotation-scaling operator in disguise.
+The two should not be conflated: the elementary observation licenses no
+conclusion about quantum composition on its own, and the papers' technical
+content is precisely the part the elementary observation does not supply.
+
+What does \emph{not} change is the assumption count of \S\ref{sec:assumptions-collected}.
+Local tomography is not derived by either paper from weaker principles;
+Hoffreumon and Woods obtain it for their real theory via a one-to-one
+correspondence with complex quantum theory's own local tomography, which is
+a transfer argument, not a derivation from representation locality alone. The
+distinct question these papers answer — whether complex \emph{scalars} are
+necessary, given that some coherent structure equivalent to $J^2=-I$ survives
+into the composition law regardless — is a different, and in a precise sense
+narrower, claim than whether the admissibility constraints of Parts I--II
+force $\C$. This book's real-MUB and local-tomography arguments (Chapters
+\ref{ch:real-mub-obstruction}, \ref{ch:local-tomography}) are unaffected by
+either paper: they rule out $\R$ under the Kronecker representation
+specifically, and whether they still rule out $\R$ under a
+$\otimes_r$-style representation is a genuinely open question this book does
+not address.
+\end{remark}
+
+\begin{ledgerentry}[Addendum]
+\textbf{Not established:} whether Chapters~\ref{ch:local-tomography} and
+\ref{ch:tensor-product}'s results survive replacement of the Kronecker
+product with a non-Kronecker representation of composition in the style of
+Hoffreumon--Woods or Barrios Hita et al. This is left as an explicit open
+question rather than assumed away, added to the record of
+\S\ref{sec:open-extremal} and \S\ref{sec:what-remains}.
+\end{ledgerentry}
+
+\section{The Assumptions, Collected}
+\label{sec:assumptions-collected}
+
+Stripped of derivation and restated together, this is the complete list of
+what this book's reconstruction has \emph{added} to bare admissibility
+reasoning, beyond what Parts I--II derive from constraint alone:
+
+\begin{enumerate}
+\item Local tomography (Ch.~\ref{ch:local-tomography}) — tested, not forced.
+\item Pure states are frame-completable vectors (Ch.~\ref{ch:born-rule}).
+\item Measurement outcomes are labeled by real numbers (Ch.~\ref{ch:observables}).
+\item Time evolution is a strongly continuous unitary group
+(Ch.~\ref{ch:dynamics}).
+\end{enumerate}
+
+Four assumptions. Everything else in the recovered formalism — the Born rule
+in all its forms, the Hermitian-observable correspondence, the eigenvalue
+rule, Schr\"odinger's equation, and the Naimark dilation of POVMs — is
+derived from these four plus Parts I--II's admissibility structure, not
+independently postulated. Whether four is a small number is a matter of
+comparison the reader can make directly against
+Sakurai--Napolitano's~\cite{sakurainapolitano} or Gross's~\cite{gross}
+postulate lists, cited throughout this book precisely so that
+comparison is possible.
+
+\begin{scopebox}
+\scopetitle{}A small number of assumptions is not the same claim as zero
+assumptions, and it is not the same claim as inevitability. Four
+independently chosen principles, none derived from anything more
+primitive, is compatible with several different theories of quantum
+mechanics being equally well-founded — it is not a proof that this
+particular four is the unique starting point physics could have had.
+Nothing in this count should be read as "quantum mechanics is the only
+way the pieces fit together"; it should be read as "this is exactly what
+standard quantum mechanics costs, on this specific route, stated
+precisely enough to compare against other routes" — including the
+routes discussed in \S\ref{sec:recent-literature} below, which reach
+empirically equivalent theories via a different, likewise small,
+assumption set.
+\end{scopebox}
+
+\begin{ledgerentry}[Closing entry]
+This chapter adds no new mathematics, with one exception: \S\ref{sec:recent-literature}
+notes that the Kronecker-product convention used in Chapters
+\ref{ch:local-tomography}--\ref{ch:tensor-product} is a representation
+choice, not a forced one, per recent literature — itself an audit-relevant
+fact, not a new derivation. Otherwise: every derived statement traces to a
+cited line, every assumption is numbered above, and every unresolved
+question is listed rather than quietly dropped. Any future chapter that
+treats an [A]-tagged or [U]-tagged item as though it were [D] should be read
+as an error against this audit, not a new result.
+\end{ledgerentry}

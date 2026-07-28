@@ -1,0 +1,121 @@
+\chapter{Generalized Measurement and Dilation}
+\label{ch:povm}
+
+Chapter~\ref{ch:born-rule} deliberately deferred one statement:
+$p_i=\operatorname{tr}(\rho E_i)$ for general effects $E_i$, not necessarily
+rank-one projectors. This chapter closes that gap, and shows it reconnects
+directly to Chapter~\ref{ch:partial-trace}'s partial trace — the two
+constructions are complementary directions through the same
+system-plus-environment architecture.
+
+\section{Effects and POVMs}
+
+\begin{definition}[POVM]
+\label{def:povm}
+\index{POVM (definition)}
+A \emph{positive operator-valued measure} (POVM) is a family of operators
+$\{E_i\}$ with $0 \preceq E_i \preceq I$ and $\sum_i E_i = I$. The rule
+\begin{equation}
+p_i = \operatorname{tr}(\rho E_i)
+\end{equation}
+generalizes Chapter~\ref{ch:observables}'s sharp measurements: a sharp
+measurement is the special case $E_i = P_i$ with $P_i^2=P_i$; a general
+$E_i$ need not be a projector, and need not be diagonal in any single
+orthonormal basis shared by all the other $E_j$.
+\end{definition}
+
+\section{Dilation: Every POVM Is a Sharp Measurement, Elsewhere}
+
+\begin{theorem}[Naimark dilation, finite-dimensional]
+\label{thm:naimark}
+\index{Naimark dilation, finite-dimensional (theorem)}
+For any POVM $\{E_i\}_{i=1}^n$ on $\mathcal H$, there is an ancilla Hilbert
+space $\C^n$, a reference state $|a_0\rangle \in \C^n$, a unitary $U$ on
+$\mathcal H \otimes \C^n$, and a sharp measurement $\{\Pi_i = I_{\mathcal H}
+\otimes |i\rangle\langle i|\}$ on $\mathcal H\otimes\C^n$, such that for every
+state $\rho$ on $\mathcal H$,
+\begin{equation}
+\operatorname{tr}(\rho E_i) = \operatorname{tr}\Big[U\big(\rho \otimes
+|a_0\rangle\langle a_0|\big)U^\dagger\, \Pi_i\Big].
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Define $V:\mathcal H \to \mathcal H\otimes\C^n$ by
+\begin{equation}
+V|\psi\rangle = \sum_{i=1}^n \big(\sqrt{E_i}\,|\psi\rangle\big) \otimes
+|i\rangle,
+\end{equation}
+using the unique positive square root of each $E_i\succeq0$. For any
+$|\phi\rangle,|\psi\rangle$,
+\begin{equation}
+\langle V\phi|V\psi\rangle = \sum_i \langle\phi|\sqrt{E_i}\sqrt{E_i}|\psi
+\rangle = \langle\phi|\Big(\sum_i E_i\Big)|\psi\rangle = \langle\phi|\psi
+\rangle,
+\end{equation}
+using $\sum_i E_i = I$: $V$ is an isometry. Fix $|a_0\rangle := |1\rangle \in
+\C^n$ (any basis vector). Since $V$ is an isometry, the assignment
+$U(|\psi\rangle\otimes|a_0\rangle) := V|\psi\rangle$ is well-defined and
+inner-product-preserving on the subspace $\mathcal H\otimes|a_0\rangle$; by
+the standard extension theorem for isometries between finite-dimensional
+Hilbert spaces (extend an orthonormal basis of the range to a full
+orthonormal basis of the codomain), $U$ extends to a unitary on the whole
+space $\mathcal H\otimes\C^n$.
+
+For a pure state $|\psi\rangle$, a direct computation (expanding
+$(I\otimes|i\rangle\langle i|)V|\psi\rangle = \big(\sqrt{E_i}|\psi\rangle
+\big)\otimes|i\rangle$ and taking the inner product with $V|\psi\rangle$)
+gives
+\begin{equation}
+\langle V\psi|\Pi_i|V\psi\rangle = \langle\psi|\sqrt{E_i}\sqrt{E_i}|\psi
+\rangle = \langle\psi|E_i|\psi\rangle = \operatorname{tr}(|\psi\rangle\langle
+\psi|\,E_i),
+\end{equation}
+and since $U(|\psi\rangle\otimes|a_0\rangle) = V|\psi\rangle$, this is exactly
+$\operatorname{tr}\big[U(|\psi\rangle\langle\psi|\otimes|a_0\rangle\langle
+a_0|)U^\dagger\,\Pi_i\big]$. Both sides of the claimed identity are linear in
+$\rho$, so the pure-state case extends to general $\rho$ by writing $\rho =
+\sum_k q_k|\psi_k\rangle\langle\psi_k|$ and summing.
+\end{proof}
+
+\begin{remark}
+This makes precise the sense in which every generalized measurement is an
+ordinary sharp measurement performed elsewhere: couple the system to an
+ancilla prepared in a fixed reference state, evolve unitarily, and measure
+projectively on the composite. Nothing about the POVM formalism is a new kind
+of physical process; it is the statistics of Chapters
+\ref{ch:born-rule}--\ref{ch:observables}, viewed from a subsystem of a larger
+sharp measurement.
+\end{remark}
+
+\section{The Same Architecture as Partial Trace}
+
+\begin{remark}[Two directions through one construction]
+Chapter~\ref{ch:partial-trace} asked: given a joint state on
+$\mathcal H\otimes\mathcal H'$, what does a local observer restricted to
+$\mathcal H$ see? The partial trace answers this by discarding $\mathcal H'$
+entirely. This chapter asks the complementary question: given only local
+access to $\mathcal H$, what joint constructions on $\mathcal H\otimes
+\mathcal H'$ could have produced a given set of local statistics? Theorem
+\ref{thm:naimark} answers this by exhibiting $\mathcal H'=\C^n$ explicitly.
+The two constructions are literally inverse in spirit — one forgets an
+already-composite system's inaccessible part; the other manufactures the
+composite that a given (possibly non-projective) local measurement scheme
+could have come from — and both rest on exactly the same system-plus-ancilla
+architecture introduced for entanglement in Chapter~\ref{ch:entanglement}.
+\end{remark}
+
+\begin{ledgerentry}[End of Chapter~\ref{ch:povm}]
+\textbf{Established:} every finite POVM admits an explicit Naimark dilation
+into a sharp measurement on a system-plus-ancilla composite
+(Theorem~\ref{thm:naimark}, proved constructively, not merely cited); this
+closes the last gap flagged in Chapter~\ref{ch:born-rule}'s ledger.\\
+\textbf{Not established:} anything about POVMs with a continuum of outcomes
+(this book's finite-dimensional scope stops at finite $n$); the operational
+question of which unitary $U$ and which ancilla a given real-world apparatus
+actually realizes is not addressed — Theorem~\ref{thm:naimark} guarantees
+\emph{some} dilation exists, not that it is unique or physically
+distinguished; instruments and post-measurement state updates (the analogue
+of $\rho \mapsto \sqrt{E_i}\rho\sqrt{E_i}^\dagger/\operatorname{tr}(\rho E_i)$)
+are not derived here.
+\end{ledgerentry}

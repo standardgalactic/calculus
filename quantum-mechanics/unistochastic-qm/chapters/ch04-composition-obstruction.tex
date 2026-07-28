@@ -1,0 +1,102 @@
+\chapter{The Composition Obstruction}
+\label{ch:composition}
+
+Chapter~\ref{ch:unistochastic} showed that some matrices lack a real lift at
+all. This chapter asks a different, logically prior question: even when a
+lift \emph{does} exist, does composing two lifted transformations and then
+projecting to probabilities give the same answer as composing the
+probabilities directly? The obstruction that follows does not depend on
+anything from Chapter~\ref{ch:unistochastic} failing — it appears even when
+every matrix involved is perfectly well-behaved, which is exactly what makes
+it a different kind of problem from a missing lift.
+
+\section{Amplitude-Level versus Probability-Level Composition}
+
+Let $U_1, U_2$ be unitary matrices and define the modulus-square map
+\begin{equation}
+\pi(U)_{ij} = |U_{ij}|^2.
+\end{equation}
+Composing at the amplitude level and then projecting gives
+\begin{equation}
+\left|(U_2 U_1)_{ij}\right|^2
+= \left|\sum_k (U_2)_{ik}(U_1)_{kj}\right|^2
+= \sum_k |(U_2)_{ik}|^2 |(U_1)_{kj}|^2
++ \sum_{k \neq \ell} (U_2)_{ik}(U_1)_{kj}\overline{(U_2)_{i\ell}(U_1)_{\ell j}}.
+\label{eq:composition-expansion}
+\end{equation}
+The first term on the right is exactly the classical (probability-level) stochastic
+composition $(B_2 B_1)_{ij}$, where $B_k = \pi(U_k)$. The second term is discarded
+entirely by probability-level composition. The obstruction is not the
+existence of interference itself, but the failure of probability projection
+to preserve the composition law.
+
+\begin{proposition}[Non-homomorphism of $\pi$]
+\label{prop:pi-not-homomorphism}
+\index{Non-homomorphism of pi (proposition)}
+In general, $\pi(U_2 U_1) \neq \pi(U_2)\pi(U_1)$.
+\end{proposition}
+
+\begin{example}[A $2\times2$ counterexample]
+\label{ex:2x2-composition}
+Let $U_1 = \tfrac1{\sqrt2}\begin{psmallmatrix}1&1\\1&-1\end{psmallmatrix}$
+(the real Hadamard matrix) and $U_2 = \tfrac1{\sqrt2}
+\begin{psmallmatrix}1&1\\i&-i\end{psmallmatrix}$. Direct computation gives
+$U_2U_1 = \begin{psmallmatrix}1&0\\0&i\end{psmallmatrix}$, so
+$\pi(U_2U_1) = I$ — the identity permutation matrix. But $\pi(U_1) =
+\pi(U_2) = \tfrac12\begin{psmallmatrix}1&1\\1&1\end{psmallmatrix}$ (every
+entry of both $U_1,U_2$ has modulus $\tfrac1{\sqrt2}$), and this matrix is
+idempotent, so $\pi(U_2)\pi(U_1) = \tfrac12
+\begin{psmallmatrix}1&1\\1&1\end{psmallmatrix} \neq I$. Composing at the
+probability level turns a perfectly deterministic outcome (identity) into
+maximal uncertainty (uniformly mixed).
+\end{example}
+
+\begin{example}[A $3\times3$ counterexample, reusing Chapter~\ref{ch:unistochastic}'s DFT matrix]
+\label{ex:3x3-composition}
+Let $F$ be the $3\times3$ discrete Fourier transform matrix of
+Theorem~\ref{thm:n3incompleteness}, for which $\pi(F)$ is the uniform
+matrix with every entry $\tfrac13$. Direct computation gives $F^2 =
+\begin{psmallmatrix}1&0&0\\0&0&1\\0&1&0\end{psmallmatrix}$, a genuine
+permutation matrix, so $\pi(F^2)=F^2$ itself: another deterministic
+outcome. But $\pi(F)$ is idempotent (every entry of $\pi(F)\pi(F)$ is a
+sum of three terms $\tfrac13\cdot\tfrac13=\tfrac19$, giving
+$\tfrac13$ again), so $\pi(F)^2 = \pi(F) \neq \pi(F^2)$: again, a
+deterministic amplitude-level outcome is replaced by maximal uncertainty
+once probabilities are composed instead of amplitudes.
+\end{example}
+
+\begin{remark}
+Equation~\eqref{eq:composition-expansion} licenses the informal identification
+\[
+\text{interference} \;\sim\; \text{information required for coherent composition
+but erased by } \pi.
+\]
+This should be read as an interpretation of the cross terms, not as a
+definition; the precise claim is Proposition~\ref{prop:pi-not-homomorphism}.
+\end{remark}
+
+\section{The Real Counterexample}
+\label{sec:real-counterexample}
+
+The obstruction identified above does \emph{not} select complex amplitudes over
+real ones. Let $O_1, O_2$ be real orthogonal matrices and define the
+orthostochastic projection $\pi_{\R}(O)_{ij} = O_{ij}^2$. The identical expansion
+\begin{equation}
+(O_2 O_1)_{ij}^2
+= \sum_k (O_2)_{ik}^2 (O_1)_{kj}^2
++ 2\sum_{k < \ell} (O_2)_{ik}(O_1)_{kj}(O_2)_{i\ell}(O_1)_{\ell j}
+\end{equation}
+produces the same cross-term structure, and $\pi_{\R}(O_2 O_1) \neq \pi_{\R}(O_2)\pi_{\R}(O_1)$
+in general.
+
+\begin{ledgerentry}[End of Chapter~\ref{ch:composition}]
+\textbf{Established:} probability-level composition discards information present
+in amplitude-level composition; the discarded information generates interference
+cross terms; a coherent lift (real or complex) restores compositional closure.\\
+\textbf{Not established:} that the lift must be complex. See
+Proposition~\ref{prop:pi-not-homomorphism} and \S\ref{sec:real-counterexample}:
+\[
+\boxed{\text{interference} \not\Rightarrow \C.}
+\]
+This entry remains open until Chapter~\ref{ch:real-mub-obstruction}.
+\end{ledgerentry}

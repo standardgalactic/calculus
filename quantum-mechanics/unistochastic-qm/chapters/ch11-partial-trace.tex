@@ -1,0 +1,107 @@
+\chapter{Partial Trace and Marginal Invisibility}
+\label{ch:partial-trace}
+
+\section{The Partial Trace}
+
+For a composite system $AB$ with state $\rho_{AB} \in \mathcal D_{d_Ad_B}(\C)$,
+the reduced (marginal) state of subsystem $A$ is defined by the partial trace
+over $B$: writing $\rho_{AB}$ in block form indexed by $A$'s basis, with
+blocks $(\rho_{AB})_{ij}$ acting on $B$'s Hilbert space,
+\begin{equation}
+(\rho_A)_{ij} = \operatorname{tr}_B(\rho_{AB})_{ij} :=
+\operatorname{tr}\big[(\rho_{AB})_{ij}\big],
+\end{equation}
+the ordinary trace of each block. $\rho_A$ is exactly the operator whose
+predictions match $\rho_{AB}$ on every measurement performed on $A$ alone
+(with $B$ un-measured): for any local operator $X_A$ on $A$,
+\begin{equation}
+\operatorname{tr}_A\big(\rho_A X_A\big) = \operatorname{tr}_{AB}\big(\rho_{AB}\,
+(X_A\otimes I_B)\big).
+\end{equation}
+The partial trace over $A$, $\operatorname{tr}_A$, is defined symmetrically.
+
+\section{The Real Composite Direction Disappears on Both Marginals}
+
+\begin{proposition}
+\label{prop:JJ-invisible}
+$\operatorname{tr}_B(J\otimes J) = 0$ and $\operatorname{tr}_A(J\otimes J) =
+0$.
+\end{proposition}
+
+\begin{proof}
+Writing $J\otimes J$ in block form indexed by the first factor, each block is
+$J_{ij} \cdot J$ (the $(i,j)$ entry of $J$ times the full matrix $J$).
+$\operatorname{tr}_B(J\otimes J)$ has $(i,j)$ entry $J_{ij}\operatorname{tr}(J)
+= 0$, since $J$ is traceless. Hence $\operatorname{tr}_B(J\otimes J) = 0$
+identically. The argument for $\operatorname{tr}_A$ is the same with the
+roles of the two factors exchanged.
+\end{proof}
+
+\begin{corollary}
+\label{cor:marginals-flat}
+For the family $\rho(c) = \tfrac14(I\otimes I + c\,J\otimes J)$ of
+Example~\ref{ex:JJ-bound}, both marginals are the maximally mixed single-rebit
+state for \emph{every} $c \in [-1,1]$:
+\begin{equation}
+\operatorname{tr}_B\rho(c) = \operatorname{tr}_A\rho(c) = \tfrac12 I,
+\end{equation}
+independent of $c$.
+\end{corollary}
+
+\begin{proof}
+$\operatorname{tr}_B\big(\tfrac14(I\otimes I + c\,J\otimes J)\big) =
+\tfrac14\big(\operatorname{tr}_B(I\otimes I) + c\operatorname{tr}_B(J\otimes
+J)\big) = \tfrac14\big(2I + 0\big) = \tfrac12 I$, using
+$\operatorname{tr}_B(I\otimes I) = \operatorname{tr}(I)\cdot I = 2I$ and
+Proposition~\ref{prop:JJ-invisible}. Identically for $\operatorname{tr}_A$.
+\end{proof}
+
+\begin{remark}
+This is the payoff promised in Chapter~\ref{ch:positivity}. The entire
+one-real-parameter family of states $\rho(c)$, $c\in[-1,1]$ — a whole interval
+of genuinely distinct, positivity-admissible global states — is completely
+invisible to an observer restricted to either marginal alone: every $\rho(c)$
+looks identical (maximally mixed) from either subsystem's local perspective.
+The degree of freedom responsible for the failure of local tomography in
+Chapter~\ref{ch:local-tomography} is exactly the degree of freedom annihilated
+by \emph{either} partial trace:
+\begin{equation}
+\boxed{\text{globally physical} \;\not\Rightarrow\; \text{locally
+recoverable}.}
+\end{equation}
+\end{remark}
+
+\begin{example}[The mechanism made explicit: Pauli decomposition]
+Writing $\rho(c)$ in the two-qubit Pauli tensor basis $\{I,X,Y,Z\}\otimes
+\{I,X,Y,Z\}$ (16 terms, coefficients $\operatorname{tr}[(P\otimes Q)\rho(c)]/4$)
+makes the mechanism visible by inspection rather than by computation. Using
+$J = -i\sigma_y$ (Chapter~\ref{ch:tensor-product}'s remark distinguishing the
+two), so that $J\otimes J = -\sigma_y\otimes\sigma_y$,
+\begin{equation}
+\rho(c) = \tfrac14\big(I\otimes I - c\,\sigma_y\otimes\sigma_y\big),
+\end{equation}
+with all fourteen remaining Pauli-tensor coefficients \emph{exactly} zero —
+verified directly, not merely asserted. Since $\operatorname{tr}(\sigma_y)=0$
+while $\operatorname{tr}(I)=2$, partial trace kills every term except the one
+built purely from identities: only $I\otimes I$ survives $\operatorname{tr}_A$
+or $\operatorname{tr}_B$, forcing both marginals to $\tfrac12 I$ regardless of
+$c$. The single surviving off-diagonal term, $\sigma_y\otimes\sigma_y$, is
+precisely the one Pauli-tensor combination invisible to any local Pauli
+measurement on either factor alone.
+\end{example}
+
+\begin{ledgerentry}[End of Chapter~\ref{ch:partial-trace}]
+\textbf{Established:} the partial trace is defined and shown to compute
+exactly the operator reproducing local measurement statistics; the $J\otimes
+J$ direction identified in Chapter~\ref{ch:tensor-product} and bounded in
+Chapter~\ref{ch:positivity} is shown to vanish under \emph{both} partial
+traces, so the entire family $\rho(c)$ is marginally indistinguishable from
+the maximally mixed state despite being a genuine interval of distinct global
+states.\\
+\textbf{Not established:} whether $\rho(c)$ (for $c\ne0$) is entangled or
+merely classically correlated — that requires a definition of separability,
+not yet introduced, and is deferred to the next chapter. Nothing here yet
+distinguishes "locally invisible because of correlation" from "locally
+invisible because of some other structure"; that distinction is exactly what
+a separability criterion is for.
+\end{ledgerentry}

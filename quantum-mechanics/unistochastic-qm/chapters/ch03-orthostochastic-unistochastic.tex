@@ -1,0 +1,127 @@
+\chapter{Orthostochastic and Unistochastic Admissibility}
+\label{ch:unistochastic}
+
+\section{Two Notions of Admissibility}
+
+A bistochastic matrix $B \in \mathrm{DS}(n)$ is \emph{orthostochastic} if $B_{ij} =
+O_{ij}^2$ for some real orthogonal $O$, and \emph{unistochastic} if $B_{ij} =
+|U_{ij}|^2$ for some unitary $U$. Write $\mathrm{OS}(n)$ and $\mathrm{US}(n)$ for
+the respective sets. Since a real orthogonal matrix is a special case of a
+unitary one, $\mathrm{OS}(n) \subseteq \mathrm{US}(n) \subseteq \mathrm{DS}(n)$
+always.
+
+\section{The \texorpdfstring{$n=2$}{n=2} Degeneracy Theorem}
+\label{sec:n2degeneracy}
+
+\begin{theorem}[$n=2$ coincidence]
+\label{thm:n2degeneracy}
+\index{n=2 coincidence (theorem)}
+$\mathrm{OS}(2) = \mathrm{US}(2) = \mathrm{DS}(2)$.
+\end{theorem}
+
+\begin{proof}
+Every $B \in \mathrm{DS}(2)$ has the form $B(t) = \begin{pmatrix} t & 1-t \\ 1-t &
+t \end{pmatrix}$, $t \in [0,1]$, by the row/column sum constraints. Setting
+$t=\cos^2\theta$, both
+\begin{equation}
+O(\theta) = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta
+\end{pmatrix}
+\quad\text{and}\quad
+U(\theta) = O(\theta)
+\end{equation}
+realize $B(t)$: $O_{ij}(\theta)^2 = |U_{ij}(\theta)|^2 = B(t)_{ij}$. Since a real
+orthogonal matrix is already unitary, this single realization witnesses
+membership in both $\mathrm{OS}(2)$ and $\mathrm{US}(2)$ simultaneously.
+\end{proof}
+
+\begin{remark}
+This is a statement about a \emph{single} transition matrix: at $n=2$, $B$ alone
+cannot distinguish a real from a complex (or, degenerately, quaternionic) lift.
+It does not imply that two-outcome systems are effectively classical — sequential
+composition of lifts still exposes phase information not visible in any single
+$B$ (Chapter~\ref{ch:composition}), and joint consistency across multiple
+contexts still obstructs a purely real realization
+(Chapter~\ref{ch:real-mub-obstruction}). Membership of one $B$ and coherent
+composition of its lifts are distinct questions.
+\end{remark}
+
+\section{The \texorpdfstring{$n\ge3$}{n>=3} Incompleteness Theorem}
+\label{sec:n3incompleteness}
+
+At $n=2$ every unistochastic matrix is orthostochastic. This fails already at
+$n=3$, and by a strikingly concrete counterexample.
+
+\begin{theorem}[Unistochastic strictly larger than orthostochastic, $n=3$]
+\label{thm:n3incompleteness}
+\index{Unistochastic strictly larger than orthostochastic, n=3 (theorem)}
+$\mathrm{OS}(3) \subsetneq \mathrm{US}(3)$.
+\end{theorem}
+
+\begin{proof}
+Let $U$ be the $3\times3$ discrete Fourier transform matrix,
+\begin{equation}
+U = \frac{1}{\sqrt3}\begin{pmatrix} 1 & 1 & 1 \\ 1 & \omega & \omega^2 \\ 1 &
+\omega^2 & \omega \end{pmatrix}, \qquad \omega = e^{2\pi i/3}.
+\end{equation}
+$U$ is unitary, and $\Gamma_{ij} = |U_{ij}|^2 = 1/3$ for every $i,j$, so $\Gamma
+\in \mathrm{US}(3)$.
+
+Suppose $\Gamma \in \mathrm{OS}(3)$ as well, i.e.\ $\Gamma_{ij} = O_{ij}^2$ for
+some real orthogonal $O$. Then every entry of $O$ satisfies $O_{ij}^2 = 1/3$, so
+$O_{ij} = \pm 1/\sqrt3$ for all nine entries. Orthogonality of $O$ requires
+$O O^T = I$; in particular every pair of distinct rows must be orthogonal, i.e.\
+$\sum_k O_{ik} O_{jk} = 0$ for $i \neq j$. Writing $O = \frac{1}{\sqrt3} H$ with
+$H$ a $\pm1$ sign matrix, this is exactly the condition that $H$ be a $3\times3$
+Hadamard matrix ($H H^T = 3I$). No such matrix exists: an exhaustive check of all
+$2^9 = 512$ sign patterns finds zero satisfying $HH^T = 3I$, consistent with the
+classical fact that Hadamard matrices exist only for orders $1$, $2$, and
+multiples of $4$. Contradiction; hence $\Gamma \notin \mathrm{OS}(3)$.
+\end{proof}
+
+\begin{corollary}
+\label{cor:n3incompleteness}
+Complex amplitudes are structurally necessary to realize every unistochastic
+matrix once $n \ge 3$: $\mathrm{OS}(n) \subsetneq \mathrm{US}(n)$ for all $n \ge
+3$.
+\end{corollary}
+
+\begin{scopebox}
+\scopetitle{}This is a fact about one mathematical object — a specific
+unistochastic matrix, and the matrices that can or cannot reproduce it —
+proved without any assumption beyond ordinary linear algebra. It is not
+yet a claim about physical reality's scalar field: nothing here has
+connected "this matrix" to "a physical measurement," and that connection
+is made only later, with its own explicit costs
+(Chapter~\ref{ch:born-rule}'s Assumption~\ref{ass:frame-completion}).
+Nor does it settle which \emph{representation} of the underlying real
+structure is required — Chapter~\ref{ch:amplitwist} shows the algebraic
+content normally written with $i$ can equally be written with real
+$2\times2$ matrices; what this corollary shows is that the standard
+orthostochastic (real, entrywise-squared) representation specifically
+cannot reproduce this matrix, not that no real structure whatsoever
+could, once the representation itself is allowed to change.
+\end{scopebox}
+
+\begin{remark}
+Theorem~\ref{thm:n3incompleteness} is logically independent of the multi-context
+cycle obstruction of Chapter~\ref{ch:real-mub-obstruction}: it is a statement
+about a \emph{single} bistochastic matrix failing to admit \emph{any} real lift
+at all, whereas the cycle obstruction concerns three individually-liftable edges
+failing to admit a \emph{jointly consistent} real lift. Both point toward the
+same conclusion via different mechanisms, and the book should keep them
+distinct rather than treat one as a restatement of the other.
+\end{remark}
+
+\begin{ledgerentry}[End of Chapter~\ref{ch:unistochastic}]
+\textbf{Established:} at $n=2$, orthostochastic and unistochastic coincide,
+so no single transition matrix distinguishes real from complex lifts
+(Theorem~\ref{thm:n2degeneracy}); at $n=3$, an explicit unistochastic matrix
+(the DFT matrix's modulus-square) admits no real lift whatsoever
+(Theorem~\ref{thm:n3incompleteness}), via the nonexistence of a $3\times3$
+Hadamard matrix.\\
+\textbf{Not yet established:} whether every unistochastic matrix that fails to be
+orthostochastic fails for the \emph{same} reason (a general structural
+criterion, rather than a single worked example); the relationship, if any,
+between this single-matrix obstruction and the cycle obstruction of
+Chapter~\ref{ch:real-mub-obstruction}.
+\end{ledgerentry}

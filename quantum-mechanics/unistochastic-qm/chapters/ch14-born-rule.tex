@@ -1,0 +1,159 @@
+\chapter{The Born Hierarchy}
+\label{ch:born-rule}
+
+Up to this point, this book has reconstructed \emph{constraints}: what
+admissibility permits and forbids, without reference to the specific
+formulas a physics textbook opens with. From here onward, the project
+reverses direction — using those constraints to reconstruct the familiar
+formalism itself, formula by formula, with each one's exact cost made
+visible rather than assumed. Chapter~\ref{ch:assumption-audit} flagged four distinct statements this book
+has been careful not to conflate. This chapter is not "the Born-rule
+derivation"; it is a dependency chain, with each link's assumptions made
+explicit rather than absorbed silently into the next.
+
+\section{The General Context-Transition Identity}
+
+Chapters~\ref{ch:context-graphs}--\ref{ch:real-mub-obstruction} established
+the context-transition interpretation of $B=|U|^2$ only for real
+two-dimensional frames (rotations in $\R^2$). The complex, general-dimension
+statement is an easy generalization, but it has not yet been written down,
+and Chapter~\ref{ch:born-rule} depends on it, so it is stated explicitly here
+rather than assumed.
+
+\begin{proposition}[Context-transition identity, general $d$]
+\label{prop:general-context-transition}
+\index{Context-transition identity, general d (proposition)}
+Let $F_A = (|a_1\rangle,\dots,|a_d\rangle)$ and $F_B =
+(|b_1\rangle,\dots,|b_d\rangle)$ be orthonormal bases of $\C^d$. Then $U :=
+F_A^\dagger F_B$, with entries $U_{ij} = \langle a_i|b_j\rangle$, is unitary,
+and $B_{ij} := |\langle a_i|b_j\rangle|^2$ is unistochastic.
+\end{proposition}
+
+\begin{proof}
+$(F_A^\dagger F_B)^\dagger(F_A^\dagger F_B) = F_B^\dagger F_A F_A^\dagger F_B
+= F_B^\dagger F_B = I$, using unitarity of $F_A$ (so $F_AF_A^\dagger=I$) and
+of $F_B$; hence $U$ is unitary. $B_{ij}=|U_{ij}|^2$ is unistochastic by
+definition (Chapter~\ref{ch:unistochastic}).
+\end{proof}
+
+\section{From Contexts to Pure States}
+
+Proposition~\ref{prop:general-context-transition} is a statement about
+\emph{whole frames}. It says nothing yet about a single normalized vector
+$|\psi\rangle$ carrying its own probabilities. Bridging this gap requires an
+explicit operational assumption, stated here for the first time in the book:
+
+\begin{assumption}[Pure states as frame-completable vectors]
+\label{ass:frame-completion}
+A prepared pure state $|\psi\rangle$ (normalized, $\langle\psi|\psi\rangle=1$)
+can be operationally represented as the first vector of \emph{some}
+orthonormal frame $F_\psi = (|\psi\rangle,|\psi_2\rangle,\dots,|\psi_d\rangle)$
+— i.e.\ preparing $|\psi\rangle$ is representable as selecting one designated
+column of an admissible context.
+\end{assumption}
+
+This is a genuine addition to the book's assumption base, not a consequence
+of Parts I--II: nothing proved so far distinguishes "a state" from "a
+context" as separate kinds of object, and this chapter's first substantive
+move is to identify the former with a distinguished coordinate of the latter.
+Any vector can be completed to an orthonormal basis (Gram--Schmidt), so the
+mathematical content of Assumption~\ref{ass:frame-completion} is only the
+operational claim that preparation is representable this way — worth keeping
+visible precisely because it is doing real work.
+
+\begin{theorem}[Pure-state Born rule]
+\label{thm:pure-state-born}
+\index{Pure-state Born rule (theorem)}
+Given Assumption~\ref{ass:frame-completion}, and a measurement context $F_E =
+(|e_1\rangle,\dots,|e_d\rangle)$,
+\begin{equation}
+p_i := B_{i1} = |\langle e_i|\psi\rangle|^2,
+\end{equation}
+where $B_{i1}$ is the first column of the context-transition matrix between
+$F_E$ and $F_\psi$.
+\end{theorem}
+
+\begin{proof}
+Apply Proposition~\ref{prop:general-context-transition} with $A=E$, $B=\psi$:
+$U = F_E^\dagger F_\psi$ is unitary, with first column $U_{i1} =
+\langle e_i|\psi\rangle$ (the inner product of $|e_i\rangle$ with the first,
+designated column $|\psi\rangle$ of $F_\psi$). Then $B_{i1} = |U_{i1}|^2 =
+|\langle e_i|\psi\rangle|^2$ directly from the definition of the
+context-transition matrix.
+\end{proof}
+
+\begin{remark}
+This is the intended payoff: the pure-state Born rule is not an independent
+postulate about state vectors. It is literally one column of the
+already-established context-transition identity, once a state is identified
+with a frame via Assumption~\ref{ass:frame-completion}. The rest of $F_\psi$
+(the vectors $|\psi_2\rangle,\dots$) plays no further role and can be
+discarded; only the assumption that such a completion operationally
+\emph{exists} was needed.
+\end{remark}
+
+\section{From Pure States to Density Operators}
+
+Part II already established convex mixtures of pure states as legitimate
+composite-system-independent objects (Chapter~\ref{ch:positivity}). For a
+classical mixture $\rho = \sum_a q_a |\psi_a\rangle\langle\psi_a|$ ($q_a\ge0$,
+$\sum_a q_a=1$), affine consistency under classical mixing — the probability
+of outcome $i$ for a mixture is the corresponding mixture of probabilities —
+gives
+\begin{equation}
+p_i = \sum_a q_a\, |\langle e_i|\psi_a\rangle|^2.
+\end{equation}
+
+\begin{theorem}[Density-operator Born rule]
+\label{thm:density-born}
+\index{Density-operator Born rule (theorem)}
+$p_i = \operatorname{tr}(\rho P_i)$, where $P_i = |e_i\rangle\langle e_i|$.
+\end{theorem}
+
+\begin{proof}
+$|\langle e_i|\psi_a\rangle|^2 = \langle\psi_a|e_i\rangle\langle
+e_i|\psi_a\rangle = \operatorname{tr}\big(|\psi_a\rangle\langle\psi_a|\,P_i
+\big)$ (cyclicity of trace). Summing with weights $q_a$ and using linearity of
+trace, $p_i = \operatorname{tr}\Big(\big(\sum_a q_a
+|\psi_a\rangle\langle\psi_a|\big) P_i\Big) = \operatorname{tr}(\rho P_i)$.
+\end{proof}
+
+\begin{remark}
+No new assumption was needed for this step beyond
+Theorem~\ref{thm:pure-state-born} and the affine-mixture structure Part II
+already earned. This is the cleanest link in the chain.
+\end{remark}
+
+\section{What Is Not Yet Earned: POVMs}
+
+\begin{equation}
+p_i = \operatorname{tr}(\rho E_i), \qquad E_i \succeq 0,\ \ \sum_i E_i = I
+\end{equation}
+is a strictly more general statement than Theorem~\ref{thm:density-born}: it
+permits $E_i$ that are not rank-one projectors, and in particular need not
+come from any single orthonormal context at all. Nothing proved in this
+chapter licenses that generality. The standard route — representing a
+generalized measurement as an ordinary projective measurement on a larger,
+composite system (a dilation) and invoking the partial trace of
+Chapter~\ref{ch:partial-trace} — requires its own argument and is deferred
+rather than assumed here.
+
+\begin{ledgerentry}[End of Chapter~\ref{ch:born-rule}]
+\textbf{Established:} a fully explicit dependency chain,
+\begin{equation}
+\boxed{|U_{ij}|^2 \ (\text{Ch.}\ref{ch:unistochastic}) \ \longrightarrow\
+|\langle e_i|\psi\rangle|^2 \ (\text{Thm.}\ref{thm:pure-state-born}) \
+\longrightarrow\ \operatorname{tr}(\rho P_i) \ (\text{Thm.}\ref{thm:density-born})}
+\end{equation}
+with each arrow's cost stated: the first arrow costs exactly Assumption
+\ref{ass:frame-completion} (pure states as frame-completable vectors, a
+genuinely new addition to the book's assumption base); the second arrow costs
+nothing beyond what Part II already proved.\\
+\textbf{Not established:} the POVM generalization $p_i =
+\operatorname{tr}(\rho E_i)$, deferred to a later chapter pending a dilation
+argument; the general complex Hilbert-space state structure for arbitrary $n$
+(this chapter's propositions are dimension-generic but the book's worked
+examples remain concentrated at $d=2,3$); Hermitian observables as the
+general observable class, and spectral decomposition, remain untouched by
+this chapter and are next.
+\end{ledgerentry}

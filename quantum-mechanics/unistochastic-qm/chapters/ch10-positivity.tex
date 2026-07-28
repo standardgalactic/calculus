@@ -1,0 +1,89 @@
+\chapter{Positivity and the State Space}
+\label{ch:positivity}
+
+Chapter~\ref{ch:tensor-product} characterized the ambient linear space of
+Hermitian operators a composite system's observables must live in. Not every
+element of that space is a physically admissible state: this chapter derives
+the further restriction to positive, normalized operators, motivated
+operationally rather than posited.
+
+\section{Positivity as an Admissibility Condition}
+
+An operator $\rho \in \mathrm{Herm}_\C(d)$ is proposed as a description of a
+system's state via the rule $p = \operatorname{tr}(\rho P)$ for a measurement
+projector $P$. Admissibility requires this to be a genuine probability for
+\emph{every} rank-one projector $P_\psi = |\psi\rangle\langle\psi|$
+corresponding to a legitimate test:
+\begin{equation}
+\operatorname{tr}(\rho P_\psi) = \langle\psi|\rho|\psi\rangle \ge 0 \qquad
+\forall\,|\psi\rangle.
+\end{equation}
+This is exactly the definition of positive semidefiniteness, $\rho \succeq 0$.
+Total-probability normalization over any complete measurement (any orthonormal
+basis) forces $\operatorname{tr}\rho = 1$. Together,
+\begin{equation}
+\mathcal D_d(\C) = \{\, \rho \in \mathrm{Herm}_\C(d) : \rho \succeq 0,\ \
+\operatorname{tr}\rho = 1 \,\}.
+\end{equation}
+
+\begin{remark}
+Positivity is not introduced here as an additional quantum postulate; it is
+forced by the same admissibility logic used throughout the book — every
+proposed observable-probability pairing must actually be a probability — and
+sits inside the ambient linear space exactly as $\mathrm{DS}(n)$ sits inside
+its ambient matrix space in Chapter~\ref{ch:birkhoff}, or $\mathrm{US}(n)$
+inside $\mathrm{DS}(n)$ in Chapter~\ref{ch:unistochastic}: a further
+admissibility cut on a previously characterized ambient space, not a new kind
+of assumption.
+\end{remark}
+
+\section{The Real Composite Direction, Revisited}
+
+Chapter~\ref{ch:tensor-product} identified $J\otimes J$ as the real-composite
+direction invisible to any purely local (product-basis) description. Now that
+positivity is available, this direction can be asked a sharper question: not
+merely \emph{is it in the ambient space}, but \emph{for which coefficients is
+it an actual state}?
+
+\begin{example}[The bound on the invisible direction]
+\label{ex:JJ-bound}
+Consider the one-parameter family on two rebits,
+\begin{equation}
+\rho(c) = \tfrac14\big(I\otimes I + c\, J\otimes J\big), \qquad J =
+\begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}.
+\end{equation}
+Since $J^2 = -I$, $(J\otimes J)^2 = J^2\otimes J^2 = (-I)\otimes(-I) = I$, so
+$J\otimes J$ has eigenvalues $\pm1$ (each with multiplicity $2$, as $J\otimes
+J$ is a $4\times4$ traceless involution). The eigenvalues of $\rho(c)$ are
+therefore $\tfrac14(1\pm c)$, each doubly degenerate. Positivity requires both
+signs nonnegative:
+\begin{equation}
+\rho(c) \succeq 0 \iff |c| \le 1.
+\end{equation}
+$\operatorname{tr}\rho(c) = 1$ automatically, since $\operatorname{tr}(J\otimes
+J) = 0$.
+\end{example}
+
+\begin{remark}
+This is worth pausing on. Chapter~\ref{ch:tensor-product} found $J\otimes J$
+as an extra \emph{basis vector} — a fact about dimension counting. Positivity
+turns it into a bounded physical degree of freedom: $c$ ranges over a genuine
+interval $[-1,1]$ of admissible states, not an unconstrained coordinate. The
+dimension mismatch of Chapter~\ref{ch:local-tomography} was never merely
+formal; it names an axis along which real composite systems can actually vary
+their state, continuously, within the constraints derived in this chapter.
+\end{remark}
+
+\begin{ledgerentry}[End of Chapter~\ref{ch:positivity}]
+\textbf{Established:} positivity is derived from the requirement that every
+proposed rank-one test give a nonnegative probability, not posited
+separately; $\mathcal D_d(\C)$ is characterized as positive, trace-one
+elements of the ambient space of Chapter~\ref{ch:tensor-product}; the
+locally-invisible real direction $J\otimes J$ is shown to support a genuine
+one-parameter family of admissible states, $|c|\le1$, with the bound derived
+from $(J\otimes J)^2=I$.\\
+\textbf{Not established:} anything about what happens to this direction under
+marginalization (Chapter~\ref{ch:partial-trace}), or about entanglement and
+separability of $\rho(c)$, which require the partial trace machinery not yet
+introduced.
+\end{ledgerentry}

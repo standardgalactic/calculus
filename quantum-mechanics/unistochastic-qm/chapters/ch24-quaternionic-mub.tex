@@ -1,0 +1,147 @@
+\chapter{A Quaternionic Mutually-Unbiased-Basis Bound}
+\label{ch:quaternionic-mub}
+
+Chapter~\ref{ch:quaternionic}'s closing remark identified two routes to a
+$\C$--$\Hset$ separation witness: an explicit matrix construction, or a
+corrected quaternionic mutually-unbiased-basis counting bound. It flagged
+that the standard derivation leans on structural facts not yet worked out
+for $\Hset$ — specifically the $\mathrm{Sp}(1)$ versus $U(1)$ local phase
+freedom. This chapter works that derivation through carefully, checking
+each step computationally before trusting it, and arrives at a genuine
+bound: quaternionic mutually unbiased bases can outnumber complex ones by
+roughly a factor of two.
+
+\section{Two Traps, and Why Neither Bites}
+
+The standard complex MUB bound rests on two facts: (i) the $d$ traceless
+projectors of one orthonormal basis span a $(d-1)$-dimensional subspace of
+the ambient traceless Hermitian space, and (ii) mutually unbiased bases
+give \emph{orthogonal} such subspaces, via
+$\operatorname{Tr}[(P_i-I/d)(Q_j-I/d)] = \operatorname{Tr}(P_iQ_j) - 1/d =
+1/d - 1/d = 0$. Generalizing to $\Hset$ threatens both facts, for
+different reasons.
+
+\begin{proposition}[Fact (i) survives $\mathrm{Sp}(1)$ phase freedom]
+\label{prop:h-di-1}
+\index{Fact (i) survives Sp(1) phase freedom (proposition)}
+For a quaternionic orthonormal basis $\{|e_i\rangle\}_{i=1}^d$, the
+projector $P_i = |e_i\rangle\langle e_i|$ is independent of which unit
+quaternion $q\in\mathrm{Sp}(1)$ represents the same ray: $|e_i\rangle q$
+gives the identical projector.
+\end{proposition}
+
+\begin{proof}
+$(|e_i\rangle q)(|e_i\rangle q)^\dagger = |e_i\rangle q\,\bar q\langle e_i|
+= |e_i\rangle |q|^2 \langle e_i| = |e_i\rangle\langle e_i|$, using
+$(Aq)^\dagger = \bar q A^\dagger$ and $|q|^2=1$ for unit quaternions.
+\end{proof}
+
+The three-fold $\mathrm{Sp}(1)$ freedom in choosing a ray representative
+therefore contributes nothing extra to the space spanned by
+$\{P_i-I/d\}$: it is still exactly $d$ objects, still spanning at most a
+$(d-1)$-dimensional subspace (one linear relation, $\sum_i(P_i-I/d)=0$).
+This was confirmed computationally: for a random quaternionic orthonormal
+basis at $d=3$, the real rank of the span of the three traceless
+projectors is exactly $2$.
+
+\begin{proposition}[Fact (ii) requires the correct inner product]
+\label{prop:h-real-part}
+\index{Fact (ii) requires the correct inner product (proposition)}
+Quaternionic matrix trace is not cyclic in general: $\operatorname{Tr}(AB)
+\ne \operatorname{Tr}(BA)$. However $\operatorname{Re}[\operatorname{Tr}(AB)]
+= \operatorname{Re}[\operatorname{Tr}(BA)]$ always, and for rank-one
+Hermitian projectors, $\operatorname{Re}[\operatorname{Tr}(P_iQ_j)] =
+|\langle e_i|f_j\rangle|_\Hset^2$.
+\end{proposition}
+
+This was checked computationally, not merely asserted: for random
+quaternionic matrices $A,B$, $\operatorname{Tr}(AB)\ne\operatorname{Tr}(BA)$
+as full quaternions, but their real parts agree exactly; for projectors
+built from random quaternionic unit vectors, $\operatorname{Re}[\operatorname{Tr}(P_0Q_0)]$
+matches $|\langle e_0|f_0\rangle|_\Hset^2$ to numerical precision, and the
+identity $\operatorname{Re}[\operatorname{Tr}(P_iQ_j)] - 1/d =
+\langle P_i-I/d,\,Q_j-I/d\rangle_\Hset$ (using
+$\langle A,B\rangle_\Hset := \operatorname{Re}[\operatorname{Tr}(A^\dagger
+B)]$ as the real inner product on the quaternionic Hermitian matrix space)
+holds exactly. This is the resolution: $\operatorname{Re}[\operatorname{Tr}
+(\cdot)]$, not the raw quaternionic trace, is the correct symmetric
+bilinear form, and fact (ii) survives once stated in these terms.
+
+\section{The Bound}
+
+\begin{theorem}[Quaternionic MUB bound]
+\label{thm:h-mub-bound}
+\index{Quaternionic MUB bound (theorem)}
+For $m$ pairwise mutually unbiased orthonormal bases of $\Hset^d$,
+\begin{equation}
+m \le 2d+1.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+By Proposition~\ref{prop:h-di-1}, each basis contributes a $(d-1)$-dimensional
+real subspace of the $(\beta_\Hset(d)-1)$-dimensional traceless quaternionic
+Hermitian space (Chapter~\ref{ch:local-tomography}'s $\beta_\Hset(d) =
+d(2d-1)$). By Proposition~\ref{prop:h-real-part}, mutual unbiasedness
+($\operatorname{Re}[\operatorname{Tr}(P_iQ_j)]=1/d$ for all $i,j$) gives
+$\langle P_i-I/d,\,Q_j-I/d\rangle_\Hset = 0$: the subspaces from distinct
+mutually unbiased bases are pairwise orthogonal. Hence $m$ such subspaces
+fit inside the ambient space only if $m(d-1) \le \beta_\Hset(d)-1 =
+d(2d-1)-1 = (2d+1)(d-1)$, giving $m \le 2d+1$.
+\end{proof}
+
+\begin{remark}[Validation against the cited real bound]
+Applying the identical method with $\beta_\R(d) = d(d+1)/2$ in place of
+$\beta_\Hset(d)$ gives $m \le (\beta_\R(d)-1)/(d-1) = d/2+1$ — exactly the
+$N_\R(d) \le \lfloor d/2\rfloor+1$ bound of Boykin, Sitharam, Tarifi, and
+Wocjan already cited in Chapter~\ref{ch:real-mub-obstruction}, before
+flooring for integer $d$. The same method applied with $\beta_\C(d)=d^2$
+gives the standard $m\le d+1$. Reproducing a trusted external result via
+the identical derivation, before trusting the new quaternionic case, is
+the check this chapter's result was built to survive.
+\end{remark}
+
+\section{What This Bound Does and Does Not Establish}
+
+Theorem~\ref{thm:h-mub-bound} is an upper bound. It shows quaternionic
+mutually unbiased bases \emph{could} outnumber complex ones by roughly a
+factor of two ($2d+1$ versus $d+1$) — it does not show that they actually
+do. Two further steps, neither attempted here, would be needed for an
+explicit $\C$--$\Hset$ separation witness in the sense of
+Chapter~\ref{ch:minimal-witnesses}:
+
+\begin{enumerate}
+\item[(a)] \textbf{Existence.} Does there exist a dimension $d$ and an
+explicit set of more than $d+1$ pairwise mutually unbiased quaternionic
+bases of $\Hset^d$? Theorem~\ref{thm:h-mub-bound} permits this in
+principle (the bound is not obviously tight, but it does not forbid
+exceeding $d+1$); no construction is given here.
+\item[(b)] \textbf{Translation to graph realizability.} Even given such a
+construction, exhibiting a genuine witness in the sense of
+Chapter~\ref{ch:minimal-witnesses} requires showing the resulting
+transition data is individually $\C$-admissible on every edge yet fails to
+glue over $\C$ globally — the direct quaternionic analogue of
+Chapter~\ref{ch:real-mub-obstruction}'s triangle argument, which was
+worked out in the $d=2$ real case using the specific angle machinery of
+\S\ref{sec:gauge-single-frame}, not yet generalized to general $d$ and
+general fields.
+\end{enumerate}
+
+\begin{ledgerentry}[End of Chapter~\ref{ch:quaternionic-mub}]
+\textbf{Established:} a quaternionic MUB bound, $m\le2d+1$
+(Theorem~\ref{thm:h-mub-bound}), derived from first principles with every
+step checked computationally rather than assumed — the $\mathrm{Sp}(1)$
+phase-freedom concern resolves harmlessly (Proposition~\ref{prop:h-di-1}),
+and the correct symmetric inner product ($\operatorname{Re}[\operatorname{Tr}
+(\cdot)]$, not the raw quaternionic trace) makes the orthogonality
+argument go through (Proposition~\ref{prop:h-real-part}). The method is
+validated by exactly reproducing the cited real-MUB bound when applied to
+$\R$ instead of $\Hset$.\\
+\textbf{Not established:} whether quaternionic MUB sets actually exceeding
+$d+1$ exist at any $d$ (an existence question, not addressed by an upper
+bound); whether such a set, if found, translates into an actual graph-
+realizability separation witness in the sense of
+Chapter~\ref{ch:minimal-witnesses}. This chapter narrows
+Chapter~\ref{ch:quaternionic}'s open dichotomy toward route (ii) — a
+structural bound is now in hand — without completing it.
+\end{ledgerentry}

@@ -1,0 +1,976 @@
+start	end	text
+0	15680	If you take three different measurements of a single quantum particle and you chain them together so that they loop back to your starting point, the universe will hand you a mathematical receipt proving that the numbers you learned in grade school literally do not exist.
+15820	20000	Yeah, it's a genuinely staggering realization when you really sit with it.
+20040	21300	I mean, I'm not being metaphorical here.
+21300	30100	The physical universe actively rejects the basic real numbers that we use to, you know, balance our checkbooks or measure a piece of wood.
+30380	34940	Right, because we're so used to the idea that physics is built on top of math.
+35220	41320	Like, we assume math is just this passive language we use to describe a reality that is already sitting there fully formed.
+41440	42840	Yeah, like it's just a tape measure.
+42940	43280	Exactly.
+43540	47400	But when you look closely at quantum mechanics, the relationship is almost inverted.
+47400	49900	The math isn't just describing reality.
+50060	58120	The structural logic of the math is actively forcing reality to behave in ways that seem, well, utterly bizarre to human intuition.
+58420	61300	And that is exactly what we're getting into today.
+61800	62940	Welcome to the Deep Dive.
+63400	75300	Whether you're cramming for a quantum information theory exam or you're just driving to work and feeling insanely curious about the actual fundamental fabric of reality, you are in the right place.
+75440	76500	You really are.
+76500	83660	Today, our mission is to explore a mind-bending 2026 manuscript by an independent researcher named Flyxion.
+84220	89800	It's titled, Quantum Mechanics from Admissible Probabilistic Composition.
+90620	95640	And the core premise is going to completely flip everything you know about physics upside down.
+95840	99000	It really is, because the premise asks a profoundly simple question.
+99580	105820	It asks, what if quantum mechanics isn't just a bizarre set of magical, arbitrary rules handed down by a quirky universe?
+105820	114820	What if it's actually the only mathematically logical way to process probabilities and process missing information without creating literal logical paradoxes?
+114820	119980	I love this, because whenever you take a physics class, they usually just drop these massive, heavy equations on you.
+120300	122100	You know, they say, here is the Schwerdinger equation.
+122420	123460	Here is the Born rule.
+123800	124720	Just memorize them.
+124820	125500	Don't ask why.
+125820	126500	Oh, absolutely.
+126820	128040	Shut up and calculate, right?
+128340	129520	That's the classic joke.
+129560	129900	Exactly.
+130300	133440	But this manuscript absolutely refuses to do that.
+133440	141200	We are going to rebuild quantum mechanics from the ground up, starting from absolute scratch, using just a stack of Flyxion's chapters.
+141560	149620	And we're going to translate these incredibly dense matrix calculations into massive aha moments for you.
+150140	152320	No drowning in unexplained jargon today.
+152600	162580	We are going to figure out why the universe uses complex numbers, how entanglement might just be an illusion based on the math you choose, and why probability loops shatter reality.
+162580	167520	And the methodological commitment of this manuscript is, well, it's what makes it so powerful.
+167660	171680	It strictly enforces a rule, constraint before content.
+172000	173000	Meaning what? Practically.
+173360	181900	Meaning we are not going to assign any physical meaning to things like energy or momentum or even particles until the pure mathematics explicitly demands it.
+182000	184300	We strip away the physical assumptions completely.
+184580	186800	So we're just examining the skeletal logic underneath.
+186800	193400	Exactly. And doing that challenges our most basic assumptions about what a, you know, a quantum state actually is in the first place.
+193720	195160	So let's start right at the foundation.
+195880	202300	Before we can talk about quantum weirdness, we have to define what normal, boring, classical probability looks like.
+202840	208040	We need a baseline to understand exactly what rules quantum mechanics will eventually break.
+208240	209460	That's a great place to start.
+209460	213180	So let's look at the probability simplex that's introduced in the first couple of chapters.
+213680	221020	If I have a system, say a dice or a coin or just a state of knowledge about something, how does the math actually define that?
+221420	230700	Well, at its most basic classical level, a state of knowledge about any system is really just a list of probabilities for different distinguishable alternatives.
+230700	234520	Okay. Like a 50% chance of heads, 50% chance of tails.
+234820	239920	Right. And mathematically, these probabilities are bound by two extremely rigid rules.
+240560	246260	First, they have to be non-negative. You know, you can't have a negative 20% chance of a coin landing on heads.
+246620	250600	Yeah, that makes total sense. Negative probability is nonsense in the classical world.
+250840	256340	Exactly. And second, they have to sum to exactly one because, well, something has to happen.
+256340	262020	If you add up the probabilities of all the possible mutually exclusive outcomes, you must get 100%.
+262020	262980	A value of one.
+263060	268400	Right. And this collection of valid probability lists forms a geometric shape called a simplex.
+268560	272560	Okay. So a state of knowledge is basically just a list of numbers adding up to one.
+273060	275140	But things change, right? Things move.
+275640	284120	If I want to transition from one state of knowledge to another, say I shake a box with a marble in it, how do we map that transition?
+284120	292240	So we use what are called stochastic maps. You can think of these essentially as matrices, you know, grids of numbers where every column sums to one.
+292880	301840	They represent transition weights. So if you are in state A, the matrix tells you the exact probability of moving to state B or C and so on.
+302280	306920	But the geometry of the space gets incredibly interesting when you want to make these transitions reversible.
+307360	309160	Reversible meaning I can undo the shake.
+309160	314880	Right. To do that, the matrix must be bistochastic, meaning both the columns and the rows sum to one.
+315080	317840	Hold on. Let me make sure I'm visualizing this for everyone listening.
+318220	321500	A regular stochastic map is just moving forward in time.
+321660	329400	But a bistochastic map means you have a perfectly balanced system where you aren't losing the total probability weight in any direction.
+329660	333180	Precisely. You could, in theory, trace your steps backward.
+333180	334080	Okay, I follow you.
+334460	339140	And this leads us to a foundational piece of math called the Burkhoff von Neumann theorem.
+340100	346180	It states that the set of all these bistochastic matrices forms a very specific geometric space.
+346300	347460	And that's the Burkhoff polytope.
+347620	348820	That's the Burkhoff polytope.
+348940	349040	Yeah.
+349120	353160	You can visualize this polytope as a, like, a multidimensional jewel.
+353160	360640	And the extreme corners, the sharp vertices of this jewel, are perfect deterministic permutations.
+360900	362760	Like shuffling a deck of cards perfectly.
+363100	367900	If I do a perfect Ferro shuffle, I am completely rearranging the deck, but I haven't lost any cards.
+368080	370500	And no card is in a weird state of superposition.
+370700	370980	Right.
+371240	374860	Every single card just moved to a new, exact, 100% certain position.
+375120	375600	Exactly.
+376180	381300	Permutation matrices are the extreme, reversible, information-preserving special cases.
+381300	383420	There were the sharp quarters of the jewel.
+384040	389860	But most of the space inside this mathematical jewel isn't perfectly deterministic like that.
+390000	390600	What is it then?
+390780	394640	The interior is made of convex mixtures of those permutations.
+395020	400040	And when you start mixing these pure states together, a mathematical concept called majorization,
+400380	402220	you trigger another crucial theorem.
+402400	403840	The Hardy Littlewood-Polya theorem.
+404020	404380	Yes.
+404480	405520	Which says what, exactly?
+405520	411520	It proves that mathematically, the act of mixing these states structurally forces entropy to increase.
+411620	412020	Okay, wait.
+412340	415400	I need an analogy for majorization and entropy increasing.
+415820	420660	Because convex mixtures in a polytope is, uh, it's a bit dense.
+420920	421280	Fair enough.
+421380	424540	Let's think of classical probability, like mixing different colors of paint.
+424700	427220	You start with pure colors in distinct buckets.
+427680	430900	Those are your extreme corners, your deterministic permutations, right?
+430920	431080	Right.
+431140	431980	I like where this is going.
+432280	433560	So red is in bucket one.
+433800	434800	Blue is in bucket two.
+434800	436900	If I mix them together, I get purple.
+437360	439120	I can easily predict the resulting color.
+439460	447120	But if I just hand you a bucket of purple paint, you cannot unmix it to find the exact original shades of red and blue that I started with.
+447200	448140	You're stuck with the purple.
+448480	448920	Exactly.
+449180	451520	It is an information loss machine.
+451840	454860	That lost information is what we call entropy increasing, right?
+455120	456740	That is a brilliant analogy.
+457060	457400	Yes.
+457400	469560	And the profound takeaway here is that this Shannon entropy increase, this loss of information, isn't some extra physical law of thermodynamics that Flyxion had to invent or assume.
+469660	470360	It's just math.
+470360	474340	It is a structural consequence of the geometry of majorization itself.
+474460	478540	It is baked directly into the pure math of classical probability.
+478880	484540	But if I'm playing devil's advocate here, and I know some of you listening are probably thinking this too, isn't this just classical physics?
+484680	487740	We're talking about paint mixing and shuffling cards and basic entropy.
+488140	490400	We promised a deep dive into quantum mechanics.
+490500	492360	Where does the quantum stuff actually come in?
+492360	497360	The quantum stuff comes in precisely because this classical foundation is so airtight.
+498260	501360	Flyxion doesn't just invent quantum weirdness out of thin air.
+502040	505200	Remember, the rule is constraint before content.
+505560	505700	Right.
+505920	511820	We've established that classical probability works perfectly for a single static picture or a simple shuffle.
+512440	520540	The crack in reality, the actual quantum leap, happens when we try to figure out how these probabilities compose sequentially.
+520540	523340	Sequentially. Like doing one thing and then doing another.
+523500	523920	Exactly.
+524520	529920	What happens when we chain transitions together using the actual underlying mechanics of waves?
+530160	530540	Ah.
+531060	531300	Okay.
+531440	534080	So if classical probability works, why change it?
+534540	537600	Because in the real world, things interfere with each other.
+537960	542180	This is where we look at composing transitions using amplitudes instead of bare probabilities.
+542320	542760	Exactly.
+543020	546500	In classical probability, we compose transitions at the probability level.
+546640	548060	You multiply the chances together.
+548060	553340	But quantum mechanics, as we've observed in the real world in labs, composes at the amplitude level.
+553540	555300	So you manipulate the amplitudes first.
+555480	555760	Yes.
+556060	561720	You manipulate the amplitudes and then you square the final amplitude to get the probability we actually observe.
+562140	564560	And we need to explain why that matters to the math.
+564980	569500	Because if I take two probabilities, say A and B, and I just add them, it's just A plus B.
+569500	576340	But I take two amplitudes, A and B, add them together, and then square them to get the probability of basic algebra.
+577300	582640	Algebra tells us that A plus B all squared is not just A squared plus B squared.
+582720	583140	Nope.
+583360	584640	You get this extra piece.
+584720	585400	Plus 2AB.
+585580	588360	And that plus 2AB is literally everything.
+588520	589520	That is the cross term.
+589700	591840	That cross term represents interference.
+592180	593760	Because amplitudes can be negative.
+594080	595520	That 2AB term can be negative.
+595680	598720	Which means two probabilities can actually cancel each other out.
+598720	600200	That is quantum interference.
+600780	606620	When you use classical probability level composition, you completely destroy and discard those cross terms.
+606760	607960	You're throwing away the interference.
+607960	615300	So to keep those cross terms, to allow for interference, we need a mathematical lift to handle the amplitudes underneath the probabilities.
+616260	620120	And this introduces us to two massive classes of matrices in the manuscript.
+620420	622140	Yes, the two main contenders.
+622580	627740	We have orthostochastic matrices, which are built using strictly real numbers, just normal numbers.
+627740	636920	And we have unistochastic matrices, which are built using complex numbers, numbers involving the imaginary unit, the square root of negative 1.
+637060	637260	Correct.
+637800	650100	The manuscript starts by testing the simplest possible system, a 2 by 2 level, meaning a system with just two possible outcomes, say a coin flip or a single quibit measuring spin up or spin down.
+650100	651480	We call this n equals 2.
+651480	652520	Okay, n equals 2.
+652600	656100	And at n equals 2, the manuscript proves the degeneracy theorem.
+656620	664040	At this specific dimension, real numbers and complex numbers are mathematically identical in their ability to realize these transitions.
+664320	665980	You literally cannot tell the difference.
+666080	670860	So a 2 by 2 real orthogonal matrix handles the interference and the probabilities perfectly.
+671100	672340	It handles it flawlessly.
+672340	677700	Okay, so if I live in a universe where everything only ever has two outcomes, real numbers work just fine.
+677780	679100	I don't need to imagine your numbers at all.
+679760	683540	But, and this is a big but, the universe obviously has more than two outcomes.
+683760	685920	What happens when we hit n equals 3?
+686500	687720	A 3 outcome system.
+688080	691740	This is where real numbers fail completely and spectacularly.
+691900	693240	And Flyxion proves this.
+693600	693920	Yes.
+694240	697960	The manuscript uses a specific transition matrix as a test case.
+697960	703120	It's called the 3 by 3 discrete Fourier transform, or DFT, matrix.
+703780	711620	It is a completely valid, coherent transition where every single outcome probability is exactly one-third.
+711720	715000	Okay, let's break down exactly why real numbers choke on this.
+715580	721400	To get a probability of one-third everywhere using only real numbers, we have to remember the rule.
+721940	723700	Probability is amplitude squared.
+723700	728260	So, what real number, when squared, equals exactly one-third?
+728460	733700	Well, it has to be either positive 1 over the square root of 3 or negative 1 over the square root of 3.
+733820	733980	Right.
+734060	736780	Those are the only two real numbers that square to exactly one-third.
+737040	745740	So, to build this 3 by 3 matrix using only real numbers, every single entry in that 9 square grid must be one of those two specific values.
+745800	747040	Okay, so it's doable so far.
+747040	753120	But furthermore, because this represents a reversible, information-preserving transition like our perfect shuffle from earlier,
+753700	756960	the math dictates that the rows must be orthogonal to each other.
+757120	759140	And orthogonal here means what, physically?
+759640	763940	It means they are perfectly independent, non-overlapping states.
+765000	772100	Mathematically, it means if you take the dot product of any two rows, meaning you multiply their corresponding entries together and add them up,
+772460	774280	the result must be exactly zero.
+774280	777320	So, we are mathematically forced into a very tight corner here.
+777960	781960	We need a 3 by 3 grid of essentially positive and negative ones.
+782020	789780	If we pull out that scaling factor of 1 over root 3, where every row's dot product with every other row cancels out to zero.
+790180	792440	In math, this is called a Hadamard matrix.
+792580	792980	Exactly.
+793240	800660	We need a 3 by 3 real Hadamard matrix to make this perfectly valid one-third probability state exist using real numbers.
+800660	806080	But here is the brutal truth of the math, and it is a hard, impassable mathematical wall.
+806340	806820	Pay it on me.
+807220	813200	You can program a computer to exhaustively check every single possible sign combination for a 3 by 3 matrix.
+813560	817860	There are 2 to the 9th power possibilities, so 512 total combinations.
+818340	819020	It's not that many.
+819160	819620	It's not.
+819760	825380	And if you check all 512, you will find that a 3 by 3 Hadamard matrix literally does not exist.
+825600	827100	Wait, it just, it doesn't exist.
+827320	828320	Like, not at all.
+828320	829980	It does not exist.
+830180	830320	Right.
+830440	834940	The math proves they only exist for dimensions of 1, 2, and multiples of 4.
+835280	838960	There is no 3 by 3 real matrix that can perform this job.
+839300	841120	It is mathematically impossible.
+841480	845960	It's like trying to build a perfect enclosed triangle out of square Lego blocks.
+845960	857440	At a certain point, no matter how clever you are, the 2D real number pieces you have in your hand simply cannot physically snap together to form the 3D geometry the universe is asking for.
+857940	859600	The pegs and holes just do not align.
+859600	860940	That's a great way to picture it.
+861200	862520	And this is a profound proof.
+862680	864960	It shows that complex numbers aren't just a neat trick.
+865200	869320	They aren't just a mathematical convenience that physicists use because they're lazy or want to look smart.
+869580	869740	Right.
+869960	873940	They are structurally necessary for any system where n is 3 or greater.
+873940	882180	The math is literally screaming at us that the real number line is simply too narrow to hold the information required to move between these three states coherently.
+882580	886880	We must have complex amplitudes to make the math work or the universe breaks.
+886880	897420	My mind is already melting, but the crazy part is we are just getting started on this deep dive because that was just for a single transition in a 3 outcome system.
+898240	900260	Let's retreat back to safety for a moment.
+900580	901920	What if we stick to n equals 2?
+902220	907060	We just established that for 2 outcomes, real numbers do work perfectly, right?
+907080	907420	They do.
+907800	914720	So what happens if we take these perfectly valid, saved 2 by 2 real number transitions and chain them together into a loop?
+914720	918840	This is a brilliant and honestly devious shift in the manuscript.
+919280	924000	We move from looking at a single edge, a single transition, to a context graph.
+924380	927300	Imagine a triangle made of three different measurement contexts.
+927500	929500	Let's call them z, x, and y.
+929660	934500	Okay, so three different ways to measure our 2 outcome system, a range and a sequence that loops back on itself.
+934580	937140	So it goes z to x, x to y, and y back to z.
+937220	941640	Right, and if you track the exact angles of these transitions in the underlying state space,
+941640	945600	they obey a strict geometric rule called the triangle gluing theorem.
+945920	950440	Because it's a closed loop, if you travel from z to x, then x to y, and finally y back to z,
+950640	953480	the exact closure demands they multiply to the identity.
+953860	959120	Meaning, if I walk around a triangle and end up on the exact same footprint where I started,
+959680	962920	facing the exact same direction, I haven't changed.
+963340	964800	The net movement is zero.
+965040	965160	Yeah.
+965180	966320	That sounds totally logical.
+966320	973360	It is logical for exact angles, but remember, in quantum mechanics, we don't observe the exact underlying angles.
+973540	975260	We only observe the probabilities.
+975900	975940	Wow.
+976180	983020	And the projection from those exact angles down to probabilities destroys a crucial piece of information.
+983780	986260	Specifically, it destroys a relative sine bit.
+986860	989540	How so? Walk me through that. I want to make sure I'm picturing this right.
+989540	995180	Sure. The transition probability between two states is given by the cosine squared of the angle between them.
+995460	998860	But when you square the cosine, you strip away the sine of the angle itself.
+999060	1000220	You lose the directionality.
+1000360	1004140	You know the distance, but you don't know if it was a positive turn or a negative turn.
+1004220	1004800	Okay, I see.
+1004860	1011800	So I know how far apart things are, but I've lost the GPS coordinates of how they are oriented relative to each other.
+1012040	1015080	So what happens when we try to close the loop using only these probabilities?
+1015080	1022840	That is where the paradox hits. And the sharpest example Fleschen gives is the mutually unbiased basis, or MUB corollary.
+1023000	1026020	Let's say you try to make these three bases mutually unbiased.
+1026100	1027480	And in plain English, that means what?
+1027820	1031740	It means the transition probability between any two of them is exactly one half.
+1032420	1037060	Geometrically, that translates to a 45 degree angle, or pi over 4.
+1037180	1043300	Okay, so z is 45 degrees from x, x is 45 degrees from y, and y is 45 degrees from z.
+1043300	1050780	Right. But if you try to build that specific loop using strictly real numbers in a two-dimensional space, you run into a brick wall.
+1051340	1059500	The math of real numbers demands that for the triangle to close and equal the identity, pi over 4 must algebraically equal either 0 or pi over 2.
+1059680	1062540	Which is a complete, unadulterated logical contradiction.
+1063080	1067000	45 degrees does not equal 0 degrees, and it does not equal 90 degrees.
+1067000	1069200	This is the Escher staircase.
+1069940	1074160	If you've ever seen that M.C. Escher drawing where the monks are walking up the stairs forever,
+1074660	1082160	every individual step, every individual transition between two monks looks perfectly flat, normal, and mathematically valid.
+1082620	1087400	But when you pull back and look at the whole loop, the geometry is a paradox.
+1088200	1090040	It cannot exist in real space.
+1090040	1098360	That is a phenomenal visual, and if we connect this to the bigger picture, this failure is entirely distinct from the 3x3 failure we talked about earlier.
+1098520	1098920	How so?
+1099040	1104280	Well, the 3x3 DFT matrix was a local failure. A single matrix couldn't be built.
+1104760	1109360	But this triangle paradox is a global topological failure.
+1109780	1112460	Topological meaning it's about the shape of the connections.
+1112460	1119000	Exactly. In graph theory, we talk about the betty number, specifically betty number 1, or beta 1.
+1119080	1122260	Okay, you're going to have to translate betty number into English for me and the listeners.
+1122480	1127080	Of course. Think of it as simply counting the number of holes or independent cycles in a network.
+1127660	1135100	A straight line has a betty number of 0, but a triangle, because it forms one closed loop, has a betty number of beta 1 equals 1.
+1135200	1135760	Okay, got it.
+1135760	1146460	The manuscript proves unequivocally that local admissibility, meaning each individual step being mathematically valid on its own, does not guarantee global realizability.
+1146460	1154860	The whole universe has to make sense all at once, and when you introduce a cycle in real numbers, even for simple two-outcome systems, it doesn't make sense.
+1155360	1158080	The universe simply rejects real numbers in a loop.
+1158080	1167240	So to recap where we are, real numbers fail to handle three outcomes locally, and they fail to handle two outcomes if those outcomes form a closed loop.
+1167440	1172240	That is wild. We are being dragged, kicking, and screaming into the complex number field.
+1172240	1180040	We really are, and that forces us to look beyond single, isolated systems, because quantum mechanics is famous for how multiple systems interact.
+1180420	1187220	Entanglement, spooky action at a distance. How does the pure math dictate that two independent systems should compose?
+1187220	1192260	This takes us right into chapter 8, which explores composite systems and local tomography.
+1192260	1198900	We need to test our three main mathematical contenders, or three scalar fields, to see who survives system composition.
+1199180	1202440	So we have real numbers, complex numbers, and quaternionic numbers.
+1202540	1206920	Right. And to test them, we apply a principle called local tomography.
+1207520	1210920	This isn't a complex physical law. It's an operational idea.
+1210920	1218400	It basically states that the joint state of two systems should be exactly as informative as the product of the local measurements.
+1218960	1229500	Meaning, if I measure my particle in my lab, and you measure your particle in your lab, and we get together and combine our data, we should have the complete 100% picture of the joint system.
+1230080	1237780	There shouldn't be any missing dimensions of information hiding in the shadows, nor should there be extra redundant dimensions muddying the waters.
+1237780	1245860	Precisely. To test this, the manuscript uses a dimension counting argument, which it credits to the physicists Araki and Hardy.
+1246660	1251400	Let's do the math slowly. Let's combine two two-dimensional systems, two qubits.
+1251520	1254020	All right, I have a qubit. You have a qubit. Let's count dimensions.
+1254280	1258480	The number of parameters needed to fully describe a state depends on the math field you use.
+1258480	1262540	Let's start with complex numbers, since that's what textbook quantum mechanics uses.
+1263240	1268440	Combining two complex qubits means multiplying their local dimensions, so 2 squared times 2 squared.
+1268500	1270500	Which is 4 times 4, so 16 parameters.
+1271020	1272760	That equals 16 parameters.
+1273040	1280440	Now, if you separately count the parameters required to build a joint, complex, 4x4 density matrix from scratch, it is exactly 16.
+1280800	1281880	It matches perfectly.
+1282480	1285020	Local knowledge multiplied equals global knowledge.
+1285020	1289560	Okay, so complex numbers pass the test. What about quaternions?
+1290200	1294640	For anyone listening who might not know, quaternions are like complex numbers on steroids.
+1295100	1299620	Instead of just one imaginary number i, they have i, j, and k.
+1299780	1300980	Right, they're more complex.
+1301380	1304060	For quaternionic numbers, the local dimensions are larger.
+1304400	1310440	If you multiply them together locally, you would require 36 parameters to describe the joint system based on that local knowledge.
+1310500	1311160	Okay, 36.
+1311160	1317780	But, if you look at the actual parameters of a joint quaternionic system of that exact size, it only has 28 parameters.
+1318000	1319460	36 is greater than 28.
+1319720	1322040	So the naive product overcounts by 8.
+1322420	1326740	It assumes the universe has 36 dials to turn, but the actual math only gives you 28.
+1326940	1329020	It's too restrictive, too rigidly connected.
+1329200	1330580	Exactly. It's overdetermined.
+1330860	1332300	Now, let's look at real numbers.
+1332660	1335440	The math field we evolved to understand and use every day.
+1335440	1340380	If you combine two real qubits, the product of their local parameters is 3 times 3, which is 9.
+1340640	1344000	Okay, 9 parameters, if I just multiply our local observations.
+1344120	1350020	But a joint 4x4 real density matrix actually requires 10 parameters to be fully described.
+1350640	1352140	9 is strictly less than 10.
+1352380	1354060	The product undercounts by 1.
+1354460	1355960	There is a hidden 10th dimension.
+1356060	1358520	Look, I want to make sure I grasp the gravity of this.
+1358520	1359440	Let's use an analogy.
+1360140	1367860	Imagine you and I are two detectives trying to solve a murder case, and we are each interrogating a different suspect in completely separate rooms.
+1367940	1368700	Okay, I'm with you.
+1368880	1372840	In the complex universe, if we come together and share our notes, we have the whole 16-piece puzzle.
+1373380	1375260	It just works.
+1376140	1380740	In the quaternionic universe, we share our notes and realize our facts contradict each other.
+1380860	1381660	It's a mess.
+1381800	1383600	Yes, and in the real universe.
+1383600	1394540	In the real universe, even if we share absolutely everything we observed in our interrogation rooms, there is a secret 10th clue, a 10th dimension of the crime that neither of us could see locally.
+1395000	1402920	It only exists in the space between the suspects, and we can only see it if we somehow magically merged our brains together into a single global entity.
+1403240	1405100	That is exactly what the math means.
+1405600	1409640	That missing 10th dimension in real quantum mechanics isn't a rounding error.
+1409640	1416580	It means real composite systems carry extra correlational structure that simply cannot be seen by local observers.
+1417000	1417100	Wow.
+1417560	1420120	Complex numbers are the unique Goldilocks field.
+1420440	1421840	Not too big, not too small.
+1422260	1426020	They are the only field where local and global dimensions match identically.
+1426460	1430420	But the manuscript doesn't just point at the missing 10th dimension in real numbers and walk away.
+1430700	1432260	It actually hunts it down.
+1432360	1433940	It puts a magnifying glass on it.
+1434500	1438380	Which brings us to a massive revelation in chapters 9 through 12.
+1438380	1443400	What exactly is this secret dimension hiding in the real number blind spot?
+1444120	1448900	Mathematically, this missing real direction is identified as a matrix called J tensor J.
+1449140	1449840	Let's untack that.
+1449960	1450480	What is J?
+1450700	1453280	J is the anti-symmetric quarter-turn matrix.
+1453660	1455760	It represents a strict 90-degree rotation.
+1456120	1460380	Now, in real numbers, it is not a valid observable on its own because it is anti-symmetric.
+1460480	1461780	It doesn't have real eigenvalues.
+1461780	1470100	But when you tensor it with itself, when you multiply it across the two systems to get J tensor J, the result suddenly becomes symmetric.
+1470640	1473860	And therefore, it is a valid composite observable.
+1474000	1477100	So locally it's invisible, but globally it pops into existence.
+1477280	1477680	Exactly.
+1477680	1481420	Chapter 10 bounds this invisible state to a physical parameter.
+1481580	1482280	Let's call it C.
+1482540	1486860	And the math dictates that C can slide anywhere between negative 1 and 1.
+1487260	1497120	The state of this system is defined as a mixture of the identity matrix, which is just random noise, and this J tensor J term weighted by the parameter C.
+1497280	1497520	Okay.
+1497620	1498560	So we have a valid state.
+1498680	1502780	Now, going back to our detectives, what happens if one detective drops off the case?
+1503180	1504900	We use something called the partial trace, right?
+1504960	1506760	Explain what the partial trace is doing for us here.
+1506760	1514120	The partial trace is simply the mathematical operation you use when you want to ignore one part of a composite system and just look at the other.
+1514500	1518200	You trace over or average out the information of the system you don't care about.
+1518400	1526160	So if I have an entangled pair of particles and one flies off to Mars, I do a partial trace on the Mars particle so I can just calculate what I have in my lab on Earth.
+1526700	1527140	Precisely.
+1527140	1531180	And Chapter 11 proves a concept it calls marginal invisibility.
+1531680	1541540	If you take the partial trace of this specific state, if you look at just one subsystem locally, this entire J tensor J direction vanishes completely.
+1541620	1542260	It just disappears.
+1542620	1546060	Both individual subsystems look like maximally mixed noise.
+1546060	1551480	They look completely random and completely independent of whatever the parameter C happens to be.
+1551960	1555620	So to a local observer, this state looks incredibly boring.
+1555940	1558200	Just pure, uncorrelated static.
+1558560	1560980	You'd never know there was a hidden structure connecting them.
+1561060	1563800	But then we hit the massive paradigm shift in Chapter 12.
+1564040	1564860	We zoom out.
+1564960	1566240	We look at the global state again.
+1566240	1567920	And we ask a simple question.
+1568700	1569960	Is this state entangled?
+1570420	1572000	And the answer is breathtaking.
+1572640	1578540	If Kili C is anything other than exactly zero, the state is provably entangled in real quantum mechanics.
+1578820	1583460	The math shows you cannot build this state simply by mixing independent local states.
+1583660	1585700	The correlation is inherently holistic.
+1586140	1586880	Okay, that makes sense.
+1587000	1587120	Yeah.
+1587260	1589380	It has a hidden tenth dimension, so it's entangled.
+1589680	1593340	But wait, this is the part that made me literally drop the manuscript when I read it.
+1593360	1594320	Yes, prepare yourself.
+1594320	1601060	If you look at the exact same mathematical state, the exact same matrix grid of numbers,
+1601440	1607080	but you allow yourself to use complex quantum mechanics to analyze it, it is completely separable.
+1607240	1610240	It is not entangled at all across its entire range of C.
+1610420	1613800	This raises a profoundly important question for physics.
+1614540	1619960	Is entanglement an objective physical reality of the particle out there in the universe?
+1619960	1624400	Or is it merely an artifact of the math we are using to describe it?
+1624720	1627740	The source material proves that separability is field relative.
+1628300	1630140	It is not intrinsic to the state itself.
+1630340	1633700	You are telling me entanglement changes based on the math I choose to use.
+1633940	1636760	It's like looking at one of those magic eye posters from the 90s.
+1636780	1637820	Oh, I love this comparison.
+1637820	1641580	If I wear red-tinted glasses and those glasses represent real quantum mechanics,
+1642080	1644960	I look at the poster and I see a 3D dinosaur popping out of me.
+1645440	1647220	That 3D structure is the entanglement.
+1647820	1652080	But if I take off the red glasses and put on blue-tinted glasses representing complex quantum mechanics,
+1652340	1656060	I look at the exact same poster, and it's just random flat dots.
+1656480	1657260	Separable noise.
+1657620	1658620	The poster didn't change.
+1658820	1661060	The physical matrix on the paper didn't change.
+1661360	1662100	My lens did.
+1662100	1666560	That is exactly what the math dictates, and your analogy captures the mechanism perfectly.
+1667500	1672080	What is local and what is non-local depends entirely on the scalar field permitted by your theory.
+1672420	1673000	But why?
+1673320	1675400	Why does complex QM see it as separable?
+1676000	1679920	Because complex QM has a richer set of local states.
+1680300	1685340	It actually has access to that J matrix locally, disguised as the imaginary number I.
+1685680	1687920	Because it has more local building blocks,
+1687920	1691600	it can build this joint state out of purely local pieces.
+1692200	1697180	Real QM lacks those local pieces, so it views the joint state as irreducibly holistic.
+1697440	1699060	It views it as entangled.
+1699320	1701880	It just, it breaks my brain in the best possible way.
+1702440	1706120	The idea that entanglement might just be a symptom of using restricted math.
+1706700	1708040	But okay, let's step back, take a breath.
+1708440	1711720	We found that the complex field is required to make probability loops work,
+1712020	1715080	and to make local tomography work without inventing hidden dimensions.
+1715080	1719980	But we still haven't established the actual famous rules of textbook quantum mechanics,
+1720140	1721880	the stuff you learned in Physics 101.
+1722320	1724200	Right, the equations everyone actually uses.
+1724420	1724840	Exactly.
+1725260	1729020	How does this book derive those heavy equations without just assuming them?
+1729220	1732980	This takes us into part three of the manuscript, chapters 13 through 16.
+1733820	1736740	It is essentially a rigorous assumption audit.
+1737260	1740540	Flyxion tracks exactly what the math earns versus what it assumes.
+1740540	1744900	It completely refuses to just hand-wave the physics into existence.
+1745400	1748640	Let's look at chapter 14, which derives the famous Born rule.
+1749180	1752960	For you listening, the Born rule is the central decree of quantum mechanics.
+1753760	1757040	It says that the probability of finding a particle in a certain spot
+1757040	1759940	equals the absolute value of its amplitude squared.
+1760500	1763460	It's the bridge between the quantum wave and the classical measurement.
+1763980	1767320	How does Flyxion derive this without just dropping it from the sky?
+1767320	1770660	It derives it by making only one new operational assumption,
+1771140	1772340	and it's a very logical one.
+1772480	1775800	It assumes pure states as frame-completable vectors.
+1776140	1777180	Okay, break that down for me.
+1777340	1781040	What does preparing a pure state mean operationally in this context?
+1781400	1783340	It assumes that preparing a pure state,
+1783480	1787280	say, filtering a beam of light so all the photons are polarized exactly vertically,
+1787740	1791100	is operationally equivalent to selecting one specific column
+1791100	1793000	of an admissible measurement context.
+1793160	1795440	So you're basically isolating one possibility.
+1795440	1799740	Right. You are isolating one specific clean vector
+1799740	1803460	from a full, mutually exclusive set of possibilities.
+1803900	1806640	Once you grant that single operational assumption,
+1807080	1809100	the Born rule isn't a mystery anymore.
+1809540	1812960	It mathematically falls out of the unestochastic matrix algebra
+1812960	1814280	we did back in chapter 3.
+1814800	1817860	The squaring of the amplitude is geometrically forced.
+1818260	1819560	That is deeply satisfying.
+1819680	1821400	Just pure math enforcing the rule.
+1821620	1821800	Yeah.
+1821800	1824660	And then chapter 15 builds the operational bridge,
+1824980	1828580	showing that observables must be Hermitian matrices.
+1828820	1829000	Yes.
+1829180	1832500	In quantum mechanics, an observable is anything you can actually measure,
+1832680	1834200	like position or momentum.
+1834420	1836480	The math dictates these must be Hermitian matrices.
+1836760	1837680	And are Hermitian matrices.
+1837940	1842240	It's a special complex matrix that is equal to its own conjugate transpose.
+1842940	1844380	But physically, why do we care?
+1844680	1847360	We care because the eigenvalues of a Hermitian matrix,
+1847360	1849520	the actual numbers you get when you do the math,
+1849780	1851520	are always strictly real numbers.
+1851640	1852920	Which is exactly what we need.
+1852980	1854640	Because when I measure the momentum of a particle,
+1854780	1856540	a readout on my screen has to be a real number.
+1856620	1859940	My radar gun doesn't say the car is going 50 plus 3i miles per hour.
+1860040	1861000	It just says 50.
+1861220	1863920	The math forces the matrix to be Hermitian,
+1864280	1866160	to guarantee real world readouts.
+1866380	1867960	It's not just thrown in as a postulate.
+1868180	1870460	It's an unavoidable mathematical consequence
+1870460	1874500	of demanding that real valued outcomes match our probability rules.
+1874500	1878000	And the absolute crown jewel of this section is chapter 16,
+1878160	1879820	which derives the Schrodinger equation.
+1880760	1883380	Now, to get dynamics, to get movement through time,
+1884160	1885280	you do need an assumption.
+1885520	1889960	The only assumption needed here is continuous reversible time evolution.
+1890260	1891480	Let's explain what that implies.
+1891660	1893580	Continuous means time flows smoothly,
+1893860	1896140	not in jagged, discrete, blocky jumps.
+1896780	1900160	Reversible means that in a perfectly closed system,
+1900280	1901560	information isn't lost.
+1901560	1905080	You could, theoretically, run the mathematical tape backward
+1905080	1907340	and figure out exactly where the particle started.
+1907900	1909780	So if I have smooth reversible time,
+1909900	1912720	how did that give me Schrodinger's complex equation?
+1913000	1914560	It relies on a branch of math
+1914560	1918140	dealing with matrix ordinary differential equations, or OEs.
+1918720	1922260	If you apply basic finite dimensional matrix ODE math
+1922260	1924360	to a continuous reversible evolution,
+1924740	1928300	you're mathematically forced to define a generator for that evolution.
+1928520	1928720	Or a generator.
+1928720	1932300	Right. And because the evolution must preserve probabilities,
+1932880	1934140	it must remain unitary,
+1934560	1938140	the generator of that evolution must be a Hermitian matrix.
+1938440	1939720	Let's call that generator H.
+1939920	1942040	Okay, I'm with you. H is our Hermitian generator.
+1942140	1943960	And if you write out the group law
+1943960	1946720	for how this state evolves smoothly over time,
+1947060	1949960	a specific differential equation naturally emerges.
+1950660	1953360	The derivative of the state with respect to time
+1953360	1957640	multiplied by the imaginary unit I equals H times the state.
+1957640	1959600	Which is literally the Schrodinger equation.
+1960060	1964980	I H bar D over DT of PI equals HPSI.
+1965860	1966780	This is wild.
+1966980	1968640	It's like realizing the rules of chess
+1968640	1971200	aren't just arbitrarily invented by some guy in a pub,
+1971340	1973200	but they are the literal, objective,
+1973360	1976260	only possible way a board of 64 squares
+1976260	1977840	can operate without breaking logic.
+1978140	1979620	We didn't assume Schrodinger's equation.
+1979740	1981300	We just assumed continuous time
+1981300	1983780	and the pure math built Schrodinger's equation.
+1983780	1986520	Right, and the book is incredibly honest here in its audit.
+1986660	1988360	It doesn't claim to magically prove
+1988360	1990300	that the generator H is physical energy
+1990300	1992400	or that the scaling constant H bar
+1992400	1994520	is actually Planck's constant from physics.
+1994620	1995580	It just gives you the skeleton.
+1995960	1996260	Yes.
+1996760	1998560	It proves the structure of the equation
+1998560	1999840	is mathematically inevitable.
+2000520	2002540	The physics, the mass, the energy,
+2002660	2003620	the specific forces
+2003620	2005880	is just filling in the physical blanks
+2005880	2007860	of a pre-existing mathematical skeleton.
+2008120	2010300	Okay, so we've derived textbook quantum mechanics
+2010300	2012520	from pure logic and complex numbers.
+2012760	2013560	Case closed, right?
+2013860	2014800	Complex numbers win.
+2014960	2016400	Real numbers are a dead end.
+2017000	2020800	But this is where the deep dive takes a massive swerve.
+2020900	2022220	The twist in the third act?
+2022360	2022800	Exactly.
+2023220	2025400	Just when we think complex numbers have won outright,
+2025560	2027660	the manuscript throws a massive curveball
+2027660	2029140	in chapters 18 and 19.
+2029140	2031120	It brings up cutting-edge physics literature
+2031120	2033140	from 2025 and 2026.
+2033400	2036060	Yes, specifically papers by Hofferman and Woods
+2036060	2037500	and Barrios-Hita et al.
+2037500	2040220	These recent papers mathematically prove
+2040220	2041660	that real-valued quantum mechanics
+2041660	2042600	can actually work
+2042600	2043580	and it can reproduce
+2043580	2045360	all complex predictions perfectly.
+2045540	2045760	Wait.
+2046280	2047020	Stop the tape.
+2047220	2048820	We just spent the last 45 minutes
+2048820	2050740	explicitly proving that real numbers fail.
+2051020	2052660	The 3x3 DFT matrix,
+2053220	2054520	the Escher staircase triangle,
+2054940	2056080	the missing 10th dimension.
+2056080	2058480	How can you now tell me real QM works?
+2058820	2059580	To understand this,
+2059640	2060620	we have to look at a subtle
+2060620	2062140	but absolutely vital distinction.
+2063220	2064520	Representation versus structure.
+2065140	2067300	The way we usually combine systems in math,
+2067500	2069480	the way we built that 10th dimension earlier,
+2069680	2071580	is by using the Kronecker product.
+2072220	2073380	It's the standard way
+2073380	2074880	to multiply matrices together.
+2075540	2076740	But the Kronecker product
+2076740	2078480	is just a mathematical convention.
+2078920	2081380	It's a choice of how to represent the combination.
+2081720	2082300	Okay, I'm listening.
+2082700	2084100	I feel like I'm being tricked by math again.
+2084500	2085620	Well, we have to ask
+2085620	2087240	what a complex number actually is.
+2087500	2089580	Chapter 19 introduces a concept
+2089580	2091240	popularized by Tristan Needham
+2091240	2092520	called the amplitwist.
+2092520	2094520	When you multiply a state
+2094520	2095640	by a complex number,
+2096140	2098820	you are doing two geometric operations simultaneously.
+2099360	2100540	You are scaling the amplitude,
+2100720	2101180	stretching it,
+2101260	2102380	and you are rotating it,
+2102460	2103360	or twisting it,
+2103420	2103860	in a plane.
+2103940	2104700	Scaling and twisting.
+2105220	2105920	The amplitwist.
+2106180	2107840	That matrix J we kept talking about,
+2107940	2109080	the missing real dimension,
+2109240	2110540	the anti-symmetric matrix,
+2110740	2111400	it is mathematically
+2111400	2112680	just a quarter turn rotation,
+2113280	2114740	R of pi over 2.
+2114940	2116900	It is the imaginary number I.
+2116900	2118680	It is literally just the concept
+2118680	2119920	of a 90-degree twist,
+2120040	2122220	but written out as a real 2x2 matrix
+2122220	2124220	instead of the single complex letter.
+2124720	2125920	Wait, so a complex number
+2125920	2127720	is just a 2D real matrix
+2127720	2128500	wearing a trench coat?
+2128780	2129760	Essentially, yes.
+2130220	2132160	Now, here is where the breakdown happened
+2132160	2133240	in our earlier test.
+2133700	2135220	When you combine systems
+2135220	2136440	using standard math,
+2136880	2138480	the traditional tensor product
+2138480	2139900	forces you to decide
+2139900	2141240	which local subsystem
+2141240	2142640	carries the global phase,
+2142740	2143360	the rotation.
+2143840	2145620	It forces one particle
+2145620	2147080	to quote-unquote
+2147080	2148340	hold the twist.
+2148880	2150360	This creates a redundancy,
+2150620	2151820	an artificial rigidity.
+2152220	2154140	And if we fix that redundancy...
+2154140	2154960	If you quotient out
+2154960	2156280	that gauge redundancy,
+2156480	2158000	which is a fancy mathematical way
+2158000	2159860	of saying you redistribute the phase
+2159860	2161180	across the whole tensor product
+2161180	2162280	so it doesn't matter who holds it,
+2162700	2163680	the ambiguity changes.
+2164520	2166320	The obstruction we found earlier
+2166320	2167280	wasn't in the physics
+2167280	2167860	of the universe,
+2168060	2169060	it was an artifact
+2169060	2170680	of our clumsy notation.
+2170680	2171260	Oh my god.
+2171620	2172740	It's exactly like looking
+2172740	2173960	at a Mercator projection map
+2173960	2174320	of the Earth.
+2174320	2176260	If you look at a standard classroom map,
+2176500	2177980	Greenland looks absolutely massive,
+2178140	2178700	almost as big
+2178700	2180180	as the entire continent of Africa.
+2180380	2181260	But that distortion
+2181260	2182780	is an artifact of the map,
+2183060	2184100	not the actual planet.
+2184480	2185620	You took a 3D globe
+2185620	2187540	and forced it onto a 2D grid,
+2187760	2189160	and the math of that projection
+2189160	2191320	created a fake, giant Greenland.
+2192260	2193580	Complex numbers might just be
+2193580	2194660	the easiest, cleanest,
+2194760	2196020	most natural globe to read,
+2196260	2197580	while real numbers require
+2197580	2198320	a super-convoluted,
+2199220	2200120	highly distorted,
+2200320	2201080	quotiented map
+2201080	2203040	to show the exact same Earth
+2203040	2203860	without breaking.
+2203860	2205460	That analogy is flawless.
+2206040	2207040	What's fascinating here
+2207040	2208640	is that the math confirms this.
+2209300	2210000	Complex numbers
+2210000	2211480	are an incredibly efficient
+2211480	2212540	bookkeeping device
+2212540	2213400	for handling this
+2213400	2214480	simultaneous rotation
+2214480	2215060	and scaling
+2215060	2216220	without creating
+2216220	2217580	fake topological holes.
+2217820	2218080	But,
+2218480	2219480	and this is a massive but,
+2219900	2220640	the deep dive
+2220640	2221580	asks a critical,
+2221740	2222840	unresolved question here.
+2222880	2223320	Which is?
+2223580	2224400	Does this new,
+2224540	2225480	highly convoluted,
+2225520	2226920	real tensor product,
+2227060	2227800	this fixed map,
+2228120	2229180	actually survive
+2229180	2230380	the local tomography tests
+2230380	2231020	we did earlier?
+2231020	2232420	Can it actually describe
+2232420	2233260	a joint state
+2233260	2234720	using only local measurements
+2234720	2235480	without inventing
+2235480	2236760	new, weird rules?
+2237180	2238160	The book leaves that
+2238160	2239260	explicitly unresolved.
+2239360	2240100	So it's still a mystery.
+2240360	2240780	It is.
+2241220	2242580	It proves that real QM
+2242580	2244040	can mimic complex QM
+2244040	2245320	if you drastically change
+2245320	2246940	the rules of how things compose,
+2247280	2248280	but it doesn't prove
+2248280	2249280	that this new rule
+2249280	2249920	of composition
+2249920	2251320	is forced by the same
+2251320	2252440	elegant, pure logic
+2252440	2253160	we started with.
+2253280	2253540	Wow.
+2253800	2254720	So complex numbers
+2254720	2255580	might not be magic,
+2255740	2256300	they might just be
+2256300	2257700	the universe's best shorthand.
+2257700	2260380	But we have one last stop
+2260380	2261080	on this journey.
+2261460	2262040	We've talked a lot
+2262040	2262720	about dimensions
+2262720	2263840	and graph structures
+2263840	2264520	and cycles.
+2264760	2265580	If we pull back
+2265580	2266440	to the big picture
+2266440	2268140	of these context graphs
+2268140	2269280	and probability loops,
+2269680	2270540	I want to know
+2270540	2272400	exactly when reality breaks.
+2272740	2273860	Is it a gradual fade
+2273860	2275040	into quantum weirdness
+2275040	2276280	as things get more complex
+2276280	2277860	or is it a sudden snap?
+2278140	2279380	This is directly addressed
+2279380	2280320	in chapter 20
+2280320	2281180	and chapter 23.
+2281640	2282320	Let's look at what
+2282320	2283000	Flyxion calls
+2283000	2283760	minimal witnesses
+2283760	2284760	in higher dimensions.
+2285360	2286240	Back in our two
+2286240	2287120	outcome systems,
+2287260	2287400	you know,
+2287520	2288160	d equals 2,
+2288240	2288700	we established
+2288700	2289680	we needed a triangle,
+2289900	2290580	a closed loop,
+2290640	2291920	to break real QM.
+2292040	2292240	Right.
+2292340	2293020	The Betty numbered
+2293020	2294480	beta 1 had to be 1.
+2294640	2295000	Exactly.
+2295260	2296480	But chapter 20 proves
+2296480	2297060	that if you move
+2297060	2297540	to a system
+2297540	2298880	with three or more outcomes,
+2299060	2299760	d greater than
+2299760	2300520	or equal to 3,
+2300900	2301820	the minimal witness
+2301820	2303440	collapses to a single edge.
+2303740	2305800	Meaning beta 1 equals 0.
+2306280	2307400	You don't even need cycles
+2307400	2308300	to break real quantum
+2308300	2309020	mechanics anymore.
+2309500	2310560	A single transition,
+2310720	2312340	like that 3x3 DFT matrix
+2312340	2313420	we talked about an hour ago,
+2313460	2314760	is enough to instantly
+2314760	2316200	demand complex numbers.
+2316400	2316660	Yes.
+2317080	2318260	But chapter 23
+2318260	2319920	asks the density question
+2319920	2321660	specifically for d equals 2
+2321660	2323140	where single edges are safe.
+2323520	2324420	It asks,
+2324700	2325700	is there an erides
+2325700	2326680	reni threshold?
+2327260	2327860	What is that?
+2327940	2328760	I haven't heard that term.
+2328860	2329700	In graph theory,
+2329840	2331060	it's a critical density
+2331060	2331780	where the behavior
+2331780	2332440	of a network
+2332440	2334120	suddenly and drastically changes.
+2334780	2335600	Think of how water
+2335600	2336920	gradually cools down,
+2337020	2338180	but then at exactly
+2338180	2339020	zero degrees,
+2339200	2340420	it suddenly phase changes
+2340420	2341360	into solid ice.
+2341580	2342200	Oh, okay.
+2342340	2343580	Do these probability graphs
+2343580	2344920	gradually become harder
+2344920	2346560	to realize with real numbers
+2346560	2347860	as you randomly add
+2347860	2348880	more and more connections?
+2349080	2349680	And what is the result?
+2349760	2351040	Does it bend before it breaks?
+2351160	2353200	The result is terrifyingly sharp.
+2353640	2354940	There is no gradual transition.
+2355500	2356180	Under independent
+2356180	2357600	continuous edge measures,
+2357780	2359520	meaning if you randomly assign
+2359520	2360440	valid probabilities
+2360440	2361260	to the connections,
+2361780	2363560	the very moment a graph
+2363560	2365500	has even one single cycle.
+2365600	2366440	The moment it loops.
+2366440	2368300	The moment beta 1
+2368300	2369460	is greater than
+2369460	2370780	or equal to 1,
+2371340	2372100	the probability
+2372100	2373360	of that entire network
+2373360	2374920	working with real numbers
+2374920	2377000	drops to exactly zero.
+2377300	2378400	It is measure zero.
+2378460	2378700	Wait, wait.
+2378760	2379840	So it's not like a bridge
+2379840	2380920	groaning under the weight
+2380920	2381460	of traffic,
+2381640	2382420	gradually bowing
+2382420	2383460	until it finally collapses.
+2384060	2384960	You're saying the bridge
+2384960	2386800	is structurally flawless,
+2387280	2388280	mathematically perfect
+2388280	2389320	in real numbers,
+2389460	2390760	right up until you connect
+2390760	2391800	the very last bolt
+2391800	2392900	that forms a closed loop,
+2393300	2394520	and then the entire thing
+2394520	2395940	instantly vaporizes
+2395940	2397680	into mathematical impossibility.
+2398100	2398540	Precisely.
+2398940	2400200	It is what mathematicians
+2400200	2401960	call a co-dimension 1 event.
+2402100	2402960	Wait, co-dimension 1?
+2403000	2404200	What does that actually mean visually?
+2404340	2405440	Imagine a massive
+2405440	2406720	three-dimensional room.
+2407460	2408540	A co-dimension 1 object
+2408540	2410100	is a two-dimensional plane,
+2410280	2411200	like a sheet of paper,
+2411480	2412320	infinitely thin,
+2412440	2413440	cutting through that room.
+2413900	2415220	It has zero volume
+2415220	2416480	compared to the room itself.
+2416900	2417800	If you throw a dart
+2417800	2418820	completely randomly
+2418820	2419580	into that room,
+2419680	2420840	the mathematical probability
+2420840	2421700	of the tip of the dart
+2421700	2423180	hitting that incredibly thin plane
+2423180	2424380	is precisely zero.
+2424720	2425720	So a universe governed
+2425720	2426800	by real numbers
+2426800	2428660	is that infinitely thin
+2428660	2429380	sheet of paper,
+2429660	2430540	and the space
+2430540	2432200	of all possible quantum states
+2432200	2433760	is the massive room.
+2434240	2435200	The moment you close a loop,
+2435580	2436840	you realize you are in the room,
+2437060	2437880	not on the paper.
+2437880	2438320	Exactly.
+2438720	2440320	It is not an asymptotic limit
+2440320	2441140	where things just get
+2441140	2442120	harder to calculate.
+2442680	2444340	The threshold of impossibility
+2444340	2445600	is crossed completely
+2445600	2446920	at the very first cycle.
+2447440	2448840	It proves that realizability
+2448840	2449760	over real numbers
+2449760	2450740	is not generic.
+2451200	2452940	It is the ultimate rare exception.
+2452940	2454480	The moment you close
+2454480	2455400	a loop of information,
+2455900	2457500	real numbers evaporate.
+2457500	2458420	This has been
+2458420	2459660	an absolute journey
+2459660	2460380	to try and summarize
+2460380	2461420	what we've just done.
+2461540	2462520	We started with
+2462520	2464280	bare classical probabilities,
+2464560	2465580	a simple mixing of paint.
+2465740	2465820	Yeah.
+2466080	2467420	We saw how linking
+2467420	2468340	those probabilities
+2468340	2468960	in cycles
+2468960	2470800	created geometrical paradoxes
+2470800	2472060	like the Escher staircase
+2472060	2473420	of the triangle gluing theorem.
+2473820	2475260	We mathematically proved
+2475260	2476280	that entanglement
+2476280	2477100	isn't necessarily
+2477100	2478660	an intrinsic physical property
+2478660	2479240	of a particle,
+2479560	2480880	but might actually be relative
+2480880	2481800	to the math you used
+2481800	2482460	to describe it.
+2482540	2483520	The magic eye poster.
+2483860	2484100	Right.
+2484520	2485720	We derived the famous
+2485720	2486660	Schrodinger equation
+2486660	2487920	not from assuming
+2487920	2489220	physical energy exists,
+2489540	2490800	but from pure logic
+2490800	2492940	and continuous reversible time.
+2493280	2494380	And we realized
+2494380	2495500	that complex numbers
+2495500	2496980	might just be nature's
+2496980	2498620	most efficient bookkeeping tool
+2498620	2499980	for a universe made of
+2499980	2501720	twisting scaling probabilities.
+2502020	2503200	It strips quantum mechanics
+2503200	2504560	of its arbitrary mystique.
+2504800	2505640	It takes away the feeling
+2505640	2506240	that the universe
+2506240	2507280	is just mocking us
+2507280	2508220	with weird rules
+2508220	2509160	and replaces it
+2509160	2510580	with something even more profound.
+2511560	2512760	Structural inevitability.
+2513400	2513960	Quantum mechanics
+2513960	2515360	is simply the only way
+2515360	2516800	the puddle pieces fit together.
+2517040	2517820	Which leaves us
+2517820	2518540	with a final,
+2518960	2520300	very provocative thought.
+2520700	2520840	Right.
+2520860	2521960	If you are listening to this,
+2522040	2523040	I want you to seriously
+2523040	2523720	ponder this
+2523720	2524680	as you go about your day.
+2524980	2525740	We've just spent
+2525740	2526900	this entire deep dive
+2526900	2527820	seeing how almost
+2527820	2529200	all of quantum mechanics
+2529200	2530260	can be derived
+2530260	2531520	as a forced requirement
+2531520	2532560	of processing
+2532560	2533440	missing information
+2533440	2534560	without creating
+2534560	2535640	logical contradictions.
+2536100	2537180	So does the wave function
+2537180	2538520	actually exist out there
+2538520	2539360	in the physical world?
+2539360	2541320	That's the million dollar question.
+2541800	2542720	Is there a physical
+2542720	2543980	undulating wave
+2543980	2545360	of energy guiding particles?
+2546060	2546960	Or is the universe
+2546960	2548480	entirely made of pure math
+2548480	2549180	and information?
+2549620	2550380	And quantum mechanics
+2550380	2552160	is just the only possible software
+2552160	2552780	our brains
+2552780	2553880	and our instruments can use
+2553880	2555160	to render a reality
+2555160	2555980	where we don't have
+2555980	2556560	all the facts.
+2557040	2558020	Is the physical world
+2558020	2559420	just the gears we can't see?
+2559800	2560520	And quantum mechanics
+2560520	2561740	is just the inevitable blur
+2561740	2562340	of the machinery.
+2563000	2563620	Think about it.
+2563840	2564400	We'll catch you
+2564400	2565380	on the next deep dive.
+2565380	2579280	We'll catch you
+2579320	2580900	in the next video.

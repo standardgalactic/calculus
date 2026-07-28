@@ -1,0 +1,106 @@
+\chapter{The Probability Simplex}
+\label{ch:simplex}
+
+\section{Distinguishable Alternatives}
+
+Let $X = \{1,\dots,n\}$ be a finite set of operationally distinguishable
+alternatives — outcomes of some fixed measurement procedure, prior to any
+further structure. A state of knowledge about which alternative obtains is a
+probability distribution
+\begin{equation}
+p = (p_1,\dots,p_n), \qquad p_i \ge 0, \qquad \sum_i p_i = 1,
+\end{equation}
+i.e.\ a point of the standard probability simplex $\Delta_{n-1} \subset
+\R^n$. $\Delta_{n-1}$ is a convex set with $n$ extreme points, the vertices
+$e_i$ (certainty that alternative $i$ obtains); every $p \in \Delta_{n-1}$ is a
+convex combination of vertices.
+
+\begin{remark}[Constraint before content]
+Nothing has been said yet about what alternative $i$ \emph{is} — a detector
+click, a coin face, a measurement outcome. The simplex is defined purely by the
+admissibility constraints (nonnegativity, normalization) on the space of
+possible states of knowledge. This is the methodological stance the whole book
+follows: characterize the admissible transformations on a space before
+assigning any ontology to the space's points. The simplex is therefore a
+common starting point for many probabilistic theories, classical and
+quantum alike; what distinguishes quantum mechanics from every other such
+theory has not yet entered anywhere in this chapter. The same stance applies to
+notation, not only to ontology: a later instance of this principle
+(\S\ref{sec:recent-literature}) asks whether the complex numbers used from
+Chapter~\ref{ch:unistochastic} onward are themselves an admissibility
+constraint or one convenient coordinatization of a deeper real structure —
+the question is posed here in its first, simplest form.
+\end{remark}
+
+\section{Stochastic Maps}
+
+A transformation between two such state spaces (or a single space to itself,
+$X \to X$) is a \emph{stochastic map}: a matrix $M$ with
+\begin{equation}
+M_{ij} \ge 0, \qquad \sum_i M_{ij} = 1 \quad \text{for every } j,
+\end{equation}
+acting on distributions by $p'_i = \sum_j M_{ij} p_j$. Column-normalization
+ensures $p' \in \Delta_{n-1}$ whenever $p \in \Delta_{n-1}$.
+
+\begin{definition}[Deterministic maps]
+A stochastic map $M$ is \emph{deterministic} if every column is a standard
+basis vector $e_i$, i.e.\ $M$ implements a function $f: X \to X$ with $M_{ij} =
+\delta_{i,f(j)}$.
+\end{definition}
+
+\begin{proposition}
+The deterministic stochastic maps are exactly the extreme points of the convex
+set of stochastic maps on $X$.
+\end{proposition}
+
+\begin{proof}
+Every deterministic $M$ is extreme: if $M = \tfrac12(M_1+M_2)$ for stochastic
+$M_1,M_2$, then in the column where $M$ has a $1$-entry, both $M_1,M_2$ must
+also equal $1$ there (as in the Birkhoff--von Neumann argument of
+Theorem~\ref{thm:birkhoff-vonneumann}, using only column normalization and
+nonnegativity — row normalization is not needed here), forcing $M_1=M_2=M$ in
+that column, and since this holds for every column, $M_1=M_2=M$.
+
+Conversely, if $M$ is not deterministic, some column $j$ has at least two
+nonzero entries $M_{i_1 j}, M_{i_2 j} \in (0,1)$. Let $\varepsilon>0$ be less
+than $\min(M_{i_1j}, M_{i_2j}, 1-M_{i_1j}, 1-M_{i_2j})$ and define $M_\pm$ by
+adding $\pm\varepsilon$ to column $j$'s $i_1$-entry and $\mp\varepsilon$ to its
+$i_2$-entry, leaving every other entry of $M$ unchanged. Column $j$ still sums
+to $1$ (the two perturbations cancel) and all entries remain in $[0,1]$, so
+$M_\pm$ are stochastic; $M = \tfrac12(M_++M_-)$ with $M_+ \neq M_-$, so $M$ is
+not extreme.
+\end{proof}
+
+\section{Composition, Coarse-Graining, and Information Loss}
+
+Stochastic maps compose by matrix multiplication: applying $M_1$ then $M_2$
+gives $M_2 M_1$, again stochastic. Two features of this composition matter
+for everything that follows.
+
+\begin{itemize}
+\item[] \textbf{Coarse-graining.} A deterministic map that merges several
+alternatives of a larger space into fewer alternatives of a smaller one is a
+coarse-graining; it is generally not invertible; information about which of
+the merged alternatives held is lost.
+\item[] \textbf{Convex mixtures.} If $M_1, M_2$ are stochastic maps on the same
+pair of spaces, so is $\lambda M_1 + (1-\lambda) M_2$ for $\lambda \in [0,1]$:
+the stochastic maps between two fixed spaces themselves form a convex set.
+\end{itemize}
+
+\begin{remark}
+Nothing in this chapter has yet distinguished \emph{admissible} stochastic maps
+from arbitrary ones beyond the bare normalization constraint. Chapter
+\ref{ch:birkhoff} imposes the further constraint of \emph{reversibility}
+(bistochasticity), which is where the geometry relevant to quantum mechanics
+begins to appear.
+\end{remark}
+
+\begin{ledgerentry}[End of Chapter~\ref{ch:simplex}]
+\textbf{Established:} the probability simplex and stochastic maps as the
+starting admissibility structure, prior to any notion of amplitude, phase, or
+reversibility.\\
+\textbf{Not yet established:} any distinction between classical and quantum
+transformations — that distinction requires the further restriction to
+bistochastic (Chapter~\ref{ch:birkhoff}) and then unistochastic
+(Chapter~\ref{ch:unistochastic}) maps.
+\end{ledgerentry}

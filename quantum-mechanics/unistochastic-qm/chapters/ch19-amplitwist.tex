@@ -1,0 +1,251 @@
+\chapter{The Amplitwist Foundations of Complex Structure}
+\label{ch:amplitwist}
+
+Chapter~\ref{ch:final-audit}'s addendum (\S\ref{sec:recent-literature}) cited
+recent literature showing that the Kronecker-product convention used from
+Chapter~\ref{ch:local-tomography} onward is a representation choice, and
+flagged the classical fact that complex multiplication is itself a rotation
+in disguise. This chapter makes that fact fully explicit and self-contained
+— proved from elementary linear algebra, not imported by citation — and
+extends it to the composite-system construction underlying
+Barrios Hita et al.'s real-valued quantum theory~\cite{barrios-hita-2026}.
+
+\section{Scaling and Rotation Combined}
+
+Chapter~\ref{ch:context-graphs} used the rotation matrix $R(\theta) =
+\begin{psmallmatrix}\cos\theta & -\sin\theta\\ \sin\theta &
+\cos\theta\end{psmallmatrix}$ extensively. A \emph{scaling} by a factor
+$s>0$ is $S(s) = sI$. The two commute (both are polynomials in a single
+$2\times2$ matrix structure), so it is natural to ask whether they combine
+into a single operator.
+
+\begin{definition}[Amplitwist]
+An \emph{amplitwist} is $A = sR(\theta)$ for $s>0$, $\theta\in\R$. Needham
+coined the term for exactly this combined operation — simultaneous
+amplitude scaling and angular twist~\cite{needham1997}.
+\end{definition}
+
+\begin{theorem}[Amplitwist composition]
+\label{thm:amplitwist-composition}
+\index{Amplitwist composition (theorem)}
+If $A_1 = s_1R(\theta_1)$ and $A_2 = s_2R(\theta_2)$, then $A_1A_2 =
+s_1s_2R(\theta_1+\theta_2)$: amplitudes multiply, angles add.
+\end{theorem}
+
+\begin{proof}
+$A_1A_2 = s_1R(\theta_1)s_2R(\theta_2) = s_1s_2\,R(\theta_1)R(\theta_2) =
+s_1s_2R(\theta_1+\theta_2)$, using that scalars commute with matrix
+multiplication and the rotation composition law $R(\theta_1)R(\theta_2) =
+R(\theta_1+\theta_2)$ (immediate from the angle-addition formulas for sine
+and cosine).
+\end{proof}
+
+\begin{proposition}[Amplitwists form a group]
+\label{prop:amplitwist-group}
+\index{Amplitwists form a group (proposition)}
+The set of amplitwists is closed under composition, contains an identity
+$I = 1\cdot R(0)$, and every amplitwist $A=sR(\theta)$ has inverse $A^{-1} =
+\tfrac1s R(-\theta)$.
+\end{proposition}
+
+\begin{proof}
+Closure is Theorem~\ref{thm:amplitwist-composition}. $I\cdot
+sR(\theta)=sR(\theta)$ since $R(0)=I_2$. For the inverse,
+$\bigl(sR(\theta)\bigr)\bigl(\tfrac1sR(-\theta)\bigr) =
+R(\theta)R(-\theta) = R(0) = I$ by
+Theorem~\ref{thm:amplitwist-composition}.
+\end{proof}
+
+\section{Amplitwists Are Complex Multiplication}
+
+Identify $\R^2$ with $\C$ via $(x,y) \leftrightarrow x+iy$. The action of an
+amplitwist on this identification is exactly multiplication by a complex
+number.
+
+\begin{proposition}[Amplitwists realize complex multiplication]
+\label{prop:amplitwist-complex}
+\index{Amplitwists realize complex multiplication (proposition)}
+Under $(x,y)\leftrightarrow x+iy$, the amplitwist $A=sR(\theta)$ acts as
+multiplication by $z = se^{i\theta}$: $A\begin{psmallmatrix}x\\y
+\end{psmallmatrix} \leftrightarrow z(x+iy)$.
+\end{proposition}
+
+\begin{proof}
+$A\begin{psmallmatrix}x\\y\end{psmallmatrix} =
+s\begin{psmallmatrix}x\cos\theta - y\sin\theta\\ x\sin\theta+y\cos\theta
+\end{psmallmatrix}$, corresponding to $s\bigl[(x\cos\theta-y\sin\theta) +
+i(x\sin\theta+y\cos\theta)\bigr] = s(\cos\theta+i\sin\theta)(x+iy) =
+se^{i\theta}(x+iy)$ by direct expansion and Euler's formula.
+\end{proof}
+
+Every nonzero complex number is uniquely an amplitwist: $z=x+iy\ne0$ gives
+$s=\sqrt{x^2+y^2}>0$ and $\theta=\operatorname{atan2}(y,x)$, so
+Theorem~\ref{thm:amplitwist-composition}'s composition law, translated
+through Proposition~\ref{prop:amplitwist-complex}, \emph{is} the complex
+multiplication rule $z_1z_2 = s_1s_2e^{i(\theta_1+\theta_2)}$ — not
+analogous to it, but the same statement in different notation. Complex
+multiplication was never a separate fact requiring its own justification;
+it is amplitwist composition, proved above using nothing but real
+$2\times2$ matrices.
+
+\section{The Generator \texorpdfstring{$J$}{J}}
+
+\begin{proposition}[The quarter-turn generator]
+\label{prop:quarter-turn}
+\index{The quarter-turn generator (proposition)}
+$J := R(\pi/2) = \begin{psmallmatrix}0&-1\\1&0\end{psmallmatrix}$ satisfies
+$J^2=-I$, and $aI+bJ$ for $a,b\in\R$ reproduces complex arithmetic exactly:
+$(aI+bJ)(cI+dJ) = (ac-bd)I + (ad+bc)J$, matching $(a+ib)(c+id) =
+(ac-bd)+i(ad+bc)$.
+\end{proposition}
+
+\begin{proof}
+$J^2 = \begin{psmallmatrix}0&-1\\1&0\end{psmallmatrix}^2 =
+\begin{psmallmatrix}-1&0\\0&-1\end{psmallmatrix}=-I$. Expanding
+$(aI+bJ)(cI+dJ) = acI + adJ + bcJ + bdJ^2 = (ac-bd)I+(ad+bc)J$ using
+$J^2=-I$ and commutativity of $I,J$ (both are polynomials in $J$).
+\end{proof}
+
+This $J$ is exactly the antisymmetric generator of
+Chapters~\ref{ch:tensor-product}--\ref{ch:entanglement}: the direction
+invisible to real local observables (Chapter~\ref{ch:tensor-product}), the
+bounded degree of freedom of Chapter~\ref{ch:positivity}'s $\rho(c)$, and
+the entanglement witness of Chapter~\ref{ch:entanglement}. It is also,
+identically, the real matrix Hoffreumon and Woods use to represent
+$i$~\cite{hoffreumon-woods-2025} (Chapter~\ref{ch:final-audit},
+\S\ref{sec:recent-literature}). One object recurs across four chapters and
+two independent lines of external literature: not a coincidence needing
+explanation, but confirmation that $J$ is the right invariant to have been
+tracking all along.
+
+\begin{scopebox}
+\scopetitle{}"The right invariant" is a claim about $J$, not a claim that
+complex scalars are the only way to write it. The whole point of this
+chapter is that $J$ is expressible equally well as a literal $2\times2$
+real matrix — the convergence above is evidence that this book's earlier
+chapters were tracking a real structural fact, not evidence that the fact
+must be written using complex numbers specifically.
+\end{scopebox}
+
+\section{Composite Systems: A Self-Derived Illustration}
+
+Single-system realification is elementary; the difficulty is composition,
+and it is worth deriving the obstruction directly rather than citing it.
+
+For $|\psi\rangle\in\C^d$, define the flag map $\mathcal S(|\psi\rangle) :=
+\operatorname{Re}|\psi\rangle\otimes|0\rangle_F +
+\operatorname{Im}|\psi\rangle\otimes|1\rangle_F \in \R^d\otimes\R^2$. A
+global phase becomes a flag rotation:
+\begin{proposition}
+\label{prop:phase-to-rotation}
+$\mathcal S(e^{i\alpha}|\psi\rangle) = (I_d\otimes R_F(\alpha))\,\mathcal
+S(|\psi\rangle)$, where $R_F(\alpha)$ acts on the two-dimensional flag
+factor.
+\end{proposition}
+
+\begin{proof}
+$\operatorname{Re}(e^{i\alpha}\psi) = \cos\alpha\operatorname{Re}\psi -
+\sin\alpha\operatorname{Im}\psi$ and $\operatorname{Im}(e^{i\alpha}\psi) =
+\sin\alpha\operatorname{Re}\psi+\cos\alpha\operatorname{Im}\psi$ (expand
+$e^{i\alpha}=\cos\alpha+i\sin\alpha$ and collect real/imaginary parts), which
+is exactly $R(\alpha)$ acting on the flag factor by
+Proposition~\ref{prop:amplitwist-complex}.
+\end{proof}
+
+\begin{example}[The composition obstruction, worked explicitly]
+\label{ex:phase-kickback}
+The complex tensor product satisfies $(cv)\otimes w = v\otimes(cw)$ for any
+scalar $c$: a phase can be moved between factors without changing the
+product. Take $c=i$, $v=w=|0\rangle$: $i|00\rangle$ has two equally valid
+product decompositions, $(i|0\rangle)\otimes|0\rangle$ and
+$|0\rangle\otimes(i|0\rangle)$. Applying $\mathcal S$ to each local factor
+before taking a (real) tensor product gives, for the first decomposition,
+$\mathcal S(i|0\rangle)\otimes\mathcal S(|0\rangle) = (|0\rangle\otimes
+F_1)\otimes(|0\rangle\otimes F_0)$, and for the second, $\mathcal
+S(|0\rangle)\otimes\mathcal S(i|0\rangle) = (|0\rangle\otimes
+F_0)\otimes(|0\rangle\otimes F_1)$ — two \emph{different} vectors in
+$\R^4\otimes\R^2\otimes\R^4\otimes\R^2$ ($16$ real dimensions), both
+claiming to represent the single vector $i|00\rangle$, which the correct
+global map $\mathcal S$ applied directly to the $4$-dimensional composite
+state sends to one well-defined vector in $\R^4\otimes\R^2$ ($8$ real
+dimensions). The naive local construction is not merely inefficient by a
+factor of two; it is not well-defined at all, since it depends on an
+arbitrary choice of which factor "carries" the phase.
+\end{example}
+
+\begin{definition}[Admissibility equivalence]
+\label{def:admissibility-equiv}
+\index{Admissibility equivalence (definition)}
+On the raw local-flag tensor product, define $x\sim_A x'$ if $x,x'$ produce
+identical statistics under every measurement built from local operators of
+the form $\mathcal T(\Pi) = \operatorname{Re}(\Pi)\otimes I_F +
+\operatorname{Im}(\Pi)\otimes J_F$ (Proposition~\ref{prop:quarter-turn}
+identifies $J_F$ as the flag realization of $i$).
+\end{definition}
+
+\begin{proposition}
+\label{prop:equiv-relation}
+$\sim_A$ is an equivalence relation.
+\end{proposition}
+
+\begin{proof}
+Reflexivity and symmetry are immediate from the definition (agreement of
+statistics is symmetric and self-satisfied). Transitivity: if $x\sim_A y$
+and $y\sim_A z$, every measurement's statistics agree on $x,y$ and on
+$y,z$, hence on $x,z$.
+\end{proof}
+
+Quotienting the raw local-flag space by $\sim_A$ removes exactly the
+redundancy exhibited in Example~\ref{ex:phase-kickback} — the two
+decompositions of $i|00\rangle$ become a single equivalence class — while
+preserving every physical prediction, since $\sim_A$ is defined to
+preserve exactly the statistics that matter.
+
+\begin{proposition}[Quotienting reorganizes ambiguity, it does not remove it]
+\label{prop:ambiguity-conservation}
+\index{Quotienting reorganizes ambiguity, it does not remove it (proposition)}
+Let a group $G$ act on a space $X$, with quotient map $\pi:X\to X/G$. The
+freedom to choose a representative $x\in\pi^{-1}([x])$ is exactly the
+$G$-orbit of $x$: quotienting removes the need to choose a representative
+without destroying the freedom itself.
+\end{proposition}
+
+\begin{proof}
+By definition $\pi^{-1}([x]) = \{gx : g\in G\}$, the orbit of $x$. Passing
+to $X/G$ replaces a choice of representative with a single point $[x]$, but
+the fiber over $[x]$ is exactly the orbit — the same set of gauge-related
+representatives as before, now organized as a fiber rather than presented
+as ambiguity in a single vector.
+\end{proof}
+
+\begin{remark}
+Applied to Example~\ref{ex:phase-kickback}: the ambiguity in which local
+factor carries a global phase does not disappear under the quotient. It
+becomes the orbit structure of the flag-rotation group acting on the raw
+local tensor product — the same information, differently organized. This
+is the composite-system mechanism underlying
+Barrios Hita et al.'s construction~\cite{barrios-hita-2026}, derived here
+from Definition~\ref{def:admissibility-equiv} and
+Propositions~\ref{prop:equiv-relation}--\ref{prop:ambiguity-conservation}
+rather than imported from it.
+\end{remark}
+
+\begin{ledgerentry}[End of Chapter~\ref{ch:amplitwist}]
+\textbf{Established:} the amplitwist group structure and its identification
+with complex multiplication (Theorems/Propositions
+\ref{thm:amplitwist-composition}--\ref{prop:quarter-turn}), fully
+self-contained; the composite-system phase-redistribution obstruction,
+illustrated with a freshly derived and independently verified minimal
+example (Example~\ref{ex:phase-kickback}) rather than imported formulas;
+the admissibility-equivalence quotient construction and the general fact
+that quotienting reorganizes rather than destroys ambiguity
+(Propositions~\ref{prop:equiv-relation}--\ref{prop:ambiguity-conservation}).\\
+\textbf{Not established:} that this quotient construction, applied to
+general $n$-partite systems, reproduces \emph{every} prediction of standard
+quantum mechanics — that is the actual technical content of Barrios Hita et
+al.'s Letter~\cite{barrios-hita-2026}, a substantially harder claim this
+chapter's minimal two-factor illustration does not attempt to establish.
+The elementary rotation-scaling content of this chapter (\S19.1--19.3)
+predates quantum mechanics entirely and should not be mistaken for that
+harder result.
+\end{ledgerentry}
