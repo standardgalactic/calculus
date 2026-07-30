@@ -1,5 +1,7 @@
 # Constraint Geometry
 
+[The Geometry of Distinction](https://standardgalactic.github.io/calculus/geometry-of-distinction.pdf)
+
 [Possibility Space](https://github.com/standardgalactic/calculus/tree/main/baseline/README.md)
 
 [The Elements of Computational Worlds](https://standardgalactic.github.io/calculus/computational_worlds.pdf)
