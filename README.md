@@ -18,6 +18,8 @@
 
 This repository explores a unified, trajectory-first framework for understanding dynamics, memory, and physical law through kernel operators.
 
+[Kernel-Memory Laboratory](https://standardgalactic.github.io/calculus/kernel-memory-laboratory.html) — *Interactive Experiment*
+
 ## Overview
 
 Rather than modeling systems as state-based and memoryless, this project develops a perspective in which **history (trajectories)** is the primary object, and **memory is fundamental**. Across conceptual essays and technical specifications, the documents build toward a unified operator-based view of physics, computation, and structure.
