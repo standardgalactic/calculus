@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kernel-Memory Laboratory</title>
+<style>
+:root{--bg:#0b0d10;--panel:#101315;--rule:#232a2e;--ink:#dce0de;--dim:#7c8a87;--signal:#6fa8a0;--output:#d9a15b;--serif:"Iowan Old Style","Palatino Linotype",Georgia,serif;--mono:"IBM Plex Mono","SF Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}html,body{margin:0}body{background:var(--bg);color:var(--ink);font-family:var(--serif);line-height:1.5;padding:26px 16px 60px}.wrap{max-width:760px;margin:auto}h1{font-weight:400;font-size:1.55rem;margin:0 0 6px}.premise{color:var(--dim);font-size:.96rem;max-width:60ch;margin:0 0 24px}.premise em{color:var(--ink);font-style:normal}.field{background:var(--panel);border:1px solid var(--rule);padding:14px;margin-bottom:16px}.field h2{font:500 .74rem var(--mono);color:var(--dim);letter-spacing:.03em;margin:0 0 8px}#plot{width:100%;height:220px;display:block;touch-action:none;cursor:crosshair;background:#0d0f11}.legend{display:flex;gap:18px;font: .72rem var(--mono);color:var(--dim);margin-top:8px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}.sig .dot{background:var(--signal)}.out .dot{background:var(--output)}.presets,.mode-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}button{font: .74rem var(--mono);background:transparent;color:var(--ink);border:1px solid var(--rule);padding:7px 11px;cursor:pointer}button:hover{border-color:var(--dim)}button:focus-visible{outline:2px solid var(--output);outline-offset:2px}button.active{border-color:var(--output);color:var(--output)}.modebtn{flex:1}.controls{display:grid;gap:16px}.slider{display:flex;flex-direction:column;gap:6px}.label{display:flex;justify-content:space-between;font: .76rem var(--mono);color:var(--dim)}.val{color:var(--ink)}input[type=range]{appearance:none;width:100%;height:2px;background:var(--rule);outline:none}input[type=range]::-webkit-slider-thumb{appearance:none;width:14px;height:14px;border-radius:50%;background:var(--output);cursor:pointer}input[type=range]::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:var(--output)}input:disabled{opacity:.45}.kernel-wrap{display:flex;gap:16px;align-items:flex-end;margin-top:12px}#kernel{width:180px;height:70px;background:#0d0f11;flex:none}.note,.kernel-note{color:var(--dim);font-size:.86rem}.kernel-note{max-width:36ch}@media(max-width:540px){.kernel-wrap{align-items:stretch;flex-direction:column}#kernel{width:100%}}
+</style>
+</head>
+<body><main class="wrap">
+<h1>Kernel-memory laboratory</h1>
+<p class="premise">Draw a signal <em>x(t)</em> across the panel. The output shows what a receiving operator does with it. Switch between an <em>instantaneous</em> operator, which reads only the present sample, and a <em>history-sensitive</em> operator, which reads a kernel-weighted window of the past.</p>
+<section class="field"><h2>Signal &amp; response</h2>
+<canvas id="plot" width="1200" height="440"></canvas>
+<div class="legend"><span class="sig"><span class="dot"></span>x(t) — drawn signal</span><span class="out"><span class="dot"></span>y(t) — operator output</span></div>
+<div class="presets"><button data-preset="pulse">Pulse</button><button data-preset="step">Step</button><button data-preset="twopulse">Two pulses</button><button data-preset="sine">Sine</button><button id="clearBtn">Clear</button></div>
+<p class="note">Drag across the panel to draw your own x(t).</p></section>
+<section class="field"><h2>Operator</h2><div class="mode-row"><button class="modebtn active" id="modeInstant">Instantaneous</button><button class="modebtn" id="modeKernel">History-sensitive</button></div><p class="note" id="modeNote">y(t) = x(t). The output can only equal the present sample—it has no way to represent what came before.</p></section>
+<section class="field"><h2>Kernel K(Δ)</h2><div class="controls">
+<div class="slider"><div class="label"><span>decay τ</span><span class="val" id="decayVal">0.60</span></div><input type="range" id="decaySlider" min="5" max="300" value="60" disabled></div>
+<div class="slider"><div class="label"><span>width σ</span><span class="val" id="widthVal">0.15</span></div><input type="range" id="widthSlider" min="2" max="120" value="15" disabled></div></div>
+<div class="kernel-wrap"><canvas id="kernel" width="360" height="140"></canvas><p class="kernel-note">Larger τ lets older samples influence the output longer. Larger σ distributes that influence across a wider interval of recent history.</p></div></section>
+</main>
+<script>
+(function(){
+const N=300,T=6,dt=T/N;let signal=new Float32Array(N),mode='instant';
+const plot=document.getElementById('plot'),ctx=plot.getContext('2d'),kcanvas=document.getElementById('kernel'),kctx=kcanvas.getContext('2d');
+const decaySlider=document.getElementById('decaySlider'),widthSlider=document.getElementById('widthSlider'),decayVal=document.getElementById('decayVal'),widthVal=document.getElementById('widthVal'),modeNote=document.getElementById('modeNote'),modeInstant=document.getElementById('modeInstant'),modeKernel=document.getElementById('modeKernel');
+function preset(name){for(let i=0;i<N;i++){if(name==='pulse')signal[i]=i>N*.35&&i<N*.55?.75:0;else if(name==='step')signal[i]=i>N*.3?.7:-.3;else if(name==='twopulse')signal[i]=(i>N*.15&&i<N*.28)||(i>N*.55&&i<N*.62)?.75:0;else if(name==='sine')signal[i]=.55*Math.sin(i/N*Math.PI*3.2);else signal[i]=0}}
+function kernelValue(d,decay,width){if(mode==='instant')return d===0?1:0;return Math.exp(-d/decay)*Math.exp(-(d*d)/(2*width*width))}
+function output(){const decay=+decaySlider.value,width=+widthSlider.value,y=new Float32Array(N);if(mode==='instant'){y.set(signal);return y}const span=Math.min(N,Math.ceil(4*Math.max(decay,width))+5);for(let n=0;n<N;n++){let num=0,den=0;for(let j=n;j>=Math.max(0,n-span);j--){const w=kernelValue(n-j,decay,width);num+=w*signal[j];den+=w}y[n]=den?num/den:0}return y}
+function drawPlot(){const W=plot.width,H=plot.height,y=output(),toY=v=>H/2-v*H*.42;ctx.clearRect(0,0,W,H);ctx.strokeStyle='#1c2226';ctx.beginPath();ctx.moveTo(0,H/2);ctx.lineTo(W,H/2);ctx.stroke();function trace(a,color,width){ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();for(let i=0;i<N;i++){const X=i/(N-1)*W,Y=toY(a[i]);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.stroke()}trace(signal,'#6fa8a0',1.6);trace(y,'#d9a15b',2.4)}
+function drawKernel(){const W=kcanvas.width,H=kcanvas.height,decay=+decaySlider.value,width=+widthSlider.value,span=mode==='instant'?20:Math.min(200,Math.ceil(4*Math.max(decay,width))+5);kctx.clearRect(0,0,W,H);kctx.strokeStyle='#1c2226';kctx.beginPath();kctx.moveTo(0,H-14);kctx.lineTo(W,H-14);kctx.stroke();kctx.strokeStyle='#d9a15b';kctx.lineWidth=2;kctx.beginPath();for(let d=0;d<=span;d++){const X=d/span*(W-10)+5,Y=H-14-kernelValue(d,decay,width)*(H-28);d?kctx.lineTo(X,Y):kctx.moveTo(X,Y)}kctx.stroke();kctx.fillStyle='#7c8a87';kctx.font='10px monospace';kctx.fillText('Δ=0',2,H-2);kctx.fillText('past →',W-46,H-2)}
+function redraw(){drawPlot();drawKernel()}
+let drawing=false,lastIndex=null;
+function point(e){const r=plot.getBoundingClientRect(),px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height,i=Math.max(0,Math.min(N-1,Math.round(px*(N-1)))),v=Math.max(-1,Math.min(1,-(py-.5)/.42));if(lastIndex===null)signal[i]=v;else{const a=Math.min(lastIndex,i),b=Math.max(lastIndex,i),start=signal[lastIndex],steps=Math.max(1,b-a);for(let j=a;j<=b;j++){const q=Math.abs(j-lastIndex)/steps;signal[j]=start+(v-start)*q}}lastIndex=i;redraw()}
+plot.addEventListener('pointerdown',e=>{drawing=true;lastIndex=null;plot.setPointerCapture(e.pointerId);point(e)});
+plot.addEventListener('pointermove',e=>{if(drawing)point(e)});plot.addEventListener('pointerup',()=>{drawing=false;lastIndex=null});plot.addEventListener('pointercancel',()=>{drawing=false;lastIndex=null});
+document.querySelectorAll('[data-preset]').forEach(b=>b.onclick=()=>{preset(b.dataset.preset);redraw()});document.getElementById('clearBtn').onclick=()=>{preset('clear');redraw()};
+function setMode(next){mode=next;modeInstant.classList.toggle('active',mode==='instant');modeKernel.classList.toggle('active',mode==='kernel');decaySlider.disabled=widthSlider.disabled=mode!=='kernel';modeNote.textContent=mode==='instant'?'y(t) = x(t). The output can only equal the present sample—it has no way to represent what came before.':'y(t) = ∫ K(t−τ)x(τ)dτ, normalized. The present output is a weighted blend of recent samples, producing smoothing and lag.';redraw()}
+modeInstant.onclick=()=>setMode('instant');modeKernel.onclick=()=>setMode('kernel');
+function labels(){decayVal.textContent=(+decaySlider.value*dt).toFixed(2);widthVal.textContent=(+widthSlider.value*dt).toFixed(2)}
+decaySlider.oninput=widthSlider.oninput=()=>{labels();redraw()};preset('pulse');labels();redraw();
+})();
+</script></body></html>
